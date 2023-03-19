@@ -1,10 +1,14 @@
 import GlobalStyles from './components/styles/global';
+import Signup from './components/Signup'
 
 function App() {
   return (
     <div>
       <GlobalStyles />
-      <h1>Hello world</h1>
+      
+      <Signup email="email@email.com"/>
+      
+
     </div>
   );
 }
