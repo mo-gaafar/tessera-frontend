@@ -26,7 +26,6 @@ export const PwdProgress = styled.progress`
     
     background-color: ${props => props.inputColor || "red"};
     
-    
    };
 
   

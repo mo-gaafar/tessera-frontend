@@ -17,6 +17,11 @@ import {StyledInputDiv} from "./styles/FormFormat.Styled"
 import {StyledInputContainerDiv} from "./styles/FormFormat.Styled.jsx"
 import {Label} from "./styles/FormFormat.Styled"
 import {Message} from "./styles/FormFormat.Styled"
+import {PageContainer} from "./styles/FormFormat.Styled"
+import {LoginA} from "./styles/FormFormat.Styled"
+import {ImgDescriptionDiv} from "./styles/FormFormat.Styled"
+import {FirstRowImgDiv} from "./styles/FormFormat.Styled"
+import {SecRowImgDiv} from "./styles/FormFormat.Styled"
 
 import edit from "../assets/edit.png"
 import logo from "../assets/LogoFullTextSmall.png"
@@ -29,9 +34,11 @@ import React from "react"
 import PasswordChecker from "./PasswordChecker"
 import {PasswordStrenghP} from "./styles/Password.Styled"
 
+import {ImgComatiner} from "./styles/FormFormat.Styled.jsx"
+import {PageImgDiv} from "./styles/FormFormat.Styled.jsx"
 export default function Signup(props) { 
   
-  //code for password checking 
+  
   const [pwdInput, initValue] = React.useState({
     password: "",
   })
@@ -49,6 +56,7 @@ export default function Signup(props) {
       password: e.target.value,
     });
     setError(null);
+    
     if(password.length===0){
       setPasswordButtonType("none")
     }
@@ -56,9 +64,9 @@ export default function Signup(props) {
       setError(
         "Your password must be at least 8 characters"
       );
-      setPassError(false)
       return;
     } 
+    else{setPassError(false)}
     //momken ne3mel else hena for further verification (special cases)
   };
   const [isStrong, initRobustPassword] = React.useState(null);
@@ -66,48 +74,67 @@ export default function Signup(props) {
     initRobustPassword(childData);
   };
 
-  //
+  
   
   const [formData, setFormData] = React.useState(
     {firstName: "", lastName: "", 
     emailConfirm: ""}
   )
+  //const [count,setCount] = React.useState(0)
   const [firstnameError,setFirstnameError] = React.useState(null)
   const [lastnameError,setLastnameError] = React.useState(null)
   const [emptyPassError,setEmptyPassError] = React.useState(null)
   const [emailConfirmError,setEmailConfirmError] = React.useState(null)
   const [passError,setPassError] = React.useState(false)
-  
+  const [errorFound,setErrorFound] = React.useState(false)
 
     function handleValidation() {
-    if (!formData.firstName) {
+    if (!formData.firstName ) {
 
       setFirstnameError('First name is required')
-      
+      setErrorFound(true)
         
     }
 
-    if (!formData.lastName) {
+    if (!formData.lastName ) {
       
       setLastnameError('Last name is required')
-        
+      setErrorFound(true)
     }
+
+    if (pwdInput.password.length < 8) {
+      setEmptyPassError(
+        "Your password must be at least 8 characters"
+      );
+      setPassError(true)
+      setErrorFound(true)
+
+      
+    } 
 
     if (!pwdInput.password) {
       
       setEmptyPassError('Field required')
       setPassError(true)
+      setErrorFound(true)
         
     }
+    
 
     if (formData.emailConfirm !== props.email){
       setEmailConfirmError("Email address doesn't match. Please try again")
+      setErrorFound(true)
+    }
+
+    
+    if (pwdInput.password.indexOf(" ") >= 0){
+      setEmptyPassError(
+        "Your password cannot be spaces"
+      );
+      setPassError(true)
+      setErrorFound(true)
     }
     
-    
-
-    // Rest of validation conditions go here...
-
    
   }
 
@@ -115,18 +142,25 @@ export default function Signup(props) {
   function handleChange(event) {
     const {name, value} = event.target
     setFormData(prevFormData => {
-        if (name==="firstName"&&firstnameError){
+        if (name==="firstName"&&firstnameError ){
           setFirstnameError(null)
+        }
+        if(value===" "&&name==="firstName"){
+          setFirstnameError("First name cannot be spaces")
         }
         if (name==="lastName"&&lastnameError){
           setLastnameError(null)
         }
+        if(value===" "&&name==="lastName"){
+          setLastnameError("Last name cannot be spaces")
+        }
         if (name=="emailConfirm"&&value==props.email){
             setEmailConfirmError(null)
         }
+        
         return {
             ...prevFormData,
-            [name]:  value}})
+            [name]:name==="emailConfirm" ? value : value.replace(/[^a-z]/gi, '')}})
   }
   
   const togglePassword =(event)=>{
@@ -140,22 +174,51 @@ export default function Signup(props) {
   }
   
   function handleSubmit(event) {
-    console.log("innnnn")
+
+    
     handleValidation()
-    if ( setPassError){ //add the email conformation check 
-      console.log("in")
-      event.preventDefault() // this will be prevent the page from refresh
-    }
-    // this will be prevent the page from refresh
-    // submitToApi(formData) // in case we had Api
+     if (!errorFound && (!formData.firstName || !formData.lastName || !formData.emailConfirm || pwdInput.password.length<8||formData.emailConfirm !==props.email || pwdInput.password.indexOf(" ") >= 0) )
+      {
+      //console.log("catch")
+      //setCount(prevCount => prevCount + 1)
+      event.preventDefault()// this will be prevent the page from refresh
+      return
+  }
+      
+   
   }
   const styles = {
     display:`${passwordButtonType}`
 }
 
+React.useEffect(() => {
+  
+  if(passError ||firstnameError||lastnameError||emailConfirmError)
+  {setErrorFound(true)}
+  else if (formData.firstName && formData.lastName && formData.emailConfirm && pwdInput.password){
+    setErrorFound(false)
+  }
+  else if (!passError ||!firstnameError||!lastnameError||!emailConfirmError){
+    setErrorFound(false)
+  }
+}, [passError, firstnameError,lastnameError,emailConfirmError,formData.firstName , formData.lastName ,formData.emailConfirm ,pwdInput.password])
 
+
+React.useEffect(() => {
+
+  if(passError ||firstnameError||lastnameError||emailConfirmError)
+  {
+    handleValidation()
+  }
+  
+}, [formData.firstName , formData.lastName ,formData.emailConfirm ,pwdInput.password])
+
+
+  
   return (
-        <StyledSignup>
+    <PageContainer>
+      <StyledSignup>
+        <div>
           <StyledHeaderInfo>
             <div>
               <LogoImg src={logo}/>
@@ -199,16 +262,18 @@ export default function Signup(props) {
             </StyledEmailDiv>
 
             
-            <StyledInputContainerDiv style={emailConfirmError!== null ?{borderColor:"#c5162e"}:{backgroundColor: "white"}}>
+            <StyledInputContainerDiv style={emailConfirmError ?{borderColor:"#c5162e"}:{backgroundColor: "white"}}>
               <StyledSignupFormInput 
               type="email" 
               name="emailConfirm"
               value={formData.emailConfirm}
               onChange={handleChange}
+              inputColor={emailConfirmError ?"red":"blue"}
+              
               />
               <StyledInputDiv>
                 
-                <Label style={emailConfirmError!== null ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
+                <Label style={emailConfirmError ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
                   Confirm email
                 </Label>
 
@@ -218,49 +283,49 @@ export default function Signup(props) {
             
 
             <StyledNameDiv>
-              <StyledInputContainerDiv style={firstnameError!== null ?{borderColor:"#c5162e"}:{backgroundColor: "white"}}>
+              <StyledInputContainerDiv style={firstnameError ?{borderColor:"#c5162e"}:{backgroundColor: "white"}}>
                 <StyledSignupFormInput 
                 type="text"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
+                inputColor={firstnameError ?"red":"blue"}
                 />
                 
                 <StyledInputDiv>
                 
-                <Label style={firstnameError!== null ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
+                <Label style={firstnameError ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
                   First Name
                 </Label>
 
               </StyledInputDiv>
-              {firstnameError !== null && <Message><span style={{color: "#c5162e"}}> {firstnameError}</span></Message>}
+              {firstnameError  && <Message><span style={{color: "#c5162e"}}> {firstnameError}</span></Message>}
               </StyledInputContainerDiv>
               
-              <StyledInputContainerDiv style={lastnameError!== null ?{borderColor:"#c5162e"}:{backgroundColor: "transperent"}}>
+              <StyledInputContainerDiv style={lastnameError  ?{borderColor:"#c5162e"}:{backgroundColor: "transperent"}}>
                 <StyledSignupFormInput 
                 type="text"
                 value={formData.lastName} 
                 name="lastName"
                 onChange={handleChange}
+                inputColor={lastnameError ?"red":"blue"}
+                
+                
                 />
                 <StyledInputDiv>
                 
-                <Label style={lastnameError!== null ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
+                <Label style={lastnameError ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
                   Last Name
                 </Label>
 
               </StyledInputDiv>
-              {lastnameError !== null && <Message style={{color: "#c5162e"}}> {lastnameError}</Message>}
+              {lastnameError  && <Message style={{color: "#c5162e"}}> {lastnameError}</Message>}
               </StyledInputContainerDiv>
               
               
             </StyledNameDiv>
             
-            
-            
-            
-            
-              
+
 
             <StyledInputContainerDiv style={passError ?{borderColor:"#c5162e"}:{backgroundColor: "transperent"}}>
               <StyledSignupFormInput 
@@ -268,6 +333,8 @@ export default function Signup(props) {
               id="password"
               name="password"
               onChange={onChange}
+              inputColor={passError ?"red":"blue"}
+        
               />
               <PasswordShowButton 
               onClick={togglePassword}
@@ -292,15 +359,38 @@ export default function Signup(props) {
               </PasswordStrenghP>
               }
             
-            <StyledSubmitbutton>Create account</StyledSubmitbutton>
-               
+            <StyledSubmitbutton disabled={errorFound}>Create account</StyledSubmitbutton>
+             
+            <LoginA href="">
+              Log in
+            </LoginA>
               
-              
-            </StyledSignupForm>
+          </StyledSignupForm>
         
-        
-        </StyledSignup>
+        </div>
+          
+   
+      </StyledSignup>
       
+      <ImgComatiner>
+        <PageImgDiv>
+
+        </PageImgDiv>
+        <ImgDescriptionDiv>
+
+          <FirstRowImgDiv>Hungry Pop</FirstRowImgDiv>  
+          <SecRowImgDiv>Trap Yoga Brooklyn</SecRowImgDiv>
+           <SecRowImgDiv>Brooklyn, NY</SecRowImgDiv> 
+            
+        </ImgDescriptionDiv>
+        </ImgComatiner>
+        
+        
+        
+        
+    </PageContainer>
+        
+        
       
       
   )

@@ -1,9 +1,28 @@
 import styled from 'styled-components';
-export const StyledSignup = styled.body`
 
-  padding: 5.4rem;
+export const StyledSignup = styled.div`
+width:100%;
+display: flex;
+flex-direction:row;
+align-items: center;
+justify-content:center;
+align-items: stretch;
+
+}
     
 `
+export const PageContainer = styled.div`
+  display:flex;
+  flex-direction: row;
+  height:100%;
+  min-height:100%;
+  flex:1 1;
+  align-items: stretch;
+  min-height: 100vh;
+  
+
+`
+
 export const StyledLoginRef = styled.div`
   flex: 0 0 auto;
   padding-bottom: 0.5rem;
@@ -11,13 +30,17 @@ export const StyledLoginRef = styled.div`
 
 `
 export const StyledHead = styled.h1`
-  font-family:'Roboto', sans-serif;
   font-size: 3rem;
   line-height: 2.5rem;
   letter-spacing: 0.1rem;
   margin-right: -1px;
   font-weight: 900;
   color:#1e0a3c;
+  @media (min-width: 960px) {
+    width:30rem;
+    font-size: 5rem;
+    line-height: 6rem;
+}
 
 `
 export const StyledHeaderInfo = styled.div`
@@ -39,6 +62,9 @@ color: #3659e3;
 &:hover{
   text-decoration: underline;
 }
+@media(min-width:960px){
+  display:none;
+}
 
 `
 export const StyledSubmitbutton = styled.button`
@@ -48,6 +74,7 @@ color:white;
 height:4.8rem;
 margin:0.7rem;
 margin-top:2.5rem;
+margin-bottom:2.5rem;
 border-radius:0.5rem;
 font-size:1.4rem;
 transition:0.7s;
@@ -70,6 +97,7 @@ min-width: 0;
 height:4.8rem;
 border:none;
 background-color: #EFEFEF;
+
 `
 export const StyledSignupForm = styled.form`
   display:flex;
@@ -97,8 +125,8 @@ export const StyledSignupFormInput = styled.input`
 
   &:focus{
     border-style:solid;
-    border-color:blue;
-    border-width:0.2rem;
+    border-color:${props => props.inputColor || "blue"};
+    border-width:0.1rem;
     
   }
   
@@ -171,10 +199,69 @@ export const StyledInputContainerDiv = styled.div`
   margin-right:0;
   height:4.8rem;
   border-radius:0.3rem;
+  
    
 `
 export const LogoImg = styled.img`
-width:13rem;
-cursor:pointer;
-margin-bottom:4rem;
+  width:13rem;
+  cursor:pointer;
+  margin-bottom:4rem;
+`
+export const LoginA = styled.a`
+  font-weight: 500;
+  font-size:1.3rem;
+  text-decoration: none;
+  color: #3659e3;
+  margin:1rem;
+  &:hover{
+    text-decoration: underline;
+  }
+  @media(max-width:960px){
+    display:none;
+}
+`
+export const ImgComatiner=styled.div`
+    display:block;
+    -webkit-box-flex: 1;
+    flex: 1 1 100%;
+    background-color: #f8f7fa;
+    background-position: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: stretch;
+    position: relative;
+    @media(max-width:960px){
+      display:none;
+    }
+`
+
+export const PageImgDiv = styled.div`
+    background-image: url(https://cdn.evbstatic.com/s3-build/perm_001/530d34/django/images/login/lateral-image-2.jpg);
+    background-color: #f8f7fa;
+    background-position: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: stretch;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+`
+export const ImgDescriptionDiv = styled.div`
+  position: absolute;
+  right: 50px;
+  bottom: 150px;
+
+`
+export const FirstRowImgDiv = styled.div`
+  font-weight: 800;
+  color: #fff;
+  text-align: right;
+`
+
+export const SecRowImgDiv = styled.div`
+  color: #fff;
+  text-align: right;
 `
