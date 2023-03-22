@@ -1,11 +1,17 @@
 import GlobalStyles from './components/styles/global';
+import SignUp from './components/sign-up'
+import Footer from './components/footer'
+import React from 'react';
+import { useFormik } from 'formik'
 
 function App() {
   return (
     <div>
       <GlobalStyles />
-      <h1>Hello world</h1>
+      <SignUp />
+      {/* <Footer />  */}
     </div>
+    
   );
 }
 
