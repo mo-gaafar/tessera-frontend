@@ -139,9 +139,7 @@ export const Label = styled.label`
 position:absolute;
 top:5px;
 font-weight:300;
-${StyledSignupFormInput}:focus ~ & {
-  background-color:red;
-}
+
   
 }
 `

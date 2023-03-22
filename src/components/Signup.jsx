@@ -87,6 +87,12 @@ export default function Signup(props) {
   const [emailConfirmError,setEmailConfirmError] = React.useState(null)
   const [passError,setPassError] = React.useState(false)
   const [errorFound,setErrorFound] = React.useState(false)
+  const [focused,setFocused] = React.useState(
+    {
+      firstName: false, lastName: false, 
+    emailConfirm: false, password:false
+    }
+  )
 
     function handleValidation() {
     if (!formData.firstName ) {
@@ -162,6 +168,14 @@ export default function Signup(props) {
             ...prevFormData,
             [name]:name==="emailConfirm" ? value : value.replace(/[^a-z]/gi, '')}})
   }
+
+  function handleFocus(event) {
+    const {name} = event.target
+    setFocused(prevFocus => {
+        return {
+            
+            [name]:true}})
+  }
   
   const togglePassword =(event)=>{
     event.preventDefault() 
@@ -214,7 +228,7 @@ React.useEffect(() => {
 }, [formData.firstName , formData.lastName ,formData.emailConfirm ,pwdInput.password])
 
 
-  
+
   return (
     <PageContainer>
       <StyledSignup>
@@ -246,6 +260,7 @@ React.useEffect(() => {
               
             <StyledEmailDiv>
               <StyledEmailInput
+              id="email-input"
               value={props.email} />
               <StyledEditButton>
               <StyledEditImg src={edit}/>
@@ -264,62 +279,68 @@ React.useEffect(() => {
             
             <StyledInputContainerDiv style={emailConfirmError ?{borderColor:"#c5162e"}:{backgroundColor: "white"}}>
               <StyledSignupFormInput 
+              id="email-input-1"
               type="email" 
               name="emailConfirm"
               value={formData.emailConfirm}
               onChange={handleChange}
               inputColor={emailConfirmError ?"red":"blue"}
+              onFocus={handleFocus}
               
               />
               <StyledInputDiv>
                 
-                <Label style={emailConfirmError ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
+                <Label style={ emailConfirmError ?{color:"#c5162e"}:  !focused.emailConfirm && !formData.emailConfirm ? {fontSize:'2rem'} : focused.emailConfirm?{color:'blue'}:{color:"gray"}}>
                   Confirm email
                 </Label>
 
               </StyledInputDiv>
-              {emailConfirmError  && <Message style={{color: "#c5162e"}}> {emailConfirmError}</Message>}
+              {emailConfirmError  && <Message id="error-message" style={{color: "#c5162e"}}> {emailConfirmError}</Message>}
             </StyledInputContainerDiv>
             
 
             <StyledNameDiv>
               <StyledInputContainerDiv style={firstnameError ?{borderColor:"#c5162e"}:{backgroundColor: "white"}}>
                 <StyledSignupFormInput 
+                id="name-input"
                 type="text"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
                 inputColor={firstnameError ?"red":"blue"}
+                onFocus={handleFocus}
                 />
                 
                 <StyledInputDiv>
                 
-                <Label style={firstnameError ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
+                <Label style={firstnameError ?{color:"#c5162e"}:!focused.firstName && !formData.firstName ? {fontSize:'2rem'} : focused.firstName?{color:'blue'}:{color:"gray"}}>
                   First Name
                 </Label>
 
               </StyledInputDiv>
-              {firstnameError  && <Message><span style={{color: "#c5162e"}}> {firstnameError}</span></Message>}
+              {firstnameError  && <Message id="error-message"><span style={{color: "#c5162e"}}> {firstnameError}</span></Message>}
               </StyledInputContainerDiv>
               
               <StyledInputContainerDiv style={lastnameError  ?{borderColor:"#c5162e"}:{backgroundColor: "transperent"}}>
                 <StyledSignupFormInput 
+                id="name-input-2"
                 type="text"
                 value={formData.lastName} 
                 name="lastName"
                 onChange={handleChange}
                 inputColor={lastnameError ?"red":"blue"}
+                onFocus={handleFocus}
                 
                 
                 />
                 <StyledInputDiv>
                 
-                <Label style={lastnameError ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
+                <Label style={lastnameError ?{color:"#c5162e"}:!focused.lastName && !formData.lastName ? {fontSize:'2rem'} : focused.lastName?{color:'blue'}:{color:"gray"}}>
                   Last Name
                 </Label>
 
               </StyledInputDiv>
-              {lastnameError  && <Message style={{color: "#c5162e"}}> {lastnameError}</Message>}
+              {lastnameError  && <Message id="error-message" style={{color: "#c5162e"}}> {lastnameError}</Message>}
               </StyledInputContainerDiv>
               
               
@@ -334,6 +355,7 @@ React.useEffect(() => {
               name="password"
               onChange={onChange}
               inputColor={passError ?"red":"blue"}
+              onFocus={handleFocus}
         
               />
               <PasswordShowButton 
@@ -344,17 +366,17 @@ React.useEffect(() => {
               </PasswordShowButton>
               <StyledInputDiv>
                 
-                <Label style={passError ?{color:"#c5162e"}:{backgroundColor: "transperent"}}>
+                <Label style={passError ?{color:"#c5162e"}:!focused.password && !pwdInput.password ? {fontSize:'2rem'} : focused.password?{color:'blue'}:{color:"gray"}}>
                   Password
                 </Label>
                 
               </StyledInputDiv>
-              {passError  && <Message style={{color: "#c5162e"}}> {emptyPassError}</Message>}
+              {passError  && <Message id="error-message" style={{color: "#c5162e"}}> {emptyPassError}</Message>}
             </StyledInputContainerDiv>
             <PasswordChecker password={pwdInput.password} actions={initPwdInput} showStrength={isError} />
             {(isError !== null )&& 
               <PasswordStrenghP 
-              className="errors"> 
+              className="pass-errors"> 
               {isError}
               </PasswordStrenghP>
               }
