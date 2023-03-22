@@ -1,11 +1,13 @@
-import GlobalStyles from './components/styles/global';
+import GlobalStyles from "./components/styles/global";
+
+import Maincontainer from "./components/MainContainer/MainContainer";
 
 function App() {
   return (
-    <div>
+    <>
+      <Maincontainer />
       <GlobalStyles />
-      <h1>Hello world</h1>
-    </div>
+    </>
   );
 }
 
