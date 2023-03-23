@@ -1,11 +1,17 @@
-import GlobalStyles from './components/styles/global';
+import GlobalStyles from './components/styles/Global';
+import Landing from './components/Landing.jsx';
+
+// const google = () => {
+//   console.log('first');
+//   window.open('', _self);
+// };
 
 function App() {
   return (
-    <div>
+    <>
       <GlobalStyles />
-      <h1>Hello world</h1>
-    </div>
+      <Landing />
+    </>
   );
 }
 
