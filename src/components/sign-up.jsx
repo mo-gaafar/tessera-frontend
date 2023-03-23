@@ -15,9 +15,11 @@ import { CircleDivider } from "./styles/styles.styled"
 import { DivLeft, Pother, Form } from "./styles/styles.styled"
 import { OtherSignUp, RightSide, OtherSignUpButton, OtherSignUpButtonDiv1, OtherSignUpButtonDiv2 } from "./styles/styles.styled"
 import { Upper2 } from "./styles/styles.styled"
+import { render } from "react-dom"
 
 
 export default function SignUp(){
+  const [focused,setFocused] = React.useState(false)
   const [email, setEmail] = React.useState("")
   const [emailerror, setEmailError] = React.useState("")
   function saveEmail(event){
@@ -25,16 +27,25 @@ export default function SignUp(){
     setEmail(value);
   }
   function handleValidation(event){
-
+    console.log()
     if(!email){
-      setEmailError('Field required')
+       setEmailError('Field required')
     }
-    else if (!/\S+@\S+\.\S+/.test(email)) {
+    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
       setEmailError('Invalid email')
     }
-    event.preventDefault()
+    else{
+      setEmailError("")
+    }
    
   }
+
+  React.useEffect(() => {
+    if(emailerror){
+      handleValidation()
+    }
+  }, [email])
+
   return(
     <SignUpPage>
       <Upper2>
@@ -52,22 +63,23 @@ export default function SignUp(){
               </LogIn> 
             </LogInDiv>
           </TopHeader>
-          <Form onSubmit={handleValidation}  >
+          <Form >
             <FormDiv >
-              <Label style={emailerror? {color : "red"}: {color : "blue"}}> 
+              <Label style={emailerror ?{color:"red"}: focused ? {color:'blue'}:{color:"#6f7287"}}> 
                 <span style={{WebkitBoxDirection: "normal"}}>Email address</span>
               </Label>
-              <InputEmail style={emailerror? {borderColor : "red"}: {borderColor : "blue"} }
+          <InputEmail style={emailerror ?{borderColor:"red"}: focused ? {borderColor:'blue'}:{borderColor:"gray"}}
                  type="email" 
                  name="enter-email" 
                  id="email-input"
                 value={email}
                 onChange={saveEmail}
+                onFocus={() => setFocused(true)}
                 />
               {emailerror && (
               <span style={{color:"red"}}>{emailerror}</span>
               )}
-              <ContinueButton>
+              <ContinueButton onClick={handleValidation}>
                 Continue
               </ContinueButton>
 
