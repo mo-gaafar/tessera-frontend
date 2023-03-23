@@ -1,14 +1,14 @@
-import React from "react"
-import {Wrapper} from "./styles/Password.Styled.jsx"
-import {PwdLabel} from "./styles/Password.Styled.jsx"
-import {PasswordStrenghP} from "./styles/Password.Styled"
-import {PwdProgress} from "./styles/Password.Styled"
+import React from 'react';
+import { Wrapper } from './styles/Password.Styled.jsx';
+import { PwdLabel } from './styles/Password.Styled.jsx';
+import { PasswordStrenghP } from './styles/Password.Styled';
+import { PwdProgress } from './styles/Password.Styled';
 
-export default function PasswordChecker (props)  {
+export default function PasswordChecker(props) {
   const pwdValidate = props.password;
   const initPwdChecker = () => {
     let pwdCheck = 0;
-    let validateRegex = ["[A-Z]", "[a-z]", "[0-9]", "\\W"];
+    let validateRegex = ['[A-Z]', '[a-z]', '[0-9]', '\\W'];
     validateRegex.forEach((regex, i) => {
       if (new RegExp(regex).test(pwdValidate)) {
         pwdCheck += 1;
@@ -18,29 +18,29 @@ export default function PasswordChecker (props)  {
       case 0:
         return {
           strength: 0,
-          val: "",
+          val: '',
         };
       case 1:
         return {
           strength: 1,
-          val: "very weak",
+          val: 'very weak',
         };
       case 2:
         return {
           strength: 2,
-          val: "weak",
+          val: 'weak',
         };
       case 3:
         return {
           strength: 3,
-          val: "moderate",
+          val: 'moderate',
         };
       case 4:
         return {
           strength: 4,
-          val: "strong",
+          val: 'strong',
         };
-      
+
       default:
         return null;
     }
@@ -48,17 +48,24 @@ export default function PasswordChecker (props)  {
   {
     props.actions(initPwdChecker().val);
   }
-  let colorCondition=false
-  if (initPwdChecker().val==="moderate"){
-    colorCondition="moderate"
+  let colorCondition = false;
+  if (initPwdChecker().val === 'moderate') {
+    colorCondition = 'moderate';
+  } else if (initPwdChecker().val === 'strong') {
+    colorCondition = 'strong';
   }
-  else if(initPwdChecker().val==="strong"){colorCondition="strong"}
 
   return (
     <>
-      <Wrapper >
+      <Wrapper>
         <PwdProgress
-          inputColor={colorCondition === "strong" ?"green":colorCondition === "moderate"? "orange":"red"}
+          inputColor={
+            colorCondition === 'strong'
+              ? 'green'
+              : colorCondition === 'moderate'
+              ? 'orange'
+              : 'red'
+          }
           className={`pwd-checker-bar strength-${initPwdChecker().val}`}
           value={initPwdChecker().strength}
           max="4"
@@ -68,11 +75,14 @@ export default function PasswordChecker (props)  {
           {props.password && (
             <div>
               <p className={`label strength-${initPwdChecker().val}`}>
-                {props.showStrength!=null?"":
-                <PasswordStrenghP>Your Password
-                  <strong> is {initPwdChecker().val} </strong>
-                </PasswordStrenghP>
-                }
+                {props.showStrength != null ? (
+                  ''
+                ) : (
+                  <PasswordStrenghP>
+                    Your Password
+                    <strong> is {initPwdChecker().val} </strong>
+                  </PasswordStrenghP>
+                )}
               </p>
             </div>
           )}
@@ -80,4 +90,4 @@ export default function PasswordChecker (props)  {
       </Wrapper>
     </>
   );
-};
+}
