@@ -5,19 +5,18 @@ import {InputEmail} from './styles/styles.styled'
 import {EventLogo} from './styles/styles.styled' 
 import {CreateAccount} from "./styles/styles.styled"
 import { LogIn, LogIn2 } from "./styles/styles.styled"
-import { LogInDiv, LogInDiv2 } from "./styles/styles.styled"
+import { LogInDiv, LogInDiv2, Label } from "./styles/styles.styled"
 import { UpperPage, OtherArrow } from "./styles/styles.styled"
 import { SignUpPage } from './styles/styles.styled';
 import { TopHeader } from "./styles/styles.styled"
 import { FacebookButton } from "./styles/styles.styled"
 import { Divider, Arrowsvg, ArrowpathUp, ArrowpathDown , Arrowspan } from "./styles/styles.styled"
 import { CircleDivider } from "./styles/styles.styled"
-import { DivLeft, Pother } from "./styles/styles.styled"
+import { DivLeft, Pother, FormDiv, Form } from "./styles/styles.styled"
 import { OtherSignUp, RightSide, OtherSignUpButton, OtherSignUpButtonDiv1, OtherSignUpButtonDiv2 } from "./styles/styles.styled"
 import { Upper2 } from "./styles/styles.styled"
 import { useFormik } from 'formik'
 
-const errorFound = false;
 const validate = (values) => {
   const errors = {}
 
@@ -30,6 +29,7 @@ const validate = (values) => {
 
   return errors
 }
+
 export default function SignUp(){
   const formik = useFormik({
     initialValues: {
@@ -40,6 +40,13 @@ export default function SignUp(){
       alert(JSON.stringify(values, null, 2))
     },
   })
+  const [emailError, setEmailError] = React.useState(false)
+  function handleClick(){
+    if(!values.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
+      setEmailError(true)
+    }
+  }
+
   return(
     <SignUpPage>
       <Upper2>
@@ -47,18 +54,35 @@ export default function SignUp(){
           <TopHeader>
             <DivLeft>
               <EventLogo src="./src/assets/logo.jpg" />
-              <CreateAccount> Create an account </CreateAccount>
+              <CreateAccount>
+                 Create an account 
+              </CreateAccount>
             </DivLeft>
-            <LogInDiv> <LogIn href = "https://www.eventbrite.com/signin/">Log in</LogIn> </LogInDiv>
+            <LogInDiv>
+              <LogIn href = "https://www.eventbrite.com/signin/">
+                Log in
+              </LogIn> 
+            </LogInDiv>
           </TopHeader>
-          <form onSubmit={formik.handleSubmit}>
-              <InputEmail placeholder="Email address" type="email" name="email" id="email"
-                onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
+          <Form onSubmit={formik.handleSubmit}>
+            <Label > 
+              <span style={{WebkitBoxDirection: "normal"}}>Email address</span>
+            </Label>
+            <InputEmail
+
+              type="email" 
+              name="email" 
+              id="email"
+              onChange={formik.handleChange} 
+              onBlur={formik.handleBlur} 
+              value={formik.values.email}/>
               {formik.touched.email && formik.errors.email && (
-                <span>{formik.errors.email}</span>
+              <span>{formik.errors.email}</span>
               )}
-              <ContinueButton type = "submit">Continue</ContinueButton>
-          </form>
+            <ContinueButton type = "submit">
+              Continue
+            </ContinueButton>
+          </Form>
           <Divider>
             <CircleDivider>or</CircleDivider>
           </Divider>
@@ -66,9 +90,13 @@ export default function SignUp(){
             <Googlelogo src="./src/assets/google-logo.png" />
             Sign in with Google
           </GoogleButton>
-          <OtherSignUp>Other sign up methods</OtherSignUp>
+          <OtherSignUp>
+            Other sign up methods
+          </OtherSignUp>
           <OtherSignUpButton type="button" data-automation="eds-expandable-card-content-button">
-            <OtherSignUpButtonDiv1><Pother>Other sign up methods</Pother></OtherSignUpButtonDiv1>
+            <OtherSignUpButtonDiv1>
+              <Pother>Other sign up methods</Pother>
+            </OtherSignUpButtonDiv1>
             <OtherSignUpButtonDiv2>
               <OtherArrow >
                 <Arrowsvg x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
@@ -80,7 +108,11 @@ export default function SignUp(){
             </OtherSignUpButtonDiv2>
           </OtherSignUpButton>
           <FacebookButton>  </FacebookButton>
-            <LogInDiv2> <LogIn2 href = "https://www.eventbrite.com/signin/">Log in</LogIn2> </LogInDiv2>
+            <LogInDiv2>
+              <LogIn2 href = "https://www.eventbrite.com/signin/">
+                Log in
+              </LogIn2>
+            </LogInDiv2>
         </UpperPage>
       </Upper2>
       <RightSide>
