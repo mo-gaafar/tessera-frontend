@@ -101,6 +101,8 @@ export const ArrowpathDown = styled.path`
   clip-rule: evenodd;
   d: path("M 7 10.2 l 5 5 l 5 -5 l -1.4 -1.4 l -3.6 3.6 l -3.6 -3.6 Z")
 `
+export const FormDiv = styled.div`
+`
 
 export const InputEmail = styled.input`
   width: 360px;
@@ -109,9 +111,9 @@ export const InputEmail = styled.input`
   margin-top: 4rem;
   transition-duration: 0.5s;
   display: block;
-  padding-bottom: 1.7rem;
+  padding-top: 1.1rem;
   padding-left: 1.4rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   border-radius: 0.2rem;
   outline: none;
   :hover{
@@ -122,6 +124,7 @@ export const InputEmail = styled.input`
     border: 0.1rem solid blue;
     transition-duration: 0.5s;
   }
+
 
 `
 
@@ -369,4 +372,17 @@ export const Upper2 = styled.div`
   }
 `
 export const Form = styled.form`
+
+`
+export const Label = styled.label`
+  font-size: 1.2rem;
+  text-align: left;
+  line-height: 22px;
+  color: #6f7287;
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  padding-left: 1.49rem;
+  padding-top: 0.5rem;
 `
