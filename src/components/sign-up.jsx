@@ -1,5 +1,5 @@
 import React from "react"
-import {ContinueButton, Googlelogo, ImageRight} from './styles/styles.styled'
+import {ContinueButton, FormDiv, Googlelogo, ImageRight} from './styles/styles.styled'
 import {GoogleButton} from './styles/styles.styled'
 import {InputEmail} from './styles/styles.styled'
 import {EventLogo} from './styles/styles.styled' 
@@ -12,41 +12,29 @@ import { TopHeader } from "./styles/styles.styled"
 import { FacebookButton } from "./styles/styles.styled"
 import { Divider, Arrowsvg, ArrowpathUp, ArrowpathDown , Arrowspan } from "./styles/styles.styled"
 import { CircleDivider } from "./styles/styles.styled"
-import { DivLeft, Pother, FormDiv, Form } from "./styles/styles.styled"
+import { DivLeft, Pother, Form } from "./styles/styles.styled"
 import { OtherSignUp, RightSide, OtherSignUpButton, OtherSignUpButtonDiv1, OtherSignUpButtonDiv2 } from "./styles/styles.styled"
 import { Upper2 } from "./styles/styles.styled"
-import { useFormik } from 'formik'
 
-const validate = (values) => {
-  const errors = {}
-
-  if (!values.email) {
-    errors.email = 'Field required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email'
-
-  }
-
-  return errors
-}
 
 export default function SignUp(){
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-    },
-    validate,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
-    },
-  })
-  const [emailError, setEmailError] = React.useState(false)
-  function handleClick(){
-    if(!values.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
-      setEmailError(true)
-    }
+  const [email, setEmail] = React.useState("")
+  const [emailerror, setEmailError] = React.useState("")
+  function saveEmail(event){
+    const {name,value} = event.target
+    setEmail(value);
   }
+  function handleValidation(event){
 
+    if(!email){
+      setEmailError('Field required')
+    }
+    else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError('Invalid email')
+    }
+    event.preventDefault()
+   
+  }
   return(
     <SignUpPage>
       <Upper2>
@@ -64,24 +52,26 @@ export default function SignUp(){
               </LogIn> 
             </LogInDiv>
           </TopHeader>
-          <Form onSubmit={formik.handleSubmit}>
-            <Label > 
-              <span style={{WebkitBoxDirection: "normal"}}>Email address</span>
-            </Label>
-            <InputEmail
-
-              type="email" 
-              name="email" 
-              id="email"
-              onChange={formik.handleChange} 
-              onBlur={formik.handleBlur} 
-              value={formik.values.email}/>
-              {formik.touched.email && formik.errors.email && (
-              <span>{formik.errors.email}</span>
+          <Form onSubmit={handleValidation}  >
+            <FormDiv >
+              <Label style={emailerror? {color : "red"}: {color : "blue"}}> 
+                <span style={{WebkitBoxDirection: "normal"}}>Email address</span>
+              </Label>
+              <InputEmail style={emailerror? {borderColor : "red"}: {borderColor : "blue"} }
+                 type="email" 
+                 name="enter-email" 
+                 id="email-input"
+                value={email}
+                onChange={saveEmail}
+                />
+              {emailerror && (
+              <span style={{color:"red"}}>{emailerror}</span>
               )}
-            <ContinueButton type = "submit">
-              Continue
-            </ContinueButton>
+              <ContinueButton>
+                Continue
+              </ContinueButton>
+
+            </FormDiv>
           </Form>
           <Divider>
             <CircleDivider>or</CircleDivider>
