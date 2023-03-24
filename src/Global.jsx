@@ -1,5 +1,14 @@
+
 import { createGlobalStyle } from 'styled-components';
 
+/**
+ * Global styles
+ * @module GlobalStyles
+ * @description This file contains the global styles
+ * @requires styled-components
+ * @exports GlobalStyles
+ * @example import GlobalStyles from './components/styles/global';
+ */
 const GlobalStyles = createGlobalStyle`
 *,
 *::before,

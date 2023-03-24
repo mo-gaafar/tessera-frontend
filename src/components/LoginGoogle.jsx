@@ -1,7 +1,20 @@
+/**
+ * @module GoogleLoginButton
+ * @author @claraashraf24
+ * @requires react
+ * @requires axios
+ * @requires react-google-login
+ * @returns {JSX.Element} GoogleLoginButton component
+ * 
+ */
 import React from 'react';
 import axios from 'axios';
 import GoogleLogin from 'react-google-login';
 
+/**
+ * This component is used to authenticate the user with Google
+ * @returns {JSX.Element} GoogleLoginButton component
+ */
 function GoogleLoginButton() {
   const responseGoogle = response => {
     axios

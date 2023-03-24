@@ -1,3 +1,8 @@
+/**
+ * @author @moSaeed15
+ * @description This file contains the App component and its logic
+ * @exports App
+ */
 //import GlobalStyles from "./components/styles/global";
 
 //function App() {
@@ -26,6 +31,11 @@ import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Maincontainer from './components/MainContainer/MainContainer';
 
+/**
+* Function component that renders the main application
+* @function
+* @returns {JSX.Element} The main application component
+*/
 function App() {
   const [email, setEmail] = useState('');
 

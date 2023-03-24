@@ -1,5 +1,19 @@
+/**
+ * @fileoverview This file contains the RightContainer component
+ * @name RightContainer.jsx
+ * @author @seif-kishtah
+ * @requires ./right.styled
+ * @exports RightContainer
+ * @description This file contains the RightContainer component and its logic
+ */
 import { RightStyled } from "./right.styled";
 
+/**
+ * @module RightContainer
+ * @returns {JSX.Element} RightContainer component
+ * @description This function is a component that renders the right container
+ * @returns {JSX.Element} RightContainer component
+ */
 export default function RightContainer() {
   return (
     <RightStyled>

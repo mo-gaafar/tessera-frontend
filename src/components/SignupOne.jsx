@@ -1,3 +1,14 @@
+/**
+ * @file SignupOne.jsx
+ * @name SignupOne.jsx
+ * @author @sohailaaAshraaf
+ * @requires react
+ * @requires react-router-dom
+ * @requires ./styles/SignUpEmail.styled
+ * @exports SignupOne
+ * @description This file contains the SignupOne component and its logic
+ * 
+ */
 import React, { useEffect } from 'react';
 
 import {
@@ -41,6 +52,16 @@ import { render } from 'react-dom';
 import SignupTwo from './SignupTwo';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * @module SignupOne
+ * @param {object} props
+ * @param {function} props.setEmail
+ * @param {function} props.setEmailError
+ * @param {string} props.email
+ * @param {string} props.emailerror
+ * @returns {JSX.Element} SignupOne component
+ * @description This function is a component that renders the first page of the signup process
+ */
 export default function SignUpOne(props) {
   const navigate = useNavigate();
 
@@ -52,10 +73,22 @@ export default function SignUpOne(props) {
     localStorage.setItem('email', email);
   }, [email]);
 
+  /**
+   * @function saveEmail
+   * @param {object} event
+   * @returns {void}
+   * @description This function saves the email in the state
+   */
   function saveEmail(event) {
     const { name, value } = event.target;
     setEmail(value);
   }
+  /**
+   * @function handleValidation
+   * @param {object} event
+   * @returns {void}
+   * @description This function validates the email
+   */
   function handleValidation(event) {
     console.log();
     if (!email) {
@@ -73,6 +106,12 @@ export default function SignUpOne(props) {
     }
   }, [email]);
 
+  /**
+   * @function handleSubmit
+   * @param {object} event
+   * @returns {void}
+   * @description This function handles the submit event
+    */
   function handleSubmit(e) {
     e.preventDefault();
     if (!emailerror) {
