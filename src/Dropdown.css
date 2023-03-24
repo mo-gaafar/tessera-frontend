@@ -1,0 +1,17 @@
+.organizeDropdown.clicked{
+    display: none;
+}
+
+
+.helpDropdown.clicked{
+    display: none;
+}
+
+
+.menuDropdown{    
+    position: absolute;
+    /* background-color: aliceblue; */
+    top: 7rem;
+    z-index: 1;
+    padding: 0;
+}
