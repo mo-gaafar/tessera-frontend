@@ -104,6 +104,7 @@ function TermsandConditions(props) {
   function handleClick() {
     props.show(false);
   }
+
   return (
     <Div>
       <div className="overlay"></div>

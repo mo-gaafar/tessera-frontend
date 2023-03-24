@@ -22,16 +22,16 @@ describe('signup', () => {
     expect(firstnameInput.value).toBe('test');
   });
 
-  // it('adding spaces in name input lastname field ', () => {
-  //   const { getAllByTestId, getByTestId } = render(
-  //     <SignupTwo test={true} email="test@email.com" />
-  //   );
-  //   const name = getAllByTestId('firstname')[0];
+  it('adding spaces in name input lastname field ', () => {
+    const { getAllByTestId, getByTestId } = render(
+      <SignupTwo test={true} email="test@email.com" />
+    );
+    const name = getAllByTestId('firstname')[0];
 
-  //   fireEvent.change(name, { target: { value: ' ' } });
-  //   const labelMessage = getByTestId('error').textContent;
-  //   expect(labelMessage).toBeTruthy();
-  // });
+    fireEvent.change(name, { target: { value: ' ' } });
+    const labelMessage = getByTestId('error').textContent;
+    expect(labelMessage).toEqual(' First name cannot be spaces');
+  });
 
   it('adding symbols in input firstname field ', () => {
     const { getAllByTestId } = render(
@@ -43,15 +43,15 @@ describe('signup', () => {
     expect(firstnameInput.value).toBe('');
   });
 
-  // it('when pressing the submit button with empty password error will appear ', () => {
-  //   const { getAllByRole, getByText } = render(
-  //     <SignupTwo test={true} email="test@email.com" />
-  //   );
-  //   const submitBtn = getAllByRole('button', { name: 'Create account' })[0];
-  //   const labels = getByText('Field required').textContent;
-  //   fireEvent.click(submitBtn);
-  //   expect(labels).toEqual(' Field required');
-  // });
+  it('when pressing the submit button with empty password error will appear ', () => {
+    const { getAllByRole, getByText } = render(
+      <SignupTwo test={true} email="test@email.com" />
+    );
+    const submitBtn = getAllByRole('button', { name: 'Create account' })[0];
+    fireEvent.click(submitBtn);
+    const labels = getByText('Field required').textContent;
+    expect(labels).toEqual(' Field required');
+  });
 
   it('adding password less than 8 characters show error', () => {
     const { getAllByTestId } = render(

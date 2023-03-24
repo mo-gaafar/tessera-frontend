@@ -20,7 +20,7 @@ export default function Landing() {
       setCity(cityName);
     };
 
-    navigator.geolocation.getCurrentPosition(poistion => {
+    navigator.geolocation?.getCurrentPosition(poistion => {
       const { latitude, longitude } = poistion.coords;
 
       fetchData(latitude, longitude);

@@ -23,6 +23,7 @@ import SignUpOne from './components/SignupOne';
 import GlobalStyles from './components/styles/global';
 import Landing from './components/Landing.jsx';
 import { Route, Routes } from 'react-router-dom';
+
 import { useEffect, useState } from 'react';
 import Maincontainer from './components/MainContainer/MainContainer';
 

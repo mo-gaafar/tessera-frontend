@@ -188,6 +188,7 @@ export default function SignupTwo(props) {
     }
     setPasswordType('password');
   };
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -364,7 +365,7 @@ export default function SignupTwo(props) {
                   </StyledInputDiv>
                   {firstnameError && (
                     <Message id="error-message">
-                      <span style={{ color: '#c5162e' }}>
+                      <span data-testid="error" style={{ color: '#c5162e' }}>
                         {' '}
                         {firstnameError}
                       </span>
@@ -404,11 +405,7 @@ export default function SignupTwo(props) {
                     </Label>
                   </StyledInputDiv>
                   {lastnameError && (
-                    <Message
-                      data-testid="error"
-                      id="error-message"
-                      style={{ color: '#c5162e' }}
-                    >
+                    <Message id="error-message" style={{ color: '#c5162e' }}>
                       {' '}
                       {lastnameError}
                     </Message>
