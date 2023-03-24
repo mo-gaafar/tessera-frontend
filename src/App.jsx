@@ -1,28 +1,25 @@
-import GlobalStyles from './components/styles/global';
-// import TermsandConditions from './components/TermsAndConditions';
 // import FacebookLogin from './components/LoginFacebook';
 // import GoogleLoginButton from './components/LoginGoogle';
-import Signup from './components/Signup';
-
-import GlobalStyles from './components/styles/Global';
-import Landing from './components/Landing.jsx';
-
 // const google = () => {
 //   console.log('first');
 //   window.open('', _self);
 // };
 
+import Signup from './components/Signup';
+import GlobalStyles from './components/styles/global';
+import Landing from './components/Landing.jsx';
+import { Route, Routes } from 'react-router-dom';
+
 function App() {
   return (
     <>
       <GlobalStyles />
-      {/* <FacebookLogin /> */}
-      {/* <GoogleLoginButton /> */}
 
-      {/* <TermsandConditions /> */}
-
-      <Signup email="email@email.com" />
-      <Landing />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="signup" element={<Signup email="email@email.com" />} />
+        <Route path="signup" element={<Signup email="email@email.com" />} />
+      </Routes>
     </>
   );
 }
