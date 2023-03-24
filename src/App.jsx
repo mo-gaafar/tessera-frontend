@@ -4,9 +4,17 @@ import GlobalStyles from './components/styles/global';
 // import GoogleLoginButton from './components/LoginGoogle';
 import Signup from './components/Signup';
 
+import GlobalStyles from './components/styles/Global';
+import Landing from './components/Landing.jsx';
+
+// const google = () => {
+//   console.log('first');
+//   window.open('', _self);
+// };
+
 function App() {
   return (
-    <div>
+    <>
       <GlobalStyles />
       {/* <FacebookLogin /> */}
       {/* <GoogleLoginButton /> */}
@@ -14,7 +22,8 @@ function App() {
       {/* <TermsandConditions /> */}
 
       <Signup email="email@email.com" />
-    </div>
+      <Landing />
+    </>
   );
 }
 

@@ -27,6 +27,34 @@ const GlobalStyles = createGlobalStyle`
 
 
 
+:root{
+  /* colors */
+  --clr-dark:#39364f;
+  --clr-blue:#3659e3;
+}
+${
+  '' /* @font-face {
+  font-family:'neue' ;
+  src: url('../../../public/font/NeuePlak-Bold.ttf') format("ttf");
+  font-weight: bold;
+}
+@font-face {
+  font-family:'neue' ;
+  src: url('../../../public/font/NeuePlak-Regular.ttf') format("ttf");
+  font-weight: 400;
+}
+@font-face {
+  font-family:'neue' ;
+  src: url('../../../public/font/NeuePlak-SemiBold.ttf') format("ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family:'neue' ;
+  src: url('../../../public/font/NeuePlak-Black.ttf') format("ttf");
+  font-weight: 900;
+} */
+}
+
 *,
 *::before,
 *::after {
@@ -39,6 +67,8 @@ h1,
 h2,
 h3,
 h4,
+h5,
+h6,
 p,
 figure,
 blockquote,
@@ -65,7 +95,10 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
+  ${'' /* font-family: 'neue plak'; */}
+  font-size: 1.6rem;
+  font-weight: 400;
+  color:var(--clr-dark);
 }
 
 /* A elements that don't have a class get default styles */
