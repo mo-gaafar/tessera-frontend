@@ -20,20 +20,22 @@
 //   window.open('', _self);
 // };
 
-import Signup from './components/Signup';
+import SignupTwo from './components/SignupTwo';
+import SignUpOne from './components/SignupOne';
 import GlobalStyles from './components/styles/global';
 import Landing from './components/Landing.jsx';
 import { Route, Routes } from 'react-router-dom';
-
+import { useEffect, useState } from 'react';
 function App() {
+  const [email, setEmail] = useState('');
+
   return (
     <>
       <GlobalStyles />
-
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="signup" element={<Signup email="email@email.com" />} />
-        <Route path="signup" element={<Signup email="email@email.com" />} />
+        <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
+        <Route path="Signuptwo" element={<SignupTwo email={email} />} />
       </Routes>
     </>
   );
