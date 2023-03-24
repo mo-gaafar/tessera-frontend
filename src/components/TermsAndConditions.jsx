@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link, Route, Routes } from 'react-router-dom';
 
 const Div = styled.div`
   position: relative;
@@ -150,8 +151,12 @@ function TermsandConditions(props) {
           have read the Privacy Policy.
         </p>
         <div className="buttons">
-          <button className="CancelButton">Cancel</button>
-          <button className="AgreeButton">Agree</button>
+          <button onClick={handleClick} className="CancelButton">
+            Cancel
+          </button>
+          <button className="AgreeButton">
+            <Link to="/"> Agree</Link>
+          </button>
         </div>
       </div>
     </Div>
