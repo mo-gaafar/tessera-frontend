@@ -1,17 +1,29 @@
 import GlobalStyles from './components/styles/global';
-import SignUp from './components/sign-up'
-import Footer from './components/footer'
-import React from 'react';
-import { useFormik } from 'formik'
+// import TermsandConditions from './components/TermsAndConditions';
+// import FacebookLogin from './components/LoginFacebook';
+// import GoogleLoginButton from './components/LoginGoogle';
+import Signup from './components/Signup';
+
+import GlobalStyles from './components/styles/Global';
+import Landing from './components/Landing.jsx';
+
+// const google = () => {
+//   console.log('first');
+//   window.open('', _self);
+// };
 
 function App() {
   return (
-    <div>
+    <>
       <GlobalStyles />
-      <SignUp />
-      {/* <Footer />  */}
-    </div>
-    
+      {/* <FacebookLogin /> */}
+      {/* <GoogleLoginButton /> */}
+
+      {/* <TermsandConditions /> */}
+
+      <Signup email="email@email.com" />
+      <Landing />
+    </>
   );
 }
 
