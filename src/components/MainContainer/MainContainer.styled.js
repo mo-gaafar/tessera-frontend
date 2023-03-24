@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MainContainerStyled = styled.div`
   background: magenta;
@@ -12,6 +12,4 @@ export const MainContainerStyled = styled.div`
   right: 0px;
   bottom: 0px;
   left: 0px;
-
-  }
 `;

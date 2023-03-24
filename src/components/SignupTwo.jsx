@@ -38,7 +38,10 @@ import { ImgComatiner } from './styles/FormFormat.Styled.jsx';
 import { PageImgDiv } from './styles/FormFormat.Styled.jsx';
 
 export default function SignupTwo(props) {
-  const navigate = useNavigate();
+  let navigate;
+  if (!props.test) {
+    navigate = useNavigate();
+  }
   const [pwdInput, initValue] = React.useState({
     password: '',
   });
@@ -50,10 +53,10 @@ export default function SignupTwo(props) {
     'Your password must be at least 8 characters'
   );
 
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState(props.email);
 
   useEffect(() => {
-    setEmail(localStorage.getItem('email').toLowerCase());
+    setEmail(localStorage.getItem('email')?.toLowerCase());
   }, [email]);
 
   const onChange = e => {
@@ -275,6 +278,7 @@ export default function SignupTwo(props) {
                   id="email-input"
                   value={email}
                   defaultValue={email}
+                  data-testid="email"
                 />
                 <StyledEditButton onClick={GoBack}>
                   <StyledEditImg src={edit} />
@@ -340,6 +344,7 @@ export default function SignupTwo(props) {
                     onChange={handleChange}
                     inputColor={firstnameError ? 'red' : 'blue'}
                     onFocus={handleFocus}
+                    data-testid="firstname"
                   />
 
                   <StyledInputDiv>
@@ -399,7 +404,11 @@ export default function SignupTwo(props) {
                     </Label>
                   </StyledInputDiv>
                   {lastnameError && (
-                    <Message id="error-message" style={{ color: '#c5162e' }}>
+                    <Message
+                      data-testid="error"
+                      id="error-message"
+                      style={{ color: '#c5162e' }}
+                    >
                       {' '}
                       {lastnameError}
                     </Message>
@@ -416,6 +425,7 @@ export default function SignupTwo(props) {
               >
                 <StyledSignupFormInput
                   type={passwordType}
+                  data-testid="password"
                   id="password"
                   name="password"
                   onChange={onChange}
@@ -457,7 +467,10 @@ export default function SignupTwo(props) {
                 showStrength={isError}
               />
               {isError !== null && (
-                <PasswordStrenghP className="pass-errors">
+                <PasswordStrenghP
+                  data-testid="passError"
+                  className="pass-errors"
+                >
                   {isError}
                 </PasswordStrenghP>
               )}

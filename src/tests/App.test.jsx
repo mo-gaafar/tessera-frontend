@@ -1,4 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  getAllByTestId,
+} from '@testing-library/react';
 import Landing from '../components/Landing';
 import { describe, it, expect } from 'vitest';
 import EventBox from '../components/EventBox';

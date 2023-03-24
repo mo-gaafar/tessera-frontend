@@ -163,7 +163,7 @@ export default function SignUpOne(props) {
               </OtherArrow>
             </OtherSignUpButtonDiv2>
           </OtherSignUpButton>
-          <FacebookButton> </FacebookButton>
+          <FacebookButton></FacebookButton>
           <LogInDiv2>
             <LogIn2 href="https://www.eventbrite.com/signin/">Log in</LogIn2>
           </LogInDiv2>
