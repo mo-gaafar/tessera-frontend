@@ -127,14 +127,14 @@ function TermsandConditions(props) {
         <svg
           className="circle"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
           fill="#000000"
           height="70px"
           width="100px"
           version="1.1"
           id="Capa_1"
           viewBox="0 0 27.963 27.963"
-          xml:space="preserve"
+          xmlSpace="preserve"
         >
           <g>
             <g id="c129_exclamation">

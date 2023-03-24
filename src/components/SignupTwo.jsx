@@ -22,21 +22,23 @@ import { ImgDescriptionDiv } from './styles/FormFormat.Styled';
 import { FirstRowImgDiv } from './styles/FormFormat.Styled';
 import { SecRowImgDiv } from './styles/FormFormat.Styled';
 import TermsandConditions from './TermsAndConditions';
-
 import edit from '../assets/edit.png';
 import logo from '../assets/LogoFullTextSmall.png';
 import pwdhide from '../assets/eye.png';
 import pwdShow from '../assets/icon-visibility.jpg';
 import { PasswordShowButton } from './styles/Password.Styled';
 import { PasswordShowImg } from './styles/Password.Styled';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import PasswordChecker from './PasswordChecker';
 import { PasswordStrenghP } from './styles/Password.Styled';
 
 import { ImgComatiner } from './styles/FormFormat.Styled.jsx';
 import { PageImgDiv } from './styles/FormFormat.Styled.jsx';
-export default function Signup(props) {
+
+export default function SignupTwo(props) {
+  const navigate = useNavigate();
   const [pwdInput, initValue] = React.useState({
     password: '',
   });
@@ -47,6 +49,12 @@ export default function Signup(props) {
   const [isError, setError] = React.useState(
     'Your password must be at least 8 characters'
   );
+
+  const [email, setEmail] = useState();
+
+  useEffect(() => {
+    setEmail(localStorage.getItem('email').toLowerCase());
+  }, [email]);
 
   const onChange = e => {
     let password = e.target.value;
@@ -117,7 +125,7 @@ export default function Signup(props) {
       setErrorFound(true);
     }
 
-    if (formData.emailConfirm !== props.email) {
+    if (formData.emailConfirm !== email) {
       setEmailConfirmError("Email address doesn't match. Please try again");
       setErrorFound(true);
     }
@@ -144,7 +152,7 @@ export default function Signup(props) {
       if (value === ' ' && name === 'lastName') {
         setLastnameError('Last name cannot be spaces');
       }
-      if (name == 'emailConfirm' && value == props.email) {
+      if (name == 'emailConfirm' && value == email) {
         setEmailConfirmError(null);
       }
 
@@ -153,6 +161,11 @@ export default function Signup(props) {
         [name]: name === 'emailConfirm' ? value : value.replace(/[^a-z]/gi, ''),
       };
     });
+  }
+
+  function GoBack(e) {
+    e.preventDefault();
+    e.detail && navigate('/signup');
   }
 
   function handleFocus(event) {
@@ -172,8 +185,9 @@ export default function Signup(props) {
     }
     setPasswordType('password');
   };
-
   function handleSubmit(event) {
+    event.preventDefault();
+
     handleValidation();
     if (
       !errorFound &&
@@ -181,14 +195,15 @@ export default function Signup(props) {
         !formData.lastName ||
         !formData.emailConfirm ||
         pwdInput.password.length < 8 ||
-        formData.emailConfirm !== props.email ||
+        formData.emailConfirm !== email ||
         pwdInput.password.indexOf(' ') >= 0)
     ) {
-      event.preventDefault(); // this will be prevent the page from refresh
+      setShowTerms(false);
+      console.log(showTerms);
+
       return;
     }
     setShowTerms(true);
-    event.preventDefault();
   }
   const styles = {
     display: `${passwordButtonType}`,
@@ -236,7 +251,9 @@ export default function Signup(props) {
 
   return (
     <>
-      {showTerms && <TermsandConditions show={setShowTerms} />}
+      {showTerms === true && showTerms !== undefined && (
+        <TermsandConditions show={setShowTerms} />
+      )}
 
       <PageContainer>
         <StyledSignup>
@@ -254,8 +271,12 @@ export default function Signup(props) {
 
             <StyledSignupForm onSubmit={handleSubmit}>
               <StyledEmailDiv>
-                <StyledEmailInput id="email-input" value={props.email} />
-                <StyledEditButton>
+                <StyledEmailInput
+                  id="email-input"
+                  value={email}
+                  defaultValue={email}
+                />
+                <StyledEditButton onClick={GoBack}>
                   <StyledEditImg src={edit} />
                 </StyledEditButton>
 
