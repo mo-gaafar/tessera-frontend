@@ -1,0 +1,189 @@
+.navBar{
+    background-color: rgba(228, 4, 4, 0.89);
+    height: 7rem;
+    display: flex;
+    flex-direction:row;
+    
+}
+
+.siteLogoSection{
+
+
+    /* width: 16rem; */
+    width: max-content;
+    display:flex;
+    align-items: center;
+    padding-right: 2.5rem;
+    padding-left: 2.6rem;
+
+
+}
+
+.searchSection{
+
+    background-color: rgba(170, 255, 153, 0.89);
+    display:flex;
+    /* align-items: center; */
+    flex:1;
+    /* margin-top: 2 rem; */
+}
+
+.optionsSection{
+
+    background-color: rgba(157, 175, 255, 0.89);
+    width:52.5rem;
+    display: flex;
+    flex-direction:row;
+    min-width: 207.45px;
+
+}
+
+.logoSvg{
+
+    height:1.93rem;
+    display: block; 
+    margin: auto;
+}
+
+.magnifyingGlass{
+
+    height:2.35rem;
+    margin-top: 1.15rem;
+    padding-left: 1rem;
+    
+
+}
+
+
+.searchBar{
+
+    width:43.5rem;
+    height: 4.8rem;
+    margin-top: 0.8rem;
+    border: 0;
+    outline: none;
+
+
+}
+
+/* .searchBar:focus {
+    outline: none;
+  }
+ */
+
+.searchBar::placeholder{
+
+    font-size: 1.38rem;
+    font-weight: bold;
+    padding-left: 1.5rem;
+
+
+}
+
+.magnifyingGlassDiv{
+    margin-top: 0.8rem;
+    height:4.8rem;
+    background-color: aliceblue;
+
+
+}
+
+.optionsSection{
+    font-size: 1.3rem;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+   
+}
+
+.landingItems{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 5rem;
+
+}
+
+.navLanding{
+    display:flex;
+    align-items:center;
+}
+
+.hamburgermenu{
+    height:2.35rem; 
+    background-color: white;
+}
+
+.hamburgerNavMenu{
+
+    display: none;
+    background-color: white;
+    border: 0;
+    outline: 0;
+    height: 4rem;
+}
+
+.landingItems #hidden {
+    display: flex;
+}
+
+@media only screen and (max-width: 1080px){
+
+    #createEventId{
+        display: none;
+    }
+
+}
+
+@media only screen and (max-width: 959px){
+
+    .searchBar{
+        display: none;
+    }
+    .hamburgerNavMenu{
+
+        display: flex;
+    }
+
+   
+    #organizeId, #helpId, #createEventId {
+
+    display: none;
+
+    }
+
+    .searchSection{
+        
+        justify-content: right;
+        align-items: right;
+            
+    }
+    .optionsSection{
+        max-width: 207.45px;
+    }
+
+    .landingItems #hidden {
+        position:absolute;
+        left:0px;
+        top: 80px;
+        height:230px;
+        width:100%;
+        background-color: blue;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .magnifyingGlassDiv{
+        margin-top: 0.8rem;
+        height:4.8rem;
+        background-color: aliceblue;
+        padding-right: 4rem;
+    
+
+
+}
+
+
+}
+
+
+
