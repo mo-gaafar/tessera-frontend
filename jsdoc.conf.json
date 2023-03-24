@@ -1,0 +1,12 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
+  },
+  "source": {
+    "include": ["./src", "./src/components", "./src/*"]
+  },
+  "opts": {
+    "destination": "docs"
+  }
+}

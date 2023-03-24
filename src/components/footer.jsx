@@ -1,5 +1,17 @@
+/**
+ * @file Footer.jsx
+ * @name Footer.jsx
+ * @author @sohailaaAshraaf
+ * @requires react
+ */
 import React from "react"
-export default function Footer(){
+
+/**
+A footer component for the Eventbrite website.
+@function
+@returns {JSX.Element} A React JSX Element that displays the Eventbrite footer.
+*/
+export default function Footer() {
   return(
     <div className="footer">
       <div className="footer-title">

@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/SignupTwo.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/SignupTwo.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file SignupTwo.jsx
  * @name SignupTwo.jsx
  * @author @hlasultanhassan
@@ -98,7 +126,7 @@ export default function SignupTwo(props) {
     if (password.length === 0) {
       setPasswordButtonType('none');
     }
-    if (password.length < 8) {
+    if (password.length &lt; 8) {
       setError('Your password must be at least 8 characters');
       return;
     } else {
@@ -152,7 +180,7 @@ export default function SignupTwo(props) {
       setErrorFound(true);
     }
 
-    if (pwdInput.password.length < 8) {
+    if (pwdInput.password.length &lt; 8) {
       setEmptyPassError('Your password must be at least 8 characters');
       setPassError(true);
       setErrorFound(true);
@@ -179,19 +207,19 @@ export default function SignupTwo(props) {
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData(prevFormData => {
-      if (name === 'firstName' && firstnameError) {
+      if (name === 'firstName' &amp;&amp; firstnameError) {
         setFirstnameError(null);
       }
-      if (value === ' ' && name === 'firstName') {
+      if (value === ' ' &amp;&amp; name === 'firstName') {
         setFirstnameError('First name cannot be spaces');
       }
-      if (name === 'lastName' && lastnameError) {
+      if (name === 'lastName' &amp;&amp; lastnameError) {
         setLastnameError(null);
       }
-      if (value === ' ' && name === 'lastName') {
+      if (value === ' ' &amp;&amp; name === 'lastName') {
         setLastnameError('Last name cannot be spaces');
       }
-      if (name == 'emailConfirm' && value == email) {
+      if (name == 'emailConfirm' &amp;&amp; value == email) {
         setEmailConfirmError(null);
       }
 
@@ -204,7 +232,7 @@ export default function SignupTwo(props) {
 
   function GoBack(e) {
     e.preventDefault();
-    e.detail && navigate('/signup');
+    e.detail &amp;&amp; navigate('/signup');
   }
 
   function handleFocus(event) {
@@ -224,17 +252,16 @@ export default function SignupTwo(props) {
     }
     setPasswordType('password');
   };
-
   function handleSubmit(event) {
     event.preventDefault();
 
     handleValidation();
     if (
-      !errorFound &&
+      !errorFound &amp;&amp;
       (!formData.firstName ||
         !formData.lastName ||
         !formData.emailConfirm ||
-        pwdInput.password.length < 8 ||
+        pwdInput.password.length &lt; 8 ||
         formData.emailConfirm !== email ||
         pwdInput.password.indexOf(' ') >= 0)
     ) {
@@ -253,9 +280,9 @@ export default function SignupTwo(props) {
     if (passError || firstnameError || lastnameError || emailConfirmError) {
       setErrorFound(true);
     } else if (
-      formData.firstName &&
-      formData.lastName &&
-      formData.emailConfirm &&
+      formData.firstName &amp;&amp;
+      formData.lastName &amp;&amp;
+      formData.emailConfirm &amp;&amp;
       pwdInput.password
     ) {
       setErrorFound(false);
@@ -290,50 +317,50 @@ export default function SignupTwo(props) {
   ]);
 
   return (
-    <>
-      {showTerms === true && showTerms !== undefined && (
-        <TermsandConditions show={setShowTerms} />
+    &lt;>
+      {showTerms === true &amp;&amp; showTerms !== undefined &amp;&amp; (
+        &lt;TermsandConditions show={setShowTerms} />
       )}
 
-      <PageContainer>
-        <StyledSignup>
-          <div>
-            <StyledHeaderInfo>
-              <div>
-                <LogoImg src={logo} />
-                <StyledHead>Create an account</StyledHead>
-              </div>
+      &lt;PageContainer>
+        &lt;StyledSignup>
+          &lt;div>
+            &lt;StyledHeaderInfo>
+              &lt;div>
+                &lt;LogoImg src={logo} />
+                &lt;StyledHead>Create an account&lt;/StyledHead>
+              &lt;/div>
 
-              <StyledLoginRef>
-                <StyledReference href="">Log in</StyledReference>
-              </StyledLoginRef>
-            </StyledHeaderInfo>
+              &lt;StyledLoginRef>
+                &lt;StyledReference href="">Log in&lt;/StyledReference>
+              &lt;/StyledLoginRef>
+            &lt;/StyledHeaderInfo>
 
-            <StyledSignupForm onSubmit={handleSubmit}>
-              <StyledEmailDiv>
-                <StyledEmailInput
+            &lt;StyledSignupForm onSubmit={handleSubmit}>
+              &lt;StyledEmailDiv>
+                &lt;StyledEmailInput
                   id="email-input"
                   value={email}
                   defaultValue={email}
                   data-testid="email"
                 />
-                <StyledEditButton onClick={GoBack}>
-                  <StyledEditImg src={edit} />
-                </StyledEditButton>
+                &lt;StyledEditButton onClick={GoBack}>
+                  &lt;StyledEditImg src={edit} />
+                &lt;/StyledEditButton>
 
-                <StyledInputDiv>
-                  <Label>Email address</Label>
-                </StyledInputDiv>
-              </StyledEmailDiv>
+                &lt;StyledInputDiv>
+                  &lt;Label>Email address&lt;/Label>
+                &lt;/StyledInputDiv>
+              &lt;/StyledEmailDiv>
 
-              <StyledInputContainerDiv
+              &lt;StyledInputContainerDiv
                 style={
                   emailConfirmError
                     ? { borderColor: '#c5162e' }
                     : { backgroundColor: 'white' }
                 }
               >
-                <StyledSignupFormInput
+                &lt;StyledSignupFormInput
                   id="email-input-1"
                   type="email"
                   name="emailConfirm"
@@ -342,12 +369,12 @@ export default function SignupTwo(props) {
                   inputColor={emailConfirmError ? 'red' : 'blue'}
                   onFocus={handleFocus}
                 />
-                <StyledInputDiv>
-                  <Label
+                &lt;StyledInputDiv>
+                  &lt;Label
                     style={
                       emailConfirmError
                         ? { color: '#c5162e' }
-                        : !focused.emailConfirm && !formData.emailConfirm
+                        : !focused.emailConfirm &amp;&amp; !formData.emailConfirm
                         ? { fontSize: '2rem' }
                         : focused.emailConfirm
                         ? { color: 'blue' }
@@ -355,25 +382,25 @@ export default function SignupTwo(props) {
                     }
                   >
                     Confirm email
-                  </Label>
-                </StyledInputDiv>
-                {emailConfirmError && (
-                  <Message id="error-message" style={{ color: '#c5162e' }}>
+                  &lt;/Label>
+                &lt;/StyledInputDiv>
+                {emailConfirmError &amp;&amp; (
+                  &lt;Message id="error-message" style={{ color: '#c5162e' }}>
                     {' '}
                     {emailConfirmError}
-                  </Message>
+                  &lt;/Message>
                 )}
-              </StyledInputContainerDiv>
+              &lt;/StyledInputContainerDiv>
 
-              <StyledNameDiv>
-                <StyledInputContainerDiv
+              &lt;StyledNameDiv>
+                &lt;StyledInputContainerDiv
                   style={
                     firstnameError
                       ? { borderColor: '#c5162e' }
                       : { backgroundColor: 'white' }
                   }
                 >
-                  <StyledSignupFormInput
+                  &lt;StyledSignupFormInput
                     id="name-input"
                     type="text"
                     name="firstName"
@@ -384,12 +411,12 @@ export default function SignupTwo(props) {
                     data-testid="firstname"
                   />
 
-                  <StyledInputDiv>
-                    <Label
+                  &lt;StyledInputDiv>
+                    &lt;Label
                       style={
                         firstnameError
                           ? { color: '#c5162e' }
-                          : !focused.firstName && !formData.firstName
+                          : !focused.firstName &amp;&amp; !formData.firstName
                           ? { fontSize: '2rem' }
                           : focused.firstName
                           ? { color: 'blue' }
@@ -397,26 +424,26 @@ export default function SignupTwo(props) {
                       }
                     >
                       First Name
-                    </Label>
-                  </StyledInputDiv>
-                  {firstnameError && (
-                    <Message id="error-message">
-                      <span data-testid="error" style={{ color: '#c5162e' }}>
+                    &lt;/Label>
+                  &lt;/StyledInputDiv>
+                  {firstnameError &amp;&amp; (
+                    &lt;Message id="error-message">
+                      &lt;span style={{ color: '#c5162e' }}>
                         {' '}
                         {firstnameError}
-                      </span>
-                    </Message>
+                      &lt;/span>
+                    &lt;/Message>
                   )}
-                </StyledInputContainerDiv>
+                &lt;/StyledInputContainerDiv>
 
-                <StyledInputContainerDiv
+                &lt;StyledInputContainerDiv
                   style={
                     lastnameError
                       ? { borderColor: '#c5162e' }
                       : { backgroundColor: 'transperent' }
                   }
                 >
-                  <StyledSignupFormInput
+                  &lt;StyledSignupFormInput
                     id="name-input-2"
                     type="text"
                     value={formData.lastName}
@@ -425,12 +452,12 @@ export default function SignupTwo(props) {
                     inputColor={lastnameError ? 'red' : 'blue'}
                     onFocus={handleFocus}
                   />
-                  <StyledInputDiv>
-                    <Label
+                  &lt;StyledInputDiv>
+                    &lt;Label
                       style={
                         lastnameError
                           ? { color: '#c5162e' }
-                          : !focused.lastName && !formData.lastName
+                          : !focused.lastName &amp;&amp; !formData.lastName
                           ? { fontSize: '2rem' }
                           : focused.lastName
                           ? { color: 'blue' }
@@ -438,25 +465,29 @@ export default function SignupTwo(props) {
                       }
                     >
                       Last Name
-                    </Label>
-                  </StyledInputDiv>
-                  {lastnameError && (
-                    <Message id="error-message" style={{ color: '#c5162e' }}>
+                    &lt;/Label>
+                  &lt;/StyledInputDiv>
+                  {lastnameError &amp;&amp; (
+                    &lt;Message
+                      data-testid="error"
+                      id="error-message"
+                      style={{ color: '#c5162e' }}
+                    >
                       {' '}
                       {lastnameError}
-                    </Message>
+                    &lt;/Message>
                   )}
-                </StyledInputContainerDiv>
-              </StyledNameDiv>
+                &lt;/StyledInputContainerDiv>
+              &lt;/StyledNameDiv>
 
-              <StyledInputContainerDiv
+              &lt;StyledInputContainerDiv
                 style={
                   passError
                     ? { borderColor: '#c5162e' }
                     : { backgroundColor: 'transperent' }
                 }
               >
-                <StyledSignupFormInput
+                &lt;StyledSignupFormInput
                   type={passwordType}
                   data-testid="password"
                   id="password"
@@ -465,19 +496,19 @@ export default function SignupTwo(props) {
                   inputColor={passError ? 'red' : 'blue'}
                   onFocus={handleFocus}
                 />
-                <PasswordShowButton onClick={togglePassword} style={styles}>
+                &lt;PasswordShowButton onClick={togglePassword} style={styles}>
                   {passwordType === 'password' ? (
-                    <PasswordShowImg src={pwdhide} />
+                    &lt;PasswordShowImg src={pwdhide} />
                   ) : (
-                    <PasswordShowImg src={pwdShow} />
+                    &lt;PasswordShowImg src={pwdShow} />
                   )}
-                </PasswordShowButton>
-                <StyledInputDiv>
-                  <Label
+                &lt;/PasswordShowButton>
+                &lt;StyledInputDiv>
+                  &lt;Label
                     style={
                       passError
                         ? { color: '#c5162e' }
-                        : !focused.password && !pwdInput.password
+                        : !focused.password &amp;&amp; !pwdInput.password
                         ? { fontSize: '2rem' }
                         : focused.password
                         ? { color: 'blue' }
@@ -485,46 +516,69 @@ export default function SignupTwo(props) {
                     }
                   >
                     Password
-                  </Label>
-                </StyledInputDiv>
-                {passError && (
-                  <Message id="error-message" style={{ color: '#c5162e' }}>
+                  &lt;/Label>
+                &lt;/StyledInputDiv>
+                {passError &amp;&amp; (
+                  &lt;Message id="error-message" style={{ color: '#c5162e' }}>
                     {' '}
                     {emptyPassError}
-                  </Message>
+                  &lt;/Message>
                 )}
-              </StyledInputContainerDiv>
-              <PasswordChecker
+              &lt;/StyledInputContainerDiv>
+              &lt;PasswordChecker
                 password={pwdInput.password}
                 actions={initPwdInput}
                 showStrength={isError}
               />
-              {isError !== null && (
-                <PasswordStrenghP
+              {isError !== null &amp;&amp; (
+                &lt;PasswordStrenghP
                   data-testid="passError"
                   className="pass-errors"
                 >
                   {isError}
-                </PasswordStrenghP>
+                &lt;/PasswordStrenghP>
               )}
 
-              <StyledSubmitbutton onClick={handleSubmit} disabled={errorFound}>
+              &lt;StyledSubmitbutton onClick={handleSubmit} disabled={errorFound}>
                 Create account
-              </StyledSubmitbutton>
+              &lt;/StyledSubmitbutton>
 
-              <LoginA href="">Log in</LoginA>
-            </StyledSignupForm>
-          </div>
-        </StyledSignup>
-        <ImgComatiner>
-          <PageImgDiv></PageImgDiv>
-          <ImgDescriptionDiv>
-            <FirstRowImgDiv>Hungry Pop</FirstRowImgDiv>
-            <SecRowImgDiv>Trap Yoga Brooklyn</SecRowImgDiv>
-            <SecRowImgDiv>Brooklyn, NY</SecRowImgDiv>
-          </ImgDescriptionDiv>
-        </ImgComatiner>
-      </PageContainer>
-    </>
+              &lt;LoginA href="">Log in&lt;/LoginA>
+            &lt;/StyledSignupForm>
+          &lt;/div>
+        &lt;/StyledSignup>
+        &lt;ImgComatiner>
+          &lt;PageImgDiv>&lt;/PageImgDiv>
+          &lt;ImgDescriptionDiv>
+            &lt;FirstRowImgDiv>Hungry Pop&lt;/FirstRowImgDiv>
+            &lt;SecRowImgDiv>Trap Yoga Brooklyn&lt;/SecRowImgDiv>
+            &lt;SecRowImgDiv>Brooklyn, NY&lt;/SecRowImgDiv>
+          &lt;/ImgDescriptionDiv>
+        &lt;/ImgComatiner>
+      &lt;/PageContainer>
+    &lt;/>
   );
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="Landing.module_jsx.html">Landing.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="module-FacebookLoginButton.html">FacebookLoginButton</a></li><li><a href="module-GlobalStyles.html">GlobalStyles</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-SignupOne.html">SignupOne</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Mar 24 2023 20:16:03 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

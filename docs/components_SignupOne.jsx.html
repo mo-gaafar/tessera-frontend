@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/SignupOne.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/SignupOne.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file SignupOne.jsx
+ * @name SignupOne.jsx
+ * @author @sohailaaAshraaf
+ * @requires react
+ * @requires react-router-dom
+ * @requires ./styles/SignUpEmail.styled
+ * @exports SignupOne
+ * @description This file contains the SignupOne component and its logic
+ * 
+ */
+import React, { useEffect } from 'react';
+
+import {
+  ContinueButton,
+  FormDiv,
+  Googlelogo,
+  ImageRight,
+  GoogleButton,
+  InputEmail,
+  EventLogo,
+  CreateAccount,
+  LogIn,
+  LogIn2,
+  LogInDiv,
+  LogInDiv2,
+  Label,
+  UpperPage,
+  OtherArrow,
+  SignUpPage,
+  TopHeader,
+  FacebookButton,
+  Divider,
+  Arrowsvg,
+  ArrowpathUp,
+  ArrowpathDown,
+  Arrowspan,
+  CircleDivider,
+  DivLeft,
+  Pother,
+  Form,
+  OtherSignUp,
+  RightSide,
+  OtherSignUpButton,
+  OtherSignUpButtonDiv1,
+  OtherSignUpButtonDiv2,
+  Upper2,
+} from './styles/SignUpEmail.styled';
+
+import { render } from 'react-dom';
+
+import SignupTwo from './SignupTwo';
+import { useNavigate } from 'react-router-dom';
+
+/**
+ * @module SignupOne
+ * @param {object} props
+ * @param {function} props.setEmail
+ * @param {function} props.setEmailError
+ * @param {string} props.email
+ * @param {string} props.emailerror
+ * @returns {JSX.Element} SignupOne component
+ * @description This function is a component that renders the first page of the signup process
+ */
+export default function SignUpOne(props) {
+  const navigate = useNavigate();
+
+  const [focused, setFocused] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+  const [emailerror, setEmailError] = React.useState('');
+
+  useEffect(() => {
+    localStorage.setItem('email', email);
+  }, [email]);
+
+  /**
+   * @function saveEmail
+   * @param {object} event
+   * @returns {void}
+   * @description This function saves the email in the state
+   */
+  function saveEmail(event) {
+    const { name, value } = event.target;
+    setEmail(value);
+  }
+  /**
+   * @function handleValidation
+   * @param {object} event
+   * @returns {void}
+   * @description This function validates the email
+   */
+  function handleValidation(event) {
+    console.log();
+    if (!email) {
+      setEmailError('Field required');
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      setEmailError('Invalid email');
+    } else {
+      setEmailError('');
+    }
+  }
+
+  React.useEffect(() => {
+    if (emailerror) {
+      handleValidation();
+    }
+  }, [email]);
+
+  /**
+   * @function handleSubmit
+   * @param {object} event
+   * @returns {void}
+   * @description This function handles the submit event
+    */
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!emailerror) {
+      props.setEmail(email);
+      navigate('/Signuptwo');
+    }
+  }
+
+  return (
+    &lt;SignUpPage>
+      &lt;Upper2>
+        &lt;UpperPage>
+          &lt;TopHeader>
+            &lt;DivLeft>
+              &lt;EventLogo src="./src/assets/logo.jpg" />
+              &lt;CreateAccount>Create an account&lt;/CreateAccount>
+            &lt;/DivLeft>
+            &lt;LogInDiv>
+              &lt;LogIn href="https://www.eventbrite.com/signin/">Log in&lt;/LogIn>
+            &lt;/LogInDiv>
+          &lt;/TopHeader>
+          &lt;Form onSubmit={handleSubmit}>
+            &lt;FormDiv>
+              &lt;Label
+                style={
+                  emailerror
+                    ? { color: 'red' }
+                    : focused
+                    ? { color: 'blue' }
+                    : { color: '#6f7287' }
+                }
+              >
+                &lt;span style={{ WebkitBoxDirection: 'normal' }}>
+                  Email address
+                &lt;/span>
+              &lt;/Label>
+              &lt;InputEmail
+                style={
+                  emailerror
+                    ? { borderColor: 'red' }
+                    : focused
+                    ? { borderColor: 'blue' }
+                    : { borderColor: 'gray' }
+                }
+                type="email"
+                name="enter-email"
+                id="email-input"
+                value={email}
+                onChange={saveEmail}
+                onFocus={() => setFocused(true)}
+              />
+              {emailerror &amp;&amp; &lt;span style={{ color: 'red' }}>{emailerror}&lt;/span>}
+              &lt;ContinueButton onClick={handleValidation}>
+                Continue
+              &lt;/ContinueButton>
+            &lt;/FormDiv>
+          &lt;/Form>
+          &lt;Divider>
+            &lt;CircleDivider>or&lt;/CircleDivider>
+          &lt;/Divider>
+          &lt;GoogleButton
+            // onClick="location.href=https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?redirect_uri=storagerelay%3A%2F%2Fhttps%2Fwww.eventbrite.com%3Fid%3Dauth64961&amp;response_type=permission%20id_token&amp;scope=email%20profile%20openid&amp;openid.realm&amp;include_granted_scopes=true&amp;client_id=126160502265-8i61veaglos3qqdc73t5b9gdp7uumclg.apps.googleusercontent.com&amp;ss_domain=https%3A%2F%2Fwww.eventbrite.com&amp;fetch_basic_profile=true&amp;gsiwebsdk=2&amp;service=lso&amp;o2v=1&amp;flowName=GeneralOAuthFlow"
+            target={'_blank'}
+          >
+            &lt;Googlelogo src="./src/assets/google-logo.png" />
+            Sign in with Google
+          &lt;/GoogleButton>
+          &lt;OtherSignUp>Other sign up methods&lt;/OtherSignUp>
+          &lt;OtherSignUpButton
+            type="button"
+            data-automation="eds-expandable-card-content-button"
+          >
+            &lt;OtherSignUpButtonDiv1>
+              &lt;Pother>Other sign up methods&lt;/Pother>
+            &lt;/OtherSignUpButtonDiv1>
+            &lt;OtherSignUpButtonDiv2>
+              &lt;OtherArrow>
+                &lt;Arrowsvg x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
+                  &lt;ArrowpathUp
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M17 13.8l-5-5-5 5 1.4 1.4 3.6-3.6 3.6 3.6z"
+                  >&lt;/ArrowpathUp>
+                  &lt;Arrowspan className="eds-is-hidden-accessible">
+                    Toggle Content
+                  &lt;/Arrowspan>
+                &lt;/Arrowsvg>
+              &lt;/OtherArrow>
+            &lt;/OtherSignUpButtonDiv2>
+          &lt;/OtherSignUpButton>
+          &lt;FacebookButton>&lt;/FacebookButton>
+          &lt;LogInDiv2>
+            &lt;LogIn2 href="https://www.eventbrite.com/signin/">Log in&lt;/LogIn2>
+          &lt;/LogInDiv2>
+        &lt;/UpperPage>
+      &lt;/Upper2>
+      &lt;RightSide>
+        &lt;ImageRight>&lt;/ImageRight>
+      &lt;/RightSide>
+    &lt;/SignUpPage>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="Landing.module_jsx.html">Landing.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="module-FacebookLoginButton.html">FacebookLoginButton</a></li><li><a href="module-GlobalStyles.html">GlobalStyles</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-SignupOne.html">SignupOne</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Mar 24 2023 20:16:03 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
