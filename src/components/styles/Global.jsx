@@ -1,6 +1,53 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
+
+
+.TermsandConditions .circle{
+
+  
+  fill: #000000;
+  }
+
+  .TermsandConditions .CancelButton{
+  margin-right: 100px;
+  color: #39364f;
+}
+
+.TermsandConditions .AgreeButton {
+  background-color: orangered;
+  color: white;
+  border-color: orangered;
+}
+
+:root{
+  /* colors */
+  --clr-dark:#39364f;
+  --clr-blue:#3659e3;
+}
+${
+  '' /* @font-face {
+  font-family:'neue' ;
+  src: url('../../../public/font/NeuePlak-Bold.ttf') format("ttf");
+  font-weight: bold;
+}
+@font-face {
+  font-family:'neue' ;
+  src: url('../../../public/font/NeuePlak-Regular.ttf') format("ttf");
+  font-weight: 400;
+}
+@font-face {
+  font-family:'neue' ;
+  src: url('../../../public/font/NeuePlak-SemiBold.ttf') format("ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family:'neue' ;
+  src: url('../../../public/font/NeuePlak-Black.ttf') format("ttf");
+  font-weight: 900;
+} */
+}
+
 *,
 *::before,
 *::after {
@@ -13,6 +60,8 @@ h1,
 h2,
 h3,
 h4,
+h5,
+h6,
 p,
 figure,
 blockquote,
@@ -36,10 +85,12 @@ html {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
   text-rendering: optimizeSpeed;
   font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
+  ${'' /* font-family: 'neue plak'; */}
+  font-size: 1.6rem;
+  font-weight: 400;
+  color:var(--clr-dark);
 }
 
 /* A elements that don't have a class get default styles */
@@ -65,6 +116,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
@@ -79,7 +131,13 @@ a {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+
+  
 }
+
+
+
 `;
 
 export default GlobalStyles;
