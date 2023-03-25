@@ -6,6 +6,8 @@ This file renders the React app and attaches it to the DOM.
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+
+
 import { BrowserRouter } from 'react-router-dom';
 
 /**
