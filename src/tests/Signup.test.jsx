@@ -3,6 +3,8 @@ import { fireEvent, getByRole, render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import SignupTwo from '../components/SignupTwo';
 
+import SignUpOne from '../components/SignupOne';
+
 describe('signup', () => {
   it('email displays the correct email from previous page', () => {
     const { getByTestId } = render(
@@ -62,5 +64,22 @@ describe('signup', () => {
     fireEvent.change(passInput, { target: { value: '1234567' } });
     const error = getAllByTestId('passError')[0].textContent;
     expect(error).toEqual('Your password must be at least 8 characters');
+  });
+});
+
+describe('sign-up', () => {
+  it('correct email entered', () => {
+    const { getByTestId } = render(<SignUpOne test={true} />);
+    const emailvalue = getByTestId('email').value;
+    expect(emailvalue).toEqual('');
+  });
+
+  it('when pressing the continue button with empty email error will appear ', () => {
+    const { getAllByRole, getByText } = render(<SignUpOne test={true} />);
+    const continueButton = getAllByRole('button', { name: 'Continue' })[0];
+    fireEvent.click(continueButton);
+    const labels = getByText('Field required').textContent;
+
+    expect(labels).toEqual('Field required');
   });
 });

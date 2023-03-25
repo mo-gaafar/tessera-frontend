@@ -7,7 +7,7 @@
  * @requires ./styles/SignUpEmail.styled
  * @exports SignupOne
  * @description This file contains the SignupOne component and its logic
- * 
+ *
  */
 import React, { useEffect } from 'react';
 
@@ -50,7 +50,7 @@ import {
 import { render } from 'react-dom';
 
 import SignupTwo from './SignupTwo';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 /**
  * @module SignupOne
@@ -63,8 +63,10 @@ import { useNavigate } from 'react-router-dom';
  * @description This function is a component that renders the first page of the signup process
  */
 export default function SignUpOne(props) {
-  const navigate = useNavigate();
-
+  let navigate;
+  if (!props.test) {
+    navigate = useNavigate();
+  }
   const [focused, setFocused] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [emailerror, setEmailError] = React.useState('');
@@ -111,13 +113,14 @@ export default function SignUpOne(props) {
    * @param {object} event
    * @returns {void}
    * @description This function handles the submit event
-    */
+   */
   function handleSubmit(e) {
     e.preventDefault();
-    if (!emailerror) {
-      props.setEmail(email);
-      navigate('/Signuptwo');
-    }
+    if (!props.test)
+      if (!emailerror) {
+        props.setEmail(email);
+        navigate('/Signuptwo');
+      }
   }
 
   return (
@@ -130,7 +133,9 @@ export default function SignUpOne(props) {
               <CreateAccount>Create an account</CreateAccount>
             </DivLeft>
             <LogInDiv>
-              <LogIn href="https://www.eventbrite.com/signin/">Log in</LogIn>
+              <LogIn>
+                <Link to="/login"> Log in</Link>
+              </LogIn>
             </LogInDiv>
           </TopHeader>
           <Form onSubmit={handleSubmit}>
@@ -149,6 +154,7 @@ export default function SignUpOne(props) {
                 </span>
               </Label>
               <InputEmail
+                data-testid="email"
                 style={
                   emailerror
                     ? { borderColor: 'red' }
@@ -204,7 +210,9 @@ export default function SignUpOne(props) {
           </OtherSignUpButton>
           <FacebookButton></FacebookButton>
           <LogInDiv2>
-            <LogIn2 href="https://www.eventbrite.com/signin/">Log in</LogIn2>
+            <LogIn2>
+              <Link to="/login">Log in </Link>
+            </LogIn2>
           </LogInDiv2>
         </UpperPage>
       </Upper2>

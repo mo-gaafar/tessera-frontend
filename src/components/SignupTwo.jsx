@@ -4,10 +4,11 @@
  * @author @hlasultanhassan
  * @requires react
  * @requires react-router-dom
- * @requires ./styles/SignUpEmail.styled
+ * @requires ./styles/FormFormat.styled
  * @exports SignupTwo
  * @description This file contains the SignupTwo component and its logic
  */
+
 import { StyledSignup } from './styles/FormFormat.Styled';
 import { StyledLoginRef } from './styles/FormFormat.Styled';
 import { StyledHead } from './styles/FormFormat.Styled';
@@ -39,7 +40,7 @@ import pwdShow from '../assets/icon-visibility.jpg';
 import { PasswordShowButton } from './styles/Password.Styled';
 import { PasswordShowImg } from './styles/Password.Styled';
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import PasswordChecker from './PasswordChecker';
 import { PasswordStrenghP } from './styles/Password.Styled';
@@ -55,11 +56,23 @@ import { PageImgDiv } from './styles/FormFormat.Styled.jsx';
  * @param {string} props.email - The email of the user passed down from the parent component.
  * @returns {JSX.Element} The JSX representation of the component.
  */
+
 export default function SignupTwo(props) {
+  /**
+   * Navigate to redirect after form submission
+   * @type{function}
+   */
+
   let navigate;
   if (!props.test) {
     navigate = useNavigate();
   }
+
+  /**
+   * A state variable and a function for setting that state variable
+   *
+   */
+
   const [pwdInput, initValue] = React.useState({
     password: '',
   });
@@ -73,10 +86,10 @@ export default function SignupTwo(props) {
 
   const [email, setEmail] = useState(props.email);
 
-  
   /**
    * Updates the email state using the email value in the local storage.
    */
+
   useEffect(() => {
     setEmail(localStorage.getItem('email')?.toLowerCase());
   }, [email]);
@@ -86,6 +99,7 @@ export default function SignupTwo(props) {
    *
    * @param {Object} e - The event object.
    */
+
   const onChange = e => {
     let password = e.target.value;
     setPasswordButtonType('inline');
@@ -113,6 +127,7 @@ export default function SignupTwo(props) {
    *
    * @param {boolean} childData - The value passed down from the child component.
    */
+
   const initPwdInput = async childData => {
     initRobustPassword(childData);
   };
@@ -305,7 +320,9 @@ export default function SignupTwo(props) {
               </div>
 
               <StyledLoginRef>
-                <StyledReference href="">Log in</StyledReference>
+                <StyledReference>
+                  <Link to="/login"> Log In</Link>
+                </StyledReference>
               </StyledLoginRef>
             </StyledHeaderInfo>
 
@@ -512,7 +529,9 @@ export default function SignupTwo(props) {
                 Create account
               </StyledSubmitbutton>
 
-              <LoginA href="">Log in</LoginA>
+              <LoginA>
+                <Link to="/login">Log In</Link>
+              </LoginA>
             </StyledSignupForm>
           </div>
         </StyledSignup>

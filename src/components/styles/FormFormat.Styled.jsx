@@ -46,7 +46,7 @@ export const StyledHeaderInfo = styled.div`
   text-align: left;
 `;
 
-export const StyledReference = styled.a`
+export const StyledReference = styled.span`
   font-weight: 500;
   font-size: 1.3rem;
   text-decoration: none;

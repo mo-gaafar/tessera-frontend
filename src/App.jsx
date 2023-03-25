@@ -30,13 +30,13 @@ import Landing from './components/Landing.jsx';
 import { Route, Routes } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
-import Maincontainer from './components/MainContainer/MainContainer';
+import Maincontainer from './components/MainContainer';
 
 /**
-* Function component that renders the main application
-* @function
-* @returns {JSX.Element} The main application component
-*/
+ * Function component that renders the main application
+ * @function
+ * @returns {JSX.Element} The main application component
+ */
 function App() {
   const [email, setEmail] = useState('');
 

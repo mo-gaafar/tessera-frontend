@@ -32,10 +32,11 @@
  * @author @hlasultanhassan
  * @requires react
  * @requires react-router-dom
- * @requires ./styles/SignUpEmail.styled
+ * @requires ./styles/FormFormat.styled
  * @exports SignupTwo
  * @description This file contains the SignupTwo component and its logic
  */
+
 import { StyledSignup } from './styles/FormFormat.Styled';
 import { StyledLoginRef } from './styles/FormFormat.Styled';
 import { StyledHead } from './styles/FormFormat.Styled';
@@ -67,7 +68,7 @@ import pwdShow from '../assets/icon-visibility.jpg';
 import { PasswordShowButton } from './styles/Password.Styled';
 import { PasswordShowImg } from './styles/Password.Styled';
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import PasswordChecker from './PasswordChecker';
 import { PasswordStrenghP } from './styles/Password.Styled';
@@ -83,11 +84,23 @@ import { PageImgDiv } from './styles/FormFormat.Styled.jsx';
  * @param {string} props.email - The email of the user passed down from the parent component.
  * @returns {JSX.Element} The JSX representation of the component.
  */
+
 export default function SignupTwo(props) {
+  /**
+   * Navigate to redirect after form submission
+   * @type{function}
+   */
+
   let navigate;
   if (!props.test) {
     navigate = useNavigate();
   }
+
+  /**
+   * A state variable and a function for setting that state variable
+   *
+   */
+
   const [pwdInput, initValue] = React.useState({
     password: '',
   });
@@ -101,10 +114,10 @@ export default function SignupTwo(props) {
 
   const [email, setEmail] = useState(props.email);
 
-  
   /**
    * Updates the email state using the email value in the local storage.
    */
+
   useEffect(() => {
     setEmail(localStorage.getItem('email')?.toLowerCase());
   }, [email]);
@@ -114,6 +127,7 @@ export default function SignupTwo(props) {
    *
    * @param {Object} e - The event object.
    */
+
   const onChange = e => {
     let password = e.target.value;
     setPasswordButtonType('inline');
@@ -141,6 +155,7 @@ export default function SignupTwo(props) {
    *
    * @param {boolean} childData - The value passed down from the child component.
    */
+
   const initPwdInput = async childData => {
     initRobustPassword(childData);
   };
@@ -252,6 +267,7 @@ export default function SignupTwo(props) {
     }
     setPasswordType('password');
   };
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -332,7 +348,9 @@ export default function SignupTwo(props) {
               &lt;/div>
 
               &lt;StyledLoginRef>
-                &lt;StyledReference href="">Log in&lt;/StyledReference>
+                &lt;StyledReference>
+                  &lt;Link to="/login"> Log In&lt;/Link>
+                &lt;/StyledReference>
               &lt;/StyledLoginRef>
             &lt;/StyledHeaderInfo>
 
@@ -428,7 +446,7 @@ export default function SignupTwo(props) {
                   &lt;/StyledInputDiv>
                   {firstnameError &amp;&amp; (
                     &lt;Message id="error-message">
-                      &lt;span style={{ color: '#c5162e' }}>
+                      &lt;span data-testid="error" style={{ color: '#c5162e' }}>
                         {' '}
                         {firstnameError}
                       &lt;/span>
@@ -468,11 +486,7 @@ export default function SignupTwo(props) {
                     &lt;/Label>
                   &lt;/StyledInputDiv>
                   {lastnameError &amp;&amp; (
-                    &lt;Message
-                      data-testid="error"
-                      id="error-message"
-                      style={{ color: '#c5162e' }}
-                    >
+                    &lt;Message id="error-message" style={{ color: '#c5162e' }}>
                       {' '}
                       {lastnameError}
                     &lt;/Message>
@@ -543,7 +557,9 @@ export default function SignupTwo(props) {
                 Create account
               &lt;/StyledSubmitbutton>
 
-              &lt;LoginA href="">Log in&lt;/LoginA>
+              &lt;LoginA>
+                &lt;Link to="/login">Log In&lt;/Link>
+              &lt;/LoginA>
             &lt;/StyledSignupForm>
           &lt;/div>
         &lt;/StyledSignup>
@@ -569,13 +585,13 @@ export default function SignupTwo(props) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="Landing.module_jsx.html">Landing.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="module-FacebookLoginButton.html">FacebookLoginButton</a></li><li><a href="module-GlobalStyles.html">GlobalStyles</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-SignupOne.html">SignupOne</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="Landing.module_jsx.html">Landing.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="components_MainContainer.module_jsx.html">components/MainContainer.jsx</a></li><li><a href="components_leftContainer.module_jsx.html">components/leftContainer.jsx</a></li><li><a href="module-FacebookLoginButton.html">FacebookLoginButton</a></li><li><a href="module-GlobalStyles.html">GlobalStyles</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Mar 24 2023 20:16:03 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 25 2023 17:09:26 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

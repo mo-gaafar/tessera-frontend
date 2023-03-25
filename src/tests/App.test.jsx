@@ -9,6 +9,8 @@ import { describe, it, expect } from 'vitest';
 import EventBox from '../components/EventBox';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import TermsAndConditions from '../components/TermsAndConditions';
+
 describe('Landing', () => {
   it('renders Event', () => {
     const { getByText } = render(

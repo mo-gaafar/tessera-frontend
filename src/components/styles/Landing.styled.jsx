@@ -20,17 +20,20 @@ export const StyledLandingEvents = styled.section`
     font-size: 3rem;
     margin-top: 4rem;
   }
+  @media (min-width: 70em) {
+    padding-inline: 13vw;
+  }
 `;
 
 export const StyledEventsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(44rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
+
   .event__box {
     display: flex;
     flex-direction: column;
-
     gap: 1rem;
     transition: all 0.1s ease-out;
     box-shadow: 0 16px 64px -16px rgba(46, 55, 77, 0.1);
@@ -55,7 +58,6 @@ export const StyledEventsContainer = styled.div`
       font-weight: 400;
       color: #6f7287;
     }
-
     span {
       font-size: 1.4rem;
       font-weight: 600;
@@ -64,7 +66,6 @@ export const StyledEventsContainer = styled.div`
       align-items: center;
       gap: 0.5rem;
     }
-
     &:hover {
       box-shadow: 0px 25px 75px 1px rgba(29, 34, 46, 0.1);
     }

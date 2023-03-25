@@ -2,12 +2,12 @@
  * @file TermsAndConditions.jsx
  * @description This file contains the TermsAndConditions component and its logic
  * @name TermsAndConditions.jsx
- * @author @hlasultanhassan
+ * @author @Clara
  * @requires react
  * @requires react-router-dom
  * @requires ./styles/TermsAndConditions.styled
  * @exports TermsAndConditions
- * 
+ *
  */
 import React from 'react';
 import styled from 'styled-components';
