@@ -315,7 +315,9 @@ export default function SignupTwo(props) {
           <div>
             <StyledHeaderInfo>
               <div>
-                <LogoImg src={logo} />
+                <Link to="/">
+                  <LogoImg src={logo} />
+                </Link>
                 <StyledHead>Create an account</StyledHead>
               </div>
 

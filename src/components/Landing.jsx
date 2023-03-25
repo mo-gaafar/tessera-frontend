@@ -15,7 +15,7 @@ import { StyledEventsContainer } from './styles/Landing.styled';
 import { Link, Route, Routes } from 'react-router-dom';
 
 import EventBox from './EventBox';
-
+import Navbar from '../nav2';
 
 export default function Landing() {
   const [city, setCity] = useState('');
@@ -49,16 +49,7 @@ export default function Landing() {
 
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-          <li>
-            <Link to="/login">Log In</Link>
-          </li>
-        </ul>
-      </nav>
+      <Navbar />
       <StyledLandingEvents>
         {/* <h3>
         Popular in
