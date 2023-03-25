@@ -1,3 +1,8 @@
+
+import Navbar from './nav2';
+
+// import Navbar from './navbar';
+
 /**
  * @author @moSaeed15
  * @description This file contains the App component and its logic
