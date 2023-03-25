@@ -1,5 +1,6 @@
 .navBar{
-    background-color: rgba(228, 4, 4, 0.89);
+    /* background-color: rgba(228, 4, 4, 0.89); */
+
     height: 7rem;
     display: flex;
     flex-direction:row;
@@ -9,47 +10,54 @@
 .siteLogoSection{
 
 
-    /* width: 16rem; */
     width: max-content;
     display:flex;
     align-items: center;
     padding-right: 2.5rem;
     padding-left: 2.6rem;
+    cursor: pointer;
 
 
 }
 
+
 .searchSection{
 
-    background-color: rgba(170, 255, 153, 0.89);
+    /* background-color: rgba(170, 255, 153, 0.89); */
+
     display:flex;
-    /* align-items: center; */
+
     flex:1;
-    /* margin-top: 2 rem; */
+    
+
 }
 
 .optionsSection{
 
-    background-color: rgba(157, 175, 255, 0.89);
+    /* background-color: rgba(157, 175, 255, 0.89); */
+
     width:52.5rem;
     display: flex;
     flex-direction:row;
     min-width: 207.45px;
+    color: #39364f;
+
 
 }
 
-.logoSvg{
+.logoPng{
 
-    height:1.93rem;
+    height:2.7rem;
     display: block; 
     margin: auto;
 }
 
 .magnifyingGlass{
 
-    height:2.35rem;
+    height:2.4rem;
     margin-top: 1.15rem;
-    padding-left: 1rem;
+    padding-left: 1.2rem;
+    fill: #bebebe;
     
 
 }
@@ -62,20 +70,22 @@
     margin-top: 0.8rem;
     border: 0;
     outline: none;
+    background-color: rgb(245, 245, 245);
+    padding-top: 0.5rem;
+    padding-left: -0.5rem;
 
 
 }
 
-/* .searchBar:focus {
-    outline: none;
-  }
- */
+
 
 .searchBar::placeholder{
 
-    font-size: 1.38rem;
+    font-size: 1.4rem;
     font-weight: bold;
     padding-left: 1.5rem;
+
+    color: #bebebe;
 
 
 }
@@ -83,7 +93,9 @@
 .magnifyingGlassDiv{
     margin-top: 0.8rem;
     height:4.8rem;
-    background-color: aliceblue;
+    background-color: rgb(245, 245, 245);
+
+    /* background-color: aliceblue; */
 
 
 }
@@ -93,7 +105,7 @@
     display:flex;
     justify-content:center;
     align-items: center;
-   
+    
 }
 
 .landingItems{
@@ -102,6 +114,7 @@
     height: 100%;
     width:  100%;
     padding: 0;
+    height: 7rem;
 
 }
 
@@ -111,9 +124,15 @@
     height: 100%;
 }
 
+.navLanding:hover{
+    background-color: #f3f2f2;
+    cursor: pointer;
+
+}
+
 .hamburgermenu{
     height:2.35rem; 
-    background-color: white;
+
 }
 
 .hamburgerNavMenu{
@@ -122,6 +141,7 @@
     border: 0;
     outline: 0;
     height: 7rem;
+    margin-top: 2rem;
 }
 
 .landingItems #hidden {
@@ -147,6 +167,25 @@
 
 }
 
+
+.dropdownArrow{
+    height:2.35rem;
+    margin-top: 0.5rem; 
+    margin-left: 0.55rem ;
+    fill: #6f7287;
+}
+
+
+#createEventId{
+    color:rgb(61, 100, 255);
+}
+
+.optionsDiv, .helpDiv, .organizeDiv{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    padding: 2rem;
+}
 
 
 
@@ -194,7 +233,9 @@
         top: 80px;
         height:230px;
         width:100%;
-        background-color: blue;
+
+        /* background-color: blue; */
+
         flex-direction: column;
         align-items: center;
     }
@@ -202,7 +243,9 @@
     .magnifyingGlassDiv{
         margin-top: 0.8rem;
         height:4.8rem;
-        background-color: aliceblue;
+
+        background-color: white;
+
         padding-right: 4rem;
     
 
@@ -219,9 +262,15 @@
     display: none;
     display: flex;
     flex-flow: column wrap;
+    
 
 }
 
+.magnifyingGlass{
+
+    fill: #6f7287;
+    
+}
 
 
 }

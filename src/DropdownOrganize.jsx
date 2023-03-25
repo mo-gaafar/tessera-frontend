@@ -12,7 +12,7 @@ import './Dropdown.css';
 
     return(
         <>
-        <ul className={dropdown ?  "menuDropdown organizeDropdown clicked" : "menuDropdown organizeDropdown"} onClick={()=> setDropdown(!dropdown)}>
+        <ul className={dropdown ?  "menuDropdownOrg organizeDropdown clicked" : "menuDropdownOrg organizeDropdown"} onClick={()=> setDropdown(!dropdown)}>
             {organizeDropdown.map(item => {
                 return (
                     <li key={item.id}>

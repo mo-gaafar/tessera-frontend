@@ -8,10 +8,49 @@
 }
 
 
-.menuDropdown{    
+.menuDropdownOrg, .menuDropdownHelp{    
     position: absolute;
-    /* background-color: aliceblue; */
     top: 7rem;
     z-index: 1;
     padding: 0;
+    background-color: rgb(255, 255, 255);
+    width: 25rem;
+    right: 40rem; 
+    left: auto; 
+    list-style: none;
+    text-align: start;
+    
+    
 }
+
+.menuDropdownOrg{
+    margin-right: 0.5rem;
+    
+}
+
+.menuDropdownHelp{
+    margin-right: -9.5rem;
+    
+}
+
+
+.organizeSubmenu, .helpSubmenu{
+
+    display: block;
+    width: 100%;
+    height: 4rem;
+    text-decoration: none;
+    font-size: 1.3rem ; 
+    padding: 2.2rem 0 3.15rem 1.7rem;
+    color: #6f7287;
+    
+    
+
+}
+
+.organizeSubmenu:hover, .helpSubmenu :hover{
+
+    background-color:#f3f2f2;
+
+}
+

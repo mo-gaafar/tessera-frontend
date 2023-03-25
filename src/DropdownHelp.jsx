@@ -11,7 +11,7 @@ function DropdownHelp() {
 
     return(
         <>
-        <ul className={dropdown ? "menuDropdown helpDropdown clicked" : "menuDropdown helpDropdown" } onClick={()=> setDropdown(!dropdown)}>
+        <ul className={dropdown ? "menuDropdownHelp helpDropdown clicked" : "menuDropdownHelp helpDropdown" } onClick={()=> setDropdown(!dropdown)}>
             {helpDropdown.map(item => {
                 return (
                     <li key={item.id}>
