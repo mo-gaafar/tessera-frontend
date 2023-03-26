@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Landing.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Landing.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Landing.jsx
+ * @name Landing.jsx
+ * @author @moSaeed15
+ * @requires react
+ * @requires react-router-dom
+ * @requires ./styles/Landing.styled
+ * @requires ./EventBox
+ * @exports Landing
+ * @description This file contains the Landing page components and its logic
+ */
+import { useEffect, useState } from 'react';
+import { StyledLandingEvents } from './styles/Landing.styled';
+import { StyledEventsContainer } from './styles/Landing.styled';
+import { Link, Route, Routes } from 'react-router-dom';
+
+import EventBox from './EventBox';
+
+
+export default function Landing() {
+  const [city, setCity] = useState('');
+
+  /**
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that fetches the city name from the latitude and longitude
+   * @param {function} fetchData
+   * @param {function} navigator.geolocation.getCurrentPosition
+   * @returns {JSX.Element} A React component representing the event box
+   */
+  useEffect(() => {
+    const fetchData = async (latitude, longitude) => {
+      const data = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&amp;key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
+      );
+
+      const json = await data.json();
+      const cityName =
+        json.results[0].address_components[4].long_name.split(' ')[0];
+      setCity(cityName);
+    };
+
+    navigator.geolocation?.getCurrentPosition(poistion => {
+      const { latitude, longitude } = poistion.coords;
+
+      fetchData(latitude, longitude);
+    });
+  }, []);
+
+  return (
+    &lt;>
+      &lt;nav>
+        &lt;ul>
+          &lt;li>
+            &lt;Link to="/signup">Sign Up&lt;/Link>
+          &lt;/li>
+          &lt;li>
+            &lt;Link to="/login">Log In&lt;/Link>
+          &lt;/li>
+        &lt;/ul>
+      &lt;/nav>
+      &lt;StyledLandingEvents>
+        {/* &lt;h3>
+        Popular in
+        &lt;svg
+          id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_svg"
+          x="0"
+          y="0"
+          viewBox="0 0 24 24"
+          xmlSpace="preserve"
+        >
+          &lt;path
+            id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_base"
+            fill="evenodd"
+            clip="evenodd"
+            d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z"
+          >&lt;/path>
+        &lt;/svg>
+        &lt;span>{city}&lt;/span>
+      &lt;/h3> */}
+        &lt;div className="">
+          &lt;h4>Events in {city}&lt;/h4>
+          &lt;StyledEventsContainer img="../../src/assets/svgviewer-output.svg">
+            &lt;EventBox
+              image="../../src/assets/event__1.avif"
+              eventTitle="Certified DeFi Associate | Cairo"
+              date="Tue, Apr 18, 7:00 AM "
+              description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
+              organizer="Blockchain Smart Solutions"
+              followers="917 followers"
+            />
+            &lt;EventBox
+              image="../../src/assets/event__2.avif"
+              eventTitle="The Future Of Leadership Congress 2023"
+              date="Mon, May 15, 9:00 AM "
+              description="Cairo • Cairo, Cairo Governorate Starts at A$751.69"
+              organizer="Erudite Training Solutions"
+              followers="47 followers"
+            />
+            &lt;EventBox
+              image="../../src/assets/event__3.avif"
+              eventTitle="Unravelling NFTs | Cairo"
+              date="Tue, Apr 11, 7:00 AM  "
+              description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
+              organizer="Blockchain Smart Solutions"
+              followers="917 followers"
+            />
+            &lt;EventBox
+              image="../../src/assets/event__4.avif"
+              eventTitle="Certified Crypto Associate | Cairo"
+              date="Tomorrow at 4:00 PM"
+              description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
+              organizer="Blockchain Smart Solutions"
+              followers="917 followers"
+            />
+            &lt;EventBox
+              image="../../src/assets/event__5.avif"
+              eventTitle="Cloudflight Coding Contest (CCC) - Cairo"
+              date="Fri, Mar 31, 3:00 PM"
+              description="German University in Cairo • Cairo, محافظة القاهرة"
+              isFree={true}
+              organizer="Cloudflight GmbH"
+              followers="213 followers"
+            />
+            &lt;EventBox
+              image="../../src/assets/event__6.avif"
+              eventTitle="How to Improve Your Memory - Cairo"
+              date="Wed, Mar 29, 4:00 PM "
+              description="Cairo • Cairo, Cairo Governorate"
+              isFree={true}
+              organizer="Iris Reading"
+              followers="213 followers"
+            />
+          &lt;/StyledEventsContainer>
+        &lt;/div>
+      &lt;/StyledLandingEvents>
+    &lt;/>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="Landing.module_jsx.html">Landing.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="components_MainContainer.module_jsx.html">components/MainContainer.jsx</a></li><li><a href="components_leftContainer.module_jsx.html">components/leftContainer.jsx</a></li><li><a href="module-FacebookLoginButton.html">FacebookLoginButton</a></li><li><a href="module-GlobalStyles.html">GlobalStyles</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 25 2023 17:09:26 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
