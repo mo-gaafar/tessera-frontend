@@ -109,3 +109,31 @@ export const helpDropdown=[
 
     },
 ]
+
+export const hamburgerDropdown=[
+
+    {
+        id:"hamOrganize",
+        title:"Organize",
+        path:",/Organize",
+        cName:"hamburgerSubmenu"
+
+
+    },
+    {
+        id:"hamHelp",
+        title:"Help",
+        path:",/Help",
+        cName:"hamburgerSubmenu"
+
+
+    },
+    {
+        id:"hamCreateEVent",
+        title:"Create An Event",
+        path:",/Create",
+        cName:"hamburgerSubmenu"
+
+
+    },
+]
