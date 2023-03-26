@@ -18,12 +18,9 @@ export default function Navbar (){
 
     const [dropdownforHamburger, setDropdownHamburger]= useState(false);
 
-    const [showNavItems, setshowNavItems]= useState(false); 
-
-    
 
 return ( 
-    <div className = "container ">
+    <div className = "container " onClick={()=>{setDropdownHamburger(!dropdownforHamburger)}}>
         <GlobalStyles />
         <nav className="navBar">
             <div className="siteLogoSection">
@@ -35,7 +32,7 @@ return (
             </div>
 
             <div className="optionsSection" >
-                <li className="navLanding" onMouseEnter={()=>{setDropdownHamburger(true)}} onMouseLeave={()=>{setDropdownHamburger(false)}}>
+                <li className="navLanding" onClick={()=>{setDropdownHamburger(!dropdownforHamburger)}} >
                     <div className="hamburgerDiv" >
                         <div className="organizeDiv">
                             <svg className="dropdownArrow" id="vertical-dots-chunky_svg__eds-icon--vertical-dots-chunky_svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve"><path id="vertical-dots-chunky_svg__eds-icon--vertical-dots-chunky_dot_2" fill-rule="evenodd" clip-rule="evenodd" d="M10 18c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z"></path><circle id="vertical-dots-chunky_svg__eds-icon--vertical-dots-chunky_dot" fill-rule="evenodd" clip-rule="evenodd" cx="12" cy="12" r="2"></circle><circle id="vertical-dots-chunky_svg__eds-icon--vertical-dots-chunky_dot_1" fill-rule="evenodd" clip-rule="evenodd" cx="12" cy="6" r="2"></circle></svg>
