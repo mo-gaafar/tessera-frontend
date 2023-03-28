@@ -7,21 +7,30 @@
     display: none;
 }
 
+.hamburgerDropdown.clicked{
+    display: none;
+}
 
-.menuDropdownOrg, .menuDropdownHelp{    
+
+
+
+.menuDropdownOrg, .menuDropdownHelp, .menuDropdownham{    
     position: absolute;
-    top: 7rem;
+    top: 5rem;
     z-index: 1;
     padding: 0;
     background-color: rgb(255, 255, 255);
-    width: 25rem;
-    right: 40rem; 
+    width: 20rem;
+    /* right: 40rem;  */
     left: auto; 
+    /* padding: 50px; */
     list-style: none;
     text-align: start;
     
     
 }
+
+
 
 .menuDropdownOrg{
     margin-right: 0.5rem;
@@ -34,7 +43,8 @@
 }
 
 
-.organizeSubmenu, .helpSubmenu{
+
+.organizeSubmenu, .helpSubmenu, .hamburgerSubmenu{
 
     display: block;
     width: 100%;
@@ -43,12 +53,12 @@
     font-size: 1.3rem ; 
     padding: 2.2rem 0 3.15rem 1.7rem;
     color: #6f7287;
-    
+    height: 100%;
     
 
 }
 
-.organizeSubmenu:hover, .helpSubmenu :hover{
+.organizeSubmenu:hover, .helpSubmenu :hover, .hamburgerSubmenu:hover{
 
     background-color:#f3f2f2;
 
