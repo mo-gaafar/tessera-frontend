@@ -12,7 +12,7 @@ import {
   CircleDivider,
   GoogleButton,
   Googlelogo,
-} from '../styles/SignUpEmail.styled';
+} from '../../SignUp/styles/SignUpEmail.styled';
 import { Link } from 'react-router-dom';
 
 export default function Login() {

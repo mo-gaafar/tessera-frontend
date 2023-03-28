@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import svg from '../../../src/assets/react.svg';
 
 export const StyledLandingEvents = styled.section`
   padding-inline: 5vw;

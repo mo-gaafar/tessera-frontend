@@ -7,7 +7,6 @@
  * @description This file contains the RightContainer component and its logic
  */
 import { RightStyled } from './styles/right.styled';
-import { ImageRight } from './styles/SignUpEmail.styled';
 /**
  * @module RightContainer
  * @returns {JSX.Element} RightContainer component
