@@ -1,11 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
-
 const GlobalStyles = createGlobalStyle`
 
-
-
- 
 
 .TermsandConditions .circle{
 
@@ -23,9 +19,6 @@ const GlobalStyles = createGlobalStyle`
   color: white;
   border-color: orangered;
 }
-
-
-
 
 :root{
   /* colors */
@@ -92,7 +85,6 @@ html {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
   text-rendering: optimizeSpeed;
   font-family: 'Roboto', sans-serif;
   ${'' /* font-family: 'neue plak'; */}
