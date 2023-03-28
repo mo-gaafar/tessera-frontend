@@ -1,3 +1,13 @@
+/**
+ * This component is used to handle the Facebook login
+ * @module FacebookLoginButton
+ * @author @claraashraf24
+ * @requires react
+ * @requires axios
+ * @requires react-facebook-login
+ * @returns {JSX.Element} FacebookLoginButton component
+ * 
+ */
 // import axios from 'axios';
 // import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
