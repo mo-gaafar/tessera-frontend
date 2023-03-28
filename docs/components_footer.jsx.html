@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/footer.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/footer.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Footer.jsx
+ * @name Footer.jsx
+ * @author @sohailaaAshraaf
+ * @requires react
+ */
+import React from "react"
+
+/**
+A footer component for the Eventbrite website.
+@function
+@returns {JSX.Element} A React JSX Element that displays the Eventbrite footer.
+*/
+export default function Footer() {
+  return(
+    &lt;div className="footer">
+      &lt;div className="footer-title">
+        &lt;p>© 2023 Eventbrite&lt;/p>
+      &lt;/div>
+      &lt;div className = "LinksLists">
+        &lt;ul>
+          &lt;a>How It Works&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Pricing&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Contact Support&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Contact Sales&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>About&lt;/a>
+          &lt;li>●&lt;/li>
+          &lt;a>Blog&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Help&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Careers&lt;/a>
+          &lt;li>●&lt;/li>
+          &lt;a>Press&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Investors&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Security&lt;/a>
+          &lt;li>●&lt;/li>
+          &lt;a>Developers&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Terms&lt;/a>
+          &lt;li>●&lt;/li>
+          &lt;a>Privacy&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>CA Privacy Notice&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Accessibilty&lt;/a> 
+          &lt;li>●&lt;/li>
+          &lt;a>Cookies&lt;/a>
+        &lt;/ul>
+      &lt;/div>
+      &lt;div>
+      &lt;select className="selectList" name="global-footer-select" role={"listbox"} id="global-footer-select" >
+        &lt;option value="es_AR" data-spec="select-option">Argentina&lt;/option>
+        &lt;option value="en_AU" data-spec="select-option">Australia&lt;/option>
+        &lt;option value="nl_BE" data-spec="select-option">België&lt;/option>
+        &lt;option value="fr_BE" data-spec="select-option">Belgique&lt;/option>
+        &lt;option value="pt_BR" data-spec="select-option">Brasil&lt;/option>
+        &lt;option value="en_CA" data-spec="select-option">Canada (EN)&lt;/option>
+        &lt;option value="fr_CA" data-spec="select-option">Canada (FR)&lt;/option>
+        &lt;option value="es_CL" data-spec="select-option">Chile&lt;/option>
+        &lt;option value="es_CO" data-spec="select-option">Colombia&lt;/option>
+        &lt;option value="en_DK" data-spec="select-option">Denmark&lt;/option>
+        &lt;option value="de_DE" data-spec="select-option">Deutschland&lt;/option>
+        &lt;option value="es_ES" data-spec="select-option">España&lt;/option>
+        &lt;option value="en_FI" data-spec="select-option">Finland&lt;/option>
+        &lt;option value="fr_FR" data-spec="select-option">France&lt;/option>
+        &lt;option value="en_HK" data-spec="select-option">Hong Kong&lt;/option>
+        &lt;option value="en_IE" data-spec="select-option">Ireland&lt;/option>
+        &lt;option value="it_IT" data-spec="select-option">Italia&lt;/option>
+        &lt;option value="es_MX" data-spec="select-option">México&lt;/option>
+        &lt;option value="nl_NL" data-spec="select-option">Nederland&lt;/option>
+        &lt;option value="en_NZ" data-spec="select-option">New Zealand&lt;/option>
+        &lt;option value="de_AT" data-spec="select-option">Österreich&lt;/option>
+        &lt;option value="es_PE" data-spec="select-option">Perú&lt;/option>
+        &lt;option value="pt_PT" data-spec="select-option">Portugal&lt;/option>
+        &lt;option value="de_CH" data-spec="select-option">Schweiz&lt;/option>
+        &lt;option value="en_SG" data-spec="select-option">Singapore&lt;/option>
+        &lt;option value="fr_CH" data-spec="select-option">Suisse&lt;/option>
+        &lt;option value="sv" data-spec="select-option">Sverige&lt;/option>
+        &lt;option value="en_GB" data-spec="select-option">United Kingdom&lt;/option>
+        &lt;option selected value="en_US" data-spec="select-option">United States&lt;/option>
+      &lt;/select>
+      &lt;/div>
+    &lt;/div>
+  )
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="Landing.module_jsx.html">Landing.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.module_jsx.html">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="components_MainContainer.module_jsx.html">components/MainContainer.jsx</a></li><li><a href="components_leftContainer.module_jsx.html">components/leftContainer.jsx</a></li><li><a href="module-FacebookLoginButton.html">FacebookLoginButton</a></li><li><a href="module-GlobalStyles.html">GlobalStyles</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 25 2023 17:04:01 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

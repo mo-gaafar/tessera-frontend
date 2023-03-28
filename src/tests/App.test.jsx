@@ -1,10 +1,18 @@
-import { render, screen } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  getAllByTestId,
+} from '@testing-library/react';
 import Landing from '../components/Landing';
 import { describe, it, expect } from 'vitest';
 import EventBox from '../components/EventBox';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import TermsAndConditions from '../components/TermsAndConditions';
 
 describe('Landing', () => {
-  it('renders headline', () => {
+  it('renders Event', () => {
     const { getByText } = render(
       <EventBox
         image="../../src/assets/event__2.avif"
@@ -20,14 +28,18 @@ describe('Landing', () => {
     ).textContent;
     expect(title).toBe('The Future Of Leadership Congress 2023');
   });
-});
 
-describe('something truthy and falsy', () => {
-  it('true to be true', () => {
-    expect(true).toBe(true);
-  });
+  it('renders geolocation', () => {
+    const { getByText } = render(
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+        </Routes>
+      </BrowserRouter>
+    );
 
-  it('false to be false', () => {
-    expect(false).toBe(false);
+    const title = getByText('Events in').textContent;
+    console.log(title);
+    expect(title).toBe('Events in ');
   });
 });
