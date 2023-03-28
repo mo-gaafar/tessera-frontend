@@ -15,7 +15,7 @@ import { StyledEventsContainer } from './styles/Landing.styled';
 import { Link, Route, Routes } from 'react-router-dom';
 
 import EventBox from './EventBox';
-import Navbar from '../nav2';
+import Navbar from './nav2';
 
 export default function Landing() {
   const [city, setCity] = useState('');

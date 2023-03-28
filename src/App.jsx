@@ -1,38 +1,22 @@
-// import Navbar from './navbar';
-
 /**
  * @author @moSaeed15
  * @description This file contains the App component and its logic
  * @exports App
  */
-//import GlobalStyles from "./components/styles/global";
 
-//function App() {
-//return (
-//<>
-//
-//<GlobalStyles />
-//</>
-//);
-//}
-
-//export default App;
-
-// import FacebookLogin from './components/LoginFacebook';
-// import GoogleLoginButton from './components/LoginGoogle';
 // const google = () => {
 //   console.log('first');
 //   window.open('', _self);
 // };
 
-import SignupTwo from './components/SignupTwo';
-import SignUpOne from './components/SignupOne';
+import SignupTwo from './pages/SignUp/SignupTwo';
+import SignUpOne from './pages/SignUp/SignupOne';
 import GlobalStyles from './components/styles/global';
-import Landing from './components/Landing.jsx';
+import Landing from './pages/LandingPage/Landing';
 import { Route, Routes } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
-import Maincontainer from './components/MainContainer';
+import Maincontainer from './pages/LogIn/MainContainer';
 
 /**
  * Function component that renders the main application
