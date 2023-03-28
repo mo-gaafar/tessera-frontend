@@ -1,48 +1,37 @@
 import './navstyle.css';
 
-export const navItemsLanding=[
-    {
-
-
-        id:"organizeId",
-        title: "Organize",
-        path: "./Organize",
-        cName:"navLanding"
-    
-    },
-    {
-        id:"helpId",
-        title:"Help",
-        path:",/Help",
-        cName:"navLanding"
-
-
-    },
-    {
-        id:"createEventId",
-        title:"Create An event",
-        path:",/Create",
-        cName:"navLanding"
-
-
-    },
-    {
-        id:"logInId",
-        title:"Log In",
-        path:",/login",
-        cName:"navLanding"
-
-
-    },
-    {
-        id:"signUpId",
-        title:"Sign Up",
-        path:",/signup",
-        cName:"navLanding"
-
-
-    },
-]
+export const navItemsLanding = [
+  {
+    id: 'organizeId',
+    title: 'Organize',
+    path: './Organize',
+    cName: 'navLanding',
+  },
+  {
+    id: 'helpId',
+    title: 'Help',
+    path: ',/Help',
+    cName: 'navLanding',
+  },
+  {
+    id: 'createEventId',
+    title: 'Create An event',
+    path: ',/Create',
+    cName: 'navLanding',
+  },
+  {
+    id: 'logInId',
+    title: 'Log In',
+    path: '/login',
+    cName: 'navLanding',
+  },
+  {
+    id: 'signUpId',
+    title: 'Sign Up',
+    path: '/signup',
+    cName: 'navLanding',
+  },
+];
 
 export const organizeDropdown=[
 
@@ -137,3 +126,6 @@ export const hamburgerDropdown=[
 
     },
 ]
+
+
+

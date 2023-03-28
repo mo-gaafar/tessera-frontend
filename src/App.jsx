@@ -1,6 +1,3 @@
-
-import Navbar from './nav2';
-
 // import Navbar from './navbar';
 
 /**

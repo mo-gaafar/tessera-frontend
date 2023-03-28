@@ -2,13 +2,15 @@ import React from 'react';
 import { fireEvent, getByRole, render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import SignupTwo from '../components/SignupTwo';
-
+import { BrowserRouter } from 'react-router-dom';
 import SignUpOne from '../components/SignupOne';
 
 describe('signup', () => {
   it('email displays the correct email from previous page', () => {
     const { getByTestId } = render(
-      <SignupTwo test={true} email="test@email.com" />
+      <BrowserRouter>
+        <SignupTwo test={true} email="test@email.com" />
+      </BrowserRouter>
     );
     const emailValue = getByTestId('email').value;
     expect(emailValue).toEqual('test@email.com');
@@ -16,7 +18,9 @@ describe('signup', () => {
 
   it('adding any name in input firstname field ', () => {
     const { getAllByTestId } = render(
-      <SignupTwo test={true} email="test@email.com" />
+      <BrowserRouter>
+        <SignupTwo test={true} email="test@email.com" />
+      </BrowserRouter>
     );
     const firstnameInput = getAllByTestId('firstname')[0];
 
@@ -26,7 +30,9 @@ describe('signup', () => {
 
   it('adding spaces in name input lastname field ', () => {
     const { getAllByTestId, getByTestId } = render(
-      <SignupTwo test={true} email="test@email.com" />
+      <BrowserRouter>
+        <SignupTwo test={true} email="test@email.com" />
+      </BrowserRouter>
     );
     const name = getAllByTestId('firstname')[0];
 
@@ -37,7 +43,9 @@ describe('signup', () => {
 
   it('adding symbols in input firstname field ', () => {
     const { getAllByTestId } = render(
-      <SignupTwo test={true} email="test@email.com" />
+      <BrowserRouter>
+        <SignupTwo test={true} email="test@email.com" />
+      </BrowserRouter>
     );
     const firstnameInput = getAllByTestId('firstname')[0];
 
@@ -47,7 +55,9 @@ describe('signup', () => {
 
   it('when pressing the submit button with empty password error will appear ', () => {
     const { getAllByRole, getByText } = render(
-      <SignupTwo test={true} email="test@email.com" />
+      <BrowserRouter>
+        <SignupTwo test={true} email="test@email.com" />
+      </BrowserRouter>
     );
     const submitBtn = getAllByRole('button', { name: 'Create account' })[0];
     fireEvent.click(submitBtn);
@@ -57,7 +67,9 @@ describe('signup', () => {
 
   it('adding password less than 8 characters show error', () => {
     const { getAllByTestId } = render(
-      <SignupTwo test={true} email="test@email.com" />
+      <BrowserRouter>
+        <SignupTwo test={true} email="test@email.com" />
+      </BrowserRouter>
     );
     const passInput = getAllByTestId('password')[0];
 
@@ -69,13 +81,21 @@ describe('signup', () => {
 
 describe('sign-up', () => {
   it('correct email entered', () => {
-    const { getByTestId } = render(<SignUpOne test={true} />);
+    const { getByTestId } = render(
+      <BrowserRouter>
+        <SignUpOne test={true} />
+      </BrowserRouter>
+    );
     const emailvalue = getByTestId('email').value;
     expect(emailvalue).toEqual('');
   });
 
   it('when pressing the continue button with empty email error will appear ', () => {
-    const { getAllByRole, getByText } = render(<SignUpOne test={true} />);
+    const { getAllByRole, getByText } = render(
+      <BrowserRouter>
+        <SignUpOne test={true} />
+      </BrowserRouter>
+    );
     const continueButton = getAllByRole('button', { name: 'Continue' })[0];
     fireEvent.click(continueButton);
     const labels = getByText('Field required').textContent;
