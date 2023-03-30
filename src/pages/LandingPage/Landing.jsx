@@ -28,6 +28,18 @@ export default function Landing() {
    * @param {function} navigator.geolocation.getCurrentPosition
    * @returns {JSX.Element} A React component representing the event box
    */
+  const [focused, setFocused] =  useState({
+    All: true,
+    forYou: false,
+    online: false,
+    today: false,
+    weekend: false,
+    women: false,
+    free: false,
+    music: false,
+    food: false,
+    charity: false,
+  });
   useEffect(() => {
     const fetchData = async (latitude, longitude) => {
       const data = await fetch(
@@ -69,7 +81,121 @@ export default function Landing() {
         </svg>
         <span>{city}</span>
       </h3> */}
+    
         <div className="">
+          <nav> 
+            <ul> 
+            <li className="first-Filter">
+              <button
+              style={focused.All ?
+               {color:"blue", paddingBottom: "3px",
+               borderBottom:"2px solid blue"}:{background:"none"}}>
+                <span>
+                All 
+                </span>
+              </button>
+            </li>
+            
+            <li>
+              <button 
+              style={focused.forYou ?
+               {color:"blue", paddingBottom: "3px",
+               borderBottom:"2px solid blue"}:{background:"none"}}>
+                <span>
+                  For you
+                </span>
+              </button>
+            </li>
+
+            <li>
+              <button
+              style={focused.online ?
+                {color:"blue", paddingBottom: "3px",
+                borderBottom:"2px solid blue"}:{background:"none"}}>
+                <span>
+                  Online
+                </span>
+                
+              </button>
+            </li>
+
+            <li>
+              <button
+                style={focused.today ?
+               {color:"blue", paddingBottom: "3px",
+               borderBottom:"2px solid blue"}:{background:"none"}}>
+                <span>
+                  Today
+                </span>
+                
+              </button>
+            </li>
+
+            <li>
+              <button
+               style={focused.weekend ?
+               {color:"blue", paddingBottom: "3px",
+               borderBottom:"2px solid blue"}:{background:"none"}}>
+                <span>
+                  This Weekend
+                </span>
+                
+              </button>
+            </li>
+
+          
+
+            <li>
+              <button 
+               style={focused.free ?
+               {color:"blue", paddingBottom: "3px",
+               borderBottom:"2px solid blue"}:{background:"none"}}>
+                <span>
+                  Free
+                </span>
+                
+              </button>
+            </li>
+
+            <li>
+              <button 
+              style={focused.music ?
+               {color:"blue", paddingBottom: "3px",
+               borderBottom:"2px solid blue"}:{background:"none"}}>
+                <span>
+                  Music
+                </span>
+                
+              </button>
+            </li>
+
+            <li>
+              <button 
+              style={focused.music ?
+               {color:"blue", paddingBottom: "3px",
+               borderBottom:"2px solid blue"}:{background:"none"}}>
+                <span>
+                  Food & Drink
+                </span>
+                
+              </button>
+            </li>
+
+            <li>
+              <button 
+              style={focused.charity ?
+               {color:"blue", paddingBottom: "3px",
+               borderBottom:"2px solid blue"}:{background:"none"}}>
+                <span>
+                  Charity & causes
+                </span>
+                
+              </button>
+            </li>
+          </ul>
+          </nav>
+        
+
           <h4>Events in {city}</h4>
           <StyledEventsContainer img="../../src/assets/svgviewer-output.svg">
             <EventBox
