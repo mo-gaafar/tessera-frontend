@@ -12,6 +12,8 @@
 
     width: max-content;
     display:flex;
+    flex-grow: 0;
+    flex-shrink: 0;
     align-items: center;
     padding-right: 2.5rem;
     padding-left: 2.6rem;
@@ -28,6 +30,7 @@
     display:flex;
 
     flex:1;
+
     
 
 }
@@ -41,6 +44,7 @@
     flex-direction:row;
     min-width: 207.45px;
     color: #39364f;
+   
 
 
 }
@@ -105,7 +109,7 @@
     display:flex;
     justify-content:center;
     align-items: center;
-    
+  
 }
 
 .landingItems{
@@ -122,6 +126,7 @@
     display:flex;
     align-items:center;
     height: 100%;
+    margin-left: 1.5rem;
 }
 
 .navLanding:hover{
@@ -132,6 +137,7 @@
 
 .hamburgermenu{
     height:2.35rem; 
+    
 
 }
 
@@ -140,7 +146,7 @@
     background-color: white;
     border: 0;
     outline: 0;
-    height: 7rem;
+    /* height: 7rem; */
     margin-top: 2rem;
 }
 
@@ -152,10 +158,13 @@
     
     /* margin-top: 7rem; */
     display: flex;
-    flex-flow: column wrap;
+    
+    background-image: url( "https://cdn.evbstatic.com/s3-build/fe/build/images/baedf009bb329458ae80eb599fb8a4d5-3_tablet_1067x470.jpg" );
+    height: 471px;
+    width: 100%;
 }
 
-.landingImage1{
+/* .landingImage1{
     
     display: flex;
     flex-flow: column wrap;
@@ -165,8 +174,15 @@
     
     display: none;
 
-}
+} */
 
+.hamIcon{
+    /* height: 100%; */
+    height: 100%;
+    margin-top: 0.5rem;
+    margin-left: 0.55rem;
+    fill: #6f7287;
+}
 
 .dropdownArrow{
     height:2.35rem;
@@ -184,10 +200,23 @@
     display:flex;
     justify-content:center;
     align-items: center;
-    padding: 2rem;
+    padding: 0.5rem;
+    margin-right: 0.1rem;
+
+
+    
+ 
+}
+
+#signUpId{
+    margin-right: -2rem;
 }
 
 
+
+.hamburgerDiv{
+    display: none;
+}
 
 
 
@@ -198,7 +227,18 @@
         display: none;
     }
 
+    .optionsDiv{
+        width: 7rem;
+        
+    }
+
+    #signUpId{
+        margin-left: -0.5rem;
+    }
+
+
 }
+
 
 @media only screen and (max-width: 959px){
 
@@ -221,10 +261,13 @@
         
         justify-content: right;
         align-items: right;
+        cursor: pointer;
+        
             
     }
+
     .optionsSection{
-        max-width: 207.45px;
+        max-width: 12.966rem;
     }
 
     .landingItems #hidden {
@@ -233,44 +276,70 @@
         top: 80px;
         height:230px;
         width:100%;
-
-        /* background-color: blue; */
-
         flex-direction: column;
         align-items: center;
     }
 
     .magnifyingGlassDiv{
-        margin-top: 0.8rem;
-        height:4.8rem;
-
+        margin-top: 0rem;
+        width:7rem;
+        height:7rem;
+        margin-left: 2rem;
+        margin-right: -1.2rem;
         background-color: white;
-
-        padding-right: 4rem;
+        padding-right: 2.5rem;
+        justify-content:center;
+        
     
 
 
-}
+    }
+    .magnifyingGlassDiv:hover{
+        background-color: #f3f2f2;
 
-.landingImage1{
+
+    }
+
+    .hamburgerDiv{
+        display: flex;
+        height: 100%;
+        width: 5rem;
+        padding: 0;
+        background-color: white;
+        /* margin-right: 3rem; */
+    }
+
+    /* .landingImage1{
+        
+        display: none;
+    }
+
+    .landingImage2{
+        
+        display: none;
+        display: flex;
+        flex-flow: column wrap;
+        
+
+    } */
+
+    .magnifyingGlass{
+        margin-top: 2.3rem;
+        fill: #6f7287;
+        
+    }
+
+    .organizeDiv{
+        margin-top: -0.5rem;
+        margin-right: 3rem;
+        width:7rem;
+        cursor: pointer;
+     
+    }
+    .organizeDiv:hover{
+        background-color: #f3f2f2;
     
-    display: none;
-}
-
-.landingImage2{
-    
-    display: none;
-    display: flex;
-    flex-flow: column wrap;
-    
-
-}
-
-.magnifyingGlass{
-
-    fill: #6f7287;
-    
-}
+    }
 
 
 }

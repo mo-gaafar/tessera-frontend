@@ -15,6 +15,7 @@ import Login from './Login/login';
  * @description This function is a component that renders the left container
  * @returns {JSX.Element} LeftContainer component
  */
+
 export default function LeftContainer() {
   return (
     <LeftStyled>
