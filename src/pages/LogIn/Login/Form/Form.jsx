@@ -4,8 +4,22 @@ import { LoginTagSt } from "../Logintag/LoginTag.styled";
 import { FormST } from "./Form.styled";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { PasswordShowImg } from "../../../SignUp/styles/Password.Styled";
+import { PasswordShowButton } from "../../../SignUp/styles/Password.Styled";
 import { ErrorST } from "./Error.styled";
 export default function Form() {
+  const [passwordType, setPasswordType] = useState("password");
+  const [passwordInput, setPasswordInput] = useState("");
+  const handlePasswordChange = (evnt) => {
+    setPasswordInput(evnt.target.value);
+  };
+  const togglePassword = () => {
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
+  };
   // const { formErrors, setFormErrors } = useState({});
   // const [isSubmit, setIsSubmit] = useState(false);
 
@@ -56,28 +70,39 @@ export default function Form() {
     pass: "invalid password",
   };
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     //Prevent page reload
     event.preventDefault();
-
     var { uname, pass } = document.forms[0];
+    const responsebody = {
+      Email: uname.value,
+      Password: pass.value,
+    };
 
     // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
+    //const userData = database.find((user) => user.username === uname.value);
+
+    const response = await fetch("https://www.tessera.social/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify(responsebody),
+    });
 
     // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
+    if (response.success) {
+      // if (userData.password !== responsebody.Password) {
+      //   // Invalid password
+      //   setErrorMessages({ name: "pass", message: errors.pass });
+      // } else {
+      //   setIsSubmitted(true);
+      // }
+      setIsSubmitted(true);
     } else {
-      // Username not found
+      // email not found
       setErrorMessages({ name: "uname", message: errors.uname });
     }
-  };
+
+    console.log(response.user);
+  }
 
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>
@@ -85,9 +110,10 @@ export default function Form() {
       <ErrorST>
         {errorMessages.message}
         <br />
-        <a href="" className="lol">
+
+        <Link to="/signup" className="Signup">
           Create an account
-        </a>
+        </Link>
       </ErrorST>
     );
   const renderErrorMessagePass = (name) =>
@@ -149,11 +175,42 @@ export default function Form() {
             <div className="passworddiv">
               <label htmlFor="pass">Password</label>
               <input
-                type="password"
+                type={passwordType}
                 name="pass"
+                onChange={handlePasswordChange}
+                value={passwordInput}
                 // value={formValues.Password}
                 required
               />
+            </div>
+            <div className="showpass">
+              <PasswordShowButton onClick={togglePassword}>
+                {passwordType === "password" ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-eye-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-eye-slash-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                    <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+                  </svg>
+                )}
+              </PasswordShowButton>
             </div>
           </StyledPassword>
           {/* <p>{formErrors.Password}</p> */}

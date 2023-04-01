@@ -7,5 +7,9 @@ export const FormST = styled.div`
   .error{
     background color:blue;
   }
-  .
+  .showpass{
+  
+    width:40px;
+    transform:translate(300px,-45px);
+  }
 `;
