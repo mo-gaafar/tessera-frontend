@@ -6,8 +6,9 @@
 
 import SignupTwo from './pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
-import GlobalStyles from './components/styles/global';
 import Landing from './pages/LandingPage/Landing';
+import GlobalStyles from './components/styles/Global';
+
 import { Route, Routes } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
