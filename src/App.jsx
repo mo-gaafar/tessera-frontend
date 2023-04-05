@@ -4,14 +4,9 @@
  * @exports App
  */
 
-// const google = () => {
-//   console.log('first');
-//   window.open('', _self);
-// };
-
 import SignupTwo from './pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
-import GlobalStyles from './components/styles/Global';
+import GlobalStyles from './components/styles/global';
 import Landing from './pages/LandingPage/Landing';
 import { Route, Routes } from 'react-router-dom';
 

@@ -22,6 +22,42 @@ export const StyledLandingEvents = styled.section`
   @media (min-width: 70em) {
     padding-inline: 13vw;
   }
+  ul{
+    overflow: auto;
+    display: flex;
+    position: relative;
+    margin-bottom: 0;
+    padding-bottom: 1.6rem;
+    padding-left: 0;
+    
+    button{
+      background: none;
+      border: none;
+      text-align: left;
+      color: #6f7287;
+      text-decoration: none;
+      padding-top: 1.2rem;
+      padding-bottom: 1.2rem;
+      &:hover {
+        cursor: pointer;
+        border-bottom: 2px solid #000;
+        padding-bottom: 3px;
+        color: black;
+      }
+    }
+    li{
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+      padding-right: 1.6rem;
+      
+    }
+    .first-Filter{
+      padding-left: 0;
+    }
+  }
+  
+  }
 `;
 
 export const StyledEventsContainer = styled.div`
