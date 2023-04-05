@@ -38,7 +38,7 @@ pipeline {
                 DOCKERHUB_ACCESS_TOKEN = credentials('DOCKERHUB_ACCESS_TOKEN')
             }
             steps {
-                sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_ACCESS_TOKEN'
+                sh 'echo $DOCKERHUB_ACCESS_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin'
                 sh 'docker push $DOCKERHUB_USERNAME/tessera-frontend-dev'
             }
         }
