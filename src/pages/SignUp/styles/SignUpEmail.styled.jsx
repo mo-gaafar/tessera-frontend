@@ -224,7 +224,7 @@ export const LogInDiv = styled.div`
   }
 `;
 
-export const LogIn = styled.a`
+export const LogIn = styled.span`
   font-size: 1.37rem;
   color: #3659e3;
   display: flexbox;
@@ -256,7 +256,7 @@ export const LogInDiv2 = styled.div`
   }
 `;
 
-export const LogIn2 = styled.a`
+export const LogIn2 = styled.span`
   font-size: 1.37rem;
   color: #3659e3;
   display: flexbox;

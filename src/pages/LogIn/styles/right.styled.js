@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 export const RightStyled = styled.div`
   img {
-    position: absolute;
-    width: 49.5vw;
+    width: 100%;
     height: 100vh;
   }
   @media (max-width: 950px) {
