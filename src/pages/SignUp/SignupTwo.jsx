@@ -33,14 +33,14 @@ import { ImgDescriptionDiv } from './styles/FormFormat.Styled';
 import { FirstRowImgDiv } from './styles/FormFormat.Styled';
 import { SecRowImgDiv } from './styles/FormFormat.Styled';
 import TermsandConditions from './TermsAndConditions';
-import edit from '../../assets/edit.png';
-import logo from '../../assets/LogoFullTextSmall.png';
-import pwdhide from '../../assets/eye.png';
-import pwdShow from '../../assets/icon-visibility.jpg';
+import edit from '/images/edit.png';
+import logo from '/images/LogoFullTextSmall.png';
+import pwdhide from '/images/eye.png';
+import pwdShow from '/images/icon-visibility.jpg';
 import { PasswordShowButton } from './styles/Password.Styled';
 import { PasswordShowImg } from './styles/Password.Styled';
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Await, Link, useNavigate } from 'react-router-dom';
 
 import PasswordChecker from './PasswordChecker';
 import { PasswordStrenghP } from './styles/Password.Styled';
@@ -131,6 +131,15 @@ export default function SignupTwo(props) {
   const initPwdInput = async childData => {
     initRobustPassword(childData);
   };
+
+  
+  const [responseBody,setResponseBody] = React.useState({
+    firstName: "",
+     lastName: "",
+     email:"",
+     emailConfirmation:"",
+      password: "",
+    });
 
   const [formData, setFormData] = React.useState({
     firstName: '',
@@ -240,7 +249,7 @@ export default function SignupTwo(props) {
     setPasswordType('password');
   };
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     handleValidation();
@@ -258,6 +267,39 @@ export default function SignupTwo(props) {
 
       return;
     }
+    // responseBody.firstName = formData.firstName;
+    // responseBody.lastName = formData.lastName;
+    // responseBody.emailConfirmation = formData.emailConfirm;
+    // responseBody.password = pwdInput.password;
+    // responseBody.email = formData.emailConfirm;
+    // console.log(JSON.stringify(responseBody))
+    // fetch("https://www.tessera.social/api/auth/signup", {
+    //   method: 'POST',
+    //   body: JSON.stringify(responseBody),
+    // })
+        setResponseBody( prevres => ({
+          ...prevres,
+                      password: pwdInput.password,
+                      emailConfirmation: formData.emailConfirm,
+                      email: email,
+                      firstName:formData.firstName,
+                      lastName:formData.lastName,
+                  })
+          )
+          
+      //  const { emailConfirm, ...responebody } = formData;
+      // responebody.password = pwdInput.password;
+      // responebody.emailConfirmation = formData.emailConfirm;
+      // responebody.email = email;
+
+    // console.log(responebody);
+    // const response = await fetch('https://www.tessera.social/api/auth/signup', {
+    //   method: 'POST',
+    //   body: JSON.stringify(responebody),
+    // });
+    // console.log(response.user);
+
+
     setShowTerms(true);
   }
   const styles = {
@@ -307,7 +349,7 @@ export default function SignupTwo(props) {
   return (
     <>
       {showTerms === true && showTerms !== undefined && (
-        <TermsandConditions show={setShowTerms} />
+        <TermsandConditions data={responseBody} show={setShowTerms} />
       )}
 
       <PageContainer>
