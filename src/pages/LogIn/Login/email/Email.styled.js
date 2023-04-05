@@ -11,7 +11,7 @@ export const StyledEmail = styled.div`
 
   input {
     outline: none;
-    position: relative;
+
     line-height: 1.2em;
     font-size: 14px;
     width: 348px;
