@@ -19,7 +19,10 @@ export default function Login() {
   return (
     <LoginStyled>
       <div className="headers">
-        <img src="/images/LogoFullTextSmall.png" alt="Tessera logo" />
+        <img
+          src="../../../src/assets/LogoFullTextSmall.png"
+          alt="Tessera logo"
+        />
         <h1 className="Login">Log in</h1>
       </div>
       <Form />
@@ -28,7 +31,7 @@ export default function Login() {
       </Divider>
       <EmailMe />
       <GoogleButton target={'_blank'}>
-        <Googlelogo src="/images/google-logo.png" />
+        <Googlelogo src="./src/assets/google-logo.png" />
         Sign in with Google
       </GoogleButton>{' '}
       <Other />

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledPassword = styled.div`
-  position: relative;
   border: 1px solid #999999;
   background-color: white;
   width: 350px;

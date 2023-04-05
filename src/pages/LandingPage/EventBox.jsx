@@ -1,7 +1,7 @@
 /**
- * This file contains the EventBox component
- * @name EventBox.jsx
- * @author @moSaeed15
+  * This file contains the EventBox component
+  * @name EventBox.jsx
+  * @author @moSaeed15
  */
 
 /**
@@ -26,7 +26,7 @@ export default function EventBox(props) {
       {props.isFree && <p className="free">Free</p>}
       <span>{props.organizer}</span>
       <span>
-        <img src="/images/follower.png" alt="follower img" />
+        <img src="../../src/assets/follower.png" alt="follower img" />
         {props.followers}
       </span>
     </div>

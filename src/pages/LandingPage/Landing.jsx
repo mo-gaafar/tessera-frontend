@@ -28,18 +28,6 @@ export default function Landing() {
    * @param {function} navigator.geolocation.getCurrentPosition
    * @returns {JSX.Element} A React component representing the event box
    */
-  const [focused, setFocused] =  useState({
-    All: true,
-    forYou: false,
-    online: false,
-    today: false,
-    weekend: false,
-    women: false,
-    free: false,
-    music: false,
-    food: false,
-    charity: false,
-  });
   useEffect(() => {
     const fetchData = async (latitude, longitude) => {
       const data = await fetch(
@@ -81,125 +69,11 @@ export default function Landing() {
         </svg>
         <span>{city}</span>
       </h3> */}
-    
         <div className="">
-          <nav> 
-            <ul> 
-            <li className="first-Filter">
-              <button
-              style={focused.All ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                All 
-                </span>
-              </button>
-            </li>
-            
-            <li>
-              <button 
-              style={focused.forYou ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                  For you
-                </span>
-              </button>
-            </li>
-
-            <li>
-              <button
-              style={focused.online ?
-                {color:"blue", paddingBottom: "3px",
-                borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                  Online
-                </span>
-                
-              </button>
-            </li>
-
-            <li>
-              <button
-                style={focused.today ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                  Today
-                </span>
-                
-              </button>
-            </li>
-
-            <li>
-              <button
-               style={focused.weekend ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                  This Weekend
-                </span>
-                
-              </button>
-            </li>
-
-          
-
-            <li>
-              <button 
-               style={focused.free ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                  Free
-                </span>
-                
-              </button>
-            </li>
-
-            <li>
-              <button 
-              style={focused.music ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                  Music
-                </span>
-                
-              </button>
-            </li>
-
-            <li>
-              <button 
-              style={focused.music ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                  Food & Drink
-                </span>
-                
-              </button>
-            </li>
-
-            <li>
-              <button 
-              style={focused.charity ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                  Charity & causes
-                </span>
-                
-              </button>
-            </li>
-          </ul>
-          </nav>
-        
-
           <h4>Events in {city}</h4>
           <StyledEventsContainer img="../../src/assets/svgviewer-output.svg">
             <EventBox
-              image="/images/event__1.avif"
+              image="../../src/assets/event__1.avif"
               eventTitle="Certified DeFi Associate | Cairo"
               date="Tue, Apr 18, 7:00 AM "
               description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
@@ -207,7 +81,7 @@ export default function Landing() {
               followers="917 followers"
             />
             <EventBox
-              image="/images/event__2.avif"
+              image="../../src/assets/event__2.avif"
               eventTitle="The Future Of Leadership Congress 2023"
               date="Mon, May 15, 9:00 AM "
               description="Cairo • Cairo, Cairo Governorate Starts at A$751.69"
@@ -215,7 +89,7 @@ export default function Landing() {
               followers="47 followers"
             />
             <EventBox
-              image="/images/event__3.avif"
+              image="../../src/assets/event__3.avif"
               eventTitle="Unravelling NFTs | Cairo"
               date="Tue, Apr 11, 7:00 AM  "
               description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
@@ -223,7 +97,7 @@ export default function Landing() {
               followers="917 followers"
             />
             <EventBox
-              image="/images/event__4.avif"
+              image="../../src/assets/event__4.avif"
               eventTitle="Certified Crypto Associate | Cairo"
               date="Tomorrow at 4:00 PM"
               description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
@@ -231,7 +105,7 @@ export default function Landing() {
               followers="917 followers"
             />
             <EventBox
-              image="/images/event__5.avif"
+              image="../../src/assets/event__5.avif"
               eventTitle="Cloudflight Coding Contest (CCC) - Cairo"
               date="Fri, Mar 31, 3:00 PM"
               description="German University in Cairo • Cairo, محافظة القاهرة"
@@ -240,7 +114,7 @@ export default function Landing() {
               followers="213 followers"
             />
             <EventBox
-              image="/images/event__6.avif"
+              image="../../src/assets/event__6.avif"
               eventTitle="How to Improve Your Memory - Cairo"
               date="Wed, Mar 29, 4:00 PM "
               description="Cairo • Cairo, Cairo Governorate"

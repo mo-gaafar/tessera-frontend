@@ -160,7 +160,7 @@ export const FacebookButton = styled.button`
   height: 4.8rem;
   width: 4.8rem;
   border-radius: 24px;
-  background-image: url('/images/Facebook-logo.png');
+  background-image: url('./src/assets/Facebook-logo.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -224,7 +224,7 @@ export const LogInDiv = styled.div`
   }
 `;
 
-export const LogIn = styled.span`
+export const LogIn = styled.a`
   font-size: 1.37rem;
   color: #3659e3;
   display: flexbox;
@@ -256,7 +256,7 @@ export const LogInDiv2 = styled.div`
   }
 `;
 
-export const LogIn2 = styled.span`
+export const LogIn2 = styled.a`
   font-size: 1.37rem;
   color: #3659e3;
   display: flexbox;

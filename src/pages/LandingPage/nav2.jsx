@@ -7,7 +7,7 @@ import DropdownOrganize from './DropdownOrganize';
 import DropdownHelp from './DropdownHelp';
 import DropdownHamburger from './DropdownHamburger';
 
-import LogoFullTextTicketLarge from '/images/LogoFullTextTicketLarge.png';
+import LogoFullTextTicketLarge from '../../assets/LogoFullTextTicketLarge.png';
 
 export default function Navbar() {
   const [dropdownforOrganize, setDropdownOrganize] = useState(false);
