@@ -129,7 +129,7 @@ export default function SignUpOne(props) {
         <UpperPage>
           <TopHeader>
             <DivLeft>
-              <EventLogo src="./src/assets/logo.jpg" />
+              <EventLogo src="/images/logo.jpg" />
               <CreateAccount>Create an account</CreateAccount>
             </DivLeft>
             <LogInDiv>
@@ -182,7 +182,7 @@ export default function SignUpOne(props) {
             // onClick="location.href=https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?redirect_uri=storagerelay%3A%2F%2Fhttps%2Fwww.eventbrite.com%3Fid%3Dauth64961&response_type=permission%20id_token&scope=email%20profile%20openid&openid.realm&include_granted_scopes=true&client_id=126160502265-8i61veaglos3qqdc73t5b9gdp7uumclg.apps.googleusercontent.com&ss_domain=https%3A%2F%2Fwww.eventbrite.com&fetch_basic_profile=true&gsiwebsdk=2&service=lso&o2v=1&flowName=GeneralOAuthFlow"
             target={'_blank'}
           >
-            <Googlelogo src="./src/assets/google-logo.png" />
+            <Googlelogo src="/images/google-logo.png" />
             Sign in with Google
           </GoogleButton>
           <OtherSignUp>Other sign up methods</OtherSignUp>

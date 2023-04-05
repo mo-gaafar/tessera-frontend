@@ -160,7 +160,7 @@ export const FacebookButton = styled.button`
   height: 4.8rem;
   width: 4.8rem;
   border-radius: 24px;
-  background-image: url('./src/assets/Facebook-logo.png');
+  background-image: url('/images/Facebook-logo.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
