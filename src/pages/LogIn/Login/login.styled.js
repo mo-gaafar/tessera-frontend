@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LoginStyled = styled.div`
   display: block;
@@ -16,7 +16,7 @@ export const LoginStyled = styled.div`
   }
 
   .form {
-    background-color: blue;
+    background-color: white;
     width: 100%;
     height: 40%;
   }
