@@ -57,8 +57,6 @@ function ResetPassword() {
           body: Json,
         }
       );
-
-      console.log(response);
     }
   }
 
@@ -66,9 +64,9 @@ function ResetPassword() {
     <>
       <StyledResetPassword onSubmit={handleSubmit}>
         <div className="container">
-          <h1>Email Forget Password</h1>
+          <h1 style={{ width: '10ch' }}>Forget Password</h1>
 
-          <div className="email__div">
+          <div style={{ marginBottom: '-3rem' }} className="email__div">
             <label
               className="email__label"
               style={
