@@ -91,8 +91,6 @@ function ResetPassword() {
           body: JSON.stringify(responsebody),
         }
       );
-
-      console.log(response.user);
     }
   }
 

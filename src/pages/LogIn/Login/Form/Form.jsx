@@ -1,24 +1,24 @@
-import { StyledEmail } from "../email/Email.styled";
-import { StyledPassword } from "../password/Password.styled";
-import { LoginTagSt } from "../Logintag/LoginTag.styled";
-import { FormST } from "./Form.styled";
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { PasswordShowImg } from "../../../SignUp/styles/Password.Styled";
-import { PasswordShowButton } from "../../../SignUp/styles/Password.Styled";
-import { ErrorST } from "./Error.styled";
+import { StyledEmail } from '../email/Email.styled';
+import { StyledPassword } from '../password/Password.styled';
+import { LoginTagSt } from '../Logintag/LoginTag.styled';
+import { FormST } from './Form.styled';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { PasswordShowImg } from '../../../SignUp/styles/Password.Styled';
+import { PasswordShowButton } from '../../../SignUp/styles/Password.Styled';
+import { ErrorST } from './Error.styled';
 export default function Form() {
-  const [passwordType, setPasswordType] = useState("password");
-  const [passwordInput, setPasswordInput] = useState("");
-  const handlePasswordChange = (evnt) => {
+  const [passwordType, setPasswordType] = useState('password');
+  const [passwordInput, setPasswordInput] = useState('');
+  const handlePasswordChange = evnt => {
     setPasswordInput(evnt.target.value);
   };
   const togglePassword = () => {
-    if (passwordType === "password") {
-      setPasswordType("text");
+    if (passwordType === 'password') {
+      setPasswordType('text');
       return;
     }
-    setPasswordType("password");
+    setPasswordType('password');
   };
   // const { formErrors, setFormErrors } = useState({});
   // const [isSubmit, setIsSubmit] = useState(false);
@@ -56,36 +56,39 @@ export default function Form() {
   // User Login info
   const database = [
     {
-      username: "seif@hotmail.com",
-      password: "pass1",
+      username: 'seif@hotmail.com',
+      password: 'pass1',
     },
     {
-      username: "user2",
-      password: "pass2",
+      username: 'user2',
+      password: 'pass2',
     },
   ];
 
   const errors = {
-    uname: "There is no associated account with this email",
-    pass: "invalid password",
+    uname: 'There is no associated account with this email',
+    pass: 'invalid password',
   };
 
   async function handleSubmit(event) {
     //Prevent page reload
     event.preventDefault();
     var { uname, pass } = document.forms[0];
-    const responsebody = {
-      Email: uname.value,
-      Password: pass.value,
-    };
-
+    const responsebody = {};
+    responsebody.email = uname.value;
+    responsebody.password = pass.value;
     // Find user login info
     //const userData = database.find((user) => user.username === uname.value);
 
-    const response = await fetch("https://www.tessera.social/api/auth/login", {
-      method: "POST",
+    const response = await fetch('https://www.tessera.social/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(responsebody),
     });
+
+    console.log(await response.json());
 
     // Compare user info
     if (response.success) {
@@ -98,14 +101,12 @@ export default function Form() {
       setIsSubmitted(true);
     } else {
       // email not found
-      setErrorMessages({ name: "uname", message: errors.uname });
+      setErrorMessages({ name: 'uname', message: errors.uname });
     }
-
-    console.log(response.user);
   }
 
   // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
+  const renderErrorMessage = name =>
     name === errorMessages.name && (
       <ErrorST>
         {errorMessages.message}
@@ -116,7 +117,7 @@ export default function Form() {
         </Link>
       </ErrorST>
     );
-  const renderErrorMessagePass = (name) =>
+  const renderErrorMessagePass = name =>
     name === errorMessages.name && <ErrorST>{errorMessages.message}</ErrorST>;
   // const renderform = () => (
   //   <form onSubmit={handleSubmit} className="form">
@@ -158,8 +159,8 @@ export default function Form() {
         <div>User is successfully logged in</div>
       ) : (
         <form onSubmit={handleSubmit} className="form">
-          {renderErrorMessage("uname")}
-          {renderErrorMessagePass("pass")}
+          {renderErrorMessage('uname')}
+          {renderErrorMessagePass('pass')}
           <StyledEmail>
             <div className="full-input">
               <label htmlFor="email">Email address</label>
@@ -185,7 +186,7 @@ export default function Form() {
             </div>
             <div className="showpass">
               <PasswordShowButton onClick={togglePassword}>
-                {passwordType === "password" ? (
+                {passwordType === 'password' ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"

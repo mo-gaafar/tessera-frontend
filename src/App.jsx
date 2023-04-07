@@ -13,7 +13,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
-
+import Reset from './pages/ResetPassword/Reset';
 /**
  * Function component that renders the main application
  * @function
@@ -31,6 +31,7 @@ function App() {
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
         <Route path="login" element={<Maincontainer />} />
         <Route path="reset" element={<ResetPassword />} />
+        <Route path="forgetPassword" element={<Reset />} />
       </Routes>
     </>
   );

@@ -33,9 +33,12 @@ export default function Login() {
       </GoogleButton>{' '}
       <Other />
       <Dropother />
-      <Link to="/signup" className="Signup">
-        Sign up
-      </Link>
+      <div className="link__box">
+        <Link to="/signup" className="Signup">
+          Sign up
+        </Link>
+        <Link> Forget Password </Link>
+      </div>
     </LoginStyled>
   );
 }

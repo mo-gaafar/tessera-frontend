@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const LoginStyled = styled.div`
   display: block;
@@ -33,11 +33,24 @@ export const LoginStyled = styled.div`
   }
 
   .Signup {
-    margin-top: 70px;
     color: #304fc9;
     height: 20px;
     display: flex;
     font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
+  }
+
+  .link__box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5rem;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(221, 73, 28);
+    span {
+      cursor: pointer;
+    }
   }
 `;
