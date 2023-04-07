@@ -370,8 +370,8 @@ export default function SignupTwo(props) {
               <StyledEmailDiv>
                 <StyledEmailInput
                   id="email-input"
+                  readOnly
                   value={email}
-                  defaultValue={email}
                   data-testid="email"
                 />
                 <StyledEditButton onClick={GoBack}>

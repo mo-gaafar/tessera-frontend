@@ -7,7 +7,7 @@
  * @requires ./styles/Password.Styled
  * @exports PasswordChecker
  * @description This file contains the PasswordChecker component and its logic
- * 
+ *
  */
 
 import React from 'react';

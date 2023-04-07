@@ -9,21 +9,21 @@
  * @exports Landing
  * @description This file contains the Landing page components and its logic
  */
-import DateRangePicker from "tw-daterange"
-import DatePicker from "react-datepicker";
-import format from "date-fns/format";
-import  'react-dater/dist/index.css'
+import DateRangePicker from 'tw-daterange';
+import DatePicker from 'react-datepicker';
+import format from 'date-fns/format';
+import 'react-dater/dist/index.css';
 
 import { useEffect, useState } from 'react';
 import { StyledLandingEvents } from './styles/Landing.styled';
 import { StyledEventsContainer } from './styles/Landing.styled';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
 
 import logo from '../../assets/icon-down.png';
 import cross from '../../assets/x-10327.png';
 import EventBox from './EventBox';
 import Navbar from './nav2';
-import { setDate } from "date-fns/esm";
+import { setDate } from 'date-fns/esm';
 
 export default function Landing() {
   const [city, setCity] = useState('');
@@ -36,41 +36,36 @@ export default function Landing() {
    * @param {function} navigator.geolocation.getCurrentPosition
    * @returns {JSX.Element} A React component representing the event box
    */
-  const [forYouElement,setForYouElement] = useState(false);
-  const [showCalender,setShowCalender] = useState(false);
-  const [showMenu,setShowMenu] = useState(false);
+  const [forYouElement, setForYouElement] = useState(false);
+  const [showCalender, setShowCalender] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
-  const [count,setCount] = useState(0);
-  const [showDateRange,setShowDate] = useState(false)
-  
-    
-    
+  const [count, setCount] = useState(0);
+  const [showDateRange, setShowDate] = useState(false);
+
   const [range, setRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
-  })
+  });
 
-  const [select,setSelect] = useState("")
-  
+  const [select, setSelect] = useState('');
 
-  function onClickCalender(e){
-    const {name,value} = e.target
-    if (name === "calender"){
-      setShowCalender(true)
-      setShowMenu(false)
-    }
-    else {
-      setShowMenu(false)
-      setSelect(name)
-     
+  function onClickCalender(e) {
+    const { name, value } = e.target;
+    if (name === 'calender') {
+      setShowCalender(true);
+      setShowMenu(false);
+    } else {
+      setShowMenu(false);
+      setSelect(name);
     }
   }
-  function showDropdown(){ 
-    if (!select){
-      setShowMenu(true)}
-    
+  function showDropdown() {
+    if (!select) {
+      setShowMenu(true);
+    }
   }
-  const [focused, setFocused] =  useState({
+  const [focused, setFocused] = useState({
     All: true,
     forYou: false,
     online: false,
@@ -102,8 +97,8 @@ export default function Landing() {
     });
   }, []);
 
-  function handleForYou (){
-    setForYouElement(true)
+  function handleForYou() {
+    setForYouElement(true);
     setFocused(prevFocus => {
       return {
         forYou: true,
@@ -111,38 +106,46 @@ export default function Landing() {
     });
   }
 
-  function onClickAll(e){
-    setForYouElement(false)
-    const {name,value} = e.target
+  function onClickAll(e) {
+    setForYouElement(false);
+    const { name, value } = e.target;
     setFocused(prevFocus => {
       return {
         [name]: true,
       };
-    
     });
-    
   }
 
-  function removeDate(){
-    setShowDate(false)
-    setSelect("")
-    
+  function removeDate() {
+    setShowDate(false);
+    setSelect('');
   }
-  
+
   useEffect(() => {
-    if(range.startDate && range.endDate && count===1){
-      setShowCalender(false)
-      setShowMenu(false)
-      setShowDate(true)
-      
+    if (range.startDate && range.endDate && count === 1) {
+      setShowCalender(false);
+      setShowMenu(false);
+      setShowDate(true);
+    } else {
+      setCount(1);
     }
-    else{setCount(1)}
-  },[range.startDate])
-  
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "August", "Sep", "Oct", "Nov", "Dec"
-];
+  }, [range.startDate]);
 
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'August',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  const email = useLocation().state;
   return (
     <>
       <Navbar />
@@ -165,238 +168,271 @@ export default function Landing() {
         </svg>
         <span>{city}</span>
       </h3> */}
-    
+
         <div className="">
-          <nav> 
-            <ul> 
-            <li className="first-Filter">
-              <button
-              className="nav--filter"
-              name="All"
-              onClick={onClickAll}
-              style={focused.All ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                
-                All 
-                
-              </button>
-            </li>
-            
-            <li>
-              <button 
-              onClick={handleForYou}
-              className="nav--filter"
-              style={focused.forYou ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                <span>
-                  For you
-                </span>
-              </button>
-            </li>
+          <nav>
+            <ul>
+              <li className="first-Filter">
+                <button
+                  className="nav--filter"
+                  name="All"
+                  onClick={onClickAll}
+                  style={
+                    focused.All
+                      ? {
+                          color: 'blue',
+                          paddingBottom: '3px',
+                          borderBottom: '2px solid blue',
+                        }
+                      : { background: 'none' }
+                  }
+                >
+                  All
+                </button>
+              </li>
 
-            <li>
-              <button
-              className="nav--filter"
-              name="online"
-              onClick={onClickAll}
-              style={focused.online ?
-                {color:"blue", paddingBottom: "3px",
-                borderBottom:"2px solid blue"}:{background:"none"}}>
-                
+              <li>
+                <button
+                  onClick={handleForYou}
+                  className="nav--filter"
+                  style={
+                    focused.forYou
+                      ? {
+                          color: 'blue',
+                          paddingBottom: '3px',
+                          borderBottom: '2px solid blue',
+                        }
+                      : { background: 'none' }
+                  }
+                >
+                  <span>For you</span>
+                </button>
+              </li>
+
+              <li>
+                <button
+                  className="nav--filter"
+                  name="online"
+                  onClick={onClickAll}
+                  style={
+                    focused.online
+                      ? {
+                          color: 'blue',
+                          paddingBottom: '3px',
+                          borderBottom: '2px solid blue',
+                        }
+                      : { background: 'none' }
+                  }
+                >
                   Online
-                
-                
-              </button>
-            </li>
+                </button>
+              </li>
 
-            <li>
-              <button
-              className="nav--filter"
-              name="today"
-              onClick={onClickAll}
-                style={focused.today ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                
+              <li>
+                <button
+                  className="nav--filter"
+                  name="today"
+                  onClick={onClickAll}
+                  style={
+                    focused.today
+                      ? {
+                          color: 'blue',
+                          paddingBottom: '3px',
+                          borderBottom: '2px solid blue',
+                        }
+                      : { background: 'none' }
+                  }
+                >
                   Today
-                
-                
-              </button>
-            </li>
+                </button>
+              </li>
 
-            <li>
-              <button
-              className="nav--filter"
-              name="weekend"
-              onClick={onClickAll}
-               style={focused.weekend ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                
+              <li>
+                <button
+                  className="nav--filter"
+                  name="weekend"
+                  onClick={onClickAll}
+                  style={
+                    focused.weekend
+                      ? {
+                          color: 'blue',
+                          paddingBottom: '3px',
+                          borderBottom: '2px solid blue',
+                        }
+                      : { background: 'none' }
+                  }
+                >
                   This Weekend
-                
-                
-              </button>
-            </li>
+                </button>
+              </li>
 
-          
-
-            <li>
-              <button 
-              onClick={onClickAll}
-              name="free"
-              className="nav--filter"
-               style={focused.free ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                
+              <li>
+                <button
+                  onClick={onClickAll}
+                  name="free"
+                  className="nav--filter"
+                  style={
+                    focused.free
+                      ? {
+                          color: 'blue',
+                          paddingBottom: '3px',
+                          borderBottom: '2px solid blue',
+                        }
+                      : { background: 'none' }
+                  }
+                >
                   Free
-                
-                
-              </button>
-            </li>
+                </button>
+              </li>
 
-            <li>
-              <button 
-              onClick={onClickAll}
-              name="music"
-              className="nav--filter"
-              style={focused.music ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                
+              <li>
+                <button
+                  onClick={onClickAll}
+                  name="music"
+                  className="nav--filter"
+                  style={
+                    focused.music
+                      ? {
+                          color: 'blue',
+                          paddingBottom: '3px',
+                          borderBottom: '2px solid blue',
+                        }
+                      : { background: 'none' }
+                  }
+                >
                   Music
-                
-                
-              </button>
-            </li>
+                </button>
+              </li>
 
-            <li>
-              <button 
-              className="nav--filter"
-              onClick={onClickAll}
-              name="food"
-              style={focused.food ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                
+              <li>
+                <button
+                  className="nav--filter"
+                  onClick={onClickAll}
+                  name="food"
+                  style={
+                    focused.food
+                      ? {
+                          color: 'blue',
+                          paddingBottom: '3px',
+                          borderBottom: '2px solid blue',
+                        }
+                      : { background: 'none' }
+                  }
+                >
                   Food & Drink
-                
-                
-              </button>
-            </li>
+                </button>
+              </li>
 
-            <li>
-              <button 
-              className="nav--filter"
-              onClick={onClickAll}
-              name="charity"
-              style={focused.charity ?
-               {color:"blue", paddingBottom: "3px",
-               borderBottom:"2px solid blue"}:{background:"none"}}>
-                
+              <li>
+                <button
+                  className="nav--filter"
+                  onClick={onClickAll}
+                  name="charity"
+                  style={
+                    focused.charity
+                      ? {
+                          color: 'blue',
+                          paddingBottom: '3px',
+                          borderBottom: '2px solid blue',
+                        }
+                      : { background: 'none' }
+                  }
+                >
                   Charity & causes
-                
-                
-              </button>
-            </li>
-          </ul>
+                </button>
+              </li>
+            </ul>
           </nav>
-        
-          {forYouElement&&
+
+          {forYouElement && (
             <div className="date-dropdown" onClick={showDropdown}>
-              <div className="you--options" >
-                {showDateRange ?
-                <span> 
-                  {monthNames[range.startDate.getMonth()]+" "+range.startDate.getDate() + " - " +monthNames[range.endDate.getMonth()]+" "+ range.endDate.getDate()}
-                    <button
-                      onClick={removeDate}
-                    className="remove-button">
-                      <img src={cross}/>
+              <div className="you--options">
+                {showDateRange ? (
+                  <span>
+                    {monthNames[range.startDate.getMonth()] +
+                      ' ' +
+                      range.startDate.getDate() +
+                      ' - ' +
+                      monthNames[range.endDate.getMonth()] +
+                      ' ' +
+                      range.endDate.getDate()}
+                    <button onClick={removeDate} className="remove-button">
+                      <img src={cross} />
                     </button>
-                      
-                </span> 
-                : select ?
-                <span>
-                      {select}
-                      <button
-                      onClick={removeDate}
-                    className="remove-button">
-                      <img src={cross}/>
+                  </span>
+                ) : select ? (
+                  <span>
+                    {select}
+                    <button onClick={removeDate} className="remove-button">
+                      <img src={cross} />
                     </button>
-                </span>
-                : <span>
-                      Date
-                      <img src={logo}/>
-                </span>
-                }
-                
+                  </span>
+                ) : (
+                  <span>
+                    Date
+                    <img src={logo} />
+                  </span>
+                )}
               </div>
-              {
-                showMenu &&
+              {showMenu && (
                 <div id="myDropdown" className="dropdown-content">
-                <ul>
-                  <div>
-                  <button 
-                  name="calender"
-                  className="drop-button"
-                  onClick={onClickCalender}
-                  >
-                    Calender
-                  </button>
+                  <ul>
+                    <div>
+                      <button
+                        name="calender"
+                        className="drop-button"
+                        onClick={onClickCalender}
+                      >
+                        Calender
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        name="Today"
+                        className="drop-button"
+                        onClick={onClickCalender}
+                      >
+                        Today
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        onClick={onClickCalender}
+                        name="Tomorrow"
+                        className="drop-button"
+                      >
+                        Tomorrow
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        name="This weekend"
+                        onClick={onClickCalender}
+                        className="drop-button"
+                      >
+                        This weekend
+                      </button>
+                    </div>
+                  </ul>
+                </div>
+              )}
+
+              {showCalender && (
+                <div>
+                  <div className="dropdown-content">
+                    <DateRangePicker
+                      wrapperClassName="datePicker"
+                      initialRange={range}
+                      onUpdate={dateRange => {
+                        setRange(dateRange);
+                      }}
+                    />
                   </div>
-                  <div>
-                    <button
-                    name="Today"
-                    className="drop-button"
-                    onClick={onClickCalender}>
-                      Today
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                    onClick={onClickCalender}
-                    name="Tomorrow"
-                    className="drop-button">
-                      Tomorrow
-                    </button>
-                  </div>
-                  <div>
-                    <button 
-                    name="This weekend"
-                    onClick={onClickCalender}
-                    className="drop-button">
-                      This weekend
-                    </button>
-                  </div>
-                </ul>
-                
-              </div>
-              }
-              
-              {
-                  showCalender&&
-                  <div>
-                <div className="dropdown-content">
-                <DateRangePicker
-                wrapperClassName="datePicker"
-                initialRange={range}
-                onUpdate={(dateRange) => {
-                  setRange(dateRange)
-                }}
-              />
-              
-               
-              </div>
-              </div>
-              
-                }
-              
+                </div>
+              )}
             </div>
-          }
-          
+          )}
+
           <h4>Events in {city}</h4>
           <StyledEventsContainer img="../../src/assets/svgviewer-output.svg">
             <EventBox
