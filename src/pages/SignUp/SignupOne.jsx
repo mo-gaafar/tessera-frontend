@@ -117,6 +117,7 @@ export default function SignUpOne(props) {
    * @returns {void}
    * @description This function validates the email
    */
+
   function handleValidation(event) {
     console.log();
     if (!email) {

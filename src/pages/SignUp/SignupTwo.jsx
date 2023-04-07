@@ -132,14 +132,13 @@ export default function SignupTwo(props) {
     initRobustPassword(childData);
   };
 
-  
-  const [responseBody,setResponseBody] = React.useState({
-    firstName: "",
-     lastName: "",
-     email:"",
-     emailConfirmation:"",
-      password: "",
-    });
+  const [responseBody, setResponseBody] = React.useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    emailConfirmation: '',
+    password: '',
+  });
 
   const [formData, setFormData] = React.useState({
     firstName: '',
@@ -263,7 +262,6 @@ export default function SignupTwo(props) {
         pwdInput.password.indexOf(' ') >= 0)
     ) {
       setShowTerms(false);
-      console.log(showTerms);
 
       return;
     }
@@ -277,20 +275,19 @@ export default function SignupTwo(props) {
     //   method: 'POST',
     //   body: JSON.stringify(responseBody),
     // })
-        setResponseBody( prevres => ({
-          ...prevres,
-                      password: pwdInput.password,
-                      emailConfirmation: formData.emailConfirm,
-                      email: email,
-                      firstName:formData.firstName,
-                      lastName:formData.lastName,
-                  })
-          )
-          
-      //  const { emailConfirm, ...responebody } = formData;
-      // responebody.password = pwdInput.password;
-      // responebody.emailConfirmation = formData.emailConfirm;
-      // responebody.email = email;
+    setResponseBody(prevres => ({
+      ...prevres,
+      password: pwdInput.password,
+      emailConfirmation: formData.emailConfirm,
+      email: email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+    }));
+
+    //  const { emailConfirm, ...responebody } = formData;
+    // responebody.password = pwdInput.password;
+    // responebody.emailConfirmation = formData.emailConfirm;
+    // responebody.email = email;
 
     // console.log(responebody);
     // const response = await fetch('https://www.tessera.social/api/auth/signup', {
@@ -298,7 +295,6 @@ export default function SignupTwo(props) {
     //   body: JSON.stringify(responebody),
     // });
     // console.log(response.user);
-
 
     setShowTerms(true);
   }

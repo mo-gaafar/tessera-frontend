@@ -122,24 +122,23 @@ function TermsandConditions(props) {
   function handleClick() {
     props.show(false);
   }
-  async function clickAgree(e){
-    e.preventDefault()
+  async function clickAgree(e) {
+    e.preventDefault();
     console.log(props.data);
     const response = await fetch('https://www.tessera.social/api/auth/signup', {
       method: 'POST',
       headers: {
-          'Content-Type':'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(props.data),
     });
     //console.log(response.user);
-    const json = await response.json()
-    console.log(response.json)
-    console.log(json)
-    props.setEmail(props.data.email)
+    const json = await response.json();
+    console.log(response.json);
+    console.log(json);
+    props.setEmail(props.data.email);
   }
   //console.log(props.data.email)
-  
 
   return (
     <Div>
