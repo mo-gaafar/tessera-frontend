@@ -37,7 +37,7 @@ export default function Login() {
         <Link to="/signup" className="Signup">
           Sign up
         </Link>
-        <Link> Forget Password </Link>
+        <Link to="/forgetPassword"> Forget Password </Link>
       </div>
     </LoginStyled>
   );
