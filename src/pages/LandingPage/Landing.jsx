@@ -400,7 +400,7 @@ export default function Landing() {
           <h4>Events in {city}</h4>
           <StyledEventsContainer img="../../src/assets/svgviewer-output.svg">
             <EventBox
-              image="../../src/assets/event__1.avif"
+              image="/images/event__1.avif"
               eventTitle="Certified DeFi Associate | Cairo"
               date="Tue, Apr 18, 7:00 AM "
               description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
@@ -408,7 +408,7 @@ export default function Landing() {
               followers="917 followers"
             />
             <EventBox
-              image="../../src/assets/event__2.avif"
+              image="/images/event__2.avif"
               eventTitle="The Future Of Leadership Congress 2023"
               date="Mon, May 15, 9:00 AM "
               description="Cairo • Cairo, Cairo Governorate Starts at A$751.69"
@@ -416,7 +416,7 @@ export default function Landing() {
               followers="47 followers"
             />
             <EventBox
-              image="../../src/assets/event__3.avif"
+              image="/images/event__3.avif"
               eventTitle="Unravelling NFTs | Cairo"
               date="Tue, Apr 11, 7:00 AM  "
               description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
@@ -424,7 +424,7 @@ export default function Landing() {
               followers="917 followers"
             />
             <EventBox
-              image="../../src/assets/event__4.avif"
+              image="/images/event__4.avif"
               eventTitle="Certified Crypto Associate | Cairo"
               date="Tomorrow at 4:00 PM"
               description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
@@ -432,7 +432,7 @@ export default function Landing() {
               followers="917 followers"
             />
             <EventBox
-              image="../../src/assets/event__5.avif"
+              image="/images/event__5.avif"
               eventTitle="Cloudflight Coding Contest (CCC) - Cairo"
               date="Fri, Mar 31, 3:00 PM"
               description="German University in Cairo • Cairo, محافظة القاهرة"
@@ -441,7 +441,7 @@ export default function Landing() {
               followers="213 followers"
             />
             <EventBox
-              image="../../src/assets/event__6.avif"
+              image="/images/event__6.avif"
               eventTitle="How to Improve Your Memory - Cairo"
               date="Wed, Mar 29, 4:00 PM "
               description="Cairo • Cairo, Cairo Governorate"
