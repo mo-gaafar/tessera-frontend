@@ -22,6 +22,126 @@ export const StyledLandingEvents = styled.section`
   @media (min-width: 70em) {
     padding-inline: 13vw;
   }
+  .date-dropdown{
+    .remove-button{
+      background: none;
+      border: none;
+      text-align: left;
+      cursor:pointer;
+        
+    }
+
+    .dropdown-content {
+      position: absolute;
+      background-color: white;
+      width: 35rem;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      
+
+      .grid.grid-cols-7.p-3.gap-2{
+        button{
+          padding-left:1.8rem;
+          padding-right:1.4rem;
+        }
+      }
+
+      .flex.justify-between.items-center{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:2rem;
+      }
+      .flex{
+        .drop-shadow-sm.shadow-sm.min-w-[10rem].p-3.rounded-lg.border.flex.flex-col{
+          background-color:red;
+        }
+      }
+      
+      .grid.grid-cols-7.p-3.gap-2.mt-3{
+        display:flex;
+        
+        .text-center.w-12{
+          margin-right:1rem;
+          margin-left:1rem;
+          
+
+
+        }
+      }
+      button{
+        border:none;
+        background:none;
+        svg{
+          width:2rem;
+        }
+        
+      }
+      
+    }
+
+    ul{
+      display:block;
+      margin: 8px 0;
+      padding: 0;
+      list-style-type: none;
+      }
+      .drop-button{
+        width:100%;
+        background: none;
+        border: none;
+        text-align: left;
+        color: #39364f;
+        font-size:1.5rem;
+        text-decoration: none;
+        padding:1.4rem;
+        &:hover{
+          cursor:pointer;
+          background-color: #eeedf2;;
+        }
+        
+      }
+    }
+    
+  }
+  .you--options{
+    border-radius: 24px;
+    background-color: #fff;
+    box-shadow: inset 0 0 0 2px #eeedf2;
+    padding-left: 2px;
+    height: 44px;
+    cursor: pointer;
+    transition: all .24s cubic-bezier(.4,0,.3,1);
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    padding:2rem;
+    img{
+      display: inline-block;
+      margin: 0 auto;
+      vertical-align: middle;
+      background-size: contain;
+      line-height: 0;
+      background:transperent;
+      height:1.2rem;
+      
+    }
+    span{
+      color: #39364f;
+      padding-right:0.7rem;
+    }
+    &:hover{
+      box-shadow: inset 0 0 0 2px blue;
+      
+
+    }
+    
+  }
+
   ul{
     overflow: auto;
     display: flex;
@@ -30,7 +150,7 @@ export const StyledLandingEvents = styled.section`
     padding-bottom: 1.6rem;
     padding-left: 0;
     
-    button{
+    .nav--filter{
       background: none;
       border: none;
       text-align: left;

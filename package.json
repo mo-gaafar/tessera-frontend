@@ -10,19 +10,27 @@
     "test": "vitest --coverage"
   },
   "dependencies": {
-    "components": "^0.1.0",
-    "styled": "^1.0.0",
+    "@bcad1591/react-date-picker": "^0.1.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.14",
     "@mui/styled-engine-sc": "^5.11.11",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
+    "components": "^0.1.0",
+    "date-fns": "^2.29.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
+    "react-date-range": "^1.4.0",
+    "react-datepicker": "^4.11.0",
+    "react-dater": "^1.6.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
-    "styled-components": "^5.3.9"
+    "react-tailwindcss-datepicker": "^1.5.1",
+    "rsuite": "^5.30.0",
+    "styled": "^1.0.0",
+    "styled-components": "^5.3.9",
+    "tw-daterange": "^1.1.24"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
