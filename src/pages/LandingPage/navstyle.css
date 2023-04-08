@@ -156,7 +156,10 @@
 #createEventId {
   color: rgb(61, 100, 255);
 }
-
+a {
+  padding-block: 2.5rem;
+  padding-inline: 0.5rem;
+}
 .optionsDiv,
 .helpDiv,
 .organizeDiv {

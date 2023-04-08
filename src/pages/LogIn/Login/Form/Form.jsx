@@ -7,9 +7,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { PasswordShowImg } from '../../../SignUp/styles/Password.Styled';
 import { PasswordShowButton } from '../../../SignUp/styles/Password.Styled';
 import { ErrorST } from './Error.styled';
+
 export default function Form() {
   const [passwordType, setPasswordType] = useState('password');
   const [passwordInput, setPasswordInput] = useState('');
+  const navigate = useNavigate();
+
   const handlePasswordChange = evnt => {
     setPasswordInput(evnt.target.value);
   };
@@ -72,6 +75,7 @@ export default function Form() {
 
   async function handleSubmit(event) {
     //Prevent page reload
+    console.log(event);
     event.preventDefault();
     var { uname, pass } = document.forms[0];
     const responsebody = {};
@@ -87,15 +91,23 @@ export default function Form() {
       },
       body: JSON.stringify(responsebody),
     });
-
-    // Compare user info
-    if (response.status) {
-      setIsSubmitted(true);
-      const navigate = useNavigate();
+    const json = await response.json();
+    console.log(json);
+    if (json.success == true) {
+      setErrorMessages({
+        name: '',
+        message: '',
+      });
       navigate('/', { state: responsebody.email });
     } else {
       // email not found
-      setErrorMessages({ name: 'uname', message: errors.uname });
+      setErrorMessages({
+        name: json.message === 'Invalid Email or Password' ? 'uname' : 'pass',
+        message:
+          json.message === 'Invalid Email or Password'
+            ? 'There is no associated account with this email'
+            : 'Invalid password',
+      });
     }
   }
 
@@ -111,41 +123,9 @@ export default function Form() {
         </Link>
       </ErrorST>
     );
+
   const renderErrorMessagePass = name =>
     name === errorMessages.name && <ErrorST>{errorMessages.message}</ErrorST>;
-  // const renderform = () => (
-  //   <form onSubmit={handleSubmit} className="form">
-  //     {renderErrorMessage("uname")}
-  //     {renderErrorMessage("pass")}
-  //     <StyledEmail>
-  //       <div className="full-input">
-  //         <label htmlFor="email">Email address</label>
-  //         <input
-  //           type="email"
-  //           name="uname"
-  //           required
-  //           // value={formValues.email}
-  //         />
-  //       </div>
-  //     </StyledEmail>
-  //     <StyledPassword>
-  //       <div className="passworddiv">
-  //         <label htmlFor="pass">Password</label>
-  //         <input
-  //           type="password"
-  //           name="pass"
-  //           // value={formValues.Password}
-  //           required
-  //         />
-  //       </div>
-  //     </StyledPassword>
-  //     {/* <p>{formErrors.Password}</p> */}
-
-  //     <LoginTagSt>
-  //       <button>Log in</button>
-  //     </LoginTagSt>
-  //   </form>
-  // );
 
   return (
     <FormST>
