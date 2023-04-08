@@ -4,12 +4,12 @@ import {
   fireEvent,
   getAllByTestId,
 } from '@testing-library/react';
-import Landing from '../components/Landing';
+import Landing from '../pages/LandingPage/Landing';
 import { describe, it, expect } from 'vitest';
-import EventBox from '../components/EventBox';
+import EventBox from '../pages/LandingPage/EventBox';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import TermsAndConditions from '../components/TermsAndConditions';
+// import TermsAndConditions from '../components/TermsAndConditions';
 
 describe('Landing', () => {
   it('renders Event', () => {
