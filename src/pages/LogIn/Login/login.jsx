@@ -26,11 +26,10 @@ export default function Login() {
       <Divider>
         <CircleDivider>or</CircleDivider>
       </Divider>
-      <EmailMe />
       <GoogleButton target={'_blank'}>
         <Googlelogo src="/images/google-logo.png" />
         Sign in with Google
-      </GoogleButton>{' '}
+      </GoogleButton>
       <Other />
       <Dropother />
       <div className="link__box">

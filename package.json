@@ -20,10 +20,16 @@
     "components": "^0.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
+    "react-date-range": "^1.4.0",
+    "react-datepicker": "^4.11.0",
+    "react-dater": "^1.6.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
+    "react-tailwindcss-datepicker": "^1.5.1",
+    "rsuite": "^5.30.0",
     "styled": "^1.0.0",
-    "styled-components": "^5.3.9"
+    "styled-components": "^5.3.9",
+    "tw-daterange": "^1.1.24"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

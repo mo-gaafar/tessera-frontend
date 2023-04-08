@@ -120,12 +120,10 @@
   display: flex;
 }
 
-.imageDiv {
+.imageDiv img {
   /* margin-top: 7rem; */
   display: flex;
-  background-image: url('https://cdn.evbstatic.com/s3-build/fe/build/images/baedf009bb329458ae80eb599fb8a4d5-3_tablet_1067x470.jpg');
-  height: 471px;
-  width: 100%;
+  width: 110vw;
 }
 
 /* .landingImage1{
@@ -158,7 +156,10 @@
 #createEventId {
   color: rgb(61, 100, 255);
 }
-
+a {
+  padding-block: 2.5rem;
+  padding-inline: 0.5rem;
+}
 .optionsDiv,
 .helpDiv,
 .organizeDiv {

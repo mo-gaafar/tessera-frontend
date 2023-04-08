@@ -191,7 +191,9 @@ function TermsandConditions(props) {
             Cancel
           </button>
           <button className="AgreeButton" onClick={clickAgree}>
-            <Link to="/"> Agree</Link>
+            <Link to="/" state={props.data.email}>
+              Agree
+            </Link>
           </button>
         </div>
       </div>

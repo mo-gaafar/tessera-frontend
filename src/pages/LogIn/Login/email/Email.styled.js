@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledEmail = styled.div`
   border: 1px solid #999999;
@@ -8,13 +8,15 @@ export const StyledEmail = styled.div`
   margin-right: 10px;
   margin-top: 10px;
   padding-right: 20px;
-
+  position: relative;
   input {
     outline: none;
     position: relative;
     line-height: 1.2em;
     font-size: 14px;
     width: 348px;
+    height: 48px;
+
     border-style: hidden;
     padding: 6px 5px 6px;
   }
@@ -24,14 +26,16 @@ export const StyledEmail = styled.div`
     display: inline-block;
     font-size: 13px;
     color: #999999;
-    font-family: Neue plak;
+    position: absolute;
+    left: 0;
+
+    z-index: 3;
   }
   &:hover {
     border: 1px solid;
     border-color: blue;
 
     label {
-      font-family: Neue plak;
       display: inline-block;
       font-size: 13px;
       color: blue;
