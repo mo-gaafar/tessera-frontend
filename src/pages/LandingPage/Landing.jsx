@@ -169,8 +169,8 @@ export default function Landing() {
         <span>{city}</span>
       </h3> */}
 
-        <div className="">
-          <nav>
+        <div className="filter__nav">
+          <nav className="">
             <ul>
               <li className="first-Filter">
                 <button
