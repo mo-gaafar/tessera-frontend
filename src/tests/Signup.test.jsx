@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, getByRole, render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import SignupTwo from '../pages/SignUp/SignupTwo';
+import SignupTwo from '../components/SignupTwo';
 import { BrowserRouter } from 'react-router-dom';
-import SignUpOne from '../pages/SignUp/SignupOne';
+import SignUpOne from '../components/SignupOne';
 
 describe('signup', () => {
   it('email displays the correct email from previous page', () => {

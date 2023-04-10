@@ -232,7 +232,7 @@ export default function SignupTwo(props) {
 
   function GoBack(e) {
     e.preventDefault();
-    e.detail && navigate('/signup');
+    e.detail && navigate('/signup', { replace: true });
   }
 
   function handleFocus(event) {
