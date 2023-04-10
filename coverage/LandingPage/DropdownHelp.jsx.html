@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/DropdownOrganize.jsx</title>
+    <title>Code coverage report for LandingPage/DropdownHelp.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> DropdownOrganize.jsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">LandingPage</a> DropdownHelp.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.64% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/39</span>
+                <span class='fraction'>7/35</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.64% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/39</span>
+                <span class='fraction'>7/35</span>
             </div>
         
             
@@ -97,13 +97,7 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -137,24 +131,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import React, {useState} from 'react'
-import {organizeDropdown} from "./Navitems";
+import {helpDropdown} from "./Navitems";
 import {Link} from "react-router-dom";
 import './Dropdown.css';
 &nbsp;
 &nbsp;
-&nbsp;
-<span class="fstat-no" title="function not covered" > function DropdownOrganize() {</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function DropdownHelp() {</span></span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    const [dropdown, setDropdown]= useState(false); </span>
 <span class="cstat-no" title="statement not covered" >    // to remove the dropdown when clicked</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return(</span>
 <span class="cstat-no" title="statement not covered" >        &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;ul className={dropdown ?  "menuDropdownOrg organizeDropdown clicked" : "menuDropdownOrg organizeDropdown"} onClick={()=&gt; setDropdown(!dropdown)}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {organizeDropdown.map(item =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        &lt;ul className={dropdown ? "menuDropdownHelp helpDropdown clicked" : "menuDropdownHelp helpDropdown" } onClick={()=&gt; setDropdown(!dropdown)}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            {helpDropdown.map(item =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                return (</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;li key={item.id}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;Link to={item.path} className={item.cName} onClick={()=&gt; setDropdown(false)}&gt;</span>
@@ -169,22 +160,19 @@ import './Dropdown.css';
 <span class="cstat-no" title="statement not covered" >        </span>
 <span class="cstat-no" title="statement not covered" >        </span>
 <span class="cstat-no" title="statement not covered" >        </span>
-<span class="cstat-no" title="statement not covered" >        </span>
-<span class="cstat-no" title="statement not covered" >        </span>
-<span class="cstat-no" title="statement not covered" >        </span>
+<span class="cstat-no" title="statement not covered" >     </span>
 <span class="cstat-no" title="statement not covered" >        &lt;/&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    );</span>
 <span class="cstat-no" title="statement not covered" >}</span>
-&nbsp;
-export default DropdownOrganize;</pre></td></tr></table></pre>
+export default DropdownHelp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-25T17:32:35.067Z
+                at 2023-04-10T16:10:29.164Z
             </div>
         <script src="../prettify.js"></script>
         <script>
