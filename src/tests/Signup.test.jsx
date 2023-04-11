@@ -75,7 +75,7 @@ describe('signup', () => {
 
     fireEvent.change(passInput, { target: { value: '1234567' } });
     const error = getAllByTestId('passError')[0].textContent;
-    expect(error).toEqual('Your password must be at least 8 characters');
+    expect(error).toEqual('Your password must be at least 8 characters and strong');
   });
 });
 

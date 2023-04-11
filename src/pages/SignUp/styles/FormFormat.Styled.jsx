@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const StyledSignup = styled.div`
   width: 100%;
+  padding-left:2.5rem;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   align-items: center;

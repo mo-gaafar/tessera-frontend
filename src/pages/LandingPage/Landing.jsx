@@ -346,7 +346,7 @@ export default function Landing() {
 
           {forYouElement && (
             <div className="date-dropdown" onClick={showDropdown}>
-              <div className="you--options">
+              <div className="you--options" data-testid="forYou">
                 {showDateRange ? (
                   <span>
                     {monthNames[range.startDate.getMonth()] +
