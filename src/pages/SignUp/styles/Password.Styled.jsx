@@ -25,11 +25,11 @@ export const PwdProgress = styled.progress`
     background-color: ${props => props.inputColor || 'red'};
   }
 `;
-export const PasswordShowButton = styled.a`
+export const PasswordShowButton = styled.button`
   border: none;
-  height: 5rem;
+  height: 4rem;
   padding: 0rem;
-  width: 5rem;
+  width: 4rem;
   cursor: pointer;
   border-radius: 5rem;
   background-color: white;
@@ -37,22 +37,15 @@ export const PasswordShowButton = styled.a`
   &:hover {
     background-color: #f5f5f5;
   }
-  svg {
-    margin-top: 1rem;
-    width: 2rem;
-    height: 2rem;
-  }
 `;
 export const PasswordShowImg = styled.img`
-  width: 4rem;
-  height: 5rem;
+  width: 3.5rem;
   display: inline-block;
   margin: 0 auto;
   background-color: white;
   color: #4b4d63;
   vertical-align: middle;
-  background-size: cover;
-  margin-top: 1rem;
+  background-size: contain;
 `;
 
 export const PasswordStrenghP = styled.p`

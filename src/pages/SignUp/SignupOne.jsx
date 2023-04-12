@@ -83,13 +83,6 @@ export default function SignUpOne(props) {
     console.log(json);
   };
 
-  const facebook = async () => {
-    const newWindow = window.open(
-      'https://www.tessera.social/api/auth/facebook',
-      '__blank',
-      'width=500,height,600'
-    );
-  };
   // useEffect(() => {
   //   fetchData();
   // }, []);
@@ -243,7 +236,7 @@ export default function SignUpOne(props) {
               </OtherArrow>
             </OtherSignUpButtonDiv2>
           </OtherSignUpButton>
-          <FacebookButton onClick={facebook}></FacebookButton>
+          <FacebookButton></FacebookButton>
           <LogInDiv2>
             <LogIn2>
               <Link to="/login">Log in </Link>
