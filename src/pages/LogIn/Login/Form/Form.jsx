@@ -7,9 +7,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { PasswordShowImg } from '../../../SignUp/styles/Password.Styled';
 import { PasswordShowButton } from '../../../SignUp/styles/Password.Styled';
 import { ErrorST } from './Error.styled';
+
 export default function Form() {
   const [passwordType, setPasswordType] = useState('password');
   const [passwordInput, setPasswordInput] = useState('');
+  const navigate = useNavigate();
+
   const handlePasswordChange = evnt => {
     setPasswordInput(evnt.target.value);
   };
@@ -72,6 +75,7 @@ export default function Form() {
 
   async function handleSubmit(event) {
     //Prevent page reload
+    console.log(event);
     event.preventDefault();
     var { uname, pass } = document.forms[0];
     const responsebody = {};
@@ -87,21 +91,23 @@ export default function Form() {
       },
       body: JSON.stringify(responsebody),
     });
-
-    console.log(await response.json());
-
-    // Compare user info
-    if (response.success) {
-      // if (userData.password !== responsebody.Password) {
-      //   // Invalid password
-      //   setErrorMessages({ name: "pass", message: errors.pass });
-      // } else {
-      //   setIsSubmitted(true);
-      // }
-      setIsSubmitted(true);
+    const json = await response.json();
+    console.log(json);
+    if (json.success == true) {
+      setErrorMessages({
+        name: '',
+        message: '',
+      });
+      navigate('/', { state: responsebody.email });
     } else {
       // email not found
-      setErrorMessages({ name: 'uname', message: errors.uname });
+      setErrorMessages({
+        name: json.message === 'Invalid Email or Password' ? 'uname' : 'pass',
+        message:
+          json.message === 'Invalid Email or Password'
+            ? 'There is no associated account with this email'
+            : 'Invalid password',
+      });
     }
   }
 
@@ -117,41 +123,9 @@ export default function Form() {
         </Link>
       </ErrorST>
     );
+
   const renderErrorMessagePass = name =>
     name === errorMessages.name && <ErrorST>{errorMessages.message}</ErrorST>;
-  // const renderform = () => (
-  //   <form onSubmit={handleSubmit} className="form">
-  //     {renderErrorMessage("uname")}
-  //     {renderErrorMessage("pass")}
-  //     <StyledEmail>
-  //       <div className="full-input">
-  //         <label htmlFor="email">Email address</label>
-  //         <input
-  //           type="email"
-  //           name="uname"
-  //           required
-  //           // value={formValues.email}
-  //         />
-  //       </div>
-  //     </StyledEmail>
-  //     <StyledPassword>
-  //       <div className="passworddiv">
-  //         <label htmlFor="pass">Password</label>
-  //         <input
-  //           type="password"
-  //           name="pass"
-  //           // value={formValues.Password}
-  //           required
-  //         />
-  //       </div>
-  //     </StyledPassword>
-  //     {/* <p>{formErrors.Password}</p> */}
-
-  //     <LoginTagSt>
-  //       <button>Log in</button>
-  //     </LoginTagSt>
-  //   </form>
-  // );
 
   return (
     <FormST>
@@ -192,7 +166,7 @@ export default function Form() {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-eye-fill"
+                    className="bi bi-eye-fill"
                     viewBox="0 0 16 16"
                   >
                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
@@ -204,7 +178,7 @@ export default function Form() {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-eye-slash-fill"
+                    className="bi bi-eye-slash-fill"
                     viewBox="0 0 16 16"
                   >
                     <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />

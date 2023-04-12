@@ -132,11 +132,7 @@ function TermsandConditions(props) {
       },
       body: JSON.stringify(props.data),
     });
-    //console.log(response.user);
     const json = await response.json();
-    console.log(response.json);
-    console.log(json);
-    props.setEmail(props.data.email);
   }
   //console.log(props.data.email)
 
@@ -191,7 +187,9 @@ function TermsandConditions(props) {
             Cancel
           </button>
           <button className="AgreeButton" onClick={clickAgree}>
-            <Link to="/"> Agree</Link>
+            <Link to="/" state={props.data.email}>
+              Agree
+            </Link>
           </button>
         </div>
       </div>
