@@ -169,8 +169,8 @@ export default function Landing() {
         <span>{city}</span>
       </h3> */}
 
-        <div className="filter__nav">
-          <nav className="">
+        <div className="">
+          <nav>
             <ul>
               <li className="first-Filter">
                 <button
@@ -346,7 +346,7 @@ export default function Landing() {
 
           {forYouElement && (
             <div className="date-dropdown" onClick={showDropdown}>
-              <div className="you--options" data-testid="forYou">
+              <div className="you--options">
                 {showDateRange ? (
                   <span>
                     {monthNames[range.startDate.getMonth()] +
