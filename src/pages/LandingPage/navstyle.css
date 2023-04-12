@@ -1,6 +1,5 @@
 .navBar {
   /* background-color: rgba(228, 4, 4, 0.89); */
-
   height: 7rem;
   display: flex;
   flex-direction: row;
@@ -96,7 +95,6 @@
   display: flex;
   align-items: center;
   height: 100%;
-  margin-left: 1.5rem;
 }
 
 .navLanding:hover {
@@ -167,10 +165,6 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#signUpId {
-  margin-right: -2rem;
 }
 
 .hamburgerDiv {
