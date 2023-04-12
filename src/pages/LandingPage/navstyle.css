@@ -4,6 +4,7 @@
   height: 7rem;
   display: flex;
   flex-direction: row;
+  gap: 1rem;
 }
 
 .siteLogoSection {
@@ -28,8 +29,8 @@
 .optionsSection {
   /* background-color: rgba(157, 175, 255, 0.89); */
 
-  width: 52.5rem;
   display: flex;
+  gap: 1rem;
   flex-direction: row;
   min-width: 207.45px;
   color: #39364f;
@@ -179,10 +180,6 @@ a {
 @media only screen and (max-width: 1080px) {
   #createEventId {
     display: none;
-  }
-
-  .optionsDiv {
-    /* width: 7rem;  */
   }
 
   #signUpId {

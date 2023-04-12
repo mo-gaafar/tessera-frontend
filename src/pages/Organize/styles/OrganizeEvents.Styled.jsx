@@ -110,6 +110,7 @@ export const PageContainer = styled.div`
       border:none;
       width: 17rem;
       height: 5rem;
+      cursor: pointer;
       transition: all .4s cubic-bezier(.4,0,.3,1);
       border-radius: 4px;
       line-height: 22px;
@@ -244,14 +245,9 @@ export const PageContainer = styled.div`
       padding-top: 30px;
       padding-bottom: 12px;
       font-weight: 300;
-      
-      &:hover{
-        color:black;
-      }
-      &:focus{
-        color:#3d64ff;
-        border-bottom: 2px solid #3d64ff;
-      }
+      color:#3d64ff;
+      border-bottom: 2px solid #3d64ff;
+
       
     }
   }

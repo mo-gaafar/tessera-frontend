@@ -1,3 +1,13 @@
+/**
+ * @file Organize.jsx
+ * @name Organize.jsx
+ * @author @hlasultanhassan
+ * @requires react
+ * @requires react-router-dom
+ * @requires ./styles/OrganizeEvents.styled
+ * @exports Organize
+ * @description This file contains the Organize component and its logic
+ */
 import {PageContainer} from "./styles/OrganizeEvents.Styled";
 import { useEffect, useState } from 'react';
 import logoDown from '../../assets/icon-down.png';
@@ -6,8 +16,14 @@ import bullet from '../../assets/bullet-list.png';
 import noEvent from '../../assets/noEvents.png';
 import checkmark from '../../assets/checkmark.png';
 import search from  '../../assets/search.png';
+
+/**
+ * A functional component that handles the Organization event page.
+ * 
+ * @returns {JSX.Element} The JSX representation of the component.
+ */
+
 export default function Organize() {
-  const [showEvents,setShowEvents] = useState(false);
   const [showMenu,setShowMenu] = useState(false);
   const [doneSelect,setDone] = useState(false);
   const [select,setSelect] = useState("All events")
@@ -20,14 +36,12 @@ export default function Organize() {
     }
   }
 
-  function displayEvent(){
-    setShowEvents(true);
-  }
-
-  function displayCollection(){
-    setShowEvents(false)
-  }
-
+  /**
+   * Updates the dropdown menu and handles the category selected.
+   *
+   * @param {Object} e - The event object.
+   */
+  
   function onClickMenu(e){
     setDone(true)
     const {name,value} = e.target;
@@ -44,17 +58,13 @@ export default function Organize() {
      <div>
        <div className="cat-option">
           <div>
-            <button onClick={displayEvent}>
+            <button >
               Events
             </button>
           </div>
-          <div>
-            <button onClick={displayCollection}>
-              Collections
-            </button>
+          
           </div>
-          </div>
-          {showEvents &&
+          
           <div className="events-bar">
             <div className="first-part-eventbar">
               <div> 
@@ -144,7 +154,7 @@ export default function Organize() {
               </div>
               
           </div>
-            }
+            
             <div className="event-body">
                 <div className="noEvents-center">
                   <div>
