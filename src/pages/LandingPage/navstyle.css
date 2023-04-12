@@ -166,6 +166,8 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0.5rem;
+  margin-right: 0.1rem;
 }
 
 #signUpId {
@@ -182,7 +184,7 @@ a {
   }
 
   .optionsDiv {
-    /* width: 7rem;  */
+    width: 7rem;
   }
 
   #signUpId {

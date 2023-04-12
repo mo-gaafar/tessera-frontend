@@ -132,7 +132,11 @@ function TermsandConditions(props) {
       },
       body: JSON.stringify(props.data),
     });
+    //console.log(response.user);
     const json = await response.json();
+    console.log(response.json);
+    console.log(json);
+    props.setEmail(props.data.email);
   }
   //console.log(props.data.email)
 

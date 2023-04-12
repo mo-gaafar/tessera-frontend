@@ -8,10 +8,6 @@
  * @exports SignupTwo
  * @description This file contains the SignupTwo component and its logic
  */
-import { Wrapper } from './styles/Password.Styled.jsx';
-import { PwdProgress } from './styles/Password.Styled';
-
-
 
 import { StyledSignup } from './styles/FormFormat.Styled';
 import { StyledLoginRef } from './styles/FormFormat.Styled';
@@ -41,12 +37,12 @@ import edit from '/images/edit.png';
 import logo from '/images/LogoFullTextSmall.png';
 import pwdhide from '/images/eye.png';
 import pwdShow from '/images/icon-visibility.jpg';
-import { PasswordShowButton, PwdLabel } from './styles/Password.Styled';
+import { PasswordShowButton } from './styles/Password.Styled';
 import { PasswordShowImg } from './styles/Password.Styled';
 import React, { useState, useContext, useEffect } from 'react';
 import { Await, Link, useNavigate } from 'react-router-dom';
 
-//import PasswordChecker from './PasswordChecker';
+import PasswordChecker from './PasswordChecker';
 import { PasswordStrenghP } from './styles/Password.Styled';
 
 import { ImgComatiner } from './styles/FormFormat.Styled.jsx';
@@ -77,7 +73,6 @@ export default function SignupTwo(props) {
    *
    */
 
-
   const [pwdInput, initValue] = React.useState({
     password: '',
   });
@@ -86,7 +81,7 @@ export default function SignupTwo(props) {
   const [passwordButtonType, setPasswordButtonType] = React.useState('none');
 
   const [isError, setError] = React.useState(
-    'Your password must be at least 8 characters and strong'
+    'Your password must be at least 8 characters'
   );
 
   const [email, setEmail] = useState(props.email);
@@ -118,7 +113,7 @@ export default function SignupTwo(props) {
       setPasswordButtonType('none');
     }
     if (password.length < 8) {
-      setError('Your password must be at least 8 characters and strong');
+      setError('Your password must be at least 8 characters');
       return;
     } else {
       setPassError(false);
@@ -181,7 +176,7 @@ export default function SignupTwo(props) {
     }
 
     if (pwdInput.password.length < 8) {
-      setEmptyPassError('Your password must be at least 8 characters and strong');
+      setEmptyPassError('Your password must be at least 8 characters');
       setPassError(true);
       setErrorFound(true);
     }
@@ -232,7 +227,7 @@ export default function SignupTwo(props) {
 
   function GoBack(e) {
     e.preventDefault();
-    e.detail && navigate('/signup', { replace: true });
+    e.detail && navigate('/signup');
   }
 
   function handleFocus(event) {
@@ -264,7 +259,6 @@ export default function SignupTwo(props) {
         !formData.emailConfirm ||
         pwdInput.password.length < 8 ||
         formData.emailConfirm !== email ||
-        initPwdChecker().val!=='strong'||
         pwdInput.password.indexOf(' ') >= 0)
     ) {
       setShowTerms(false);
@@ -347,57 +341,6 @@ export default function SignupTwo(props) {
     formData.emailConfirm,
     pwdInput.password,
   ]);
-
-  //password file instead of applying in separate file
-  const pwdValidate = pwdInput.password;
-  const initPwdChecker = () => {
-    let pwdCheck = 0;
-    let validateRegex = ['[A-Z]', '[a-z]', '[0-9]', '\\W'];
-    validateRegex.forEach((regex, i) => {
-      if (new RegExp(regex).test(pwdValidate)) {
-        pwdCheck += 1;
-      }
-    });
-    switch (pwdCheck) {
-      case 0:
-        return {
-          strength: 0,
-          val: '',
-        };
-      case 1:
-        return {
-          strength: 1,
-          val: 'very weak',
-        };
-      case 2:
-        return {
-          strength: 2,
-          val: 'weak',
-        };
-      case 3:
-        return {
-          strength: 3,
-          val: 'moderate',
-        };
-      case 4:
-        return {
-          strength: 4,
-          val: 'strong',
-        };
-
-      default:
-        return null;
-    }
-  };
-  {
-    //initPwdInput(initPwdChecker().val);
-  }
-  let colorCondition = false;
-  if (initPwdChecker().val === 'moderate') {
-    colorCondition = 'moderate';
-  } else if (initPwdChecker().val === 'strong') {
-    colorCondition = 'strong';
-  }
 
   return (
     <>
@@ -630,44 +573,11 @@ export default function SignupTwo(props) {
                   </Message>
                 )}
               </StyledInputContainerDiv>
-              {/* <PasswordChecker
+              <PasswordChecker
                 password={pwdInput.password}
                 actions={initPwdInput}
                 showStrength={isError}
-              /> */}
-              <>
-                <Wrapper>
-                  <PwdProgress
-                    inputColor={
-                      colorCondition === 'strong'
-                        ? 'green'
-                        : colorCondition === 'moderate'
-                        ? 'orange'
-                        : 'red'
-                    }
-                    className={`pwd-checker-bar strength-${initPwdChecker().val}`}
-                    value={initPwdChecker().strength}
-                    max="4"
-                  />
-                  <br />
-                  <PwdLabel>
-                    {pwdInput.password && (
-                      <div>
-                        <p className={`label strength-${initPwdChecker().val}`}>
-                          {isError != null ? (
-                            ''
-                          ) : (
-                            <PasswordStrenghP>
-                              Your Password
-                              <strong> is {initPwdChecker().val} </strong>
-                            </PasswordStrenghP>
-                          )}
-                        </p>
-                      </div>
-                    )}
-                  </PwdLabel>
-                </Wrapper>
-              </>
+              />
               {isError !== null && (
                 <PasswordStrenghP
                   data-testid="passError"
