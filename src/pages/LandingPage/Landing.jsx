@@ -10,6 +10,8 @@
  * @description This file contains the Landing page components and its logic
  */
 import DateRangePicker from 'tw-daterange';
+import DatePicker from 'react-datepicker';
+import format from 'date-fns/format';
 import 'react-dater/dist/index.css';
 
 import { useEffect, useState } from 'react';
@@ -21,18 +23,19 @@ import logo from '../../assets/icon-down.png';
 import cross from '../../assets/x-10327.png';
 import EventBox from './EventBox';
 import Navbar from './nav2';
-
-
-/**
- * A functional component that handles the landing page and event filtering.
- * 
- * @returns {JSX.Element} The JSX representation of the component.
- */
+import { setDate } from 'date-fns/esm';
 
 export default function Landing() {
   const [city, setCity] = useState('');
 
-  
+  /**
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that fetches the city name from the latitude and longitude
+   * @param {function} fetchData
+   * @param {function} navigator.geolocation.getCurrentPosition
+   * @returns {JSX.Element} A React component representing the event box
+   */
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -46,12 +49,6 @@ export default function Landing() {
   });
 
   const [select, setSelect] = useState('');
-
-  /**
-   * Updates the textContent of div and handles calender.
-   *
-   * @param {Object} e - The event object.
-   */
 
   function onClickCalender(e) {
     const { name, value } = e.target;
@@ -80,15 +77,6 @@ export default function Landing() {
     food: false,
     charity: false,
   });
-
-  /**
-   * @function useEffect
-   * @name useEffect
-   * @description This function is a hook that fetches the city name from the latitude and longitude
-   * @param {function} fetchData
-   * @param {function} navigator.geolocation.getCurrentPosition
-   * @returns {JSX.Element} A React component representing the event box
-   */
 
   useEffect(() => {
     const fetchData = async (latitude, longitude) => {
@@ -157,27 +145,6 @@ export default function Landing() {
     'Nov',
     'Dec',
   ];
-  const [allFilteredEvents, setAllFilteredEvents] = useState([])
-  // useEffect(() => {
-  //     fetch("https://www.tessera.social/api/attendee/Eventsby/?futureDate=weekend&startDate=2023-04-12T06:02:37Z")
-  //         .then(res => res.json())
-  //         .then(data => setAllFilteredEvents(data))
-  // }, [])
-
-
-  // console.log(allFilteredEvents)
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/?futureDate=weekend&startDate=2023-04-12T06:02:37Z')
-  //     const json = await response.json()   
-  //     console.log(response.ok)
-  //     if (response.ok) {
-  //       setAllFilteredEvents(json)
-  //     }
-  //   }
-
-  //   fetchProducts()
-  // }, [])
   const email = useLocation().state;
   return (
     <>
