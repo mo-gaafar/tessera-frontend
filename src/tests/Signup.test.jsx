@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, getByRole, render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import SignupTwo from '../components/SignupTwo';
+import SignupTwo from '../pages/SignUp/SignupTwo';
 import { BrowserRouter } from 'react-router-dom';
-import SignUpOne from '../components/SignupOne';
+import SignUpOne from '../pages/SignUp/SignupOne';
 
 describe('signup', () => {
   it('email displays the correct email from previous page', () => {
@@ -75,7 +75,9 @@ describe('signup', () => {
 
     fireEvent.change(passInput, { target: { value: '1234567' } });
     const error = getAllByTestId('passError')[0].textContent;
-    expect(error).toEqual('Your password must be at least 8 characters and strong');
+    expect(error).toEqual(
+      'Your password must be at least 8 characters and strong'
+    );
   });
 });
 

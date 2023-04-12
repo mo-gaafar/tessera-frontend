@@ -6,12 +6,12 @@ import {
   getByDisplayValue,
   getByText,
 } from '@testing-library/react';
-import Landing from '../components/Landing';
+import Landing from '../pages/LandingPage/Landing';
 import { describe, it, expect } from 'vitest';
-import EventBox from '../components/EventBox';
+import EventBox from '../pages/LandingPage/EventBox';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import TermsAndConditions from '../components/TermsAndConditions';
+// import TermsAndConditions from '../pages/LandingPage/TermsAndConditions';
 
 describe('Landing', () => {
   it('renders Event', () => {
@@ -46,7 +46,7 @@ describe('Landing', () => {
   });
 
   it('renders filterbar', () => {
-    const { getAllByRole , getByText } = render(
+    const { getAllByRole, getByText } = render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -61,7 +61,7 @@ describe('Landing', () => {
   });
 
   it('renders calender', () => {
-    const { getAllByRole , getByText , getAllByText } = render(
+    const { getAllByRole, getByText, getAllByText } = render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -80,7 +80,7 @@ describe('Landing', () => {
   });
 
   it('filter bar Today selected', () => {
-    const { getAllByRole , getAllByTestId  } = render(
+    const { getAllByRole, getAllByTestId } = render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
