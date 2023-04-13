@@ -83,7 +83,12 @@ export default function SignUpOne(props) {
     const fetchData = async () => {
       try {
         const data = await fetch(
-          `https://www.tessera.social/api/auth/google/callback`
+          `https://www.tessera.social/api/auth/google/callback`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
         );
 
         console.log(data);
