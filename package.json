@@ -24,7 +24,6 @@
     "react-datepicker": "^4.11.0",
     "react-dater": "^1.6.0",
     "react-dom": "^18.2.0",
-    "react-facebook-login": "^4.1.1",
     "react-router-dom": "^6.9.0",
     "react-tailwindcss-datepicker": "^1.5.1",
     "rsuite": "^5.30.0",

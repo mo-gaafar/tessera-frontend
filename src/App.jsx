@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Reset from './pages/ResetPassword/Reset';
-import FacebookLoginButton from './components/LoginFacebook';
+// import FacebookLoginButton from './components/LoginFacebook';
 /**
  * Function component that renders the main application
  * @function
@@ -35,7 +35,7 @@ function App() {
         <Route path="Organize" element={<Organize />} />
         <Route path="forgetPassword" element={<Reset />} />
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
-        <Route path="facebook" element={<FacebookLoginButton />} />
+        {/* <Route path="facebook" element={<FacebookLoginButton />} /> */}
       </Routes>
     </>
   );
