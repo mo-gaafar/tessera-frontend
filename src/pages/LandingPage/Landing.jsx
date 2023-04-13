@@ -22,17 +22,15 @@ import cross from '../../assets/x-10327.png';
 import EventBox from './EventBox';
 import Navbar from './nav2';
 
-
 /**
  * A functional component that handles the landing page and event filtering.
- * 
+ *
  * @returns {JSX.Element} The JSX representation of the component.
  */
 
 export default function Landing() {
   const [city, setCity] = useState('');
 
-  
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -157,19 +155,18 @@ export default function Landing() {
     'Nov',
     'Dec',
   ];
-  const [allFilteredEvents, setAllFilteredEvents] = useState([])
+  const [allFilteredEvents, setAllFilteredEvents] = useState([]);
   // useEffect(() => {
   //     fetch("https://www.tessera.social/api/attendee/Eventsby/?futureDate=weekend&startDate=2023-04-12T06:02:37Z")
   //         .then(res => res.json())
   //         .then(data => setAllFilteredEvents(data))
   // }, [])
 
-
   // console.log(allFilteredEvents)
   // useEffect(() => {
   //   const fetchProducts = async () => {
   //     const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/?futureDate=weekend&startDate=2023-04-12T06:02:37Z')
-  //     const json = await response.json()   
+  //     const json = await response.json()
   //     console.log(response.ok)
   //     if (response.ok) {
   //       setAllFilteredEvents(json)
@@ -183,24 +180,24 @@ export default function Landing() {
     <>
       <Navbar />
       <StyledLandingEvents>
-        {/* <h3>
-        Popular in
-        <svg
-          id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_svg"
-          x="0"
-          y="0"
-          viewBox="0 0 24 24"
-          xmlSpace="preserve"
-        >
-          <path
-            id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_base"
-            fill="evenodd"
-            clip="evenodd"
-            d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z"
-          ></path>
-        </svg>
-        <span>{city}</span>
-      </h3> */}
+        <h3>
+          Popular in
+          <svg
+            id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_svg"
+            x="0"
+            y="0"
+            viewBox="0 0 24 24"
+            xmlSpace="preserve"
+          >
+            <path
+              id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_base"
+              fill="evenodd"
+              clip="evenodd"
+              d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z"
+            ></path>
+          </svg>
+          <span>{city}</span>
+        </h3>
 
         <div className="filter__nav">
           <nav className="">

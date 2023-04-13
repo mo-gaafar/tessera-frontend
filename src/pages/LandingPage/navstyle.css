@@ -1,10 +1,12 @@
 .navBar {
   /* background-color: rgba(228, 4, 4, 0.89); */
-
   height: 7rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  justify-content: space-between;
+  padding-right: 2rem;
+  align-items: center;
 }
 
 .siteLogoSection {
@@ -22,8 +24,7 @@
   /* background-color: rgba(170, 255, 153, 0.89); */
 
   display: flex;
-
-  flex: 1;
+  margin-left: 2rem;
 }
 
 .optionsSection {
@@ -32,7 +33,6 @@
   display: flex;
   gap: 1rem;
   flex-direction: row;
-  min-width: 207.45px;
   color: #39364f;
 }
 
@@ -96,7 +96,6 @@
   display: flex;
   align-items: center;
   height: 100%;
-  margin-left: 1.5rem;
 }
 
 .navLanding:hover {
@@ -169,10 +168,6 @@ a {
   align-items: center;
 }
 
-#signUpId {
-  margin-right: -2rem;
-}
-
 .hamburgerDiv {
   display: none;
 }
@@ -205,10 +200,6 @@ a {
     justify-content: right;
     align-items: right;
     cursor: pointer;
-  }
-
-  .optionsSection {
-    max-width: 12.966rem;
   }
 
   .landingItems #hidden {

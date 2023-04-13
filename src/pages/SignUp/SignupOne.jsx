@@ -64,23 +64,11 @@ import { Link, useNavigate } from 'react-router-dom';
  */
 
 export default function SignUpOne(props) {
-  const google = async () => {
+  const google = async data => {
     const newWindow = window.open(
       'https://www.tessera.social/api/auth/google',
       '__blank'
     );
-    fetchData();
-  };
-
-  const fetchData = async () => {
-    const data = await fetch(
-      `https://www.tessera.social/api/auth/userInformation`,
-      { mode: 'no-cors' }
-    );
-
-    console.log(data);
-    const json = await data.json();
-    console.log(json);
   };
 
   const facebook = async () => {
@@ -90,9 +78,31 @@ export default function SignUpOne(props) {
       'width=500,height,600'
     );
   };
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetch(
+          `https://www.tessera.social/api/auth/userInformation`,
+          {
+            mode: 'no-cors',
+          }
+        );
+
+        console.log(data);
+        const json = await data.json();
+        console.log(json);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    setTimeout(() => {
+      fetchData();
+    }, 10000);
+
+    fetchData();
+  }, [google]);
 
   //
 
