@@ -6,6 +6,8 @@
   gap: 1rem;
   justify-content: space-between;
   padding-right: 2rem;
+  align-items: center;
+
 }
 
 .siteLogoSection {

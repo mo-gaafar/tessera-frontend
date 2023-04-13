@@ -50,9 +50,9 @@ export const StyledLandingEvents = styled.section`
         margin-bottom: 2rem;
       }
       .flex {
-        .drop-shadow-sm.shadow-sm.min-w-[10rem].p-3.rounded-lg.border.flex.flex-col {
+        /* .drop-shadow-sm.shadow-sm.min-w-[10rem].p-3.rounded-lg.border.flex.flex-col {
           background-color: red;
-        }
+        } */
       }
 
       .grid.grid-cols-7.p-3.gap-2.mt-3 {
@@ -165,7 +165,7 @@ export const StyledLandingEvents = styled.section`
 
 export const StyledEventsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
 
