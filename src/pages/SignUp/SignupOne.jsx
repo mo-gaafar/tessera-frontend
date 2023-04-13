@@ -83,10 +83,7 @@ export default function SignUpOne(props) {
     const fetchData = async () => {
       try {
         const data = await fetch(
-          `https://www.tessera.social/api/auth/userInformation`,
-          {
-            mode: 'no-cors',
-          }
+          `https://www.tessera.social/api/auth/google/callback`
         );
 
         console.log(data);
@@ -100,8 +97,6 @@ export default function SignUpOne(props) {
     setTimeout(() => {
       fetchData();
     }, 10000);
-
-    fetchData();
   }, [google]);
 
   //
