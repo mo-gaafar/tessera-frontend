@@ -74,7 +74,9 @@ export default function Form() {
   };
 
   async function handleSubmit(event) {
-    //Prevent page reload
+    localStorage.removeItem('authEmail');
+    localStorage.removeItem('email');
+
     console.log(event);
     event.preventDefault();
     var { uname, pass } = document.forms[0];
@@ -98,7 +100,8 @@ export default function Form() {
         name: '',
         message: '',
       });
-      navigate('/', { state: responsebody.email });
+      localStorage.setItem('email', responsebody.email);
+      navigate('/');
     } else {
       // email not found
       setErrorMessages({

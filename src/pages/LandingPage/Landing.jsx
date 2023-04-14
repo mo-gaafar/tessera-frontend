@@ -175,7 +175,10 @@ export default function Landing() {
 
   //   fetchProducts()
   // }, [])
-  const email = useLocation().state;
+  const email = localStorage.getItem('email')
+    ? localStorage.getItem('email')
+    : localStorage.getItem('authEmail');
+  console.log(email);
   return (
     <>
       <Navbar />

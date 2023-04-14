@@ -11,8 +11,6 @@
 import { Wrapper } from './styles/Password.Styled.jsx';
 import { PwdProgress } from './styles/Password.Styled';
 
-
-
 import { StyledSignup } from './styles/FormFormat.Styled';
 import { StyledLoginRef } from './styles/FormFormat.Styled';
 import { StyledHead } from './styles/FormFormat.Styled';
@@ -76,7 +74,6 @@ export default function SignupTwo(props) {
    * A state variable and a function for setting that state variable
    *
    */
-
 
   const [pwdInput, initValue] = React.useState({
     password: '',
@@ -181,7 +178,9 @@ export default function SignupTwo(props) {
     }
 
     if (pwdInput.password.length < 8) {
-      setEmptyPassError('Your password must be at least 8 characters and strong');
+      setEmptyPassError(
+        'Your password must be at least 8 characters and strong'
+      );
       setPassError(true);
       setErrorFound(true);
     }
@@ -264,23 +263,14 @@ export default function SignupTwo(props) {
         !formData.emailConfirm ||
         pwdInput.password.length < 8 ||
         formData.emailConfirm !== email ||
-        initPwdChecker().val!=='strong'||
+        initPwdChecker().val !== 'strong' ||
         pwdInput.password.indexOf(' ') >= 0)
     ) {
       setShowTerms(false);
 
       return;
     }
-    // responseBody.firstName = formData.firstName;
-    // responseBody.lastName = formData.lastName;
-    // responseBody.emailConfirmation = formData.emailConfirm;
-    // responseBody.password = pwdInput.password;
-    // responseBody.email = formData.emailConfirm;
-    // console.log(JSON.stringify(responseBody))
-    // fetch("https://www.tessera.social/api/auth/signup", {
-    //   method: 'POST',
-    //   body: JSON.stringify(responseBody),
-    // })
+
     setResponseBody(prevres => ({
       ...prevres,
       password: pwdInput.password,
@@ -289,18 +279,6 @@ export default function SignupTwo(props) {
       firstName: formData.firstName,
       lastName: formData.lastName,
     }));
-
-    //  const { emailConfirm, ...responebody } = formData;
-    // responebody.password = pwdInput.password;
-    // responebody.emailConfirmation = formData.emailConfirm;
-    // responebody.email = email;
-
-    // console.log(responebody);
-    // const response = await fetch('https://www.tessera.social/api/auth/signup', {
-    //   method: 'POST',
-    //   body: JSON.stringify(responebody),
-    // });
-    // console.log(response.user);
 
     setShowTerms(true);
   }
@@ -645,7 +623,9 @@ export default function SignupTwo(props) {
                         ? 'orange'
                         : 'red'
                     }
-                    className={`pwd-checker-bar strength-${initPwdChecker().val}`}
+                    className={`pwd-checker-bar strength-${
+                      initPwdChecker().val
+                    }`}
                     value={initPwdChecker().strength}
                     max="4"
                   />

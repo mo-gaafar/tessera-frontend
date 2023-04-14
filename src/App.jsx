@@ -35,7 +35,6 @@ function App() {
         <Route path="Organize" element={<Organize />} />
         <Route path="forgetPassword" element={<Reset />} />
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
-        {/* <Route path="facebook" element={<FacebookLoginButton />} /> */}
       </Routes>
     </>
   );
