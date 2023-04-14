@@ -4,19 +4,16 @@
  * @exports App
  */
 
-// const google = () => {
-//   console.log('first');
-//   window.open('', _self);
-// };
-
 import SignupTwo from './pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
 import GlobalStyles from './components/styles/global';
-import Landing from './pages/LandingPage/Landing';
+import Landing from './Pages/LandingPage/Landing';
 import { Route, Routes } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
+
+import EventPageOrganizer from './Pages/EventPageOrganizer/EventPageOrganizer';
 
 /**
  * Function component that renders the main application
@@ -30,10 +27,11 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<EventPageOrganizer />} />
+        {/* <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
-        <Route path="login" element={<Maincontainer />} />
+        <Route path="login" element={<Maincontainer />} /> */}
       </Routes>
     </>
   );

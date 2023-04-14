@@ -10,18 +10,18 @@
     "test": "vitest --coverage"
   },
   "dependencies": {
-    "components": "^0.1.0",
-    "styled": "^1.0.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.14",
     "@mui/styled-engine-sc": "^5.11.11",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
+    "components": "^0.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
+    "styled": "^1.0.0",
     "styled-components": "^5.3.9"
   },
   "devDependencies": {
