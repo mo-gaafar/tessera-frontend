@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 
 function ResetPassword() {
   const token = useParams().token.slice(1);
+
   console.log(token);
 
   const [formData, setFormData] = useState({
@@ -74,10 +75,25 @@ function ResetPassword() {
     }
     setStrength(i);
   }
+  function checkStrengh(password) {
+    let i = 0;
+    if (password.length >= 8) {
+      i++;
+    }
+    if (/[A-Z]/.test(password)) {
+      i++;
+    }
+    if (/[0-9]/.test(password)) {
+      i++;
+    }
+    if (/[A-Za-z0-8]/.test(password)) {
+      i++;
+    }
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+    checkStrengh();
     if (strength !== 4) {
       setPasswordError(
         'Password needs to have a lower Case letter and an uppercase letter and number and a symbol'
