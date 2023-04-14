@@ -90,7 +90,6 @@ function ResetPassword() {
 
       const response = await fetch(
         `https://www.tessera.social/api/auth/reset-password/${token}`,
-
         {
           method: 'POST',
           body: JSON.stringify(responsebody),
