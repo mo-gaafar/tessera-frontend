@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 
 function ResetPassword() {
   const token = useParams().token.slice(1);
-  console.log(token);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -75,7 +74,6 @@ function ResetPassword() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     if (strength !== 4) {
       setPasswordError(
         'Password needs to have a lower Case letter and an uppercase letter and number and a symbol'
@@ -95,8 +93,6 @@ function ResetPassword() {
           body: JSON.stringify(responsebody),
         }
       );
-      console.log(response);
-      console.log(await response.json());
     }
   }
 

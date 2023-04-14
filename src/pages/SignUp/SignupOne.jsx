@@ -53,6 +53,7 @@ import SignupTwo from './SignupTwo';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
 
 /**
  * @module SignupOne
@@ -66,7 +67,6 @@ import axios from 'axios';
  */
 
 export default function SignUpOne(props) {
-
   let navigate;
   if (!props.test) {
     navigate = useNavigate();
@@ -82,6 +82,15 @@ export default function SignUpOne(props) {
 
     localStorage.setItem('email', email);
   }, [email]);
+
+  function handleSuccess(response) {
+    console.log(response);
+    console.log(response.status);
+  }
+
+  function handleError(error) {
+    console.log(error);
+  }
 
   const google = useGoogleLogin({
     onSuccess: codeResponse => setUser(codeResponse),
@@ -273,7 +282,15 @@ export default function SignUpOne(props) {
               </OtherArrow>
             </OtherSignUpButtonDiv2>
           </OtherSignUpButton>
-          <FacebookButton></FacebookButton>
+          <FacebookProvider appId="664174802386073">
+            <LoginButton
+              id="facebook"
+              scope="public_profile,email"
+              onError={handleError}
+              onSuccess={handleSuccess}
+            ></LoginButton>
+          </FacebookProvider>
+
           <LogInDiv2>
             <LogIn2>
               <Link to="/login">Log in </Link>
