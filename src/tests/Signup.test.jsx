@@ -4,6 +4,7 @@ import { describe, it, expect } from 'vitest';
 import SignupTwo from '../pages/SignUp/SignupTwo';
 import { BrowserRouter } from 'react-router-dom';
 import SignUpOne from '../pages/SignUp/SignupOne';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 describe('signup', () => {
   it('email displays the correct email from previous page', () => {
@@ -85,7 +86,9 @@ describe('sign-up', () => {
   it('correct email entered', () => {
     const { getByTestId } = render(
       <BrowserRouter>
-        <SignUpOne test={true} />
+        <GoogleOAuthProvider clientId="749417144932-40bn9j748fbhp5tciuuhd5ehhr8e5gfd.apps.googleusercontent.com">
+          <SignUpOne test={true} />
+        </GoogleOAuthProvider>
       </BrowserRouter>
     );
     const emailvalue = getByTestId('email').value;
@@ -95,7 +98,9 @@ describe('sign-up', () => {
   it('when pressing the continue button with empty email error will appear ', () => {
     const { getAllByRole, getByText } = render(
       <BrowserRouter>
-        <SignUpOne test={true} />
+        <GoogleOAuthProvider clientId="749417144932-40bn9j748fbhp5tciuuhd5ehhr8e5gfd.apps.googleusercontent.com">
+          <SignUpOne test={true} />
+        </GoogleOAuthProvider>
       </BrowserRouter>
     );
     const continueButton = getAllByRole('button', { name: 'Continue' })[0];
