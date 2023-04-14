@@ -5,6 +5,8 @@ import { ContinueButton } from '../SignUp/styles/SignUpEmail.styled';
 import { StyledHead } from '../SignUp/styles/FormFormat.Styled';
 import { useParams } from 'react-router-dom';
 
+import { useParams } from 'react-router-dom';
+
 function ResetPassword() {
   const token = useParams().token.slice(1);
   console.log(token);
@@ -89,6 +91,7 @@ function ResetPassword() {
       responsebody.email = formData.email;
 
       const response = await fetch(
+        `https://www.tessera.social/api/auth/reset-password/${token}`,
         `https://www.tessera.social/api/auth/reset-password/${token}`,
         {
           method: 'POST',
