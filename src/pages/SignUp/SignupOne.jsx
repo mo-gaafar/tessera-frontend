@@ -89,8 +89,7 @@ export default function SignUpOne(props) {
       `https://graph.facebook.com/v12.0/me?fields=name,email&access_token=${response.access_token}`
     );
     console.log(facebookResponse);
-
-    console.log(response.status);
+    console.log(await facebookResponse.json());
   }
 
   function handleError(error) {
