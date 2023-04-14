@@ -84,12 +84,32 @@ export default function SignUpOne(props) {
   }, [email]);
 
   async function handleSuccess(response) {
-    console.log(response.authResponse.accessToken);
     const facebookResponse = await fetch(
       `https://graph.facebook.com/v12.0/me?fields=name,email&access_token=${response.authResponse.accessToken}`
     );
-    console.log(facebookResponse);
-    console.log(await facebookResponse.json());
+    const data = await facebookResponse.json();
+
+    const [firstname, lastname] = data.name.split(' ');
+    const email = data.email;
+    const id = data.id;
+    console.log(email, firstname, lastname, id);
+    const response = await fetch(
+      'https://www.tessera.social/api/auth/facebook/app',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          firstname,
+          lastname,
+          id,
+        }),
+      }
+    );
+
+    console.log(await response.json());
   }
 
   function handleError(error) {
