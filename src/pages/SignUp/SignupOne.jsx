@@ -66,6 +66,7 @@ import axios from 'axios';
  */
 
 export default function SignUpOne(props) {
+
   let navigate;
   if (!props.test) {
     navigate = useNavigate();
