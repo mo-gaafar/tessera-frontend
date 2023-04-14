@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import { StyledResetPassword } from './styles/ResetPassword.styled';
 import { ContinueButton } from '../SignUp/styles/SignUpEmail.styled';
 import { StyledHead } from '../SignUp/styles/FormFormat.Styled';
+import { useParams } from 'react-router-dom';
+
 function ResetPassword() {
+  const token = useParams().token.slice(1);
+  console.log(token);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -82,15 +87,16 @@ function ResetPassword() {
       const responsebody = {};
       responsebody.password = formData.password;
       responsebody.email = formData.email;
-      console.log(responsebody);
 
       const response = await fetch(
-        'https://www.tessera.social/api/auth/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDE5YmZlMWVkYThjZmE4YWYxM2EzNDciLCJpYXQiOjE2Nzk0ODE0NzMsImV4cCI6MTY3OTU2Nzg3M30.US4nXAPj-lLETJkPqJxBfdBvnIsUSio7WcaD3hxeF2g',
+        `https://www.tessera.social/api/auth/reset-password/${token}`,
         {
           method: 'POST',
           body: JSON.stringify(responsebody),
         }
       );
+      console.log(response);
+      console.log(await response.json());
     }
   }
 

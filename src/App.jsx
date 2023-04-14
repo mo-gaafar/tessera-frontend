@@ -6,7 +6,7 @@
 
 import SignupTwo from './pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
-import GlobalStyles from './components/styles/global';
+import GlobalStyles from './components/styles/Global';
 import Landing from './pages/LandingPage/Landing';
 import Organize from './pages/Organize/Organize';
 import { Route, Routes } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Reset from './pages/ResetPassword/Reset';
+// import FacebookLoginButton from './components/LoginFacebook';
 /**
  * Function component that renders the main application
  * @function

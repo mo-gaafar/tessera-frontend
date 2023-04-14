@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const UpperPage = styled.div`
   height: 100%;
   width: 36rem;
+  .google {
+    margin-top: 2rem;
+    width: 36rem;
+  }
   @media (max-width: 960px) {
     padding-top: 7rem;
   }

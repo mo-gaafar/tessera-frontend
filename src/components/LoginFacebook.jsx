@@ -1,15 +1,15 @@
-/**
- * This component is used to handle the Facebook login
- * @module FacebookLoginButton
- * @author @claraashraf24
- * @requires react
- * @requires axios
- * @requires react-facebook-login
- * @returns {JSX.Element} FacebookLoginButton component
- * 
- */
+// /**
+//  * This component is used to handle the Facebook login
+//  * @module FacebookLoginButton
+//  * @author @claraashraf24
+//  * @requires react
+//  * @requires axios
+//  * @requires react-facebook-login
+//  * @returns {JSX.Element} FacebookLoginButton component
+//  *
+//  */
 // import axios from 'axios';
-// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+// import ReactFacebookLogin from 'react-facebook-login';
 
 // function FacebookLoginButton() {
 //   const responseFacebook = response => {
@@ -26,8 +26,8 @@
 //   };
 //   return (
 //     <div>
-//       <FacebookLogin
-//         appId="177342965099550"
+//       <ReactFacebookLogin
+//         appId="664174802386073"
 //         autoLoad={false}
 //         fields="name,email,picture"
 //         callback={responseFacebook}
