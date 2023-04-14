@@ -34,7 +34,6 @@ export default function Landing() {
   const [city, setCity] = useState('');
   const ref = useRef(null);
   
-
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -277,7 +276,6 @@ export default function Landing() {
   };
 
   const [eventElements,setEventElement] = useState();
-  const email = useLocation().state;
   useEffect(()=>{
     if (allFilteredEvents.length===0){
       setNoEventsImg(true);
@@ -301,30 +299,14 @@ export default function Landing() {
 
   ))
   },[allFilteredEvents])
+
   const handleClick = () => {
     ref.current?.scrollIntoView({behavior: 'smooth'});
   };
-   console.log(url)
-   console.log(allFilteredEvents)
-  // useEffect(() => {
-  //     fetch("https://www.tessera.social/api/attendee/Eventsby/?futureDate=weekend&startDate=2023-04-12T06:02:37Z")
-  //         .then(res => res.json())
-  //         .then(data => setAllFilteredEvents(data))
-  // }, [])
 
-  // console.log(allFilteredEvents)
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/?futureDate=weekend&startDate=2023-04-12T06:02:37Z')
-  //     const json = await response.json()
-  //     console.log(response.ok)
-  //     if (response.ok) {
-  //       setAllFilteredEvents(json)
-  //     }
-  //   }
-
-  //   fetchProducts()
-  // }, [])
+  console.log(url)
+  console.log(allFilteredEvents)
+  
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
