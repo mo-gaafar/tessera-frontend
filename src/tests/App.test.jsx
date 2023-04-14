@@ -6,6 +6,7 @@ import {
   getByDisplayValue,
   getByText,
 } from '@testing-library/react';
+
 import Landing from '../pages/LandingPage/Landing';
 import { describe, it, expect } from 'vitest';
 import EventBox from '../pages/LandingPage/EventBox';
