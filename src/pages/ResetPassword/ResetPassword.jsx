@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 
 function ResetPassword() {
   const token = useParams().token.slice(1);
+  console.log(token);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -94,7 +95,7 @@ function ResetPassword() {
           body: JSON.stringify(responsebody),
         }
       );
-
+      console.log(response);
       console.log(await response.json());
     }
   }
