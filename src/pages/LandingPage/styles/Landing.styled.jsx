@@ -40,6 +40,10 @@ export const StyledLandingEvents = styled.section`
         button {
           padding-left: 1.8rem;
           padding-right: 1.4rem;
+          &:focus{
+            border-radius:3px;
+            background:blue;
+          }
         }
       }
 
@@ -168,7 +172,15 @@ export const StyledEventsContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
-
+  .error-img{
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: auto;
+    vertical-align: top;
+  }
   .event__box {
     display: flex;
     flex-direction: column;

@@ -11,6 +11,7 @@
  */
 import DateRangePicker from 'tw-daterange';
 import 'react-dater/dist/index.css';
+import {useRef} from 'react';
 
 import { useEffect, useState } from 'react';
 import { StyledLandingEvents } from './styles/Landing.styled';
@@ -19,6 +20,7 @@ import { Link, Route, Routes, useLocation } from 'react-router-dom';
 
 import logo from '../../assets/icon-down.png';
 import cross from '../../assets/x-10327.png';
+import error from '../../assets/noevent-error.png';
 import EventBox from './EventBox';
 import Navbar from './nav2';
 
@@ -31,14 +33,16 @@ import Navbar from './nav2';
 
 export default function Landing() {
   const [city, setCity] = useState('');
-
+  const ref = useRef(null);
   
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [showCategoryMenu, setShowCategoryMenu] = useState(false);
 
   const [count, setCount] = useState(0);
   const [showDateRange, setShowDate] = useState(false);
+  
 
   const [range, setRange] = useState({
     startDate: new Date(),
@@ -46,7 +50,8 @@ export default function Landing() {
   });
 
   const [select, setSelect] = useState('');
-
+  const [selectCategory, setSelectCategory] = useState('');
+  const [url,setUrl] = useState('');
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -61,11 +66,45 @@ export default function Landing() {
     } else {
       setShowMenu(false);
       setSelect(name);
+      if (name === "Today"){
+        setUrl("startDate="+range.startDate.toISOString()+"&futureDate=today")
+      }
+      if (name === "This weekend"){
+        setUrl("startDate="+range.startDate.toISOString()+"&futureDate=weekend")
+      }
+      if (name === "Tomorrow"){
+        setUrl("startDate="+range.startDate.toISOString()+"&futureDate=tomorrow")
+      }
+    }
+  }
+  function onClickCategory(e) {
+    const { name, value } = e.target;
+    setShowCategoryMenu(false);
+    setSelectCategory(name);
+    if (name === "School Activities"){
+      setUrl("category=School Activities")
+    }
+    if (name === "Health"){
+      setUrl("category=Health & wellness")
+    }
+    if (name === "Business"){
+      setUrl("category=Business & Profession")
+    }
+    if (name === "Travel"){
+      setUrl("category=Travel & Outdoor")
+    }
+    if (name === "Sports"){
+      setUrl("category=Sports & Fitness")
     }
   }
   function showDropdown() {
     if (!select) {
       setShowMenu(true);
+    }
+  }
+  function showDropdownCategory() {
+    if (!selectCategory) {
+      setShowCategoryMenu(true);
     }
   }
   const [focused, setFocused] = useState({
@@ -111,6 +150,7 @@ export default function Landing() {
 
   function handleForYou() {
     setForYouElement(true);
+    setShowCategoryMenu(false)
     setFocused(prevFocus => {
       return {
         forYou: true,
@@ -119,6 +159,9 @@ export default function Landing() {
   }
 
   function onClickAll(e) {
+    removeDate()
+    removeCategory()
+    handleClick()
     setForYouElement(false);
     const { name, value } = e.target;
     setFocused(prevFocus => {
@@ -126,6 +169,33 @@ export default function Landing() {
         [name]: true,
       };
     });
+    setShowMenu(false);
+    if (!focused.All){
+      setShowCategoryMenu(false);
+    }
+    if (name === "All"){
+      setUrl("")
+    }
+    if (name === "online"){
+      setUrl("eventHosted=online")
+    }
+    if (name === "today"){
+      setUrl("startDate="+range.startDate.toISOString()+"&futureDate=today")
+    }
+    if (name === "weekend"){
+      setUrl("startDate="+range.startDate.toISOString()+"&futureDate=weekend")
+    }
+    if (name === "music"){
+      setUrl("category=Music")
+    }
+    if (name === "food"){
+      setUrl("category=Food & Drink")
+    }
+    if (name === "charity"){
+      setUrl("category=Charity & Causes")
+    }
+    
+
   }
 
   function removeDate() {
@@ -133,11 +203,17 @@ export default function Landing() {
     setSelect('');
   }
 
+  function removeCategory() {
+    setSelectCategory('');
+    setUrl("")
+  }
+
   useEffect(() => {
     if (range.startDate && range.endDate && count === 1) {
       setShowCalender(false);
       setShowMenu(false);
       setShowDate(true);
+      setUrl("startDate="+range.startDate.toISOString()+"&endDate="+range.endDate.toISOString())
     } else {
       setCount(1);
     }
@@ -157,28 +233,79 @@ export default function Landing() {
     'Nov',
     'Dec',
   ];
-  const [allFilteredEvents, setAllFilteredEvents] = useState([])
-  // useEffect(() => {
-  //     fetch("https://www.tessera.social/api/attendee/Eventsby/?futureDate=weekend&startDate=2023-04-12T06:02:37Z")
-  //         .then(res => res.json())
-  //         .then(data => setAllFilteredEvents(data))
-  // }, [])
+   const [allFilteredEvents, setAllFilteredEvents] = useState([]);
+   const [noEvents,setNoEventsImg] = useState(false)
 
+    /**
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that fetches the filtered data from backend 
+   * @param {function} getData
+   * @returns {Object} An object representing the event data
+   */
 
-  // console.log(allFilteredEvents)
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/?futureDate=weekend&startDate=2023-04-12T06:02:37Z')
-  //     const json = await response.json()   
-  //     console.log(response.ok)
-  //     if (response.ok) {
-  //       setAllFilteredEvents(json)
-  //     }
-  //   }
+  useEffect(() => {
+    async function getData() {
+        const res = await fetch("https://www.tessera.social/api/attendee/Eventsby/?"+url);
+        const data = await res.json();
+        setAllFilteredEvents(data.filteredEvents);
+    }
+    getData()
+    
+  }, [url])
 
-  //   fetchProducts()
-  // }, [])
+  /**
+   * Changes the Isodate to display date format.
+   *
+   * @param {String} dataString - The event date in Iso format.
+   * @returns {String} 
+   */
+
+  const convertUtcToLocalTime = (dateString) => {
+    let date = new Date(dateString);
+    const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+    const milliseconds = Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds(),
+    );
+    const localTime = new Date(milliseconds);
+    return `${dayName}, ${monthNames[localTime.getMonth()]} ${localTime.getDate()}, ${localTime.getHours()}:${localTime.getMinutes()===0?"00":localTime.getMinutes()}`
+  };
+
+  const [eventElements,setEventElement] = useState();
   const email = useLocation().state;
+  useEffect(()=>{
+    if (allFilteredEvents.length===0){
+      setNoEventsImg(true);
+    }
+    else{
+      setNoEventsImg(false);
+    }
+    setEventElement( allFilteredEvents.map(event => (
+    <EventBox 
+    key={event.id}
+    image={event.basicInfo.eventImage}
+    eventTitle={event.basicInfo.eventName}
+    date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
+    description={event.basicInfo.location.venueName +" • "+event.basicInfo.location.city}
+    isFree={event.isPublic}
+    organizer={event.eventStatus}
+    followers={event.soldTickets.length}
+    />
+
+  )
+
+  ))
+  },[allFilteredEvents])
+  const handleClick = () => {
+    ref.current?.scrollIntoView({behavior: 'smooth'});
+  };
+   console.log(url)
+   console.log(allFilteredEvents)
   return (
     <>
       <Navbar />
@@ -377,6 +504,78 @@ export default function Landing() {
             </ul>
           </nav>
 
+          {focused.All && (
+            <div className="date-dropdown" onClick={showDropdownCategory}>
+              <div className="you--options" data-testid="forYou">
+                {selectCategory ? (
+                  <span>
+                    {selectCategory}
+                    <button onClick={removeCategory} className="remove-button">
+                      <img src={cross} />
+                    </button>
+                  </span>
+                ) : (
+                  <span>
+                    Category
+                    <img src={logo} />
+                  </span>
+                )}
+              </div>
+              {showCategoryMenu && (
+                <div id="myDropdown" className="dropdown-content">
+                  <ul>
+                    <div>
+                      <button
+                        name="School Activities"
+                        className="drop-button"
+                        onClick={onClickCategory}
+                      >
+                        School Activities
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        name="Health"
+                        className="drop-button"
+                        onClick={onClickCategory}
+                      >
+                        Health & Wellness
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        name="Travel"
+                        className="drop-button"
+                        onClick={onClickCategory}
+                      >
+                        Travel & Outdoor
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        onClick={onClickCategory}
+                        name="Business"
+                        className="drop-button"
+                      >
+                        Business & Profession
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        name="Sports"
+                        onClick={onClickCategory}
+                        className="drop-button"
+                      >
+                        Sports & Fitness
+                      </button>
+                    </div>
+                  </ul>
+                </div>
+              )}
+
+            </div>
+          )}
+
           {forYouElement && (
             <div className="date-dropdown" onClick={showDropdown}>
               <div className="you--options" data-testid="forYou">
@@ -467,57 +666,16 @@ export default function Landing() {
           )}
 
           <h4>Events in {city}</h4>
-          <StyledEventsContainer img="../../src/assets/svgviewer-output.svg">
-            <EventBox
-              image="/images/event__1.avif"
-              eventTitle="Certified DeFi Associate | Cairo"
-              date="Tue, Apr 18, 7:00 AM "
-              description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
-              organizer="Blockchain Smart Solutions"
-              followers="917 followers"
-            />
-            <EventBox
-              image="/images/event__2.avif"
-              eventTitle="The Future Of Leadership Congress 2023"
-              date="Mon, May 15, 9:00 AM "
-              description="Cairo • Cairo, Cairo Governorate Starts at A$751.69"
-              organizer="Erudite Training Solutions"
-              followers="47 followers"
-            />
-            <EventBox
-              image="/images/event__3.avif"
-              eventTitle="Unravelling NFTs | Cairo"
-              date="Tue, Apr 11, 7:00 AM  "
-              description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
-              organizer="Blockchain Smart Solutions"
-              followers="917 followers"
-            />
-            <EventBox
-              image="/images/event__4.avif"
-              eventTitle="Certified Crypto Associate | Cairo"
-              date="Tomorrow at 4:00 PM"
-              description="Cairo • Omar Al Khayam, Cairo Governorate Starts at $399.00"
-              organizer="Blockchain Smart Solutions"
-              followers="917 followers"
-            />
-            <EventBox
-              image="/images/event__5.avif"
-              eventTitle="Cloudflight Coding Contest (CCC) - Cairo"
-              date="Fri, Mar 31, 3:00 PM"
-              description="German University in Cairo • Cairo, محافظة القاهرة"
-              isFree={true}
-              organizer="Cloudflight GmbH"
-              followers="213 followers"
-            />
-            <EventBox
-              image="/images/event__6.avif"
-              eventTitle="How to Improve Your Memory - Cairo"
-              date="Wed, Mar 29, 4:00 PM "
-              description="Cairo • Cairo, Cairo Governorate"
-              isFree={true}
-              organizer="Iris Reading"
-              followers="213 followers"
-            />
+          <StyledEventsContainer 
+          ref={ref}
+          img="../../src/assets/svgviewer-output.svg">
+            {eventElements}
+            {
+              noEvents &&
+              <div className="error-img">
+                <img src={error}/>
+              </div>
+            }
           </StyledEventsContainer>
         </div>
       </StyledLandingEvents>
