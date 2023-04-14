@@ -83,8 +83,12 @@ export default function SignUpOne(props) {
     localStorage.setItem('email', email);
   }, [email]);
 
-  function handleSuccess(response) {
+  async function handleSuccess(response) {
     console.log(response);
+    const response = await fetch(
+      `https://graph.facebook.com/v12.0/me?fields=name,email&access_token=${response.access_token}`
+    );
+
     console.log(response.status);
   }
 
@@ -287,7 +291,7 @@ export default function SignUpOne(props) {
               id="facebook"
               scope="public_profile,email"
               onError={handleError}
-              onCompleted={handleSuccess}
+              onSuccess={handleSuccess}
             ></LoginButton>
           </FacebookProvider>
 
