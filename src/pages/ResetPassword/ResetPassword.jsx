@@ -5,8 +5,6 @@ import { ContinueButton } from '../SignUp/styles/SignUpEmail.styled';
 import { StyledHead } from '../SignUp/styles/FormFormat.Styled';
 import { useParams } from 'react-router-dom';
 
-import { useParams } from 'react-router-dom';
-
 function ResetPassword() {
   const token = useParams().token.slice(1);
 
