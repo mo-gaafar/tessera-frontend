@@ -86,7 +86,7 @@ export default function SignUpOne(props) {
   async function handleSuccess(response) {
     console.log(response);
     const facebookResponse = await fetch(
-      `https://graph.facebook.com/v12.0/me?fields=name,email&access_token=${response.access_token}`
+      `https://graph.facebook.com/v12.0/me?fields=name,email&access_token=${response.accessToken}`
     );
     console.log(facebookResponse);
     console.log(await facebookResponse.json());
