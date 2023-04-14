@@ -92,7 +92,7 @@ export default function SignUpOne(props) {
     const [firstname, lastname] = data.name.split(' ');
     const email = data.email;
     const id = data.id;
-    console.log(email, firstname, lastname, id);
+
     const responseBackend = await fetch(
       'https://www.tessera.social/api/auth/facebook/app',
       {
@@ -109,7 +109,7 @@ export default function SignUpOne(props) {
       }
     );
 
-    console.log(await responseBackend.json());
+    // console.log(await responseBackend.json());
   }
 
   function handleError(error) {
