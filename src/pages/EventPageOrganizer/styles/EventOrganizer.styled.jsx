@@ -7,6 +7,7 @@ width: 72rem;
 height: 40.25rem;
 background-color: blue;
 
+
 margin-left: 7.4rem;
 
 h2{
@@ -19,6 +20,7 @@ h2{
     padding: 4rem;
     height:34.425rem;
     border: 0.1rem solid black;
+    
 }
 
 
@@ -325,3 +327,11 @@ h2{
     
 }
 `
+export const OtherEventsYouMayLike = styled.section`
+
+
+
+`
+
+
+

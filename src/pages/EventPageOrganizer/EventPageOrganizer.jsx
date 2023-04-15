@@ -1,12 +1,37 @@
 import { useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import {AboutTheOrganizer,MoreEventsOrganizer} from './styles/EventOrganizer.styled';
+import {AboutTheOrganizer,MoreEventsOrganizer,OtherEventsYouMayLike} from './styles/EventOrganizer.styled';
 import MoreEvents from './Eventbox'
+
+import {eventsListScroll} from "./EventsList";
+import EventBox from '../LandingPage/EventBox';
 
 
 
 export default function EventPageOrganizer() {
 
+
+    const [data, setData] = useState([...eventsListScroll]); // Your array of values
+    const [currentIndex, setCurrentIndex] = useState(0); // Current index in the array
+
+    const handleForward = () => {
+        if (currentIndex < data.length - 3) {
+          setCurrentIndex(currentIndex + 3);
+        } else {
+          setCurrentIndex(data.length - (data.length % 3));
+        }
+      };
+
+
+      const handleBackward = () => {
+        if (currentIndex >= 3) {
+          setCurrentIndex(currentIndex - 3);
+        } else {
+          setCurrentIndex(0);
+        }
+      };
+
+   
 
 
     return(
@@ -91,11 +116,36 @@ export default function EventPageOrganizer() {
               imageSrc="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;auto=format%2Ccompress&amp;q=75&amp;sharp=10&amp;rect=1%2C372%2C8000%2C4000&amp;s=34c811696b0d73045e71f74e745b37ba"
             />
 
-            
-
         </MoreEventsOrganizer>
         
-         
+
+        <OtherEventsYouMayLike>
+
+        <div className="parentdiv">
+        {data
+          .slice(currentIndex, currentIndex + 3)
+          .map((item, index) => (
+            // <div key={index}>{value}</div>
+            <EventBox key={index}
+                        image={item.image}
+                        eventTitle={item.eventTitle}
+                        date={item.date}
+                        description={item.description}
+                        organizer={item.organizer}
+                        followers={item.followers}
+                    />
+          ))}
+      </div>
+
+      <button onClick={handleBackward} disabled={currentIndex === 0}>
+        Backward
+      </button>
+
+      <button onClick={handleForward} disabled={currentIndex >= data.length - 3}>
+        Forward
+      </button>
+
+        </OtherEventsYouMayLike>
             
         </>
     );
