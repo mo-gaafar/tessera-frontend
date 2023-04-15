@@ -140,6 +140,69 @@ h2{
 }
 
 
+@media only screen and (max-width: 960px){
+    width: 59.2rem;
+    margin-left:17.5rem;
+
+
+    
+    .aboutOrganizerContainer{
+        width: 59.2rem;
+        
+    }
+    
+    
+    .organizedBySection,.organizedBy,.organizerLink,.followersSection,.infoSection,.socialsSection{
+    
+        width: 51.2rem;
+    
+    
+    }
+}
+@media only screen and (max-width: 679px){
+    width: 43.5rem;
+
+    margin-left:6.5rem;
+
+
+    
+    .aboutOrganizerContainer{
+        width: 43.5rem;
+        
+    }
+    
+    
+    .organizedBySection,.organizedBy,.organizerLink,.followersSection,.infoSection,.socialsSection{
+    
+        width: 37.1rem;
+    
+    
+    }
+
+}
+@media only screen and (max-width: 520px){
+    width: 43.5rem;
+
+    margin-left:2.5rem;
+
+
+    
+    .aboutOrganizerContainer{
+        width: 43.5rem;
+        
+    }
+    
+    
+    .organizedBySection,.organizedBy,.organizerLink,.followersSection,.infoSection,.socialsSection{
+    
+        width: 37.1rem;
+    
+    
+    }
+
+}
+
+
 `
 
 export const MoreEventsOrganizer = styled.section`
@@ -206,6 +269,7 @@ h2{
     color: #d1410c;
     font-size: 1.4rem;
     line-height: 2rem;
+    
 }
 
 .subcontentDiv{
@@ -273,6 +337,7 @@ h2{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    
 }
 
 .imageCard{
@@ -326,6 +391,198 @@ h2{
     
     
 }
+
+@media only screen and (max-width: 960px){
+   margin-left:17.5rem;
+   width:59.2rem;
+   height:85.75rem;
+
+
+   .eventoxDiv{
+    width:59.2rem;
+    height:23.525rem;
+
+}
+
+.eventContainer{
+
+    width:59.2rem;
+    height:23.525rem;
+
+}
+
+.eventTextInfo{
+    width:32.425rem;
+    height:23.525rem;
+}
+
+
+.image{
+    width:22rem;
+    height:11rem;
+}
+
+.eventName{
+
+    width:32.425rem;
+    height:7.875rem;
+    font-size: 2rem;
+    line-height: 2.8rem;
+    letter-spacing: 0.025rem;
+
+}
+
+.eventDateTime{
+    width:32.4rem;
+    height:3.45rem;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+    
+}
+
+.subcontentDiv{
+    width:32.4rem;
+    height:10.6rem;
+
+}
+
+.eventLocation{
+    width:32.4rem;
+    height:2.22rem;
+
+}
+
+
+.eventPrice{
+    width:32.4rem;
+    height:2.22rem;
+    margin-top:2rem;
+
+}
+
+.eventOrganizer{
+    width:32rem;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+  
+}
+
+.organizerName{
+    width:32rem;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+
+.buttonsDiv{
+    width:9.4rem;
+    height:5.2rem;
+    padding;0.8rem 0rem 0rem;
+    margin-top: auto;
+    margin-left: auto;
+}
+}
+
+@media only screen and (max-width: 679px){
+    width:53.4rem;
+
+    margin-left:6.5rem;
+
+    
+   .eventoxDiv{
+    width:53.4rem;
+    height:26.725rem;
+
+}
+
+.eventContainer{
+
+    width:53.4rem;
+    height:26.725rem;
+
+}
+
+.eventTextInfo{
+    width:27.3rem;
+    height:26.725rem;
+}
+
+
+.image{
+    width:22rem;
+    height:11rem;
+}
+
+.eventName{
+
+    width:25.725rem;
+    height:7.875rem;
+    font-size: 2rem;
+    line-height: 2.8rem;
+    letter-spacing: 0.025rem;
+
+}
+
+.eventDateTime{
+    width:32.4rem;
+    height:3.45rem;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+    
+}
+
+.subcontentDiv{
+    width:32.4rem;
+    height:10.6rem;
+
+}
+
+.eventLocation{
+    width:32.4rem;
+    height:2.22rem;
+
+}
+
+
+.eventPrice{
+    width:32.4rem;
+    height:2.22rem;
+    margin-top:2rem;
+
+}
+
+.eventOrganizer{
+    width:32rem;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+  
+}
+
+.organizerName{
+    width:32rem;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+
+.buttonsDiv{
+    width:9.4rem;
+    height:5.2rem;
+    padding;0.8rem 0rem 0rem;
+    margin-top: auto;
+    margin-left: auto;
+}
+}
+
+
+
+
 `
 export const OtherEventsYouMayLike = styled.section`
 
