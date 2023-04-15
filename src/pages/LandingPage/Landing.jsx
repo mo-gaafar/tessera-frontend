@@ -87,10 +87,9 @@ export default function Landing() {
     setShowCategoryMenu(false);
     setSelectCategory(name);
     let new_name = name.replace(/&/g, '%26');
-    let queryName = "category=" + new_name;
-    setUrl(queryName)
+    let queryName = 'category=' + new_name;
+    setUrl(queryName);
     //handleClick()
-   
   }
   function showDropdown() {
     if (!select) {
@@ -235,9 +234,9 @@ export default function Landing() {
     'Nov',
     'Dec',
   ];
-   const [allFilteredEvents, setAllFilteredEvents] = useState([]);
-   const [allCatEvents, setAllCatEvents] = useState([]);
-   const [noEvents,setNoEventsImg] = useState(false)
+  const [allFilteredEvents, setAllFilteredEvents] = useState([]);
+  const [allCatEvents, setAllCatEvents] = useState([]);
+  const [noEvents, setNoEventsImg] = useState(false);
 
   /**
    * @function useEffect
@@ -260,14 +259,14 @@ export default function Landing() {
 
   useEffect(() => {
     async function getData() {
-        const res = await fetch("https://www.tessera.social/api/attendee/Eventsby/?");
-        const data = await res.json();
-        setAllCatEvents(data.categoriesRetreived);
-       
+      const res = await fetch(
+        'https://www.tessera.social/api/attendee/Eventsby/?'
+      );
+      const data = await res.json();
+      setAllCatEvents(data.categoriesRetreived);
     }
-    getData()
-    
-  }, [])
+    getData();
+  }, []);
 
   /**
    * Changes the Isodate to display date format.
@@ -295,18 +294,16 @@ export default function Landing() {
     }`;
   };
 
-  const minPrice = (p,q) => {
-    if (p>q){
-      return q
+  const minPrice = (p, q) => {
+    if (p > q) {
+      return q;
+    } else {
+      return p;
     }
-    else{
-      return p
-    }
+  };
 
-  }
-
-  const [eventElements,setEventElement] = useState();
-  const [catElements,setCatElement] = useState();
+  const [eventElements, setEventElement] = useState();
+  const [catElements, setCatElement] = useState();
   /**
    * @function useEffect
    * @name useEffect
@@ -314,28 +311,48 @@ export default function Landing() {
    * @param {function} setEventElement
    * @returns {JSX.Element} An object representing the eventbox
    */
-  useEffect(()=>{
-    if (allFilteredEvents.length===0){
+  useEffect(() => {
+    if (allFilteredEvents.length === 0) {
       setNoEventsImg(true);
     } else {
       setNoEventsImg(false);
     }
-    setEventElement( allFilteredEvents.map(event => (
-    <EventBox 
-    key={event._id}
-    image={event.basicInfo.eventImage}
-    eventTitle={event.basicInfo.eventName}
-    date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
-    description={event.basicInfo.location.venueName +" • "+event.basicInfo.location.city + " "}
-    price={((event.ticketTiers[0]).price !=="Free" ? `Starts at ${minPrice((event.ticketTiers[0]).price,(event.ticketTiers[1]).price)}`:"")}
-    isFree={(event.ticketTiers[0]).price==="Free"}
-    organizer={event.creatorId?event.creatorId.firstName +" "+event.creatorId.lastName:""}
-    followers={(event.ticketTiers.length)}
-    />
-  )
-
-  ))
-  },[allFilteredEvents])
+    setEventElement(
+      allFilteredEvents.map(event => (
+        <EventBox
+          key={event._id}
+          image={
+            event.basicInfo.eventImage !== 'https://example.com/image.jpg'
+              ? event.basicInfo.eventImage
+              : '/images/event__4.avif'
+          }
+          eventTitle={event.basicInfo.eventName}
+          date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
+          description={
+            event.basicInfo.location.venueName +
+            ' • ' +
+            event.basicInfo.location.city +
+            ' '
+          }
+          price={
+            event.ticketTiers[0].price !== 'Free'
+              ? `Starts at ${minPrice(
+                  event.ticketTiers[0].price,
+                  event.ticketTiers[1].price
+                )}`
+              : ''
+          }
+          isFree={event.ticketTiers[0].price === 'Free'}
+          organizer={
+            event.creatorId
+              ? event.creatorId.firstName + ' ' + event.creatorId.lastName
+              : ''
+          }
+          followers={event.ticketTiers.length}
+        />
+      ))
+    );
+  }, [allFilteredEvents]);
 
   /**
    * @function useEffect
@@ -345,25 +362,22 @@ export default function Landing() {
    * @returns {JSX.Element} An object representing the dropdown elements
    */
 
-  useEffect(()=>{
-    setCatElement(allCatEvents.map(cat =>(
-      <div>
-        <button
-          name={cat}
-          className="drop-button"
-          onClick={onClickCategory}
-        >
-          {cat}
-        </button>
-      </div>
-    ))
-    )
-  },[allCatEvents])
-  
+  useEffect(() => {
+    setCatElement(
+      allCatEvents.map(cat => (
+        <div>
+          <button name={cat} className="drop-button" onClick={onClickCategory}>
+            {cat}
+          </button>
+        </div>
+      ))
+    );
+  }, [allCatEvents]);
+
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
-  
+
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
@@ -586,9 +600,7 @@ export default function Landing() {
               </div>
               {showCategoryMenu && (
                 <div id="myDropdown" className="dropdown-content">
-                  <ul>
-                    {catElements}
-                  </ul>
+                  <ul>{catElements}</ul>
                 </div>
               )}
             </div>
