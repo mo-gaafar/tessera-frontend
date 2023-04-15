@@ -14,8 +14,6 @@ import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
 
-import EventPageOrganizer from './Pages/EventPageOrganizer/EventPageOrganizer';
-
 /**
  * Function component that renders the main application
  * @function

@@ -118,12 +118,17 @@ import {
   EventHostDiv,
   EventHostSpan,
 } from './styles/EventPage.styled';
-import { useRef,useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import {AboutTheOrganizer,MoreEventsOrganizer,OtherEventsYouMayLike} from './styles/EventOrganizer.styled';
-import MoreEvents from './Eventbox'
+import {
+  AboutTheOrganizer,
+  MoreEventsOrganizer,
+  OtherEventsYouMayLike,
+} from './styles/EventOrganizer.styled';
+import MoreEvents from './MoreEvents';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {eventsListScroll} from "./EventsList";
+import { eventsListScroll } from './EventsList';
+
 import EventBox from '../LandingPage/EventBox';
 
 export default function Events(props) {
@@ -134,28 +139,22 @@ export default function Events(props) {
   const [eventData, setEventData] = React.useState({});
   const [EventExists, setEventExists] = React.useState(false);
   const [showMap, setShowMap] = React.useState(false);
-  function displayMap(){
-    React.useEffect(()=>{
-      setShowMap(true);
-    }, [])
-  }
+
+  React.useEffect(() => {
+    setShowMap(true);
+  }, []);
+
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
         'https://www.tessera.social/api/attendee/event/643aa09ecbfea68c24d93670'
-      ); //temp (the original one crashed)
-      //const response = await fetch('https://www.tessera.social/api/attendee/event/{props.id}'); (the original one)
-      //console.log(await response.json())
+      );
       const event = await response.json();
-      //console.log((event.filteredEvents)[0])
       setEventData(event);
       console.log(event);
-      console.log(eventData.isEventCapacityFull)
-      // event.filteredEvents[0]
-      //   ? console.log(event.filteredEvents[0])
-      //   : setEventExists(false);
-      // event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
-      //console.log(eventData.isEventCapacityFull)
+      console.log(eventData.isEventCapacityFull);
+
+      event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
     };
     fetchData();
   }, []);
@@ -281,39 +280,42 @@ export default function Events(props) {
   });
 
   const [data, setData] = useState([...eventsListScroll]); // array of values
-    const [currentIndex, setCurrentIndex] = useState(0); // Current index in the array to iterate over 3 values
-    const allEventsDivRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0); // Current index in the array to iterate over 3 values
+  const allEventsDivRef = useRef(null);
 
-    const handleForward = () => {
-        const allEventsDiv = allEventsDivRef.current;
-        allEventsDiv.classList.add('fade-transition');
-        setTimeout(() => {
-        if (currentIndex < data.length - 3) {
-          setCurrentIndex(currentIndex + 3);
-        } else {
-          setCurrentIndex(data.length - (data.length % 3));
-        }
-        allEventsDiv.classList.remove('fade-transition');
-  }, 500);
-      };
+  const handleShowMap = () => {
+    setShowMap(prevValue => !prevValue);
+  };
 
+  const handleForward = () => {
+    const allEventsDiv = allEventsDivRef.current;
+    allEventsDiv.classList.add('fade-transition');
+    setTimeout(() => {
+      if (currentIndex < data.length - 3) {
+        setCurrentIndex(currentIndex + 3);
+      } else {
+        setCurrentIndex(data.length - (data.length % 3));
+      }
+      allEventsDiv.classList.remove('fade-transition');
+    }, 500);
+  };
 
-      const handleBackward = () => {
-        const allEventsDiv = allEventsDivRef.current;
-        allEventsDiv.classList.add('fade-transition');
-        setTimeout(() => {
-        if (currentIndex >= 3) {
-          setCurrentIndex(currentIndex - 3);
-        } else {
-          setCurrentIndex(0);
-        }
-        allEventsDiv.classList.remove('fade-transition');
-  }, 500);
-      };
+  const handleBackward = () => {
+    const allEventsDiv = allEventsDivRef.current;
+    allEventsDiv.classList.add('fade-transition');
+    setTimeout(() => {
+      if (currentIndex >= 3) {
+        setCurrentIndex(currentIndex - 3);
+      } else {
+        setCurrentIndex(0);
+      }
+      allEventsDiv.classList.remove('fade-transition');
+    }, 500);
+  };
 
   return (
     <WholePage>
-       {EventExists && ( 
+      {EventExists && (
         <FirstHalfPage>
           <FirstHalfPageDiv1>
             <FirstHalfPageDiv2>
@@ -410,22 +412,25 @@ export default function Events(props) {
                   </ActionPanelul>
                 </ActionPanel>
                 <DetailsDiv2>
-                  {eventData.filteredEvents[0].ticketTiers.quantitySold = (eventData.filteredEvents[0].ticketTiers.maxCapacity) - 0.8(eventData.filteredEvents[0].ticketTiers.maxCapacity) 
-                   && 
-                  <TicketsEndDiv2>
-                    <TicketsEndDivInner>
-                      <TicketsEndI>
-                        <DetailsSvg viewBox="0 0 144 144">
-                          <TicketsEndPath
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
-                          ></TicketsEndPath>
-                        </DetailsSvg>
-                      </TicketsEndI>
-                      <TicketsText>Ticket sales end soon</TicketsText>
-                    </TicketsEndDivInner>
-                  </TicketsEndDiv2>
+                  {
+                    (eventData.filteredEvents[0].ticketTiers.quantitySold =
+                      eventData.filteredEvents[0].ticketTiers.maxCapacity -
+                        eventData.filteredEvents[0].ticketTiers.maxCapacity && (
+                        <TicketsEndDiv2>
+                          <TicketsEndDivInner>
+                            <TicketsEndI>
+                              <DetailsSvg viewBox="0 0 144 144">
+                                <TicketsEndPath
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
+                                  d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
+                                ></TicketsEndPath>
+                              </DetailsSvg>
+                            </TicketsEndI>
+                            <TicketsText>Ticket sales end soon</TicketsText>
+                          </TicketsEndDivInner>
+                        </TicketsEndDiv2>
+                      ))
                   }
                   <MainDetailsDiv>
                     <EventDate>
@@ -502,25 +507,25 @@ export default function Events(props) {
                                 )}
                               </DateSpan>
                             </DetailsP>
-                            {/* <DateSelect aria-label="More options">
-                            ::before
-                            <DateOptions selected value="selected" disabled>
-                              More options
-                            </DateOptions>
-                            <DateOptions value="596694999807">
-                              Thu, Apr 6 (1:00 PM)
-                            </DateOptions>
-                            <DateOptions value="596695009837">
-                              Thu, Apr 13 (1:00 PM)
-                            </DateOptions>
-                            <DateOptions value="596695019867">
-                              Thu, Apr 20 (1:00 PM)
-                            </DateOptions>
-                            <DateOptions value="596695029897">
-                              Thu, Apr 27 (1:00 PM)
-                            </DateOptions>
-                            ::after
-                          </DateSelect> */}
+                            <DateSelect aria-label="More options">
+                              ::before
+                              <DateOptions selected value="selected" disabled>
+                                More options
+                              </DateOptions>
+                              <DateOptions value="596694999807">
+                                Thu, Apr 6 (1:00 PM)
+                              </DateOptions>
+                              <DateOptions value="596695009837">
+                                Thu, Apr 13 (1:00 PM)
+                              </DateOptions>
+                              <DateOptions value="596695019867">
+                                Thu, Apr 20 (1:00 PM)
+                              </DateOptions>
+                              <DateOptions value="596695029897">
+                                Thu, Apr 27 (1:00 PM)
+                              </DateOptions>
+                              ::after
+                            </DateSelect>
                           </RightDetailsDiv>
                         </WhenAndWhereDetailsDiv>
                       </DateAndTimeSection>
@@ -541,8 +546,8 @@ export default function Events(props) {
                             </DetailsI>
                           </ImageLogoDiv>
                           <DetailsTitleDiv>
-                              <h3 style={{paddingBottom: "1rem"}}>Location</h3>
-                              <DetailsP>
+                            <h3 style={{ paddingBottom: '1rem' }}>Location</h3>
+                            <DetailsP>
                               <LocationStrong>
                                 {
                                   eventData.filteredEvents[0].basicInfo.location
@@ -576,7 +581,9 @@ export default function Events(props) {
                               </LocationStrong>
                             </DetailsP>
                             <MapButtonDiv>
-                              <MapButton  onClick={displayMap()}>Show map</MapButton>
+                              <MapButton onClick={handleShowMap}>
+                                Show map
+                              </MapButton>
                               <MapDetailsI data-spec="icon">
                                 <DetailsSvg
                                   viewBox="0 0 24 24"
@@ -590,36 +597,43 @@ export default function Events(props) {
                                 </DetailsSvg>
                               </MapDetailsI>
                             </MapButtonDiv>
-                            </DetailsTitleDiv>
+                          </DetailsTitleDiv>
                           <RightDetailsDiv>
-                          {showMap &&
-                          <Map style={{ height: "100vh", display: "flex", "flexDirection": "column" }} >
-                            {isLoaded && (
-                              <GoogleMap 
-                                zoom={10}
-                                center={{
-                                  lat: 
-                                    eventData.filteredEvents[0].basicInfo
-                                      .location.latitude + 30,
-                                  lng: 
-                                    eventData.filteredEvents[0].basicInfo
-                                      .location.longitude + 31,
+                            {showMap && (
+                              <Map
+                                style={{
+                                  height: '100vh',
+                                  display: 'flex',
+                                  flexDirection: 'column',
                                 }}
-                                mapContainerClassName="map__container"
                               >
-                                <Marker
-                                  position={{
-                                    lat: 
-                                      eventData.filteredEvents[0].basicInfo
-                                        .location.latitude + 30,
-                                    lng:
-                                      eventData.filteredEvents[0].basicInfo
-                                        .location.longitude + 31,
-                                  }}
-                                />
-                              </GoogleMap>
+                                {isLoaded && (
+                                  <GoogleMap
+                                    zoom={10}
+                                    center={{
+                                      lat:
+                                        eventData.filteredEvents[0].basicInfo
+                                          .location.latitude + 30,
+                                      lng:
+                                        eventData.filteredEvents[0].basicInfo
+                                          .location.longitude + 31,
+                                    }}
+                                    mapContainerClassName="map__container"
+                                  >
+                                    <Marker
+                                      position={{
+                                        lat:
+                                          eventData.filteredEvents[0].basicInfo
+                                            .location.latitude + 30,
+                                        lng:
+                                          eventData.filteredEvents[0].basicInfo
+                                            .location.longitude + 31,
+                                      }}
+                                    />
+                                  </GoogleMap>
+                                )}
+                              </Map>
                             )}
-                            </Map>}
                           </RightDetailsDiv>
                         </WhenAndWhereDetailsDiv>
                       </LocationSection>
@@ -698,24 +712,27 @@ export default function Events(props) {
                   </AboutEvent>
                 </DetailsDiv2>
                 <ReserveDiv>
-                {eventData.filteredEvents[0].ticketTiers.quantitySold = (eventData.filteredEvents[0].ticketTiers.maxCapacity) - 0.8(eventData.filteredEvents[0].ticketTiers.maxCapacity)
-                  &&
-                  <TicketsEndDiv>
-                    <TicketsEndDivInner>
-                      <TicketsEndI>
-                        <DetailsSvg viewBox="0 0 144 144">
-                          <TicketsEndPath
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
-                          ></TicketsEndPath>
-                        </DetailsSvg>
-                      </TicketsEndI>
-                      <TicketsText>Ticket sales end soon</TicketsText>
-                    </TicketsEndDivInner>
-                  </TicketsEndDiv>
-                 } 
-                  {eventData.isEventFree && !eventData.isEventCapacityFull && (
+                  {
+                    (eventData.filteredEvents[0].ticketTiers.quantitySold =
+                      eventData.filteredEvents[0].ticketTiers.maxCapacity -
+                        eventData.filteredEvents[0].ticketTiers.maxCapacity && (
+                        <TicketsEndDiv>
+                          <TicketsEndDivInner>
+                            <TicketsEndI>
+                              <DetailsSvg viewBox="0 0 144 144">
+                                <TicketsEndPath
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
+                                  d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
+                                ></TicketsEndPath>
+                              </DetailsSvg>
+                            </TicketsEndI>
+                            <TicketsText>Ticket sales end soon</TicketsText>
+                          </TicketsEndDivInner>
+                        </TicketsEndDiv>
+                      ))
+                  }
+                  {!eventData.isEventFree && !eventData.isEventCapacityFull && (
                     <WholeTicketsDiv>
                       <TicketsDiv>
                         <TicketsSection>
@@ -825,7 +842,8 @@ export default function Events(props) {
                     <PricedTickets>
                       <PricedTicketsPriceDiv>
                         <PricedTicketsPrice>
-                          From $0 - ${eventData.filteredEvents[0].ticketTiers.price}
+                          From $0 - $
+                          {eventData.filteredEvents[0].ticketTiers.price}
                         </PricedTicketsPrice>
                       </PricedTicketsPriceDiv>
                       <PricedTicketsButtonDiv>
@@ -836,9 +854,7 @@ export default function Events(props) {
                   {eventData.isEventCapacityFull && (
                     <SoldOutTickets>
                       <PricedTicketsPriceDiv>
-                        <PricedTicketsPrice>
-                          Sales Ended
-                        </PricedTicketsPrice>
+                        <PricedTicketsPrice>Sales Ended</PricedTicketsPrice>
                       </PricedTicketsPriceDiv>
                       <PricedTicketsButtonDiv>
                         <SoldOutTicketsButton>Details</SoldOutTicketsButton>
@@ -851,142 +867,160 @@ export default function Events(props) {
           </FirstHalfPageDiv1>
         </FirstHalfPage>
       )}
-      <AboutTheOrganizer> 
-            <h2>About the organizer</h2>
-            <div className='aboutOrganizerContainer'>
-                <div className='organizedBySection'>
-                    <div className='organizedBy'>
-                     Organized by
-                    </div>
-                    
-                    <a href="https://www.eventbrite.com/o/gomycode-15634961946" className='organizerLink' target="_blank" rel="noreferrer">GoMyCode</a>
-                    
-                </div>
+      {/* <AboutTheOrganizer>
+        <h2>About the organizer</h2>
+        <div className="aboutOrganizerContainer">
+          <div className="organizedBySection">
+            <div className="organizedBy">Organized by</div>
 
-                <div className='followersSection'>
-                    <div className='followersdiv'>
-                        <span className='followersAmount'> 2.8k </span>
-                        <span className='followersText'> Followers </span>
-                    </div>
-                </div>
-                <ul className='infoSection'>
+            <a
+              href="https://www.eventbrite.com/o/gomycode-15634961946"
+              className="organizerLink"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GoMyCode
+            </a>
+          </div>
 
-                    <button className='contactButton'>Contact</button>
-                    <button className='followButton'>Follow</button>
-
-                </ul>
-
-                <div className='socialsSection'>
-                    <span className='organizerFacebookSpan'>
-                        <a href="https://www.facebook.com/gomycode" className='organizerFacebook'>
-                            <svg className='facebookSvg'>
-                                <path d="M14.893 11.89L15.336 9h-2.773V7.124c0-.79.387-1.562 1.63-1.562h1.26v-2.46s-1.144-.196-2.238-.196c-2.285 0-3.777 1.385-3.777 3.89V9h-2.54v2.89h2.54v6.989a10.075 10.075 0 003.124 0V11.89h2.33"></path>
-                            </svg>
-                        </a>
-                    </span>
-                    <span className='organizerTwitterSpan'>
-                        <a href="https://www.twitter.com/gomycode" className='organizerTwitter'>
-                            <svg className='twitterSvg'>
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M21.4 4.1s-.6.4-1.2.7c-.6.2-1.3.4-1.3.4s-2-2.3-4.9-.8c-2.9 1.5-2 4.5-2 4.5s-2.9-.2-4.9-1.2C4.9 6.5 3.4 4.6 3.4 4.6s-.9 1.4-.5 3 1.8 2.5 1.8 2.5-.4 0-.9-.2c-.5-.1-1-.4-1-.4s-.1 1.3.8 2.6S6 13.6 6 13.6l-.8.2h-.9s.2 1.1 1.4 2c1.1.8 2.3.8 2.3.8s-1.1.9-2.7 1.4c-1.6.5-3.3.3-3.3.3s6 4 12.2.3c6.2-3.7 5.7-10.7 5.7-10.7s.6-.4 1-.9l1-1.2s-.7.3-1.3.5c-.5.2-.9.2-.9.2s.6-.4.9-.9c.5-.7.8-1.5.8-1.5z">
-                                </path>
-                            </svg>
-                        </a>
-                    </span>
-
-                </div>
-
+          <div className="followersSection">
+            <div className="followersdiv">
+              <span className="followersAmount"> 2.8k </span>
+              <span className="followersText"> Followers </span>
             </div>
-        </AboutTheOrganizer>
+          </div>
+          <ul className="infoSection">
+            <button className="contactButton">Contact</button>
+            <button className="followButton">Follow</button>
+          </ul>
 
-        <MoreEventsOrganizer>
-            <h2>More events from this organizer</h2>
-
-            <MoreEvents
-              eventName="Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABIDJAN"
-              eventDateTime="Today at 2:00 PM"
-              eventLocation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
-              eventPrice="Free"
-              organizerName="GoMyCode"
-              organizerFollowers="2.8k followers"
-              imageSrc="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;auto=format%2Ccompress&amp;q=75&amp;sharp=10&amp;rect=1%2C372%2C8000%2C4000&amp;s=34c811696b0d73045e71f74e745b37ba"
-            />
-
-            <MoreEvents
-              eventName="Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABIDJAN"
-              eventDateTime="Today at 2:00 PM"
-              eventLocation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
-              eventPrice="Free"
-              organizerName="GoMyCode"
-              organizerFollowers="2.8k followers"
-              imageSrc="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;auto=format%2Ccompress&amp;q=75&amp;sharp=10&amp;rect=1%2C372%2C8000%2C4000&amp;s=34c811696b0d73045e71f74e745b37ba"
-            />
-
-            <MoreEvents
-              eventName="Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABIDJAN"
-              eventDateTime="Today at 2:00 PM"
-              eventLocation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
-              eventPrice="Free"
-              organizerName="GoMyCode"
-              organizerFollowers="2.8k followers"
-              imageSrc="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;auto=format%2Ccompress&amp;q=75&amp;sharp=10&amp;rect=1%2C372%2C8000%2C4000&amp;s=34c811696b0d73045e71f74e745b37ba"
-            />
-
-        </MoreEventsOrganizer>
-        
-
-        <OtherEventsYouMayLike>
-
-        <div className='otherEventsDiv'>
-
-        <div className='titleAndButtons'>
-
-            <div className='title'><h2>Other events you may like</h2></div>
-
-            <div className='buttonsDiv'>
-                <span class='backButtonSpan'>
-                    <button onClick={handleBackward} disabled={currentIndex === 0} className='backbutton'>
-                        <svg class="backSvg" >
-                            <path class="arrow-left-chunky_svg__eds-icon--arrow-left-chunky_base" fill-rule="evenodd" clip-rule="evenodd" d="M4 12l8 8 1.5-1.5L8 13h12v-2H8l5.5-5.5L12 4z">
-                            </path>
-                        </svg>
-                    </button>
-                </span>
-
-                <span class='forwardButtonSpan'>
-                    <button button onClick={handleForward} disabled={currentIndex >= data.length - 3} className='forwardbutton'>
-                        <svg class="forwardSvg" >
-                            <path class="arrow-right-chunky_svg__eds-icon--arrow-right-chunky_base" fill-rule="evenodd" clip-rule="evenodd" d="M10.5 5.5L16 11H4v2h12l-5.5 5.5L12 20l8-8-8-8z">
-                            </path>
-                        </svg>
-                    </button>
-                </span>
-
-            </div>
+          <div className="socialsSection">
+            <span className="organizerFacebookSpan">
+              <a
+                href="https://www.facebook.com/gomycode"
+                className="organizerFacebook"
+              >
+                <svg className="facebookSvg">
+                  <path d="M14.893 11.89L15.336 9h-2.773V7.124c0-.79.387-1.562 1.63-1.562h1.26v-2.46s-1.144-.196-2.238-.196c-2.285 0-3.777 1.385-3.777 3.89V9h-2.54v2.89h2.54v6.989a10.075 10.075 0 003.124 0V11.89h2.33"></path>
+                </svg>
+              </a>
+            </span>
+            <span className="organizerTwitterSpan">
+              <a
+                href="https://www.twitter.com/gomycode"
+                className="organizerTwitter"
+              >
+                <svg className="twitterSvg">
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M21.4 4.1s-.6.4-1.2.7c-.6.2-1.3.4-1.3.4s-2-2.3-4.9-.8c-2.9 1.5-2 4.5-2 4.5s-2.9-.2-4.9-1.2C4.9 6.5 3.4 4.6 3.4 4.6s-.9 1.4-.5 3 1.8 2.5 1.8 2.5-.4 0-.9-.2c-.5-.1-1-.4-1-.4s-.1 1.3.8 2.6S6 13.6 6 13.6l-.8.2h-.9s.2 1.1 1.4 2c1.1.8 2.3.8 2.3.8s-1.1.9-2.7 1.4c-1.6.5-3.3.3-3.3.3s6 4 12.2.3c6.2-3.7 5.7-10.7 5.7-10.7s.6-.4 1-.9l1-1.2s-.7.3-1.3.5c-.5.2-.9.2-.9.2s.6-.4.9-.9c.5-.7.8-1.5.8-1.5z"
+                  ></path>
+                </svg>
+              </a>
+            </span>
+          </div>
         </div>
-        <div className="allEventsDiv" ref={allEventsDivRef} key={data.length}>
+      </AboutTheOrganizer>
+
+      <MoreEventsOrganizer>
+        <h2>More events from this organizer</h2>
+
+        <MoreEvents
+          eventName="Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABIDJAN"
+          eventDateTime="Today at 2:00 PM"
+          eventLocation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
+          eventPrice="Free"
+          organizerName="GoMyCode"
+          organizerFollowers="2.8k followers"
+          imageSrc="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;auto=format%2Ccompress&amp;q=75&amp;sharp=10&amp;rect=1%2C372%2C8000%2C4000&amp;s=34c811696b0d73045e71f74e745b37ba"
+        />
+
+        <MoreEvents
+          eventName="Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABIDJAN"
+          eventDateTime="Today at 2:00 PM"
+          eventLocation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
+          eventPrice="Free"
+          organizerName="GoMyCode"
+          organizerFollowers="2.8k followers"
+          imageSrc="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;auto=format%2Ccompress&amp;q=75&amp;sharp=10&amp;rect=1%2C372%2C8000%2C4000&amp;s=34c811696b0d73045e71f74e745b37ba"
+        />
+
+        <MoreEvents
+          eventName="Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABIDJAN"
+          eventDateTime="Today at 2:00 PM"
+          eventLocation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
+          eventPrice="Free"
+          organizerName="GoMyCode"
+          organizerFollowers="2.8k followers"
+          imageSrc="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;auto=format%2Ccompress&amp;q=75&amp;sharp=10&amp;rect=1%2C372%2C8000%2C4000&amp;s=34c811696b0d73045e71f74e745b37ba"
+        />
+      </MoreEventsOrganizer>
+
+      <OtherEventsYouMayLike>
+        <div className="otherEventsDiv">
+          <div className="titleAndButtons">
+            <div className="title">
+              <h2>Other events you may like</h2>
+            </div>
+
+            <div className="buttonsDiv">
+              <span className="backButtonSpan">
+                <button
+                  onClick={handleBackward}
+                  disabled={currentIndex === 0}
+                  className="backbutton"
+                >
+                  <svg className="backSvg">
+                    <path
+                      className="arrow-left-chunky_svg__eds-icon--arrow-left-chunky_base"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M4 12l8 8 1.5-1.5L8 13h12v-2H8l5.5-5.5L12 4z"
+                    ></path>
+                  </svg>
+                </button>
+              </span>
+
+              <span className="forwardButtonSpan">
+                <button
+                  button
+                  onClick={handleForward}
+                  disabled={currentIndex >= data.length - 3}
+                  className="forwardbutton"
+                >
+                  <svg className="forwardSvg">
+                    <path
+                      className="arrow-right-chunky_svg__eds-icon--arrow-right-chunky_base"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M10.5 5.5L16 11H4v2h12l-5.5 5.5L12 20l8-8-8-8z"
+                    ></path>
+                  </svg>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div className="allEventsDiv" ref={allEventsDivRef} key={data.length}>
             <TransitionGroup>
-            {data
-            .slice(currentIndex, currentIndex + 3)
-            .map((item, index) => (
+              {data.slice(currentIndex, currentIndex + 3).map((item, index) => (
                 <CSSTransition key={item.id} className="fade" timeout={500}>
-                    <EventBox className='eventCard'
-                            key={index}
-                            image={item.image}
-                            eventTitle={item.eventTitle}
-                            date={item.date}
-                            description={item.description}
-                            organizer={item.organizer}
-                            followers={item.followers}
-                    />
+                  <EventBox
+                    className="eventCard"
+                    key={index}
+                    image={item.image}
+                    eventTitle={item.eventTitle}
+                    date={item.date}
+                    description={item.description}
+                    organizer={item.organizer}
+                    followers={item.followers}
+                  />
                 </CSSTransition>
-            ))}
+              ))}
             </TransitionGroup>
-      </div>
-
-      </div>
-
-
-        </OtherEventsYouMayLike>
+          </div>
+        </div>
+      </OtherEventsYouMayLike> */}
     </WholePage>
   );
 }
