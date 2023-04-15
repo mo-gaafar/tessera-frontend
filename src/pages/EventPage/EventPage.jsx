@@ -611,23 +611,19 @@ export default function Events(props) {
                                   <GoogleMap
                                     zoom={10}
                                     center={{
-                                      lat:
-                                        eventData.filteredEvents[0].basicInfo
-                                          .location.latitude + 30,
-                                      lng:
-                                        eventData.filteredEvents[0].basicInfo
-                                          .location.longitude + 31,
+                                      lat: eventData.filteredEvents[0].basicInfo
+                                        .location.latitude,
+                                      lng: eventData.filteredEvents[0].basicInfo
+                                        .location.longitude,
                                     }}
                                     mapContainerClassName="map__container"
                                   >
                                     <Marker
                                       position={{
-                                        lat:
-                                          eventData.filteredEvents[0].basicInfo
-                                            .location.latitude + 30,
-                                        lng:
-                                          eventData.filteredEvents[0].basicInfo
-                                            .location.longitude + 31,
+                                        lat: eventData.filteredEvents[0]
+                                          .basicInfo.location.latitude,
+                                        lng: eventData.filteredEvents[0]
+                                          .basicInfo.location.longitude,
                                       }}
                                     />
                                   </GoogleMap>
@@ -867,7 +863,7 @@ export default function Events(props) {
           </FirstHalfPageDiv1>
         </FirstHalfPage>
       )}
-      {/* <AboutTheOrganizer>
+      <AboutTheOrganizer>
         <h2>About the organizer</h2>
         <div className="aboutOrganizerContainer">
           <div className="organizedBySection">
@@ -1020,7 +1016,7 @@ export default function Events(props) {
             </TransitionGroup>
           </div>
         </div>
-      </OtherEventsYouMayLike> */}
+      </OtherEventsYouMayLike>
     </WholePage>
   );
 }
