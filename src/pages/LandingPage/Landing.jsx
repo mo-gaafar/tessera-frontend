@@ -320,11 +320,12 @@ export default function Landing() {
     setEventElement(
       allFilteredEvents.map(event => (
         <EventBox
+          id={event._id}
           key={event._id}
           image={
             event.basicInfo.eventImage !== 'https://example.com/image.jpg'
               ? event.basicInfo.eventImage
-              : '/images/event__4.avif'
+              : '/images/event__5.avif'
           }
           eventTitle={event.basicInfo.eventName}
           date={convertUtcToLocalTime(event.basicInfo.startDateTime)}

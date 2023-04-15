@@ -169,7 +169,7 @@ export const StyledLandingEvents = styled.section`
 
 export const StyledEventsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
   .error-img {
@@ -189,13 +189,21 @@ export const StyledEventsContainer = styled.div`
     box-shadow: 0 16px 64px -16px rgba(46, 55, 77, 0.1);
     padding-bottom: 2rem;
     margin-top: 2rem;
-
+    @media (min-width: 70em) {
+      max-width: 30rem;
+    }
     & > * {
       padding-inline: 2rem;
     }
-    img {
+    img:first-child {
       padding-inline: 0rem;
-      max-height: 14rem;
+      max-height: 21rem;
+      @media (min-width: 70em) {
+        max-height: 14rem;
+      }
+    }
+    .followers {
+      justify-self: flex-end;
     }
     h5 {
       font-size: 2rem;

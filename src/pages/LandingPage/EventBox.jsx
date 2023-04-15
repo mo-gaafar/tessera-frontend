@@ -26,7 +26,10 @@ export default function EventBox(props) {
       <p>{props.price}</p>
       {props.isFree && <p className="free">Free</p>}
       <span>{props.organizer}</span>
-      <span>{props.followers}</span>
+      <span className="followers">
+        <img src="/images/follower.png" alt="follower img" />
+        {props.followers}
+      </span>
     </div>
   );
 }
