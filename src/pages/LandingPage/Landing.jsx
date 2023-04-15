@@ -23,6 +23,7 @@ import cross from '../../assets/x-10327.png';
 import error from '../../assets/noevent-error.png';
 import EventBox from './EventBox';
 import Navbar from './nav2';
+import { jsx } from '@emotion/react';
 
 /**
  * A functional component that handles the landing page and event filtering.
@@ -187,10 +188,10 @@ export default function Landing() {
       setUrl('category=Music');
     }
     if (name === 'food') {
-      setUrl('category=Food & Drink');
+      setUrl('category=Food %26 Drink');
     }
     if (name === 'charity') {
-      setUrl('category=Charity & Causes');
+      setUrl('category=Charity %26 Causes');
     }
   }
 
@@ -259,9 +260,8 @@ export default function Landing() {
 
   useEffect(() => {
     async function getData() {
-        const res = await fetch("https://www.tessera.social/api/attendee/Eventsby/?"+url);
+        const res = await fetch("https://www.tessera.social/api/attendee/Eventsby/?");
         const data = await res.json();
-        //console.log(data)
         setAllCatEvents(data.categoriesRetreived);
        
     }
@@ -305,9 +305,15 @@ export default function Landing() {
 
   }
 
-
   const [eventElements,setEventElement] = useState();
   const [catElements,setCatElement] = useState();
+  /**
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that updates the events displayed according to query
+   * @param {function} setEventElement
+   * @returns {JSX.Element} An object representing the eventbox
+   */
   useEffect(()=>{
     if (allFilteredEvents.length===0){
       setNoEventsImg(true);
@@ -330,6 +336,15 @@ export default function Landing() {
 
   ))
   },[allFilteredEvents])
+
+  /**
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that updates the categories displayed in deropdown list
+   * @param {function} setEventElement
+   * @returns {JSX.Element} An object representing the dropdown elements
+   */
+
   useEffect(()=>{
     setCatElement(allCatEvents.map(cat =>(
       <div>
@@ -348,13 +363,12 @@ export default function Landing() {
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  
   
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
   console.log(email);
+
   return (
     <>
       <Navbar />
