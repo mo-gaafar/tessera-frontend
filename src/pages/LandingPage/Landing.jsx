@@ -48,7 +48,7 @@ export default function Landing() {
   const [cityData, setCity] = useState({});
   const ref = useRef(null);
   const reference = useRef(null);
-  const refDrop = useRef(null)
+  const refDrop = useRef(null);
 
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
@@ -69,14 +69,14 @@ export default function Landing() {
 
   useEffect(() => {
     // add event listener to the document
-    document.addEventListener("mousedown", handleClickMenuOutside);
+    document.addEventListener('mousedown', handleClickMenuOutside);
     return () => {
       // remove event listener when component unmounts
-      document.removeEventListener("mousedown", handleClickMenuOutside);
+      document.removeEventListener('mousedown', handleClickMenuOutside);
     };
   }, []);
 
-  const handleClickMenuOutside = (event) => {
+  const handleClickMenuOutside = event => {
     if (refDrop.current && !refDrop.current.contains(event.target)) {
       // if clicked outside of the ref div, hide the element
       setShowMenu(false);
@@ -85,14 +85,14 @@ export default function Landing() {
 
   useEffect(() => {
     // add event listener to the document
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       // remove event listener when component unmounts
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = event => {
     if (reference.current && !reference.current.contains(event.target)) {
       // if clicked outside of the ref div, hide the element
       setShowCategoryMenu(false);
@@ -195,7 +195,7 @@ export default function Landing() {
       });
     };
 
-    setUrl(`?City=${cityData.city}&country=${cityData.country}`);
+    setUrl(`?city=${cityData.city}&country=${cityData.country}`);
 
     navigator.geolocation?.getCurrentPosition(poistion => {
       const { latitude, longitude } = poistion.coords;
@@ -253,6 +253,9 @@ export default function Landing() {
     }
     if (name === 'charity') {
       setUrl('category=Charity %26 Causes');
+    }
+    if (name === 'free') {
+      setUrl('freeEvent=Free');
     }
   }
 
@@ -644,10 +647,8 @@ export default function Landing() {
           </nav>
 
           {focused.All && (
-            <div className="date-dropdown" >
-              <div className="you--options" 
-              onClick={showDropdownCategory}
-              >
+            <div className="date-dropdown">
+              <div className="you--options" onClick={showDropdownCategory}>
                 {selectCategory ? (
                   <span>
                     {selectCategory}
@@ -663,9 +664,11 @@ export default function Landing() {
                 )}
               </div>
               {showCategoryMenu && (
-                <div id="myDropdown"
-                ref={reference}
-                 className="dropdown-content">
+                <div
+                  id="myDropdown"
+                  ref={reference}
+                  className="dropdown-content"
+                >
                   <ul>{catElements}</ul>
                 </div>
               )}
@@ -673,11 +676,12 @@ export default function Landing() {
           )}
 
           {forYouElement && (
-            <div className="date-dropdown" >
-              <div className="you--options"
-               data-testid="forYou"
-               onClick={showDropdown}
-               >
+            <div className="date-dropdown">
+              <div
+                className="you--options"
+                data-testid="forYou"
+                onClick={showDropdown}
+              >
                 {showDateRange ? (
                   <span>
                     {monthNames[range.startDate.getMonth()] +
@@ -706,9 +710,7 @@ export default function Landing() {
                 )}
               </div>
               {showMenu && (
-                <div id="myDropdown" 
-                className="dropdown-content"
-                ref={refDrop}>
+                <div id="myDropdown" className="dropdown-content" ref={refDrop}>
                   <ul>
                     <div>
                       <button
@@ -834,8 +836,8 @@ const PlacesAutocomplete = ({
       city: city,
       country: country,
     });
-
-    setURL(`?City=${city}&country=${country}`);
+    console.log(city, country);
+    setURL(`city=${city}&country=${country}`);
   };
 
   function handleClick() {
