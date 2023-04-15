@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import CheckoutPage from '../components/CheckoutForm';
+import CheckoutPage from '../pages/BookingPopUP/CheckoutForm';
 
 test('fills out contact information form and submits', () => {
   const { getByLabelText, getByText } = render(<CheckoutPage />);
@@ -7,7 +7,9 @@ test('fills out contact information form and submits', () => {
   // Fill out the form
   fireEvent.change(getByLabelText('First Name'), { target: { value: 'John' } });
   fireEvent.change(getByLabelText('Last Name'), { target: { value: 'Doe' } });
-  fireEvent.change(getByLabelText('Email Address'), { target: { value: 'johndoe@example.com' } });
+  fireEvent.change(getByLabelText('Email Address'), {
+    target: { value: 'johndoe@example.com' },
+  });
 
   // Submit the form
   fireEvent.click(getByText('Register'));

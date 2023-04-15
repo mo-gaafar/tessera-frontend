@@ -17,7 +17,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import {
   InputEmail,
   Label,
-} from '../../../tessera-frontend-checkoutPage/src/pages/SignUp/styles/SignUpEmail.styled';
+} from '../../../../tessera-frontend-checkoutPage/src/pages/SignUp/styles/SignUpEmail.styled';
 import axios from 'axios';
 
 const StyleDiv = styled.div`

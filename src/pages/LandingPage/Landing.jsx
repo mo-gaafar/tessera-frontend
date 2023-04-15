@@ -195,7 +195,7 @@ export default function Landing() {
       });
     };
 
-    setUrl(`?city=${cityData.city}&country=${cityData.country}`);
+    setUrl(`city=${cityData.city}&country=${cityData.country}`);
 
     navigator.geolocation?.getCurrentPosition(poistion => {
       const { latitude, longitude } = poistion.coords;
