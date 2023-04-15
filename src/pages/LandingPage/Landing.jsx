@@ -11,7 +11,7 @@
  */
 import DateRangePicker from 'tw-daterange';
 import 'react-dater/dist/index.css';
-import {useRef} from 'react';
+import { useRef } from 'react';
 
 import { useEffect, useState } from 'react';
 import { StyledLandingEvents } from './styles/Landing.styled';
@@ -33,7 +33,7 @@ import Navbar from './nav2';
 export default function Landing() {
   const [city, setCity] = useState('');
   const ref = useRef(null);
-  
+
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -41,7 +41,6 @@ export default function Landing() {
 
   const [count, setCount] = useState(0);
   const [showDateRange, setShowDate] = useState(false);
-  
 
   const [range, setRange] = useState({
     startDate: new Date(),
@@ -50,7 +49,7 @@ export default function Landing() {
 
   const [select, setSelect] = useState('');
   const [selectCategory, setSelectCategory] = useState('');
-  const [url,setUrl] = useState('');
+  const [url, setUrl] = useState('');
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -65,14 +64,20 @@ export default function Landing() {
     } else {
       setShowMenu(false);
       setSelect(name);
-      if (name === "Today"){
-        setUrl("startDate="+range.startDate.toISOString()+"&futureDate=today")
+      if (name === 'Today') {
+        setUrl(
+          'startDate=' + range.startDate.toISOString() + '&futureDate=today'
+        );
       }
-      if (name === "This weekend"){
-        setUrl("startDate="+range.startDate.toISOString()+"&futureDate=weekend")
+      if (name === 'This weekend') {
+        setUrl(
+          'startDate=' + range.startDate.toISOString() + '&futureDate=weekend'
+        );
       }
-      if (name === "Tomorrow"){
-        setUrl("startDate="+range.startDate.toISOString()+"&futureDate=tomorrow")
+      if (name === 'Tomorrow') {
+        setUrl(
+          'startDate=' + range.startDate.toISOString() + '&futureDate=tomorrow'
+        );
       }
     }
   }
@@ -80,20 +85,20 @@ export default function Landing() {
     const { name, value } = e.target;
     setShowCategoryMenu(false);
     setSelectCategory(name);
-    if (name === "School Activities"){
-      setUrl("category=School Activities")
+    if (name === 'School Activities') {
+      setUrl('category=School Activities');
     }
-    if (name === "Health"){
-      setUrl("category=Health & wellness")
+    if (name === 'Health') {
+      setUrl('category=Health & wellness');
     }
-    if (name === "Business"){
-      setUrl("category=Business & Profession")
+    if (name === 'Business') {
+      setUrl('category=Business & Profession');
     }
-    if (name === "Travel"){
-      setUrl("category=Travel & Outdoor")
+    if (name === 'Travel') {
+      setUrl('category=Travel & Outdoor');
     }
-    if (name === "Sports"){
-      setUrl("category=Sports & Fitness")
+    if (name === 'Sports') {
+      setUrl('category=Sports & Fitness');
     }
   }
   function showDropdown() {
@@ -149,7 +154,7 @@ export default function Landing() {
 
   function handleForYou() {
     setForYouElement(true);
-    setShowCategoryMenu(false)
+    setShowCategoryMenu(false);
     setFocused(prevFocus => {
       return {
         forYou: true,
@@ -158,9 +163,9 @@ export default function Landing() {
   }
 
   function onClickAll(e) {
-    removeDate()
-    removeCategory()
-    handleClick()
+    removeDate();
+    removeCategory();
+    handleClick();
     setForYouElement(false);
     const { name, value } = e.target;
     setFocused(prevFocus => {
@@ -169,32 +174,34 @@ export default function Landing() {
       };
     });
     setShowMenu(false);
-    if (!focused.All){
+    if (!focused.All) {
       setShowCategoryMenu(false);
     }
-    if (name === "All"){
-      setUrl("")
+    if (name === 'All') {
+      setUrl('');
     }
-    if (name === "online"){
-      setUrl("eventHosted=online")
+    if (name === 'online') {
+      setUrl('eventHosted=online');
     }
-    if (name === "today"){
-      setUrl("startDate="+range.startDate.toISOString()+"&futureDate=today")
+    if (name === 'today') {
+      setUrl(
+        'startDate=' + range.startDate.toISOString() + '&futureDate=today'
+      );
     }
-    if (name === "weekend"){
-      setUrl("startDate="+range.startDate.toISOString()+"&futureDate=weekend")
+    if (name === 'weekend') {
+      setUrl(
+        'startDate=' + range.startDate.toISOString() + '&futureDate=weekend'
+      );
     }
-    if (name === "music"){
-      setUrl("category=Music")
+    if (name === 'music') {
+      setUrl('category=Music');
     }
-    if (name === "food"){
-      setUrl("category=Food & Drink")
+    if (name === 'food') {
+      setUrl('category=Food & Drink');
     }
-    if (name === "charity"){
-      setUrl("category=Charity & Causes")
+    if (name === 'charity') {
+      setUrl('category=Charity & Causes');
     }
-    
-
   }
 
   function removeDate() {
@@ -204,7 +211,7 @@ export default function Landing() {
 
   function removeCategory() {
     setSelectCategory('');
-    setUrl("")
+    setUrl('');
   }
 
   useEffect(() => {
@@ -212,7 +219,12 @@ export default function Landing() {
       setShowCalender(false);
       setShowMenu(false);
       setShowDate(true);
-      setUrl("startDate="+range.startDate.toISOString()+"&endDate="+range.endDate.toISOString())
+      setUrl(
+        'startDate=' +
+          range.startDate.toISOString() +
+          '&endDate=' +
+          range.endDate.toISOString()
+      );
     } else {
       setCount(1);
     }
@@ -232,35 +244,36 @@ export default function Landing() {
     'Nov',
     'Dec',
   ];
-   const [allFilteredEvents, setAllFilteredEvents] = useState([]);
-   const [noEvents,setNoEventsImg] = useState(false)
+  const [allFilteredEvents, setAllFilteredEvents] = useState([]);
+  const [noEvents, setNoEventsImg] = useState(false);
 
-    /**
+  /**
    * @function useEffect
    * @name useEffect
-   * @description This function is a hook that fetches the filtered data from backend 
+   * @description This function is a hook that fetches the filtered data from backend
    * @param {function} getData
    * @returns {Object} An object representing the event data
    */
 
   useEffect(() => {
     async function getData() {
-        const res = await fetch("https://www.tessera.social/api/attendee/Eventsby/?"+url);
-        const data = await res.json();
-        setAllFilteredEvents(data.filteredEvents);
+      const res = await fetch(
+        'https://www.tessera.social/api/attendee/Eventsby/?' + url
+      );
+      const data = await res.json();
+      setAllFilteredEvents(data.filteredEvents);
     }
-    getData()
-    
-  }, [url])
+    getData();
+  }, [url]);
 
   /**
    * Changes the Isodate to display date format.
    *
    * @param {String} dataString - The event date in Iso format.
-   * @returns {String} 
+   * @returns {String}
    */
 
-  const convertUtcToLocalTime = (dateString) => {
+  const convertUtcToLocalTime = dateString => {
     let date = new Date(dateString);
     const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
     const milliseconds = Date.UTC(
@@ -269,44 +282,50 @@ export default function Landing() {
       date.getDate(),
       date.getHours(),
       date.getMinutes(),
-      date.getSeconds(),
+      date.getSeconds()
     );
     const localTime = new Date(milliseconds);
-    return `${dayName}, ${monthNames[localTime.getMonth()]} ${localTime.getDate()}, ${localTime.getHours()}:${localTime.getMinutes()===0?"00":localTime.getMinutes()}`
+    return `${dayName}, ${
+      monthNames[localTime.getMonth()]
+    } ${localTime.getDate()}, ${localTime.getHours()}:${
+      localTime.getMinutes() === 0 ? '00' : localTime.getMinutes()
+    }`;
   };
 
-  const [eventElements,setEventElement] = useState();
-  useEffect(()=>{
-    if (allFilteredEvents.length===0){
+  const [eventElements, setEventElement] = useState();
+  useEffect(() => {
+    if (allFilteredEvents?.length === 0) {
       setNoEventsImg(true);
-    }
-    else{
+    } else {
       setNoEventsImg(false);
     }
-    setEventElement( allFilteredEvents.map(event => (
-    <EventBox 
-    key={event.id}
-    image={event.basicInfo.eventImage}
-    eventTitle={event.basicInfo.eventName}
-    date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
-    description={event.basicInfo.location.venueName +" • "+event.basicInfo.location.city}
-    isFree={event.isPublic}
-    organizer={event.eventStatus}
-    followers={event.soldTickets.length}
-    />
-
-  )
-
-  ))
-  },[allFilteredEvents])
+    setEventElement(
+      allFilteredEvents.map(event => (
+        <EventBox
+          key={event.id}
+          image={event.basicInfo.eventImage}
+          eventTitle={event.basicInfo.eventName}
+          date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
+          description={
+            event.basicInfo.location.venueName +
+            ' • ' +
+            event.basicInfo.location.city
+          }
+          isFree={event.isPublic}
+          organizer={event.eventStatus}
+          followers={event.soldTickets?.length}
+        />
+      ))
+    );
+  }, [allFilteredEvents]);
 
   const handleClick = () => {
-    ref.current?.scrollIntoView({behavior: 'smooth'});
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  console.log(url)
-  console.log(allFilteredEvents)
-  
+  console.log(url);
+  console.log(allFilteredEvents);
+
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
@@ -577,7 +596,6 @@ export default function Landing() {
                   </ul>
                 </div>
               )}
-
             </div>
           )}
 
@@ -671,16 +689,16 @@ export default function Landing() {
           )}
 
           <h4>Events in {city}</h4>
-          <StyledEventsContainer 
-          ref={ref}
-          img="../../src/assets/svgviewer-output.svg">
+          <StyledEventsContainer
+            ref={ref}
+            img="../../src/assets/svgviewer-output.svg"
+          >
             {eventElements}
-            {
-              noEvents &&
+            {noEvents && (
               <div className="error-img">
-                <img src={error}/>
+                <img src={error} />
               </div>
-            }
+            )}
           </StyledEventsContainer>
         </div>
       </StyledLandingEvents>
