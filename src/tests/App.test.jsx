@@ -3,6 +3,8 @@ import {
   screen,
   fireEvent,
   getAllByTestId,
+  getByDisplayValue,
+  getByText,
 } from '@testing-library/react';
 import Landing from '../components/Landing';
 import { describe, it, expect } from 'vitest';

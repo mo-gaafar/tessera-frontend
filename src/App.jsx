@@ -8,6 +8,7 @@ import SignupTwo from './pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
 import GlobalStyles from './components/styles/global';
 import Landing from './Pages/LandingPage/Landing';
+import Events from './pages/EventPage/EventPage';
 import { Route, Routes } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
@@ -27,11 +28,12 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<EventPageOrganizer />} />
+        {/* <Route path="/" element={<EventPageOrganizer />} /> */}
+        <Route path="/" element={<Events />} />
         {/* <Route path="/" element={<Landing />} />
-        <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
-        <Route path="login" element={<Maincontainer />} /> */}
+        <Route path="login" element={<Maincontainer />} /> */}{' '}
+        <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
       </Routes>
     </>
   );
