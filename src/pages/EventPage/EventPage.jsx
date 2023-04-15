@@ -97,6 +97,8 @@ import {
   TicketsEndDiv2,
   ActionPanelLi2,
   SoldOutTickets,
+  SoldOutTicketsButton,
+  Map,
 } from './styles/EventPage.styled';
 import {
   RightDetailsDiv,
@@ -123,11 +125,16 @@ export default function Events(props) {
   const [count, setCount] = React.useState(0);
   const [eventData, setEventData] = React.useState({});
   const [EventExists, setEventExists] = React.useState(false);
-
+  const [showMap, setShowMap] = React.useState(false);
+  function displayMap(){
+    React.useEffect(()=>{
+      setShowMap(true);
+    }, [])
+  }
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        'https://www.tessera.social/api/attendee/event/6439d94396531719dceb8d63'
+        'https://www.tessera.social/api/attendee/event/643aa09ecbfea68c24d93670'
       ); //temp (the original one crashed)
       //const response = await fetch('https://www.tessera.social/api/attendee/event/{props.id}'); (the original one)
       //console.log(await response.json())
@@ -135,10 +142,12 @@ export default function Events(props) {
       //console.log((event.filteredEvents)[0])
       setEventData(event);
       console.log(event);
-      event.filteredEvents[0]
-        ? console.log(event.filteredEvents[0])
-        : setEventExists(false);
-      event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
+      console.log(eventData.isEventCapacityFull)
+      // event.filteredEvents[0]
+      //   ? console.log(event.filteredEvents[0])
+      //   : setEventExists(false);
+      // event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
+      //console.log(eventData.isEventCapacityFull)
     };
     fetchData();
   }, []);
@@ -265,7 +274,7 @@ export default function Events(props) {
 
   return (
     <WholePage>
-      {EventExists && (
+       {EventExists && ( 
         <FirstHalfPage>
           <FirstHalfPageDiv1>
             <FirstHalfPageDiv2>
@@ -362,6 +371,8 @@ export default function Events(props) {
                   </ActionPanelul>
                 </ActionPanel>
                 <DetailsDiv2>
+                  {eventData.filteredEvents[0].ticketTiers.quantitySold = (eventData.filteredEvents[0].ticketTiers.maxCapacity) - 0.8(eventData.filteredEvents[0].ticketTiers.maxCapacity) 
+                   && 
                   <TicketsEndDiv2>
                     <TicketsEndDivInner>
                       <TicketsEndI>
@@ -376,7 +387,7 @@ export default function Events(props) {
                       <TicketsText>Ticket sales end soon</TicketsText>
                     </TicketsEndDivInner>
                   </TicketsEndDiv2>
-
+                  }
                   <MainDetailsDiv>
                     <EventDate>
                       {' '}
@@ -490,11 +501,9 @@ export default function Events(props) {
                               </DetailsSvg>
                             </DetailsI>
                           </ImageLogoDiv>
-                          <RightDetailsDiv>
-                            <DetailsTitleDiv>
-                              <h3>Location</h3>
-                            </DetailsTitleDiv>
-                            <DetailsP>
+                          <DetailsTitleDiv>
+                              <h3 style={{paddingBottom: "1rem"}}>Location</h3>
+                              <DetailsP>
                               <LocationStrong>
                                 {
                                   eventData.filteredEvents[0].basicInfo.location
@@ -528,7 +537,7 @@ export default function Events(props) {
                               </LocationStrong>
                             </DetailsP>
                             <MapButtonDiv>
-                              <MapButton>Show map</MapButton>
+                              <MapButton  onClick={displayMap()}>Show map</MapButton>
                               <MapDetailsI data-spec="icon">
                                 <DetailsSvg
                                   viewBox="0 0 24 24"
@@ -542,14 +551,18 @@ export default function Events(props) {
                                 </DetailsSvg>
                               </MapDetailsI>
                             </MapButtonDiv>
+                            </DetailsTitleDiv>
+                          <RightDetailsDiv>
+                          {showMap &&
+                          <Map style={{ height: "100vh", display: "flex", "flexDirection": "column" }} >
                             {isLoaded && (
-                              <GoogleMap
+                              <GoogleMap 
                                 zoom={10}
                                 center={{
-                                  lat:
+                                  lat: 
                                     eventData.filteredEvents[0].basicInfo
                                       .location.latitude + 30,
-                                  lng:
+                                  lng: 
                                     eventData.filteredEvents[0].basicInfo
                                       .location.longitude + 31,
                                 }}
@@ -557,7 +570,7 @@ export default function Events(props) {
                               >
                                 <Marker
                                   position={{
-                                    lat:
+                                    lat: 
                                       eventData.filteredEvents[0].basicInfo
                                         .location.latitude + 30,
                                     lng:
@@ -567,6 +580,7 @@ export default function Events(props) {
                                 />
                               </GoogleMap>
                             )}
+                            </Map>}
                           </RightDetailsDiv>
                         </WhenAndWhereDetailsDiv>
                       </LocationSection>
@@ -645,6 +659,8 @@ export default function Events(props) {
                   </AboutEvent>
                 </DetailsDiv2>
                 <ReserveDiv>
+                {eventData.filteredEvents[0].ticketTiers.quantitySold = (eventData.filteredEvents[0].ticketTiers.maxCapacity) - 0.8(eventData.filteredEvents[0].ticketTiers.maxCapacity)
+                  &&
                   <TicketsEndDiv>
                     <TicketsEndDivInner>
                       <TicketsEndI>
@@ -659,6 +675,7 @@ export default function Events(props) {
                       <TicketsText>Ticket sales end soon</TicketsText>
                     </TicketsEndDivInner>
                   </TicketsEndDiv>
+                 } 
                   {eventData.isEventFree && !eventData.isEventCapacityFull && (
                     <WholeTicketsDiv>
                       <TicketsDiv>
@@ -769,8 +786,7 @@ export default function Events(props) {
                     <PricedTickets>
                       <PricedTicketsPriceDiv>
                         <PricedTicketsPrice>
-                          From $0 - $
-                          {eventData.filteredEvents[0].ticketTiers.price}
+                          From $0 - ${eventData.filteredEvents[0].ticketTiers.price}
                         </PricedTicketsPrice>
                       </PricedTicketsPriceDiv>
                       <PricedTicketsButtonDiv>
@@ -782,9 +798,12 @@ export default function Events(props) {
                     <SoldOutTickets>
                       <PricedTicketsPriceDiv>
                         <PricedTicketsPrice>
-                          No Tickets Available
+                          Sales Ended
                         </PricedTicketsPrice>
                       </PricedTicketsPriceDiv>
+                      <PricedTicketsButtonDiv>
+                        <SoldOutTicketsButton>Details</SoldOutTicketsButton>
+                      </PricedTicketsButtonDiv>
                     </SoldOutTickets>
                   )}
                 </ReserveDiv>
