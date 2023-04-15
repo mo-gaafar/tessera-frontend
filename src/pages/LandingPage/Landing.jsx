@@ -47,6 +47,8 @@ export default function Landing() {
 
   const [cityData, setCity] = useState({});
   const ref = useRef(null);
+  const reference = useRef(null);
+  const refDrop = useRef(null)
 
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
@@ -64,6 +66,38 @@ export default function Landing() {
   const [select, setSelect] = useState('');
   const [selectCategory, setSelectCategory] = useState('');
   const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    // add event listener to the document
+    document.addEventListener("mousedown", handleClickMenuOutside);
+    return () => {
+      // remove event listener when component unmounts
+      document.removeEventListener("mousedown", handleClickMenuOutside);
+    };
+  }, []);
+
+  const handleClickMenuOutside = (event) => {
+    if (refDrop.current && !refDrop.current.contains(event.target)) {
+      // if clicked outside of the ref div, hide the element
+      setShowMenu(false);
+    }
+  };
+
+  useEffect(() => {
+    // add event listener to the document
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // remove event listener when component unmounts
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (reference.current && !reference.current.contains(event.target)) {
+      // if clicked outside of the ref div, hide the element
+      setShowCategoryMenu(false);
+    }
+  };
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -74,7 +108,7 @@ export default function Landing() {
     const { name, value } = e.target;
     if (name === 'calender') {
       setShowCalender(true);
-      setShowMenu(false);
+      //setShowMenu(false);
     } else {
       setShowMenu(false);
       setSelect(name);
@@ -172,7 +206,7 @@ export default function Landing() {
 
   function handleForYou() {
     setForYouElement(true);
-    setShowCategoryMenu(false);
+    //setShowCategoryMenu(false);
     setFocused(prevFocus => {
       return {
         forYou: true,
@@ -193,7 +227,7 @@ export default function Landing() {
     });
     setShowMenu(false);
     if (!focused.All) {
-      setShowCategoryMenu(false);
+      //setShowCategoryMenu(false);
     }
     if (name === 'All') {
       setUrl('');
@@ -610,8 +644,10 @@ export default function Landing() {
           </nav>
 
           {focused.All && (
-            <div className="date-dropdown" onClick={showDropdownCategory}>
-              <div className="you--options" data-testid="forYou">
+            <div className="date-dropdown" >
+              <div className="you--options" 
+              onClick={showDropdownCategory}
+              >
                 {selectCategory ? (
                   <span>
                     {selectCategory}
@@ -627,7 +663,9 @@ export default function Landing() {
                 )}
               </div>
               {showCategoryMenu && (
-                <div id="myDropdown" className="dropdown-content">
+                <div id="myDropdown"
+                ref={reference}
+                 className="dropdown-content">
                   <ul>{catElements}</ul>
                 </div>
               )}
@@ -635,8 +673,11 @@ export default function Landing() {
           )}
 
           {forYouElement && (
-            <div className="date-dropdown" onClick={showDropdown}>
-              <div className="you--options" data-testid="forYou">
+            <div className="date-dropdown" >
+              <div className="you--options"
+               data-testid="forYou"
+               onClick={showDropdown}
+               >
                 {showDateRange ? (
                   <span>
                     {monthNames[range.startDate.getMonth()] +
@@ -665,7 +706,9 @@ export default function Landing() {
                 )}
               </div>
               {showMenu && (
-                <div id="myDropdown" className="dropdown-content">
+                <div id="myDropdown" 
+                className="dropdown-content"
+                ref={refDrop}>
                   <ul>
                     <div>
                       <button
