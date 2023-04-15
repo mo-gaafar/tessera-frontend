@@ -80,20 +80,28 @@ export default function Landing() {
     const { name, value } = e.target;
     setShowCategoryMenu(false);
     setSelectCategory(name);
+    // let queryName = "category=" + name;
+    // setUrl(queryName)
     if (name === "School Activities"){
       setUrl("category=School Activities")
     }
-    if (name === "Health"){
-      setUrl("category=Health & wellness")
+    if (name === "Health & wellness"){
+      setUrl("category=Health %26 wellness")
     }
-    if (name === "Business"){
-      setUrl("category=Business & Profession")
+    if (name === "Business & Profession"){
+      setUrl("category=Business %26 Profession")
     }
-    if (name === "Travel"){
-      setUrl("category=Travel & Outdoor")
+    if (name === "Travel & Outdoor"){
+      setUrl("category=Travel %26 Outdoor")
     }
-    if (name === "Sports"){
-      setUrl("category=Sports & Fitness")
+    if (name === "Sports & Fitness"){
+      setUrl("category=Sports %26 Fitness")
+    }
+    if (name === "Performing & Visual Arts"){
+      setUrl("category=Performing %26 Visual Arts")
+    }
+    if (name === "Other"){
+      setUrl("category=Other")
     }
   }
   function showDropdown() {
@@ -184,14 +192,17 @@ export default function Landing() {
     if (name === "weekend"){
       setUrl("startDate="+range.startDate.toISOString()+"&futureDate=weekend")
     }
+    if (name==="free"){
+      setUrl('freeEvent="Free"')
+    }
     if (name === "music"){
       setUrl("category=Music")
     }
     if (name === "food"){
-      setUrl("category=Food & Drink")
+      setUrl("category=Food %26 Drink")
     }
     if (name === "charity"){
-      setUrl("category=Charity & Causes")
+      setUrl("category=Charity %26 Causes")
     }
     
 
@@ -247,6 +258,7 @@ export default function Landing() {
     async function getData() {
         const res = await fetch("https://www.tessera.social/api/attendee/Eventsby/?"+url);
         const data = await res.json();
+        console.log(data)
         setAllFilteredEvents(data.filteredEvents);
     }
     getData()
@@ -292,7 +304,7 @@ export default function Landing() {
     description={event.basicInfo.location.venueName +" • "+event.basicInfo.location.city}
     isFree={event.isPublic}
     organizer={event.eventStatus}
-    followers={event.soldTickets.length}
+    // followers={(event.soldTickets)}
     />
 
   )
@@ -540,7 +552,7 @@ export default function Landing() {
                     </div>
                     <div>
                       <button
-                        name="Health"
+                        name="Health & Wellness"
                         className="drop-button"
                         onClick={onClickCategory}
                       >
@@ -549,7 +561,16 @@ export default function Landing() {
                     </div>
                     <div>
                       <button
-                        name="Travel"
+                        name="Performing & Visual Arts"
+                        className="drop-button"
+                        onClick={onClickCategory}
+                      >
+                        Performing & Visual Arts
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        name="Travel & Outdoor"
                         className="drop-button"
                         onClick={onClickCategory}
                       >
@@ -559,7 +580,7 @@ export default function Landing() {
                     <div>
                       <button
                         onClick={onClickCategory}
-                        name="Business"
+                        name="Business & Profession"
                         className="drop-button"
                       >
                         Business & Profession
@@ -567,11 +588,20 @@ export default function Landing() {
                     </div>
                     <div>
                       <button
-                        name="Sports"
+                        name="Sports & Fitness"
                         onClick={onClickCategory}
                         className="drop-button"
                       >
                         Sports & Fitness
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        name="Other"
+                        onClick={onClickCategory}
+                        className="drop-button"
+                      >
+                        Other
                       </button>
                     </div>
                   </ul>
