@@ -14,10 +14,11 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, Route, Routes } from 'react-router-dom';
-import {
-  InputEmail,
-  Label,
-} from '../../../../tessera-frontend-checkoutPage/src/pages/SignUp/styles/SignUpEmail.styled';
+// import {
+//   InputEmail,
+//   Label,
+// } from '../../../../tessera-frontend/src/pages/SignUp/styles/SignUpEmail.styled';
+
 import axios from 'axios';
 
 const StyleDiv = styled.div`
@@ -304,7 +305,9 @@ function CheckoutForm(props) {
     try {
       const response = await axios.post(
         `https://www.tessera.social/api/attendee/ticket/${event}/book`,
-        body
+        {
+          body: body,
+        }
       );
       console.log(response);
     } catch (error) {

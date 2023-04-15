@@ -67,8 +67,6 @@ import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
  */
 
 export default function SignUpOne(props) {
-  const [eventData, setEventData] = React.useState({});
-
   React.useEffect(() => {
     const fetchData = async () => {
       //  const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/'); //temp (the original one crashed)

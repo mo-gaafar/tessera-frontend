@@ -10,13 +10,20 @@
  * @description This file contains the Landing page components and its logic
  */
 import DateRangePicker from 'tw-daterange';
-import 'react-dater/dist/index.css';
+
 import { useRef } from 'react';
 
 import { useEffect, useState } from 'react';
 import { StyledLandingEvents } from './styles/Landing.styled';
 import { StyledEventsContainer } from './styles/Landing.styled';
-import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import {
+  Link,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 
 import logo from '../../assets/icon-down.png';
 import cross from '../../assets/x-10327.png';
@@ -382,6 +389,11 @@ export default function Landing() {
     } else {
       setNoEventsImg(false);
     }
+
+    const handleEventPage = id => {
+      console.log('first');
+    };
+
     setEventElement(
       allFilteredEvents.map(event => (
         <EventBox

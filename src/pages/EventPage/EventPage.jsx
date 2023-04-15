@@ -128,10 +128,12 @@ import {
 import MoreEvents from './MoreEvents';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { eventsListScroll } from './EventsList';
-
+import { useParams } from 'react-router-dom';
 import EventBox from '../LandingPage/EventBox';
 
 export default function Events(props) {
+  const eventID = useParams().eventID;
+
   // conditional rendering => if the quantity sold = capacity - 10 , render tickets sales ends soon
   // if the event is free or not
   // if the tickets are sold out
@@ -147,7 +149,7 @@ export default function Events(props) {
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        'https://www.tessera.social/api/attendee/event/643aa09ecbfea68c24d93670'
+        `https://www.tessera.social/api/attendee/event/${eventID}`
       );
       const event = await response.json();
       setEventData(event);
@@ -324,12 +326,22 @@ export default function Events(props) {
                   <PictureDiv3></PictureDiv3>
                   <Picture>
                     <PictureSource
-                      src={eventData.filteredEvents[0].eventImage}
+                      src={
+                        eventData.filteredEvents[0].basicInfo.eventImage !==
+                        'https://example.com/image.jpg'
+                          ? eventData.filteredEvents[0].basicInfo.eventImage
+                          : '/images/event__5.avif'
+                      }
                     ></PictureSource>
                     <PictureBackgroundEvent
                       width="600"
                       height="300"
-                      src={eventData.filteredEvents[0].eventImage}
+                      src={
+                        eventData.filteredEvents[0].basicInfo.eventImage !==
+                        'https://example.com/image.jpg'
+                          ? eventData.filteredEvents[0].basicInfo.eventImage
+                          : '/images/event__5.avif'
+                      }
                     />
                   </Picture>
                 </PictureDiv2>
@@ -412,26 +424,25 @@ export default function Events(props) {
                   </ActionPanelul>
                 </ActionPanel>
                 <DetailsDiv2>
-                  {
-                    (eventData.filteredEvents[0].ticketTiers.quantitySold =
-                      eventData.filteredEvents[0].ticketTiers.maxCapacity -
-                        eventData.filteredEvents[0].ticketTiers.maxCapacity && (
-                        <TicketsEndDiv2>
-                          <TicketsEndDivInner>
-                            <TicketsEndI>
-                              <DetailsSvg viewBox="0 0 144 144">
-                                <TicketsEndPath
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
-                                ></TicketsEndPath>
-                              </DetailsSvg>
-                            </TicketsEndI>
-                            <TicketsText>Ticket sales end soon</TicketsText>
-                          </TicketsEndDivInner>
-                        </TicketsEndDiv2>
-                      ))
-                  }
+                  {eventData.filteredEvents[0].ticketTiers.quantitySold ===
+                    eventData.filteredEvents[0].ticketTiers.maxCapacity -
+                      eventData.filteredEvents[0].ticketTiers.maxCapacity *
+                        0.8 && (
+                    <TicketsEndDiv2>
+                      <TicketsEndDivInner>
+                        <TicketsEndI>
+                          <DetailsSvg viewBox="0 0 144 144">
+                            <TicketsEndPath
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
+                            ></TicketsEndPath>
+                          </DetailsSvg>
+                        </TicketsEndI>
+                        <TicketsText>Ticket sales end soon</TicketsText>
+                      </TicketsEndDivInner>
+                    </TicketsEndDiv2>
+                  )}
                   <MainDetailsDiv>
                     <EventDate>
                       {' '}
@@ -454,7 +465,7 @@ export default function Events(props) {
                           <EventHostSpan>
                             By{' '}
                             <HostName>
-                              {eventData.filteredEvents[0].creatorId?.firstName}
+                              {eventData.filteredEvents[0].creatorId?.firstName}{' '}
                               {eventData.filteredEvents[0].creatorId?.lastName}
                             </HostName>
                           </EventHostSpan>
@@ -708,26 +719,25 @@ export default function Events(props) {
                   </AboutEvent>
                 </DetailsDiv2>
                 <ReserveDiv>
-                  {
-                    (eventData.filteredEvents[0].ticketTiers.quantitySold =
-                      eventData.filteredEvents[0].ticketTiers.maxCapacity -
-                        eventData.filteredEvents[0].ticketTiers.maxCapacity && (
-                        <TicketsEndDiv>
-                          <TicketsEndDivInner>
-                            <TicketsEndI>
-                              <DetailsSvg viewBox="0 0 144 144">
-                                <TicketsEndPath
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
-                                ></TicketsEndPath>
-                              </DetailsSvg>
-                            </TicketsEndI>
-                            <TicketsText>Ticket sales end soon</TicketsText>
-                          </TicketsEndDivInner>
-                        </TicketsEndDiv>
-                      ))
-                  }
+                  {eventData.filteredEvents[0].ticketTiers.quantitySold ===
+                    eventData.filteredEvents[0].ticketTiers.maxCapacity -
+                      eventData.filteredEvents[0].ticketTiers.maxCapacity *
+                        0.8 && (
+                    <TicketsEndDiv>
+                      <TicketsEndDivInner>
+                        <TicketsEndI>
+                          <DetailsSvg viewBox="0 0 144 144">
+                            <TicketsEndPath
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
+                            ></TicketsEndPath>
+                          </DetailsSvg>
+                        </TicketsEndI>
+                        <TicketsText>Ticket sales end soon</TicketsText>
+                      </TicketsEndDivInner>
+                    </TicketsEndDiv>
+                  )}
                   {!eventData.isEventFree && !eventData.isEventCapacityFull && (
                     <WholeTicketsDiv>
                       <TicketsDiv>
