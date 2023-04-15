@@ -11,11 +11,11 @@
  * @description This file contains the lower half of the Event detail page with sections such as details about organizer, more events from organizer and more events the user might like
  */
 
-import { useEffect, useState } from 'react';
+import { useRef,useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import {AboutTheOrganizer,MoreEventsOrganizer,OtherEventsYouMayLike} from './styles/EventOrganizer.styled';
 import MoreEvents from './Eventbox'
-
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {eventsListScroll} from "./EventsList";
 import EventBox from '../LandingPage/EventBox';
 
@@ -24,27 +24,36 @@ import EventBox from '../LandingPage/EventBox';
 export default function EventPageOrganizer() {
 
 
-    const [data, setData] = useState([...eventsListScroll]); // Your array of values
-    const [currentIndex, setCurrentIndex] = useState(0); // Current index in the array
+    const [data, setData] = useState([...eventsListScroll]); // array of values
+    const [currentIndex, setCurrentIndex] = useState(0); // Current index in the array to iterate over 3 values
+    const allEventsDivRef = useRef(null);
 
     const handleForward = () => {
+        const allEventsDiv = allEventsDivRef.current;
+        allEventsDiv.classList.add('fade-transition');
+        setTimeout(() => {
         if (currentIndex < data.length - 3) {
           setCurrentIndex(currentIndex + 3);
         } else {
           setCurrentIndex(data.length - (data.length % 3));
         }
+        allEventsDiv.classList.remove('fade-transition');
+  }, 500);
       };
 
 
       const handleBackward = () => {
+        const allEventsDiv = allEventsDivRef.current;
+        allEventsDiv.classList.add('fade-transition');
+        setTimeout(() => {
         if (currentIndex >= 3) {
           setCurrentIndex(currentIndex - 3);
         } else {
           setCurrentIndex(0);
         }
+        allEventsDiv.classList.remove('fade-transition');
+  }, 500);
       };
-
-   
 
 
     return(
@@ -161,21 +170,24 @@ export default function EventPageOrganizer() {
 
             </div>
         </div>
-        <div className="allEventsDiv">
-        {data
-          .slice(currentIndex, currentIndex + 3)
-          .map((item, index) => (
-            // <div key={index}>{value}</div>
-            <EventBox className='eventCard'
-                        key={index}
-                        image={item.image}
-                        eventTitle={item.eventTitle}
-                        date={item.date}
-                        description={item.description}
-                        organizer={item.organizer}
-                        followers={item.followers}
+        <div className="allEventsDiv" ref={allEventsDivRef} key={data.length}>
+            <TransitionGroup>
+            {data
+            .slice(currentIndex, currentIndex + 3)
+            .map((item, index) => (
+                <CSSTransition key={item.id} className="fade" timeout={500}>
+                    <EventBox className='eventCard'
+                            key={index}
+                            image={item.image}
+                            eventTitle={item.eventTitle}
+                            date={item.date}
+                            description={item.description}
+                            organizer={item.organizer}
+                            followers={item.followers}
                     />
-          ))}
+                </CSSTransition>
+            ))}
+            </TransitionGroup>
       </div>
 
       </div>

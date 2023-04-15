@@ -397,12 +397,13 @@ h2{
 
 
 
-.allEventsDiv{
+.allEventsDiv, TransitionGroup, .CSSTransition{
     display: flex;
     width: 100%;
     min-height: 412px;
 
 }
+
 
 .event__box{
     background-color:lightblue;
@@ -412,7 +413,11 @@ h2{
     position: relative;
     border-radius: 0.4rem;
     width: 100%;
+
     display: flex;
+    // -webkit-box-flex: 1;
+    // flex: 1;
+    // flex-direction: column;
     overflow: visible;
    
 
@@ -458,6 +463,28 @@ span{
     display:flex;
 }
 
+.fade-enter {
+    opacity: 0;
+  }
+  
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in-out;
+  }
+  
+  .fade-exit {
+    opacity: 1;
+  }
+  
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+  }
+
+  .fade-transition {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+  }
 
 `
 
