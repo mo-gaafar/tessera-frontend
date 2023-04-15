@@ -1,9 +1,13 @@
 .navBar {
   /* background-color: rgba(228, 4, 4, 0.89); */
-
   height: 7rem;
   display: flex;
   flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  padding-right: 2rem;
+  align-items: center;
+
 }
 
 .siteLogoSection {
@@ -21,17 +25,15 @@
   /* background-color: rgba(170, 255, 153, 0.89); */
 
   display: flex;
-
-  flex: 1;
+  margin-left: 2rem;
 }
 
 .optionsSection {
   /* background-color: rgba(157, 175, 255, 0.89); */
 
-  width: 52.5rem;
   display: flex;
+  gap: 1rem;
   flex-direction: row;
-  min-width: 207.45px;
   color: #39364f;
 }
 
@@ -95,7 +97,6 @@
   display: flex;
   align-items: center;
   height: 100%;
-  margin-left: 1.5rem;
 }
 
 .navLanding:hover {
@@ -120,12 +121,10 @@
   display: flex;
 }
 
-.imageDiv {
+.imageDiv img {
   /* margin-top: 7rem; */
   display: flex;
-  background-image: url('https://cdn.evbstatic.com/s3-build/fe/build/images/baedf009bb329458ae80eb599fb8a4d5-3_tablet_1067x470.jpg');
-  height: 471px;
-  width: 100%;
+  width: 110vw;
 }
 
 /* .landingImage1{
@@ -158,19 +157,16 @@
 #createEventId {
   color: rgb(61, 100, 255);
 }
-
+a {
+  padding-block: 2.5rem;
+  padding-inline: 0.5rem;
+}
 .optionsDiv,
 .helpDiv,
 .organizeDiv {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem;
-  margin-right: 0.1rem;
-}
-
-#signUpId {
-  margin-right: -2rem;
 }
 
 .hamburgerDiv {
@@ -180,10 +176,6 @@
 @media only screen and (max-width: 1080px) {
   #createEventId {
     display: none;
-  }
-
-  .optionsDiv {
-    width: 7rem;
   }
 
   #signUpId {
@@ -209,10 +201,6 @@
     justify-content: right;
     align-items: right;
     cursor: pointer;
-  }
-
-  .optionsSection {
-    max-width: 12.966rem;
   }
 
   .landingItems #hidden {

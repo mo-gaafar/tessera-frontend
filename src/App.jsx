@@ -6,13 +6,18 @@
 
 import SignupTwo from './pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
-import GlobalStyles from './components/styles/global';
+
+import GlobalStyles from './components/styles/Global';
 import Landing from './pages/LandingPage/Landing';
+import Organize from './pages/Organize/Organize';
 import { Route, Routes } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
-
+import ResetPassword from './pages/ResetPassword/ResetPassword';
+import Reset from './pages/ResetPassword/Reset';
+import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
+// import FacebookLoginButton from './components/LoginFacebook';
 /**
  * Function component that renders the main application
  * @function
@@ -25,10 +30,13 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
-        <Route path="Signuptwo" element={<SignupTwo email={email} />} />
+
         <Route path="login" element={<Maincontainer />} />
+        <Route path="Organize" element={<Organize />} />
+        <Route path="forgetPassword" element={<Reset />} />
+        <Route path="forgetPassword/:token" element={<ResetPassword />} />
+        <Route path="checkout" element={<CheckoutForm />} />
+
       </Routes>
     </>
   );

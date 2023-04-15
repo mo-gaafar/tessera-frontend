@@ -3,6 +3,26 @@ import styled from 'styled-components';
 export const UpperPage = styled.div`
   height: 100%;
   width: 36rem;
+  .google {
+    margin-top: 2rem;
+    width: 36rem;
+  }
+  #facebook {
+    height: 4.8rem;
+    width: 4.8rem;
+    border-radius: 24px;
+    background-image: url('/images/Facebook-logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1877f2;
+    border: none;
+    margin-top: 3rem;
+    margin-left: 3rem;
+    :hover {
+      cursor: pointer;
+    }
+  }
   @media (max-width: 960px) {
     padding-top: 7rem;
   }

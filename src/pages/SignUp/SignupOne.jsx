@@ -9,7 +9,7 @@
  * @description This file contains the SignupOne component and its logic
  *
  */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   ContinueButton,
@@ -51,6 +51,9 @@ import { render } from 'react-dom';
 
 import SignupTwo from './SignupTwo';
 import { Link, useNavigate } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
 
 /**
  * @module SignupOne
@@ -64,30 +67,20 @@ import { Link, useNavigate } from 'react-router-dom';
  */
 
 export default function SignUpOne(props) {
-  const google = async () => {
-    const newWindow = window.open(
-      'https://www.tessera.social/api/auth/google',
-      '__blank'
-    );
+  const [eventData, setEventData] = React.useState({});
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      //  const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/'); //temp (the original one crashed)
+      const response = await fetch(
+        'https://www.tessera.social/api/attendee/event/6439c17df192628827184ef0'
+      );
+      //console.log(await response.json())
+      const event = await response.json();
+      setEventData(event);
+    };
     fetchData();
-  };
-
-  const fetchData = async () => {
-    const data = await fetch(
-      `https://www.tessera.social/api/auth/userInformation`,
-      { mode: 'no-cors' }
-    );
-
-    console.log(data);
-    const json = await data.json();
-    console.log(json);
-  };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  //
+  }, []);
 
   let navigate;
   if (!props.test) {
@@ -96,10 +89,106 @@ export default function SignUpOne(props) {
   const [focused, setFocused] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [emailerror, setEmailError] = React.useState('');
+  const [user, setUser] = useState([]);
+  const [eventData, setEventData] = useState({});
 
   useEffect(() => {
+    localStorage.removeItem('authEmail');
+
     localStorage.setItem('email', email);
   }, [email]);
+
+  async function handleSuccess(response) {
+    const facebookResponse = await fetch(
+      `https://graph.facebook.com/v12.0/me?fields=name,email&access_token=${response.authResponse.accessToken}`
+    );
+    const data = await facebookResponse.json();
+
+    const [firstname, lastname] = data.name.split(' ');
+    const email = data.email;
+    const id = data.id;
+
+    const responseBackend = await fetch(
+      'https://www.tessera.social/api/auth/facebook/app',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          firstname,
+          lastname,
+          id,
+        }),
+      }
+    );
+
+    // console.log(await responseBackend.json());
+  }
+
+  function handleError(error) {
+    console.log(error);
+  }
+
+  const google = useGoogleLogin({
+    onSuccess: codeResponse => setUser(codeResponse),
+    onError: error => console.log('Login Failed:', error),
+  });
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(
+        `https://www.tessera.social/api/event-management/retrieve/64395de28e50b131d0403ff8`
+      );
+
+      const data = await response.json();
+      console.log(data.event.description);
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    localStorage.removeItem('authEmail');
+    localStorage.removeItem('email');
+    const setUser = async () => {
+      const response = await fetch(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+            Accept: 'application/json',
+          },
+        }
+      );
+
+      const json = await response.json();
+
+      const { email, given_name: firstname, family_name: lastname, id } = json;
+
+      const postData = await fetch(
+        'https://www.tessera.social/api/auth/google/app',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            firstname,
+            lastname,
+            id,
+          }),
+        }
+      );
+      localStorage.setItem('authEmail', email);
+      const data = await postData.json();
+      if (data.success) {
+        navigate('/');
+      }
+    };
+    setUser();
+  }, [user]);
 
   /**
    * @function saveEmail
@@ -117,6 +206,7 @@ export default function SignUpOne(props) {
    * @returns {void}
    * @description This function validates the email
    */
+
   function handleValidation(event) {
     console.log();
     if (!email) {
@@ -204,11 +294,7 @@ export default function SignUpOne(props) {
           <Divider>
             <CircleDivider>or</CircleDivider>
           </Divider>
-          <GoogleButton
-            onClick={google}
-            // onClick="location.href=https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?redirect_uri=storagerelay%3A%2F%2Fhttps%2Fwww.eventbrite.com%3Fid%3Dauth64961&response_type=permission%20id_token&scope=email%20profile%20openid&openid.realm&include_granted_scopes=true&client_id=126160502265-8i61veaglos3qqdc73t5b9gdp7uumclg.apps.googleusercontent.com&ss_domain=https%3A%2F%2Fwww.eventbrite.com&fetch_basic_profile=true&gsiwebsdk=2&service=lso&o2v=1&flowName=GeneralOAuthFlow"
-            target={'_blank'}
-          >
+          <GoogleButton onClick={() => google()}>
             <Googlelogo src="/images/google-logo.png" />
             Sign in with Google
           </GoogleButton>
@@ -235,7 +321,15 @@ export default function SignUpOne(props) {
               </OtherArrow>
             </OtherSignUpButtonDiv2>
           </OtherSignUpButton>
-          <FacebookButton></FacebookButton>
+          <FacebookProvider appId="664174802386073">
+            <LoginButton
+              id="facebook"
+              scope="public_profile,email"
+              onError={handleError}
+              onSuccess={handleSuccess}
+            ></LoginButton>
+          </FacebookProvider>
+
           <LogInDiv2>
             <LogIn2>
               <Link to="/login">Log in </Link>
