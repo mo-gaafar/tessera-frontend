@@ -23,6 +23,7 @@ export default function EventBox(props) {
       <h5 data-testid="img">{props.eventTitle}</h5>
       <h6>{props.date}</h6>
       <p>{props.description}</p>
+      <p>{props.price}</p>
       {props.isFree && <p className="free">Free</p>}
       <span>{props.organizer}</span>
       <span>

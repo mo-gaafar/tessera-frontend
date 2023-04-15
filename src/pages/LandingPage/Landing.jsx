@@ -80,29 +80,11 @@ export default function Landing() {
     const { name, value } = e.target;
     setShowCategoryMenu(false);
     setSelectCategory(name);
-    // let queryName = "category=" + name;
-    // setUrl(queryName)
-    if (name === "School Activities"){
-      setUrl("category=School Activities")
-    }
-    if (name === "Health & wellness"){
-      setUrl("category=Health %26 wellness")
-    }
-    if (name === "Business & Profession"){
-      setUrl("category=Business %26 Profession")
-    }
-    if (name === "Travel & Outdoor"){
-      setUrl("category=Travel %26 Outdoor")
-    }
-    if (name === "Sports & Fitness"){
-      setUrl("category=Sports %26 Fitness")
-    }
-    if (name === "Performing & Visual Arts"){
-      setUrl("category=Performing %26 Visual Arts")
-    }
-    if (name === "Other"){
-      setUrl("category=Other")
-    }
+    let new_name = name.replace(/&/g, '%26');
+    let queryName = "category=" + new_name;
+    setUrl(queryName)
+    //handleClick()
+   
   }
   function showDropdown() {
     if (!select) {
@@ -244,6 +226,7 @@ export default function Landing() {
     'Dec',
   ];
    const [allFilteredEvents, setAllFilteredEvents] = useState([]);
+   const [allCatEvents, setAllCatEvents] = useState([]);
    const [noEvents,setNoEventsImg] = useState(false)
 
     /**
@@ -258,12 +241,25 @@ export default function Landing() {
     async function getData() {
         const res = await fetch("https://www.tessera.social/api/attendee/Eventsby/?"+url);
         const data = await res.json();
-        console.log(data)
+        //console.log(data)
+        //setAllCatEvents(data.categoriesRetreived);
         setAllFilteredEvents(data.filteredEvents);
     }
     getData()
     
   }, [url])
+
+  useEffect(() => {
+    async function getData() {
+        const res = await fetch("https://www.tessera.social/api/attendee/Eventsby/?"+url);
+        const data = await res.json();
+        //console.log(data)
+        setAllCatEvents(data.categoriesRetreived);
+       
+    }
+    getData()
+    
+  }, [])
 
   /**
    * Changes the Isodate to display date format.
@@ -287,7 +283,19 @@ export default function Landing() {
     return `${dayName}, ${monthNames[localTime.getMonth()]} ${localTime.getDate()}, ${localTime.getHours()}:${localTime.getMinutes()===0?"00":localTime.getMinutes()}`
   };
 
+  const minPrice = (p,q) => {
+    if (p>q){
+      return q
+    }
+    else{
+      return p
+    }
+
+  }
+
+
   const [eventElements,setEventElement] = useState();
+  const [catElements,setCatElement] = useState();
   useEffect(()=>{
     if (allFilteredEvents.length===0){
       setNoEventsImg(true);
@@ -297,26 +305,42 @@ export default function Landing() {
     }
     setEventElement( allFilteredEvents.map(event => (
     <EventBox 
-    key={event.id}
+    key={event._id}
     image={event.basicInfo.eventImage}
     eventTitle={event.basicInfo.eventName}
     date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
-    description={event.basicInfo.location.venueName +" • "+event.basicInfo.location.city}
-    isFree={event.isPublic}
-    organizer={event.eventStatus}
-    // followers={(event.soldTickets)}
+    description={event.basicInfo.location.venueName +" • "+event.basicInfo.location.city + " "}
+    price={((event.ticketTiers[0]).price !=="Free" ? `Starts at ${minPrice((event.ticketTiers[0]).price,(event.ticketTiers[1]).price)}`:"")}
+    isFree={(event.ticketTiers[0]).price==="Free"}
+    organizer={event.creatorId?event.creatorId.firstName +" "+event.creatorId.lastName:""}
+    followers={(event.ticketTiers.length)}
     />
+    
 
   )
 
   ))
   },[allFilteredEvents])
-
+  useEffect(()=>{
+    setCatElement(allCatEvents.map(cat =>(
+      <div>
+        <button
+          name={cat}
+          className="drop-button"
+          onClick={onClickCategory}
+        >
+          {cat}
+        </button>
+      </div>
+    ))
+    )
+  },[allCatEvents])
+  
   const handleClick = () => {
     ref.current?.scrollIntoView({behavior: 'smooth'});
   };
 
-  console.log(url)
+  console.log("url:",url)
   console.log(allFilteredEvents)
   
   const email = localStorage.getItem('email')
@@ -541,69 +565,7 @@ export default function Landing() {
               {showCategoryMenu && (
                 <div id="myDropdown" className="dropdown-content">
                   <ul>
-                    <div>
-                      <button
-                        name="School Activities"
-                        className="drop-button"
-                        onClick={onClickCategory}
-                      >
-                        School Activities
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        name="Health & Wellness"
-                        className="drop-button"
-                        onClick={onClickCategory}
-                      >
-                        Health & Wellness
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        name="Performing & Visual Arts"
-                        className="drop-button"
-                        onClick={onClickCategory}
-                      >
-                        Performing & Visual Arts
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        name="Travel & Outdoor"
-                        className="drop-button"
-                        onClick={onClickCategory}
-                      >
-                        Travel & Outdoor
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        onClick={onClickCategory}
-                        name="Business & Profession"
-                        className="drop-button"
-                      >
-                        Business & Profession
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        name="Sports & Fitness"
-                        onClick={onClickCategory}
-                        className="drop-button"
-                      >
-                        Sports & Fitness
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        name="Other"
-                        onClick={onClickCategory}
-                        className="drop-button"
-                      >
-                        Other
-                      </button>
-                    </div>
+                    {catElements}
                   </ul>
                 </div>
               )}
