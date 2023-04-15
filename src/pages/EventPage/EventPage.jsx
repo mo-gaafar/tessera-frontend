@@ -259,6 +259,10 @@ export default function Events(props) {
     return hours;
   };
 
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI',
+  });
+
   return (
     <WholePage>
       {EventExists && (
@@ -538,6 +542,31 @@ export default function Events(props) {
                                 </DetailsSvg>
                               </MapDetailsI>
                             </MapButtonDiv>
+                            {isLoaded && (
+                              <GoogleMap
+                                zoom={10}
+                                center={{
+                                  lat:
+                                    eventData.filteredEvents[0].basicInfo
+                                      .location.latitude + 30,
+                                  lng:
+                                    eventData.filteredEvents[0].basicInfo
+                                      .location.longitude + 31,
+                                }}
+                                mapContainerClassName="map__container"
+                              >
+                                <Marker
+                                  position={{
+                                    lat:
+                                      eventData.filteredEvents[0].basicInfo
+                                        .location.latitude + 30,
+                                    lng:
+                                      eventData.filteredEvents[0].basicInfo
+                                        .location.longitude + 31,
+                                  }}
+                                />
+                              </GoogleMap>
+                            )}
                           </RightDetailsDiv>
                         </WhenAndWhereDetailsDiv>
                       </LocationSection>

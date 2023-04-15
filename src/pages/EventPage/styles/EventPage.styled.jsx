@@ -1,44 +1,38 @@
 import styled from 'styled-components';
 export const WholePage = styled.div`
-height: 500rem;
+  height: 500rem;
 `;
-export const FirstHalfPage = styled.div`
-
-`;
-export const FirstHalfPageDiv1 = styled.div`
-
-`;
-export const FirstHalfPageDiv2 = styled.div`
-
-`;
+export const FirstHalfPage = styled.div``;
+export const FirstHalfPageDiv1 = styled.div``;
+export const FirstHalfPageDiv2 = styled.div``;
 export const Header = styled.div`
-height: 5.9rem;
-display: flex;
-border-bottom: 1px solid #eeedf2;
--webkit-box-pack: justify;
-justify-content: space-between;
-position: relative;
-letter-spacing: normal;
-font-size: 1.4rem;
-background-color: #fff;
-@media (max-width: 280px){
-  max-width: 28.4rem;
-}
+  height: 5.9rem;
+  display: flex;
+  border-bottom: 1px solid #eeedf2;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  position: relative;
+  letter-spacing: normal;
+  font-size: 1.4rem;
+  background-color: #fff;
+  @media (max-width: 280px) {
+    max-width: 28.4rem;
+  }
 `;
 export const RightHeader = styled.div`
-flex: 1;
-display: flex;
+  flex: 1;
+  display: flex;
 `;
 
 export const LeftHeader = styled.div`
-flex: 1;
-display: flex;
-@media (min-width: 940px) {
-  margin-right: 0rem;
-}
-div:last-child{
-  margin-left: auto;
-}
+  flex: 1;
+  display: flex;
+  @media (min-width: 940px) {
+    margin-right: 0rem;
+  }
+  div:last-child {
+    margin-left: auto;
+  }
 `;
 export const Logo = styled.img`
   display: -webkit-box;
@@ -65,19 +59,18 @@ export const Search = styled.div`
   @media (min-width: 940px) {
     display: none;
   }
-  @media (max-width: 450px){
+  @media (max-width: 450px) {
   }
 `;
 export const SearchDiv = styled.div`
-@media(min-width: 1200px){
-  min-width: 53.7rem;
-}
-@media (max-width: 940px){
-  display: none;
-}
+  @media (min-width: 1200px) {
+    min-width: 53.7rem;
+  }
+  @media (max-width: 940px) {
+    display: none;
+  }
 `;
-export const SearchDiv2 = styled.div`
-`;
+export const SearchDiv2 = styled.div``;
 export const SearchDiv3 = styled.div``;
 export const SearchButton2 = styled.button`
   box-sizing: border-box;
@@ -110,9 +103,7 @@ export const SearchButtonDiv3 = styled.div`
   padding: 0.5rem 0;
   position: relative;
 `;
-export const SearchButtonDiv4 = styled.div`
-
-`;
+export const SearchButtonDiv4 = styled.div``;
 export const SearchButtonDiv5 = styled.div`
   background: none;
   border-radius: 2px;
@@ -121,32 +112,32 @@ export const SearchButtonDiv5 = styled.div`
   transition: background 0.24s cubic-bezier(0.4, 0, 0.3, 1);
 `;
 export const SearchButtonDiv6 = styled.div`
-background: #f8f7fa;
-border: 1px solid #f8f7fa;
-display: flex;
--webkit-box-orient: horizontal;
--webkit-box-direction: normal;
-flex-direction: row;
-position: relative;
-border-radius: 1px;
+  background: #f8f7fa;
+  border: 1px solid #f8f7fa;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  position: relative;
+  border-radius: 1px;
 `;
 export const SearchButtonDiv7 = styled.div`
-display: flex;
--webkit-box-orient: horizontal;
--webkit-box-direction: normal;
-flex-direction: row;
-position: relative;
--webkit-box-flex: 1;
-flex: 1;
-min-width: 0;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  position: relative;
+  -webkit-box-flex: 1;
+  flex: 1;
+  min-width: 0;
 `;
 export const SearchButtonDiv8 = styled.div`
-overflow: hidden;
-pointer-events: none;
-position: absolute;
-width: 100%;
-box-sizing: border-box;
-padding: 12px;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
 `;
 export const SearchButtonDiv9 = styled.div``;
 export const SearchButtonDiv10 = styled.div``;
@@ -221,19 +212,19 @@ export const SearchButton = styled.button`
   --conversion-bar-placeholder: 204px;
 `;
 export const MaxMenuDiv = styled.div`
-display: flex;
-justify-content: space-between;
-@media(max-width: 940px){
-  display: none;
-}
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 940px) {
+    display: none;
+  }
 `;
-export const MaxMenuMainDiv = styled.div` 
-display: flex;
-margin-left: auto;
-padding-left: 0rem;
-@media(max-width: 940px){ 
-  display: none;
-}
+export const MaxMenuMainDiv = styled.div`
+  display: flex;
+  margin-left: auto;
+  padding-left: 0rem;
+  @media (max-width: 940px) {
+    display: none;
+  }
 `;
 export const MaxMenuA = styled.a`
   color: #6f7287;
@@ -248,6 +239,7 @@ export const MaxMenuA = styled.a`
   padding: 0 10px;
 `;
 export const MaxMenuSpan = styled.span``;
+
 export const DropDownPath = styled.path`
 background: #f8f7fa;
 width: 40px;
@@ -259,15 +251,16 @@ vertical-align: middle;
 line-height: 0;
 fill: #c2c2cc;
 `;
+
 export const MenuSpan = styled.span`
   max-width: 4.316rem;
   height: 2.1rem;
 `;
 export const MenuDiv = styled.div`
-display: flex;
-@media(min-width:940px){
-  display: none;
-}
+  display: flex;
+  @media (min-width: 940px) {
+    display: none;
+  }
 `;
 export const MenuSpanText = styled.span`
   font-weight: 600;
@@ -292,18 +285,18 @@ export const DropDownMenu = styled.a`
     display: none;
   }
 `;
-export const DropDownSpan= styled.span`
-position: relative;
-top: 2px;
-left: 3px;
-color: #6f7287;
-white-space: nowrap;
+export const DropDownSpan = styled.span`
+  position: relative;
+  top: 2px;
+  left: 3px;
+  color: #6f7287;
+  white-space: nowrap;
 `;
 export const MenuSubDiv = styled.div`
-display: flex;
--webkit-box-align: center;
-align-items: center;
-height: 2.4rem;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 2.4rem;
 `;
 export const DropDownDiv = styled.div`
   min-width: 250px;
@@ -323,7 +316,7 @@ export const DropDownDiv = styled.div`
   z-index: 1000;
   text-align: left;
   background-color: white;
- display: none;
+  display: none;
   @media (min-width: 940px) {
     display: none;
   }
@@ -445,30 +438,31 @@ export const PictureDiv2 = styled.div`
     max-height: 47rem;
     border-radius: 0rem 0rem 2rem 2rem;
   }
-
 `;
 
 export const PictureDiv3 = styled.div`
-background-image : url("https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=50&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=fdb3e805b3cbdb9668f2d9737527bfa5");
-background-repeat: no-repeat;
-background-position: 50%;
-max-width: 1080px;
-margin: 0 auto;
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-text-align: center;
-filter: blur(50px) brightness(.9);
-z-index: 0;`;
+  background-image: url('https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=50&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=fdb3e805b3cbdb9668f2d9737527bfa5');
+  background-repeat: no-repeat;
+  background-position: 50%;
+  max-width: 1080px;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  filter: blur(50px) brightness(0.9);
+  z-index: 0;
+`;
 export const Picture = styled.picture`
-border: 2px solid black;
-position: relative;
-width: 100%;
-height: auto;
-z-index: 1;
-aspect-ratio: auto 600 / 300;`;
+  border: 2px solid black;
+  position: relative;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  aspect-ratio: auto 600 / 300;
+`;
 export const PictureSource = styled.source`
   filter: blur(50px) brightness(0.9);
 `;
@@ -488,7 +482,7 @@ export const PictureBackgroundEvent = styled.img`
 `;
 export const DetailsDiv = styled.div`
   padding: 4.8rem 0rem 0rem;
-  @media(min-width: 940px){
+  @media (min-width: 940px) {
     display: flex;
     flex-wrap: wrap;
     -webkit-box-pack: justify;
@@ -499,14 +493,13 @@ export const DetailsDiv = styled.div`
     max-width: 1080px;
     margin: 0 auto;
   }
-  @media(min-width:660px) and (max-width:940px){
+  @media (min-width: 660px) and (max-width: 940px) {
     padding: 0rem 2.4rem;
     margin: 0 auto;
   }
-
 `;
 export const DetailsDiv2 = styled.div`
-  @media (min-width: 940px){
+  @media (min-width: 940px) {
     -webkit-box-flex: 1;
     flex: 1;
     margin: 0;
@@ -514,33 +507,32 @@ export const DetailsDiv2 = styled.div`
     word-break: break-word;
     padding: 0rem;
   }
-  @media(min-width: 720px) and (max-width: 940px){
+  @media (min-width: 720px) and (max-width: 940px) {
     padding: 0 auto;
   }
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     padding: 0rem;
   }
 `;
 export const MainDetailsDiv = styled.div`
   padding-left: 2.4rem;
   padding-right: 2.4rem;
-  @media(min-width: 940px){
-    padding:0;
+  @media (min-width: 940px) {
+    padding: 0;
   }
-  @media(min-width: 660px) and (max-width:940px){
+  @media (min-width: 660px) and (max-width: 940px) {
     padding: 0rem 6.4rem;
   }
 `;
 export const ActionPanel = styled.div`
   height: 4rem;
   margin-left: 43rem;
-  @media (min-width: 940px){
+  @media (min-width: 940px) {
     max-width: none;
     flex-basis: 100%;
     margin: auto;
-    position: relative; 
+    position: relative;
   }
-
 `;
 export const ActionPanelul = styled.ul`
   display: flex;
@@ -553,17 +545,16 @@ export const ActionPanelul = styled.ul`
   z-index: 900;
   right: 0;
   margin-left: auto;
-  @media(max-width:660px){
+  @media (max-width: 660px) {
     margin-top: -0.7rem;
     padding: 0;
     dislpay: block;
     margin-left: 0rem;
   }
-  @media(min-width: 660px) and (max-width: 940px){
-    padding-top: 9rem ;
+  @media (min-width: 660px) and (max-width: 940px) {
+    padding-top: 9rem;
     dislpay: block;
     margin-left: 0rem;
-
   }
 `;
 export const ActionPanelLi = styled.li`
@@ -595,11 +586,11 @@ export const ActionPanelLi2 = styled.li`
 `;
 export const LiSpan = styled.span``;
 export const LiDiv = styled.div`
-border: none;
+  border: none;
 `;
 export const LiDiv2 = styled.div``;
 export const LiDiv3 = styled.div`
-display: inline-block;
+  display: inline-block;
   background: none;
   border: none;
   outline: none;
@@ -651,7 +642,7 @@ export const MainDetailsTitle = styled.h1`
   margin: 0rem 0rem 1.6rem;
   font-family: Roboto;
   font-weight: bolder;
-  @media(min-width: 940px){
+  @media (min-width: 940px) {
     font-size: 4.875rem;
   }
 `;
@@ -660,7 +651,6 @@ export const MainDetailsP = styled.p`
   margin-bottom: 3.5rem;
   line-height: 2.2rem;
   font-weight: 700;
-
 `;
 export const MainDetailsSection = styled.section`
 padding: 1.6rem 2.4rem; 
@@ -686,23 +676,22 @@ export const EventDate = styled.time`
   color: #39364f;
   margin: 0rem 0rem 0.8rem;
   margin-top: -2rem;
-  @media(min-width: 940px){
+  @media (min-width: 940px) {
     font-size: 1.6875rem;
   }
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     margin-top: -2rem;
   }
-  @media(max-width: 940px){
+  @media (max-width: 940px) {
     margin-top: 0rem;
   }
-  @media(min-width: 660px) and (max-width: 940px){
+  @media (min-width: 660px) and (max-width: 940px) {
     display: flex;
   }
 `;
 export const HostInfoDiv = styled.div`
   margin-right: 1rem;
   align-self: center;
-
 `;
 export const EventHostDiv = styled.div``;
 export const EventHostSpan = styled.span`
@@ -712,14 +701,14 @@ export const EventHostSpan = styled.span`
   font-weight: 900;
 `;
 export const FollowButtonDiv = styled.div`
-display: flex;
--webkit-box-align: center;
-align-items: center;
-margin-left: auto;
-@media(max-width: 700px){
-  padding-top: 1.5rem;
-  display: block;
-}
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-left: auto;
+  @media (max-width: 700px) {
+    padding-top: 1.5rem;
+    display: block;
+  }
 `;
 export const FollowButton = styled.button`
   width: 10.683rem;
@@ -732,15 +721,15 @@ export const FollowButton = styled.button`
   border-radius: 0.5rem;
   font-weight: bold;
   cursor: pointer;
-  @media(max-width: 700px){
-    width:100%;
+  @media (max-width: 700px) {
+    width: 100%;
   }
 `;
 
 export const DetailsStrong = styled.strong`
   color: #39364f;
   font-size: 1.5rem;
-  @media(min-width: 940px){
+  @media (min-width: 940px) {
     font-size: 1.3125rem;
   }
 `;
@@ -758,38 +747,33 @@ export const WhenandWhereDiv = styled.div`
   color: #1e0a3c;
   font-weight: 700;
   margin-bottom: 1.6rem;
-  @media(min-width: 940px){
+  @media (min-width: 940px) {
     padding: 0rem;
   }
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     padding: 0rem 2.4rem;
   }
-
 `;
 export const WhenandWhereSection = styled.section`
   margin: 0rem 0rem 4.8rem;
-
-
-
 `;
 export const WhenAndWhereDetailsDiv = styled.div`
   margin-top: 0rem;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  
 `;
 export const WhenandWhereText = styled.h2`
-padding-top:1.5rem;
+  padding-top: 1.5rem;
 `;
 
 export const DateAndLocationDiv = styled.div`
   display: flex;
   padding: 0.8rem 6.4rem 0rem;
-  @media(min-width: 940px){
-    padding:0rem;
+  @media (min-width: 940px) {
+    padding: 0rem;
   }
-  @media(max-width: 790px){
+  @media (max-width: 790px) {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5rem;
@@ -798,14 +782,14 @@ export const DateAndLocationDiv = styled.div`
     list-style: none;
     padding-top: 0.8rem;
   }
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     padding: 0rem;
   }
 `;
 export const DateAndTimeSection = styled.section`
   width: 50%;
   padding-top: 1rem;
-  @media(max-width: 800px){
+  @media (max-width: 800px) {
     width: 100%;
     display: block;
     padding: 0 24px;
@@ -846,11 +830,10 @@ export const LocationStrong = styled.strong`
   font-weight: 600;
 `;
 
-
 export const LocationSection = styled.section`
   width: 50%;
   padding-top: 1rem;
-  @media(max-width: 800px){
+  @media (max-width: 800px) {
     width: 100%;
     display: block;
     padding: 0 24px;
@@ -893,46 +876,46 @@ export const MapDetailsPath = styled.path`
   line-height: 0;
   fill: #3659e3;
   `;
-  
+
 export const DetailsI = styled.i`
-width: 4rem;
-height: 4rem;
-background-color: #f8f7fa;
-border-radius: 1rem;
+  width: 4rem;
+  height: 4rem;
+  background-color: #f8f7fa;
+  border-radius: 1rem;
 `;
 export const SearchDetailsI = styled.i`
-display: inline-block;
-margin: 0 auto;
-vertical-align: middle;
-background-size: contain;
-line-height: 0;
-width: 2.5rem;
-height: 2.5rem;
-cursor: pointer;
-box-sizing: initial;
+  display: inline-block;
+  margin: 0 auto;
+  vertical-align: middle;
+  background-size: contain;
+  line-height: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  box-sizing: initial;
 `;
 
 export const ImageLogoDiv = styled.div`
--webkit-box-flex: 0;
-flex: 0;
-display: flex;
-height: 10.125rem;
-width: 4rem;
-margin: 0rem 1.4rem 0rem 0rem;
+  -webkit-box-flex: 0;
+  flex: 0;
+  display: flex;
+  height: 10.125rem;
+  width: 4rem;
+  margin: 0rem 1.4rem 0rem 0rem;
 `;
 export const DetailsSvg = styled.svg`
-display: block;
-margin: auto;
-margin-top: 0.8rem;
-margin-bottom: 0.8rem;
-overflow: hidden;
-width: 2.4rem;
-height: 2.4rem;
-overflow-clip-margin: content-box;
+  display: block;
+  margin: auto;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  overflow: hidden;
+  width: 2.4rem;
+  height: 2.4rem;
+  overflow-clip-margin: content-box;
 `;
 export const SearchDetailsPath = styled.path`
-fill: #4b4d63;
-text-align: left;
+  fill: #4b4d63;
+  text-align: left;
 `;
 export const DetailsPath = styled.path`
 background: #f8f7fa;
@@ -957,30 +940,33 @@ export const LogoSpan = styled.span`
 }
 `;
 export const RefundSection = styled.section`
-margin-bottom: 4.8rem;
-color: #6f7287;
-font-size: 1rem;
-line-height: 1.5rem;`;
+  margin-bottom: 4.8rem;
+  color: #6f7287;
+  font-size: 1rem;
+  line-height: 1.5rem;
+`;
 export const RefundDiv1 = styled.div`
-color: #1e0a3c;
-font-weight: 700;
-margin-bottom: 1.6rem;
-@media (min-width: 940px){
-    font-size: 1.5rem;
-    line-height: 1.75rem;
-  }`;
-export const RefundDiv2 = styled.div`
-color: #6f7287;
-font-weight: 600;
-font-size: 1.325rem;`;
-export const RefundTitle = styled.h2`
-@media(max-width: 940px){
   color: #1e0a3c;
-  font-size: 2.25rem;
-  line-height: 1.75rem;
   font-weight: 700;
   margin-bottom: 1.6rem;
-}
+  @media (min-width: 940px) {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+`;
+export const RefundDiv2 = styled.div`
+  color: #6f7287;
+  font-weight: 600;
+  font-size: 1.325rem;
+`;
+export const RefundTitle = styled.h2`
+  @media (max-width: 940px) {
+    color: #1e0a3c;
+    font-size: 2.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.6rem;
+  }
 `;
 export const RefundInfo = styled.div``;
 export const NonRefund = styled.div``;
@@ -988,10 +974,10 @@ export const NonRefund = styled.div``;
 export const AboutEvent = styled.div`
   padding: 4rem 0rem 6.4rem 6.4rem;
   margin: auto;
-  @media(min-width: 940px){
-    padding:0rem;
+  @media (min-width: 940px) {
+    padding: 0rem;
   }
-  @media(max-width: 790px){
+  @media (max-width: 790px) {
     padding: 0rem 0rem 6.4rem 6.4rem;
   }
 `;
@@ -1054,6 +1040,13 @@ export const RightDetailsDiv = styled.div`
   color: #6f7287;
   -webkit-box-flex: 1;
   flex: 1;
+
+  .map__container {
+    width: 50rem;
+    height: 50rem;
+    position: relative;
+    z-index: 5;
+  }
 `;
 export const DetailsTitleDiv = styled.div`
   font-size: 1.3rem;
@@ -1069,457 +1062,468 @@ export const DetailsP = styled.p`
   line-height: 1.25rem;
 `;
 export const ReserveDiv = styled.div`
-@media (min-width: 940px){
-  position: relative;
-  -webkit-box-flex: 1;
-  flex: 1;
-  max-width: 360px;
-  padding-top: 64px;
-}
+  @media (min-width: 940px) {
+    position: relative;
+    -webkit-box-flex: 1;
+    flex: 1;
+    max-width: 360px;
+    padding-top: 64px;
+  }
 `;
 export const TicketsEndDiv = styled.div`
-display:none;
-@media(max-width: 940px){
   display: none;
-}
-@media(min-width: 940px){ //div when tickets are about to end
-  text-align: right;
-  margin-bottom: 16px;
-}
+  @media (max-width: 940px) {
+    display: none;
+  }
+  @media (min-width: 940px) {
+    //div when tickets are about to end
+    text-align: right;
+    margin-bottom: 16px;
+  }
 `;
 export const TicketsEndDiv2 = styled.div`
-margin-left: 6rem;
-margin-top: -4rem;
-display:none;
-@media(min-width: 940px){
+  margin-left: 6rem;
+  margin-top: -4rem;
   display: none;
-}
-@media(max-width:660px){
- margin-left: 2.4rem;
-}
-@media(min-width: 660px) and (max-width: 940px){
-  margin-top: 2rem;
-}
-
+  @media (min-width: 940px) {
+    display: none;
+  }
+  @media (max-width: 660px) {
+    margin-left: 2.4rem;
+  }
+  @media (min-width: 660px) and (max-width: 940px) {
+    margin-top: 2rem;
+  }
 `;
 export const TicketsEndDivInner = styled.div`
-background-color: #eeeafb;
-color: #5328d7;
--webkit-box-align: center;
-align-items: center;
-border-radius: 16px;
-grid-column-gap: 6px;
-column-gap: 6px;
-display: inline-flex;
-font-weight: 600;
-line-height: 1;
-padding: 4px 12px;
-height: 3.2rem;
+  background-color: #eeeafb;
+  color: #5328d7;
+  -webkit-box-align: center;
+  align-items: center;
+  border-radius: 16px;
+  grid-column-gap: 6px;
+  column-gap: 6px;
+  display: inline-flex;
+  font-weight: 600;
+  line-height: 1;
+  padding: 4px 12px;
+  height: 3.2rem;
 `;
 export const TicketsEndPath = styled.path`
   fill: #5328d7;
 `;
 export const TicketsEndI = styled.i`
-width: 4rem;
-height: 4rem;
-background: none;
-border-radius: 1rem;
+  width: 4rem;
+  height: 4rem;
+  background: none;
+  border-radius: 1rem;
 `;
 export const TicketsText = styled.p`
-font-weight: 600;
-color: #5328d7;
-font-size: 1.4rem;
+  font-weight: 600;
+  color: #5328d7;
+  font-size: 1.4rem;
 `;
-export const WholeTicketsDiv = styled.div` //div when the tickets are free
-border: 1px solid #eeedf2;
-border-radius: 1rem;
+export const WholeTicketsDiv = styled.div`
+  //div when the tickets are free
+  border: 1px solid #eeedf2;
+  border-radius: 1rem;
 
-@media(min-width: 940px){
-  // position: absolute;
-  // height: 22.8rem;
-  // top: 0rem;
-}
-@media(max-width: 940px){
-  position: fixed;
-  bottom: 0; 
-  width: 100%;
-  left:0;
-}
-`; 
+  @media (min-width: 940px) {
+    // position: absolute;
+    // height: 22.8rem;
+    // top: 0rem;
+  }
+  @media (max-width: 940px) {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+  }
+`;
 export const TicketsDiv = styled.div`
-background-color: #fff;
-animation-duration: .24s;
-animation-timing-function: linear;
-animation-iteration-count: 1;
-animation-fill-mode: forwards;
-animation-name: fadeIn;
+  background-color: #fff;
+  animation-duration: 0.24s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-name: fadeIn;
 `;
 
 export const TicketsSection = styled.section`
-padding: 24px;
-overflow: hidden;
-display: block;
-
-`; 
+  padding: 24px;
+  overflow: hidden;
+  display: block;
+`;
 export const TicketsForm = styled.form`
-margin-bottom: 16px;
-padding-left: 0rem;
-
-`; 
+  margin-bottom: 16px;
+  padding-left: 0rem;
+`;
 export const TicketsButton = styled.button`
-display: block;
-box-sizing: border-box;
-width: 100%;
-white-space: nowrap;
-color: #fff;
-fill: #fff;
-border:none;
-background-color: #d1410c;
-transform: translateZ(0);
-position: relative;
-height: 44px;
-padding: 0 30px 1px;
-text-decoration: none;
-line-height: 24px;
-font-weight: 600;
-font-size: 1.6rem;
-letter-spacing: .2px;
-border-radius: 4px;
-cursor: pointer;
-transition: all .4s cubic-bezier(.4,0,.3,1);
-`; 
-export const TicketsUL = styled.ul`
-margin: 0;
-padding: 0;
-list-style-type: none;
-display: block;
-margin-block-start: 1em;
-margin-block-end: 1em;
-margin-inline-start: 0px;
-margin-inline-end: 0px;
-font-weight: 400;
-color: #39364f;
-font-size: 16px;
-`; 
-export const TicketsLi = styled.li`
-display: list-item;
-text-align: -webkit-match-parent;
-list-style-type: none;`; 
-export const TicketsSubDiv1 = styled.div`
-background: #fff;
-display: flex;
-`; 
-export const TicketsSubDiv2 = styled.div`
-box-shadow: inset 0 0 0 2px #3659e3;
-border-radius: 8px;
-padding: 16px;
-width: 100%;
-`; 
-export const TicketsSubDiv3 = styled.div`
-display: flex;
--webkit-box-pack: justify;
-justify-content: space-between;
--webkit-box-align: start;
-align-items: flex-start;
-grid-gap: 12px;
-gap: 12px;
-`; 
-export const TicketsSubDiv4 = styled.div`
-display: flex;
--webkit-box-pack: center;
-justify-content: center;
-`; 
-export const TicketsSubDiv5 = styled.div`
-font-weight: 600;
-font-size: 1.6rem;
-line-height: 1.5rem;
-text-rendering: optimizeLegibility;
-
-`; 
-export const TicketsSubDiv6 = styled.div`
-display: flex;
--webkit-box-pack: start;
-justify-content: flex-start;
--webkit-box-align: center;
-align-items: center;
-`; 
-export const TicketsSubDiv7 = styled.div`
-color: #1e0a3c;
-font-size: 2rem;
-line-height: 1.75rem;
-letter-spacing: .25px;
-font-weight: 600;
-text-rendering: optimizeLegibility;
-margin: 0 1.6rem;
-`; 
-export const TicketsButtonSubtract = styled.button`
-width: 32px;
-height: 32px;
-border-radius: 8px;
-border: none;
-display: flex;
--webkit-box-pack: center;
-justify-content: center;
--webkit-box-align: center;
-align-items: center;
-transition: background-color .4s cubic-bezier(.4,0,.3,1);
--webkit-appearance: button;
-cursor: pointer;
-overflow: visible;
-text-transform: none;
-:disabled{
-  background-color: #eeedf2;
-}
-:active{
-  background-color: #3659e3;
-}
-`; 
-export const TicketsButtonAdd = styled.button`
-width: 32px;
-height: 32px;
-border-radius: 8px;
-border: none;
-display: flex;
--webkit-box-pack: center;
-justify-content: center;
--webkit-box-align: center;
-align-items: center;
-transition: background-color .4s cubic-bezier(.4,0,.3,1);
--webkit-appearance: button;
-cursor: pointer;
-overflow: visible;
-text-transform: none;
-background-color: #3659e3;
-`; 
-export const TicketsI = styled.i`
-display: inline-block;
-margin: 0 auto;
-vertical-align: middle;
-background-size: contain;
-line-height: 0;
-width: 24px;
-height: 24px;
-box-sizing: initial;
-`; 
-export const TicketsSvg = styled.svg`
-width: 24px;
-height: 24px;`; 
-export const TicketsPath = styled.path`
-fill: #fff`; 
-export const TicketsSubDiv8 = styled.div`
-margin-top: 16px;
--webkit-box-align: center;
-align-items: center;
-display: flex;
--webkit-box-pack: justify;
-justify-content: space-between;
-`; 
-export const TicketsSubDiv9 = styled.div`
-display: flex;
--webkit-box-align: center;
-align-items: center;
-grid-gap: 12px;
-gap: 12px;
-`; 
-export const BuyTicketsButton = styled.button`
-display: flex;
-color: #3659e3;
-border: none;
-outline: #3659e3;
-background: none;
-padding: 0;
--webkit-appearance: button;
-cursor: pointer;
-`; 
-export const TicketsFreePath = styled.path`
-fill: #3D64FF;
-`; 
-export const TicketsFreeSpan = styled.span`
-font-weight: 600;
-font-size: 1.6rem;
-line-height: 1.5rem;
-text-rendering: optimizeLegibility;
-`; 
-export const PricedTickets = styled.div`
-max-height: 140px;
-width: 100%;
-height: 140px;
-padding: 24px;
-border-radius: 16px;
-box-shadow: 0 0 0 1px #eeedf2;
-position: sticky;
-bottom: auto;
-z-index: 900;
-background-color: #fff;
-display: flex;
--webkit-box-align: center;
-align-items: center;
--webkit-box-pack: center;
-justify-content: center;
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
-flex-direction: column;
-animation: slideUp .5s linear;
-animation-fill-mode: forwards;
-@media(min-width: 940px){
-  top: 24px;
-  margin-bottom: 24px;
-}
-
-@media(max-width: 940px){
-  position: fixed;
-  bottom: 0; 
+  display: block;
+  box-sizing: border-box;
   width: 100%;
-  left:0;
-}
+  white-space: nowrap;
+  color: #fff;
+  fill: #fff;
+  border: none;
+  background-color: #d1410c;
+  transform: translateZ(0);
+  position: relative;
+  height: 44px;
+  padding: 0 30px 1px;
+  text-decoration: none;
+  line-height: 24px;
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: 0.2px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.3, 1);
+`;
+export const TicketsUL = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: 400;
+  color: #39364f;
+  font-size: 16px;
+`;
+export const TicketsLi = styled.li`
+  display: list-item;
+  text-align: -webkit-match-parent;
+  list-style-type: none;
+`;
+export const TicketsSubDiv1 = styled.div`
+  background: #fff;
+  display: flex;
+`;
+export const TicketsSubDiv2 = styled.div`
+  box-shadow: inset 0 0 0 2px #3659e3;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+`;
+export const TicketsSubDiv3 = styled.div`
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  grid-gap: 12px;
+  gap: 12px;
+`;
+export const TicketsSubDiv4 = styled.div`
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+`;
+export const TicketsSubDiv5 = styled.div`
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1.5rem;
+  text-rendering: optimizeLegibility;
+`;
+export const TicketsSubDiv6 = styled.div`
+  display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  align-items: center;
+`;
+export const TicketsSubDiv7 = styled.div`
+  color: #1e0a3c;
+  font-size: 2rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.25px;
+  font-weight: 600;
+  text-rendering: optimizeLegibility;
+  margin: 0 1.6rem;
+`;
+export const TicketsButtonSubtract = styled.button`
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.3, 1);
+  -webkit-appearance: button;
+  cursor: pointer;
+  overflow: visible;
+  text-transform: none;
+  :disabled {
+    background-color: #eeedf2;
+  }
+  :active {
+    background-color: #3659e3;
+  }
+`;
+export const TicketsButtonAdd = styled.button`
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.3, 1);
+  -webkit-appearance: button;
+  cursor: pointer;
+  overflow: visible;
+  text-transform: none;
+  background-color: #3659e3;
+`;
+export const TicketsI = styled.i`
+  display: inline-block;
+  margin: 0 auto;
+  vertical-align: middle;
+  background-size: contain;
+  line-height: 0;
+  width: 24px;
+  height: 24px;
+  box-sizing: initial;
+`;
+export const TicketsSvg = styled.svg`
+  width: 24px;
+  height: 24px;
+`;
+export const TicketsPath = styled.path`
+  fill: #fff;
+`;
+export const TicketsSubDiv8 = styled.div`
+  margin-top: 16px;
+  -webkit-box-align: center;
+  align-items: center;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+`;
+export const TicketsSubDiv9 = styled.div`
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  grid-gap: 12px;
+  gap: 12px;
+`;
+export const BuyTicketsButton = styled.button`
+  display: flex;
+  color: #3659e3;
+  border: none;
+  outline: #3659e3;
+  background: none;
+  padding: 0;
+  -webkit-appearance: button;
+  cursor: pointer;
+`;
+export const TicketsFreePath = styled.path`
+  fill: #3d64ff;
+`;
+export const TicketsFreeSpan = styled.span`
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1.5rem;
+  text-rendering: optimizeLegibility;
+`;
+export const PricedTickets = styled.div`
+  max-height: 140px;
+  width: 100%;
+  height: 140px;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px #eeedf2;
+  position: sticky;
+  bottom: auto;
+  z-index: 900;
+  background-color: #fff;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  animation: slideUp 0.5s linear;
+  animation-fill-mode: forwards;
+  @media (min-width: 940px) {
+    top: 24px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 940px) {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+  }
 `;
 export const PricedTicketsPrice = styled.div`
-width: 100%;
-font-weight: 600;
-text-align: center;
-text-overflow: ellipsis;
-overflow: hidden;
-white-space: nowrap;
-font-size: 1.685rem;
-line-height: 1.5rem;`;
+  width: 100%;
+  font-weight: 600;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 1.685rem;
+  line-height: 1.5rem;
+`;
 export const PricedTicketsPriceDiv = styled.div`
-width: 100%;
+  width: 100%;
 `;
 export const PricedTicketsButtonDiv = styled.div`
-margin-top: 24px;
-box-sizing: border-box;
-font-size: .875rem;
-line-height: 1.5rem;
-width: 100%;
-display: grid;
-grid-gap: 8px;
-gap: 8px;
-grid-auto-flow: column;
-grid-auto-columns: 1fr;`;
+  margin-top: 24px;
+  box-sizing: border-box;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  width: 100%;
+  display: grid;
+  grid-gap: 8px;
+  gap: 8px;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+`;
 
 export const SoldOutTickets = styled.div`
-max-height: 140px;
-width: 100%;
-height: 140px;
-padding: 24px;
-border-radius: 16px;
-box-shadow: 0 0 0 1px #eeedf2;
-position: sticky;
-bottom: auto;
-z-index: 900;
-background-color: #fff;
-display: flex;
--webkit-box-align: center;
-align-items: center;
--webkit-box-pack: center;
-justify-content: center;
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
-flex-direction: column;
-animation: slideUp .5s linear;
-animation-fill-mode: forwards;
-
-@media(min-width: 940px){
-  top: 24px;
-  margin-bottom: 24px;
-}
-
-@media(max-width: 940px){
-  position: fixed;
-  bottom: 0; 
+  max-height: 140px;
   width: 100%;
-  left:0;
-}
+  height: 140px;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px #eeedf2;
+  position: sticky;
+  bottom: auto;
+  z-index: 900;
+  background-color: #fff;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  animation: slideUp 0.5s linear;
+  animation-fill-mode: forwards;
+
+  @media (min-width: 940px) {
+    top: 24px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 940px) {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+  }
 `;
 
 export const Map = styled.div`
-@media (min-width: 792px){
+  @media (min-width: 792px) {
     margin-top: 24px;
-}`;
+  }
+`;
 export const Map1 = styled.div`
-height: 376px;
-@media (min-width: 940px){
-  -webkit-box-flex: 1;
-  padding-left: 24px;
-  padding-right: 24px;
-}`;
+  height: 376px;
+  @media (min-width: 940px) {
+    -webkit-box-flex: 1;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+`;
 export const Map2 = styled.div`
-@media (min-width: 660px){
-  border-radius: 8px;
-  overflow: hidden;
-}`;
+  @media (min-width: 660px) {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+`;
 export const Map3 = styled.div`
-width: 100%;
-height: 376px;
-position: relative;
-overflow: hidden;`;
+  width: 100%;
+  height: 376px;
+  position: relative;
+  overflow: hidden;
+`;
 export const Map4 = styled.div`
-height: 100%;
-width: 100%;
-position: absolute;
-top: 0px;
-left: 0px;
-background-color: rgb(229, 227, 223);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgb(229, 227, 223);
 `;
 export const Map5 = styled.div`
-position: absolute;
-z-index: 0;
-left: 0px;
-top: 0px;
-height: 100%;
-width: 100%;
-padding: 0px;
-border-width: 0px;
-margin: 0px;`;
+  position: absolute;
+  z-index: 0;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  border-width: 0px;
+  margin: 0px;
+`;
 export const Map51 = styled.div``;
 export const Map52 = styled.div`
-position: absolute;
-z-index: 0;
-left: 0px;
-top: 0px;
-height: 100%;
-width: 100%;
-padding: 0px;
-border-width: 0px;
-margin: 0px;
-cursor: url(https://maps.gstatic.com/mapfiles/openhand_8_8.cur), default;
-touch-action: pan-x pan-y;`;
+  position: absolute;
+  z-index: 0;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  border-width: 0px;
+  margin: 0px;
+  cursor: url(https://maps.gstatic.com/mapfiles/openhand_8_8.cur), default;
+  touch-action: pan-x pan-y;
+`;
 export const Map53 = styled.div`
-pointer-events: none;
-width: 100%;
-height: 100%;
-box-sizing: border-box;
-position: absolute;
-z-index: 1000002;
-opacity: 0;
-border: 2px solid rgb(26, 115, 232);`;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 1000002;
+  opacity: 0;
+  border: 2px solid rgb(26, 115, 232);
+`;
 export const Map521 = styled.div``;
 export const Map522 = styled.div``;
 export const Map523 = styled.div``;
 export const Map12 = styled.div``;
 export const MapButtonHidden = styled.button`
-background: none transparent;
-display: block;
-border: none;
-margin: 0px;
-padding: 0px;
-text-transform: none;
-appearance: none;
-position: absolute;
-cursor: pointer;
-user-select: none;
-z-index: 1000002;
-outline-offset: 3px;
-right: 0px;
-bottom: 0px;
-transform: translateX(100%);
+  background: none transparent;
+  display: block;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  text-transform: none;
+  appearance: none;
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1000002;
+  outline-offset: 3px;
+  right: 0px;
+  bottom: 0px;
+  transform: translateX(100%);
 `;
 export const MapIframe = styled.iframe`
-z-index: -1;
-position: absolute;
-width: 100%;
-height: 100%;
-top: 0px;
-left: 0px;
-border: none;
-overflow: clip;`;
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  border: none;
+  overflow: clip;
+`;
