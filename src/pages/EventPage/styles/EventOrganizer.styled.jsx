@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const AboutTheOrganizer = styled.section`
+  padding-left: 9rem;
   width: 72rem;
   height: 40.25rem;
   margin: 0px auto;
@@ -181,11 +182,13 @@ export const MoreEventsOrganizer = styled.section`
   font-weight: 600;
 
   h2 {
+    padding-left: 9rem;
     font-size: 2.4rem;
     margin: 0rem 0rem 1.6rem;
   }
 
   .eventoxDiv {
+    padding-left: 9rem;
     width: 72rem;
     height: 20.275rem;
   }
