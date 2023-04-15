@@ -6,6 +6,7 @@
 
 import SignupTwo from './pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
+
 import GlobalStyles from './components/styles/Global';
 import Landing from './pages/LandingPage/Landing';
 import Organize from './pages/Organize/Organize';
@@ -29,15 +30,13 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
-        <Route path="Signuptwo" element={<SignupTwo email={email} />} />
+
         <Route path="login" element={<Maincontainer />} />
         <Route path="Organize" element={<Organize />} />
         <Route path="forgetPassword" element={<Reset />} />
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
-        np
+
       </Routes>
     </>
   );
