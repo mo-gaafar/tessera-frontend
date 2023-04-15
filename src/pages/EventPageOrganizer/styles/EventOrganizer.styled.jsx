@@ -407,18 +407,14 @@ h2{
 .event__box{
     background-color:lightblue;
 
-    // display: block;
-    // flex: 0 32%;
-    // position: relative;
-    // border-radius: 0.4rem;
-    // width: 100%;
-
-    display: flex;
-    -webkit-box-flex: 1;
-    flex: 1;
-    flex-direction: column;
-    overflow: visible;
+    
+    flex: 0 32%;
     position: relative;
+    border-radius: 0.4rem;
+    width: 100%;
+    display: flex;
+    overflow: visible;
+   
 
 }
 
