@@ -302,7 +302,8 @@ export default function Landing() {
     setEventElement(
       allFilteredEvents.map(event => (
         <EventBox
-          key={event.id}
+          id={event._id}
+          key={event._id}
           image={
             event.basicInfo.eventImage !== 'https://example.com/image.jpg'
               ? event.basicInfo.eventImage
@@ -333,7 +334,7 @@ export default function Landing() {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
-  console.log(email);
+  // console.log(email);
   return (
     <>
       <Navbar />
