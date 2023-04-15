@@ -18,6 +18,7 @@ describe('Landing', () => {
   it('renders Event', () => {
     const { getByText } = render(
       <EventBox
+        test={true}
         image="../../src/assets/event__2.avif"
         eventTitle="The Future Of Leadership Congress 2023"
         date="Mon, May 15, 9:00 AM "
