@@ -121,12 +121,40 @@ export default function EventPageOrganizer() {
 
         <OtherEventsYouMayLike>
 
-        <div className="parentdiv">
+        <div className='otherEventsDiv'>
+
+        <div className='titleAndButtons'>
+
+            <div className='title'><h2>Other events you may like</h2></div>
+
+            <div className='buttonsDiv'>
+                <span class='backButtonSpan'>
+                    <button onClick={handleBackward} disabled={currentIndex === 0} className='backbutton'>
+                        <svg class="backSvg" >
+                            <path class="arrow-left-chunky_svg__eds-icon--arrow-left-chunky_base" fill-rule="evenodd" clip-rule="evenodd" d="M4 12l8 8 1.5-1.5L8 13h12v-2H8l5.5-5.5L12 4z">
+                            </path>
+                        </svg>
+                    </button>
+                </span>
+
+                <span class='forwardButtonSpan'>
+                    <button button onClick={handleForward} disabled={currentIndex >= data.length - 3} className='forwardbutton'>
+                        <svg class="forwardSvg" >
+                            <path class="arrow-right-chunky_svg__eds-icon--arrow-right-chunky_base" fill-rule="evenodd" clip-rule="evenodd" d="M10.5 5.5L16 11H4v2h12l-5.5 5.5L12 20l8-8-8-8z">
+                            </path>
+                        </svg>
+                    </button>
+                </span>
+
+            </div>
+        </div>
+        <div className="allEventsDiv">
         {data
           .slice(currentIndex, currentIndex + 3)
           .map((item, index) => (
             // <div key={index}>{value}</div>
-            <EventBox key={index}
+            <EventBox className='eventCard'
+                        key={index}
                         image={item.image}
                         eventTitle={item.eventTitle}
                         date={item.date}
@@ -137,18 +165,12 @@ export default function EventPageOrganizer() {
           ))}
       </div>
 
-      <button onClick={handleBackward} disabled={currentIndex === 0}>
-        Backward
-      </button>
+      </div>
 
-      <button onClick={handleForward} disabled={currentIndex >= data.length - 3}>
-        Forward
-      </button>
 
         </OtherEventsYouMayLike>
             
         </>
     );
 }
-
 

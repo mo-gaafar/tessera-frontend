@@ -329,6 +329,138 @@ h2{
 `
 export const OtherEventsYouMayLike = styled.section`
 
+width:100%;
+height:54.8rem;
+background-color:red;
+
+
+h2{
+    font-size:2.4rem;
+    
+
+}
+
+.otherEventsDiv{
+    z-index: 1;
+    position: relative;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    margin-top:5rem;
+    // background-color:lightblue;
+
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+
+.titleAndButtons{
+    width:108rem;
+    height:4rem;
+    display:flex;
+    margin-bottom:3.2rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title{
+    width:98.4rem;
+    height:3.8rem;
+    margin: 0rem 0.8rem 0rem 0rem;
+}
+
+.buttonsDiv{
+    width:8.8rem;
+    height:4rem;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.backButtonSpan,.backbutton, .forwardbutton{
+    width:4rem;
+    height:4rem;
+}
+
+.backbutton,.forwardbutton{
+    padding:0.8rem;
+    background-color: #dbdae3;
+    color: var(--eds-ui-700,#4b4d63);
+    fill: #4b4d63;
+    border:none
+    
+}
+
+
+
+
+.allEventsDiv{
+    display: flex;
+    width: 100%;
+    min-height: 412px;
+
+}
+
+.event__box{
+    background-color:lightblue;
+
+    // display: block;
+    // flex: 0 32%;
+    // position: relative;
+    // border-radius: 0.4rem;
+    // width: 100%;
+
+    display: flex;
+    -webkit-box-flex: 1;
+    flex: 1;
+    flex-direction: column;
+    overflow: visible;
+    position: relative;
+
+}
+
+.imageBlock{
+    width:34.559rem;
+    height:17.28rem;
+    position: absolute;
+    display: inline-block;
+
+}
+
+.cardTextInfo{
+    width:34.559rem;
+    height:19.635rem;
+    padding:2.4rem 1.6rem;
+}
+
+
+
+h5{
+    font-weight: 600;
+    color: #39364f;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+}
+
+h6{
+
+    margin-right: 3.2rem;
+    color: #d1410c;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.4rem;
+}
+
+
+span{
+    font-weight: 600;
+    display:flex;
+}
 
 
 `

@@ -8,10 +8,11 @@ export const eventsListScroll = [
       organizer: "GoMyCode",
       followers: "2.8k followers",
       cName: 'eventsList',
+      
     },
     {
       key: '2',
-      image: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;auto=format%2Ccompress&amp;q=75&amp;sharp=10&amp;rect=1%2C372%2C8000%2C4000&amp;s=34c811696b0d73045e71f74e745b37ba",
+      image: "../../src/assets/event__1.avif",
       eventTitle: "Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN",
       date: "Today at 2:00 PM",
       description: "Free",
