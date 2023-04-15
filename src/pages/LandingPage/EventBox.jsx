@@ -1,7 +1,7 @@
 /**
-  * This file contains the EventBox component
-  * @name EventBox.jsx
-  * @author @moSaeed15
+ * This file contains the EventBox component
+ * @name EventBox.jsx
+ * @author @moSaeed15
  */
 
 /**
@@ -24,10 +24,12 @@ export default function EventBox(props) {
       <h5 data-testid="img">{props.eventTitle}</h5>
       <h6>{props.date}</h6>
       <p>{props.description}</p>
+      <p>{props.price}</p>
       {props.isFree && <p className="free">Free</p>}
-      <span >{props.organizer}</span>
-      <span>
-        <img src="../../src/assets/follower.png" alt="follower img" />
+
+      <span>{props.organizer}</span>
+      <span className="followers">
+        <img src="/images/follower.png" alt="follower img" />
         {props.followers}
       </span>
       </div>

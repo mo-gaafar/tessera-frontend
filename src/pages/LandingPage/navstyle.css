@@ -1,167 +1,130 @@
-.navBar{
-    /* background-color: rgba(228, 4, 4, 0.89); */
-
-    height: 7rem;
-    display: flex;
-    flex-direction:row;
-    
-}
-
-.siteLogoSection{
-
-
-    width: max-content;
-    display:flex;
-    flex-grow: 0;
-    flex-shrink: 0;
-    align-items: center;
-    padding-right: 2.5rem;
-    padding-left: 2.6rem;
-    cursor: pointer;
-
+.navBar {
+  /* background-color: rgba(228, 4, 4, 0.89); */
+  height: 7rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  padding-right: 2rem;
+  align-items: center;
 
 }
 
-
-.searchSection{
-
-    /* background-color: rgba(170, 255, 153, 0.89); */
-
-    display:flex;
-
-    flex:1;
-
-    
-
+.siteLogoSection {
+  width: max-content;
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  align-items: center;
+  padding-right: 2.5rem;
+  padding-left: 2.6rem;
+  cursor: pointer;
 }
 
-.optionsSection{
+.searchSection {
+  /* background-color: rgba(170, 255, 153, 0.89); */
 
-    /* background-color: rgba(157, 175, 255, 0.89); */
-
-    width:52.5rem;
-    display: flex;
-    flex-direction:row;
-    min-width: 207.45px;
-    color: #39364f;
-   
-
-
+  display: flex;
+  margin-left: 2rem;
 }
 
-.logoPng{
+.optionsSection {
+  /* background-color: rgba(157, 175, 255, 0.89); */
 
-    height:2.7rem;
-    display: block; 
-    margin: auto;
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  color: #39364f;
 }
 
-.magnifyingGlass{
-
-    height:2.4rem;
-    margin-top: 1.15rem;
-    padding-left: 1.2rem;
-    fill: #bebebe;
-    
-
+.logoPng {
+  height: 2.7rem;
+  display: block;
+  margin: auto;
 }
 
-
-.searchBar{
-
-    width:43.5rem;
-    height: 4.8rem;
-    margin-top: 0.8rem;
-    border: 0;
-    outline: none;
-    background-color: rgb(245, 245, 245);
-    padding-top: 0.5rem;
-    padding-left: -0.5rem;
-
-
+.magnifyingGlass {
+  height: 2.4rem;
+  margin-top: 1.15rem;
+  padding-left: 1.2rem;
+  fill: #bebebe;
 }
 
-
-
-.searchBar::placeholder{
-
-    font-size: 1.4rem;
-    font-weight: bold;
-    padding-left: 1.5rem;
-
-    color: #bebebe;
-
-
+.searchBar {
+  width: 43.5rem;
+  height: 4.8rem;
+  margin-top: 0.8rem;
+  border: 0;
+  outline: none;
+  background-color: rgb(245, 245, 245);
+  padding-top: 0.5rem;
+  padding-left: -0.5rem;
 }
 
-.magnifyingGlassDiv{
-    margin-top: 0.8rem;
-    height:4.8rem;
-    background-color: rgb(245, 245, 245);
+.searchBar::placeholder {
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding-left: 1.5rem;
 
-    /* background-color: aliceblue; */
-
-
+  color: #bebebe;
 }
 
-.optionsSection{
-    font-size: 1.3rem;
-    display:flex;
-    justify-content:center;
-    align-items: center;
-  
+.magnifyingGlassDiv {
+  margin-top: 0.8rem;
+  height: 4.8rem;
+  background-color: rgb(245, 245, 245);
+
+  /* background-color: aliceblue; */
 }
 
-.landingItems{
-    display:flex;
-    justify-content: space-around;
-    height: 100%;
-    width:  100%;
-    padding: 0;
-    height: 7rem;
-
+.optionsSection {
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.navLanding{
-    display:flex;
-    align-items:center;
-    height: 100%;
-    margin-left: 1.5rem;
+.landingItems {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  height: 7rem;
 }
 
-.navLanding:hover{
-    background-color: #f3f2f2;
-    cursor: pointer;
-
+.navLanding {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
-.hamburgermenu{
-    height:2.35rem; 
-    
-
+.navLanding:hover {
+  background-color: #f3f2f2;
+  cursor: pointer;
 }
 
-.hamburgerNavMenu{
-    display: none;
-    background-color: white;
-    border: 0;
-    outline: 0;
-    /* height: 7rem; */
-    margin-top: 2rem;
+.hamburgermenu {
+  height: 2.35rem;
+}
+
+.hamburgerNavMenu {
+  display: none;
+  background-color: white;
+  border: 0;
+  outline: 0;
+  /* height: 7rem; */
+  margin-top: 2rem;
 }
 
 .landingItems #hidden {
-    display: flex;
+  display: flex;
 }
 
-.imageDiv{
-    
-    /* margin-top: 7rem; */
-    display: flex;
-    
-    background-image: url( "https://cdn.evbstatic.com/s3-build/fe/build/images/baedf009bb329458ae80eb599fb8a4d5-3_tablet_1067x470.jpg" );
-    height: 471px;
-    width: 100%;
+.imageDiv img {
+  /* margin-top: 7rem; */
+  display: flex;
+  width: 110vw;
 }
 
 /* .landingImage1{
@@ -176,140 +139,104 @@
 
 } */
 
-.hamIcon{
-    /* height: 100%; */
-    height: 100%;
-    margin-top: 0.5rem;
-    margin-left: 0.55rem;
-    fill: #6f7287;
+.hamIcon {
+  /* height: 100%; */
+  height: 100%;
+  margin-top: 0.5rem;
+  margin-left: 0.55rem;
+  fill: #6f7287;
 }
 
-.dropdownArrow{
-    height:2.35rem;
-    margin-top: 0.5rem; 
-    margin-left: 0.55rem ;
-    fill: #6f7287;
+.dropdownArrow {
+  height: 2.35rem;
+  margin-top: 0.5rem;
+  margin-left: 0.55rem;
+  fill: #6f7287;
 }
 
-
-#createEventId{
-    color:rgb(61, 100, 255);
+#createEventId {
+  color: rgb(61, 100, 255);
+}
+a {
+  padding-block: 2.5rem;
+  padding-inline: 0.5rem;
+}
+.optionsDiv,
+.helpDiv,
+.organizeDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.optionsDiv, .helpDiv, .organizeDiv{
-    display:flex;
-    justify-content:center;
+.hamburgerDiv {
+  display: none;
+}
+
+@media only screen and (max-width: 1080px) {
+  #createEventId {
+    display: none;
+  }
+
+  #signUpId {
+    margin-left: -0.5rem;
+  }
+}
+
+@media only screen and (max-width: 959px) {
+  .searchBar {
+    display: none;
+  }
+  .hamburgerNavMenu {
+    display: flex;
+  }
+
+  #organizeId,
+  #helpId,
+  #createEventId {
+    display: none;
+  }
+
+  .searchSection {
+    justify-content: right;
+    align-items: right;
+    cursor: pointer;
+  }
+
+  .landingItems #hidden {
+    position: absolute;
+    left: 0px;
+    top: 80px;
+    height: 230px;
+    width: 100%;
+    flex-direction: column;
     align-items: center;
-    padding: 0.5rem;
-    margin-right: 0.1rem;
+  }
 
+  .magnifyingGlassDiv {
+    margin-top: 0rem;
+    width: 7rem;
+    height: 7rem;
+    margin-left: 2rem;
+    margin-right: -1.2rem;
+    background-color: white;
+    padding-right: 2.5rem;
+    justify-content: center;
+  }
+  .magnifyingGlassDiv:hover {
+    background-color: #f3f2f2;
+  }
 
-    
- 
-}
+  .hamburgerDiv {
+    display: flex;
+    height: 100%;
+    width: 5rem;
+    padding: 0;
+    background-color: white;
+    /* margin-right: 3rem; */
+  }
 
-#signUpId{
-    margin-right: -2rem;
-}
-
-
-
-.hamburgerDiv{
-    display: none;
-}
-
-
-
-
-@media only screen and (max-width: 1080px){
-
-    #createEventId{
-        display: none;
-    }
-
-    .optionsDiv{
-        width: 7rem;
-        
-    }
-
-    #signUpId{
-        margin-left: -0.5rem;
-    }
-
-
-}
-
-
-@media only screen and (max-width: 959px){
-
-    .searchBar{
-        display: none;
-    }
-    .hamburgerNavMenu{
-
-        display: flex;
-    }
-
-   
-    #organizeId, #helpId, #createEventId {
-
-    display: none;
-
-    }
-
-    .searchSection{
-        
-        justify-content: right;
-        align-items: right;
-        cursor: pointer;
-        
-            
-    }
-
-    .optionsSection{
-        max-width: 12.966rem;
-    }
-
-    .landingItems #hidden {
-        position:absolute;
-        left:0px;
-        top: 80px;
-        height:230px;
-        width:100%;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .magnifyingGlassDiv{
-        margin-top: 0rem;
-        width:7rem;
-        height:7rem;
-        margin-left: 2rem;
-        margin-right: -1.2rem;
-        background-color: white;
-        padding-right: 2.5rem;
-        justify-content:center;
-        
-    
-
-
-    }
-    .magnifyingGlassDiv:hover{
-        background-color: #f3f2f2;
-
-
-    }
-
-    .hamburgerDiv{
-        display: flex;
-        height: 100%;
-        width: 5rem;
-        padding: 0;
-        background-color: white;
-        /* margin-right: 3rem; */
-    }
-
-    /* .landingImage1{
+  /* .landingImage1{
         
         display: none;
     }
@@ -323,26 +250,18 @@
 
     } */
 
-    .magnifyingGlass{
-        margin-top: 2.3rem;
-        fill: #6f7287;
-        
-    }
+  .magnifyingGlass {
+    margin-top: 2.3rem;
+    fill: #6f7287;
+  }
 
-    .organizeDiv{
-        margin-top: -0.5rem;
-        margin-right: 3rem;
-        width:7rem;
-        cursor: pointer;
-     
-    }
-    .organizeDiv:hover{
-        background-color: #f3f2f2;
-    
-    }
-
-
+  .organizeDiv {
+    margin-top: -0.5rem;
+    margin-right: 3rem;
+    width: 7rem;
+    cursor: pointer;
+  }
+  .organizeDiv:hover {
+    background-color: #f3f2f2;
+  }
 }
-
-
-

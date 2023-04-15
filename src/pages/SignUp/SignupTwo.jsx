@@ -8,6 +8,8 @@
  * @exports SignupTwo
  * @description This file contains the SignupTwo component and its logic
  */
+import { Wrapper } from './styles/Password.Styled.jsx';
+import { PwdProgress } from './styles/Password.Styled';
 
 import { StyledSignup } from './styles/FormFormat.Styled';
 import { StyledLoginRef } from './styles/FormFormat.Styled';
@@ -33,16 +35,16 @@ import { ImgDescriptionDiv } from './styles/FormFormat.Styled';
 import { FirstRowImgDiv } from './styles/FormFormat.Styled';
 import { SecRowImgDiv } from './styles/FormFormat.Styled';
 import TermsandConditions from './TermsAndConditions';
-import edit from '../../assets/edit.png';
-import logo from '../../assets/LogoFullTextSmall.png';
-import pwdhide from '../../assets/eye.png';
-import pwdShow from '../../assets/icon-visibility.jpg';
-import { PasswordShowButton } from './styles/Password.Styled';
+import edit from '/images/edit.png';
+import logo from '/images/LogoFullTextSmall.png';
+import pwdhide from '/images/eye.png';
+import pwdShow from '/images/icon-visibility.jpg';
+import { PasswordShowButton, PwdLabel } from './styles/Password.Styled';
 import { PasswordShowImg } from './styles/Password.Styled';
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Await, Link, useNavigate } from 'react-router-dom';
 
-import PasswordChecker from './PasswordChecker';
+//import PasswordChecker from './PasswordChecker';
 import { PasswordStrenghP } from './styles/Password.Styled';
 
 import { ImgComatiner } from './styles/FormFormat.Styled.jsx';
@@ -81,7 +83,7 @@ export default function SignupTwo(props) {
   const [passwordButtonType, setPasswordButtonType] = React.useState('none');
 
   const [isError, setError] = React.useState(
-    'Your password must be at least 8 characters'
+    'Your password must be at least 8 characters and strong'
   );
 
   const [email, setEmail] = useState(props.email);
@@ -113,7 +115,7 @@ export default function SignupTwo(props) {
       setPasswordButtonType('none');
     }
     if (password.length < 8) {
-      setError('Your password must be at least 8 characters');
+      setError('Your password must be at least 8 characters and strong');
       return;
     } else {
       setPassError(false);
@@ -131,6 +133,14 @@ export default function SignupTwo(props) {
   const initPwdInput = async childData => {
     initRobustPassword(childData);
   };
+
+  const [responseBody, setResponseBody] = React.useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    emailConfirmation: '',
+    password: '',
+  });
 
   const [formData, setFormData] = React.useState({
     firstName: '',
@@ -168,7 +178,9 @@ export default function SignupTwo(props) {
     }
 
     if (pwdInput.password.length < 8) {
-      setEmptyPassError('Your password must be at least 8 characters');
+      setEmptyPassError(
+        'Your password must be at least 8 characters and strong'
+      );
       setPassError(true);
       setErrorFound(true);
     }
@@ -219,7 +231,7 @@ export default function SignupTwo(props) {
 
   function GoBack(e) {
     e.preventDefault();
-    e.detail && navigate('/signup');
+    e.detail && navigate('/signup', { replace: true });
   }
 
   function handleFocus(event) {
@@ -240,7 +252,7 @@ export default function SignupTwo(props) {
     setPasswordType('password');
   };
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     handleValidation();
@@ -251,13 +263,23 @@ export default function SignupTwo(props) {
         !formData.emailConfirm ||
         pwdInput.password.length < 8 ||
         formData.emailConfirm !== email ||
+        initPwdChecker().val !== 'strong' ||
         pwdInput.password.indexOf(' ') >= 0)
     ) {
       setShowTerms(false);
-      console.log(showTerms);
 
       return;
     }
+
+    setResponseBody(prevres => ({
+      ...prevres,
+      password: pwdInput.password,
+      emailConfirmation: formData.emailConfirm,
+      email: email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+    }));
+
     setShowTerms(true);
   }
   const styles = {
@@ -304,10 +326,61 @@ export default function SignupTwo(props) {
     pwdInput.password,
   ]);
 
+  //password file instead of applying in separate file
+  const pwdValidate = pwdInput.password;
+  const initPwdChecker = () => {
+    let pwdCheck = 0;
+    let validateRegex = ['[A-Z]', '[a-z]', '[0-9]', '\\W'];
+    validateRegex.forEach((regex, i) => {
+      if (new RegExp(regex).test(pwdValidate)) {
+        pwdCheck += 1;
+      }
+    });
+    switch (pwdCheck) {
+      case 0:
+        return {
+          strength: 0,
+          val: '',
+        };
+      case 1:
+        return {
+          strength: 1,
+          val: 'very weak',
+        };
+      case 2:
+        return {
+          strength: 2,
+          val: 'weak',
+        };
+      case 3:
+        return {
+          strength: 3,
+          val: 'moderate',
+        };
+      case 4:
+        return {
+          strength: 4,
+          val: 'strong',
+        };
+
+      default:
+        return null;
+    }
+  };
+  {
+    //initPwdInput(initPwdChecker().val);
+  }
+  let colorCondition = false;
+  if (initPwdChecker().val === 'moderate') {
+    colorCondition = 'moderate';
+  } else if (initPwdChecker().val === 'strong') {
+    colorCondition = 'strong';
+  }
+
   return (
     <>
       {showTerms === true && showTerms !== undefined && (
-        <TermsandConditions show={setShowTerms} />
+        <TermsandConditions data={responseBody} show={setShowTerms} />
       )}
 
       <PageContainer>
@@ -332,8 +405,8 @@ export default function SignupTwo(props) {
               <StyledEmailDiv>
                 <StyledEmailInput
                   id="email-input"
+                  readOnly
                   value={email}
-                  defaultValue={email}
                   data-testid="email"
                 />
                 <StyledEditButton onClick={GoBack}>
@@ -486,9 +559,31 @@ export default function SignupTwo(props) {
                 />
                 <PasswordShowButton onClick={togglePassword} style={styles}>
                   {passwordType === 'password' ? (
-                    <PasswordShowImg src={pwdhide} />
+                    <svg
+                      style={{ marginLeft: '1.5rem', marginTop: '1.25rem' }}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-eye-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                    </svg>
                   ) : (
-                    <PasswordShowImg src={pwdShow} />
+                    <svg
+                      style={{ marginLeft: '1.5rem', marginTop: '1.25rem' }}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-eye-slash-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                      <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+                    </svg>
                   )}
                 </PasswordShowButton>
                 <StyledInputDiv>
@@ -513,11 +608,46 @@ export default function SignupTwo(props) {
                   </Message>
                 )}
               </StyledInputContainerDiv>
-              <PasswordChecker
+              {/* <PasswordChecker
                 password={pwdInput.password}
                 actions={initPwdInput}
                 showStrength={isError}
-              />
+              /> */}
+              <>
+                <Wrapper>
+                  <PwdProgress
+                    inputColor={
+                      colorCondition === 'strong'
+                        ? 'green'
+                        : colorCondition === 'moderate'
+                        ? 'orange'
+                        : 'red'
+                    }
+                    className={`pwd-checker-bar strength-${
+                      initPwdChecker().val
+                    }`}
+                    value={initPwdChecker().strength}
+                    max="4"
+                  />
+                  <br />
+                  <PwdLabel>
+                    {pwdInput.password && (
+                      <div>
+                        <p className={`label strength-${initPwdChecker().val}`}>
+                          {isError != null ? (
+                            ''
+                          ) : (
+                            <PasswordStrenghP>
+                              Your Password
+                              <strong> is {initPwdChecker().val} </strong>
+                            </PasswordStrenghP>
+                          )}
+                        </p>
+                      </div>
+                    )}
+                  </PwdLabel>
+                </Wrapper>
+              </>
               {isError !== null && (
                 <PasswordStrenghP
                   data-testid="passError"

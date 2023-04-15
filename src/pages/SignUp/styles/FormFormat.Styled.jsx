@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const StyledSignup = styled.div`
   width: 100%;
+  padding-left:2.5rem;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -181,7 +183,7 @@ export const LogoImg = styled.img`
   cursor: pointer;
   margin-bottom: 4rem;
 `;
-export const LoginA = styled.a`
+export const LoginA = styled.span`
   font-weight: 500;
   font-size: 1.3rem;
   text-decoration: none;

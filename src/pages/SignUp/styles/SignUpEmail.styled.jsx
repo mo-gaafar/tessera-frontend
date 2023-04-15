@@ -3,6 +3,26 @@ import styled from 'styled-components';
 export const UpperPage = styled.div`
   height: 100%;
   width: 36rem;
+  .google {
+    margin-top: 2rem;
+    width: 36rem;
+  }
+  #facebook {
+    height: 4.8rem;
+    width: 4.8rem;
+    border-radius: 24px;
+    background-image: url('/images/Facebook-logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1877f2;
+    border: none;
+    margin-top: 3rem;
+    margin-left: 3rem;
+    :hover {
+      cursor: pointer;
+    }
+  }
   @media (max-width: 960px) {
     padding-top: 7rem;
   }
@@ -160,7 +180,7 @@ export const FacebookButton = styled.button`
   height: 4.8rem;
   width: 4.8rem;
   border-radius: 24px;
-  background-image: url('./src/assets/Facebook-logo.png');
+  background-image: url('/images/Facebook-logo.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -224,7 +244,7 @@ export const LogInDiv = styled.div`
   }
 `;
 
-export const LogIn = styled.a`
+export const LogIn = styled.span`
   font-size: 1.37rem;
   color: #3659e3;
   display: flexbox;
@@ -256,7 +276,7 @@ export const LogInDiv2 = styled.div`
   }
 `;
 
-export const LogIn2 = styled.a`
+export const LogIn2 = styled.span`
   font-size: 1.37rem;
   color: #3659e3;
   display: flexbox;

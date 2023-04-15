@@ -19,26 +19,25 @@ export default function Login() {
   return (
     <LoginStyled>
       <div className="headers">
-        <img
-          src="../../../src/assets/LogoFullTextSmall.png"
-          alt="Tessera logo"
-        />
+        <img src="/images/LogoFullTextSmall.png" alt="Tessera logo" />
         <h1 className="Login">Log in</h1>
       </div>
       <Form />
       <Divider>
         <CircleDivider>or</CircleDivider>
       </Divider>
-      <EmailMe />
       <GoogleButton target={'_blank'}>
-        <Googlelogo src="./src/assets/google-logo.png" />
+        <Googlelogo src="/images/google-logo.png" />
         Sign in with Google
-      </GoogleButton>{' '}
+      </GoogleButton>
       <Other />
       <Dropother />
-      <Link to="/signup" className="Signup">
-        Sign up
-      </Link>
+      <div className="link__box">
+        <Link to="/signup" className="Signup">
+          Sign up
+        </Link>
+        <Link to="/forgetPassword"> Forget Password </Link>
+      </div>
     </LoginStyled>
   );
 }

@@ -115,12 +115,26 @@ const Div = styled.div`
 A component that displays the terms and conditions modal.
 @param {Object} props - The component props.
 @param {Function} props.show - A function to hide the modal.
+@param {object} props.data
 @returns {JSX.Element} - The terms and conditions modal JSX element.
 */
 function TermsandConditions(props) {
   function handleClick() {
     props.show(false);
   }
+  async function clickAgree(e) {
+    e.preventDefault();
+    console.log(props.data);
+    const response = await fetch('https://www.tessera.social/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(props.data),
+    });
+    const json = await response.json();
+  }
+  //console.log(props.data.email)
 
   return (
     <Div>
@@ -172,8 +186,10 @@ function TermsandConditions(props) {
           <button onClick={handleClick} className="CancelButton">
             Cancel
           </button>
-          <button className="AgreeButton">
-            <Link to="/"> Agree</Link>
+          <button className="AgreeButton" onClick={clickAgree}>
+            <Link to="/" state={props.data.email}>
+              Agree
+            </Link>
           </button>
         </div>
       </div>
