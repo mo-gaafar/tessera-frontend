@@ -580,6 +580,110 @@ h2{
 }
 }
 
+@media only screen and (max-width: 520px){
+    width: 43.5rem;
+
+    margin-left:2.5rem;
+
+
+    
+    .eventoxDiv{
+     
+    width: 43.5rem;
+
+    height:24.075rem;
+ 
+ }
+ 
+ .eventContainer{
+ 
+    width: 43.5rem;
+
+    height:24.075rem;
+ 
+ }
+ 
+ .eventTextInfo{
+     width:27.3rem;
+     height:20.807rem;
+ }
+ 
+ .eventImageButtons{
+    width:10rem;
+    height:20.807rem;
+    
+}
+ 
+ .image{
+     width:10rem;
+     height:10rem;
+ }
+ 
+ .eventName{
+ 
+     width:25.725rem;
+     height:7.875rem;
+     font-size: 2rem;
+     line-height: 2.8rem;
+     letter-spacing: 0.025rem;
+ 
+ }
+ 
+ .eventDateTime{
+     width:32.4rem;
+     height:3.45rem;
+     font-size: 1.6rem;
+     line-height: 2.4rem;
+     font-weight: 400;
+     
+ }
+ 
+ .subcontentDiv{
+     width:32.4rem;
+     height:10.6rem;
+ 
+ }
+ 
+ .eventLocation{
+     width:32.4rem;
+     height:2.22rem;
+ 
+ }
+ 
+ 
+ .eventPrice{
+     width:32.4rem;
+     height:2.22rem;
+     margin-top:2rem;
+ 
+ }
+ 
+ .eventOrganizer{
+     width:32rem;
+     font-size: 1.6rem;
+     line-height: 2.4rem;
+     font-weight: 600;
+   
+ }
+ 
+ .organizerName{
+     width:32rem;
+     font-size: 1.6rem;
+     line-height: 2.4rem;
+     font-weight: 600;
+ }
+ 
+ 
+ .buttonsDiv{
+     width:9.4rem;
+     height:5.2rem;
+     padding;0.8rem 0rem 0rem;
+     margin-top: auto;
+     margin-left: auto;
+ }
+  
+
+}
 
 
 
