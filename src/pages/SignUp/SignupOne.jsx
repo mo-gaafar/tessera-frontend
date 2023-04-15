@@ -63,6 +63,21 @@ import { Link, useNavigate } from 'react-router-dom';
  * @description This function is a component that renders the first page of the signup process
  */
 export default function SignUpOne(props) {
+  const [eventData, setEventData] = React.useState({});
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      //  const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/'); //temp (the original one crashed)
+      const response = await fetch(
+        'https://www.tessera.social/api/attendee/event/6439c17df192628827184ef0'
+      );
+      //console.log(await response.json())
+      const event = await response.json();
+      setEventData(event);
+    };
+    fetchData();
+  }, []);
+
   let navigate;
   if (!props.test) {
     navigate = useNavigate();

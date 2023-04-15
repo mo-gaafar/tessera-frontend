@@ -31,9 +31,9 @@ function App() {
         {/* <Route path="/" element={<EventPageOrganizer />} /> */}
         <Route path="/" element={<Events />} />
         {/* <Route path="/" element={<Landing />} />
-        <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
-        <Route path="login" element={<Maincontainer />} /> */}
+        <Route path="login" element={<Maincontainer />} /> */}{' '}
+        <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
       </Routes>
     </>
   );
