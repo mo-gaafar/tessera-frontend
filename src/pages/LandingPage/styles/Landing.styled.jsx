@@ -40,9 +40,9 @@ export const StyledLandingEvents = styled.section`
         button {
           padding-left: 1.8rem;
           padding-right: 1.4rem;
-          &:focus{
-            border-radius:3px;
-            background:blue;
+          &:focus {
+            border-radius: 3px;
+            background: blue;
           }
         }
       }
@@ -172,7 +172,7 @@ export const StyledEventsContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
-  .error-img{
+  .error-img {
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
@@ -195,6 +195,7 @@ export const StyledEventsContainer = styled.div`
     }
     img {
       padding-inline: 0rem;
+      max-height: 14rem;
     }
     h5 {
       font-size: 2rem;

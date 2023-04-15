@@ -303,7 +303,11 @@ export default function Landing() {
       allFilteredEvents.map(event => (
         <EventBox
           key={event.id}
-          image={event.basicInfo.eventImage}
+          image={
+            event.basicInfo.eventImage !== 'https://example.com/image.jpg'
+              ? event.basicInfo.eventImage
+              : '/images/event__4.avif'
+          }
           eventTitle={event.basicInfo.eventName}
           date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
           description={
