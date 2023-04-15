@@ -1,3 +1,24 @@
+
+/**
+  * This file contains the list of events
+  * @name EventsList.jsx
+  * @author @MaryamMoataz
+ */
+
+/**
+exports an Array of Event details
+@param {Object} eventsListScroll - Array of elements that contain details about the event
+@param {number} key - The unique identifier of every array
+@param {string} image - image promoting the event
+@param {string} eventTitle - The name of the event
+@param {string} date- The date of the event
+@param {string} description - The price of the event could be free or a starting price
+@param {string} organizer - The name of the event's organizer
+@param {number} followers - The number of followers for the event
+@param {string} cName - The classname for the array
+@return {JSX.Element} A React component representing the event card
+*/
+
 export const eventsListScroll = [
     {
       key: '1',

@@ -1,4 +1,23 @@
 
+/**
+  * This file contains the Event card
+  * @name Eventbox.jsx
+  * @author @MaryamMoataz
+ */
+
+/**
+Renders a box containing information about an event
+@param {Object} props - The props object containing the event's information
+@param {string} props.eventName - The URL of the event's name
+@param {string} props.eventDateTime - The date and time the event
+@param {string} props.eventLocation - The location of the event
+@param {string} props.description - The description of the event
+@param {string} props.eventPrice - The price of the event
+@param {string} props.organizerName - The name of the event's organizer
+@param {number} props.organizerFollowers - The number of followers for the event
+@return {JSX.Element} A React component representing the event card
+*/
+
 export default function MoreEvents(props) {
   return (
     <div className='eventoxDiv'>
@@ -12,7 +31,7 @@ export default function MoreEvents(props) {
 
               
                   <div className='subcontentDiv'>
-                    <div className='eventLocation'> {props.eventLoation} </div>
+                    <div className='eventLocation'> {props.eventLocation} </div>
                     <div className='eventPrice'> {props.eventPrice} </div>
                     <div className='eventOrganizer'>
                         <div className='organizerName'> {props.organizerName} </div>

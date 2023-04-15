@@ -1,3 +1,16 @@
+/**
+ * @file EventPageOrganizer.jsx
+ * @name EventPageOrganizer.jsx
+ * @author @MaryamMoataz
+ * @requires react
+ * @requires react-router-dom
+ * @requires ./styles/EventOrganizer.styled
+ * @requires ./EventBox
+ * @requires ./Eventbox
+ * @exports EventPageOrganizer
+ * @description This file contains the lower half of the Event detail page with sections such as details about organizer, more events from organizer and more events the user might like
+ */
+
 import { useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import {AboutTheOrganizer,MoreEventsOrganizer,OtherEventsYouMayLike} from './styles/EventOrganizer.styled';
@@ -89,7 +102,7 @@ export default function EventPageOrganizer() {
             <MoreEvents
               eventName="Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABIDJAN"
               eventDateTime="Today at 2:00 PM"
-              eventLoation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
+              eventLocation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
               eventPrice="Free"
               organizerName="GoMyCode"
               organizerFollowers="2.8k followers"
@@ -99,7 +112,7 @@ export default function EventPageOrganizer() {
             <MoreEvents
               eventName="Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABIDJAN"
               eventDateTime="Today at 2:00 PM"
-              eventLoation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
+              eventLocation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
               eventPrice="Free"
               organizerName="GoMyCode"
               organizerFollowers="2.8k followers"
@@ -109,7 +122,7 @@ export default function EventPageOrganizer() {
             <MoreEvents
               eventName="Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABIDJAN"
               eventDateTime="Today at 2:00 PM"
-              eventLoation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
+              eventLocation="GOMYCODE Côte d'Ivoire • Abidjan, District Autonome d'Abidjan"
               eventPrice="Free"
               organizerName="GoMyCode"
               organizerFollowers="2.8k followers"
