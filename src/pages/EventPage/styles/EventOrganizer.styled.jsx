@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const AboutTheOrganizer = styled.section`
+  padding-left:9rem;
   width: 72rem;
   height: 40.25rem;
   margin: 0px auto;
@@ -173,6 +174,7 @@ export const AboutTheOrganizer = styled.section`
 `;
 
 export const MoreEventsOrganizer = styled.section`
+  
   width: 72rem;
   height: 68.175rem;
   padding: 4rem 0rem 0rem;
@@ -181,13 +183,16 @@ export const MoreEventsOrganizer = styled.section`
   font-weight: 600;
 
   h2 {
+    padding-left:9rem;
     font-size: 2.4rem;
     margin: 0rem 0rem 1.6rem;
   }
 
   .eventoxDiv {
+    padding-left:9rem;
     width: 72rem;
     height: 20.275rem;
+
   }
 
   .eventContainer {
@@ -590,6 +595,7 @@ export const OtherEventsYouMayLike = styled.section`
   }
 
   .otherEventsDiv {
+    
     z-index: 1;
     position: relative;
     font-size: 14px;
