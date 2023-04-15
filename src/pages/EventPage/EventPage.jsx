@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleMap, useLoadScript, Marker} from "@react-google-maps/api"
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import {
   WholePage,
   WhenandWhereText,
@@ -117,33 +117,38 @@ import {
   EventHostSpan,
 } from './styles/EventPage.styled';
 export default function Events(props) {
-  // conditional rendering => if the quantity sold = capacity - 10 , render tickets sales ends soon 
+  // conditional rendering => if the quantity sold = capacity - 10 , render tickets sales ends soon
   // if the event is free or not
-  // if the tickets are sold out  
+  // if the tickets are sold out
   const [count, setCount] = React.useState(0);
   const [eventData, setEventData] = React.useState({});
 
-   React.useEffect (() => {
-     const fetchData = async () => {
-       const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/'); //temp (the original one crashed)
-       //const response = await fetch('https://www.tessera.social/api/attendee/event/{props.id}'); (the original one)
-       //console.log(await response.json())
-       const event = await response.json();
-       console.log(event)
-       //console.log((event.filteredEvents)[0])
-       setEventData(event); 
-     };
-     fetchData();
-   }, []);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        'https://www.tessera.social/api/attendee/Eventsby/'
+      ); //temp (the original one crashed)
+      //const response = await fetch('https://www.tessera.social/api/attendee/event/{props.id}'); (the original one)
+      //console.log(await response.json())
+      const event = await response.json();
+      console.log(event);
+      //console.log((event.filteredEvents)[0])
+      setEventData(event);
+    };
+    fetchData();
+  }, []);
 
-  function add(e){
-    setCount(count+1)
-    e.preventDefault()
+  function add(e) {
+    setCount(count + 1);
+    e.preventDefault();
   }
-  function subtract(e){
-    if(count == 0) {setCount(0)}
-    else{setCount(count-1)}
-    e.preventDefault()
+  function subtract(e) {
+    if (count == 0) {
+      setCount(0);
+    } else {
+      setCount(count - 1);
+    }
+    e.preventDefault();
   }
   const monthNames = [
     'Jan',
@@ -173,8 +178,8 @@ export default function Events(props) {
     'November',
     'December',
   ];
-  
-  const convertUTCToLocalTime = (dateString) => {
+
+  const convertUTCToLocalTime = dateString => {
     let date = new Date(dateString);
     const milliseconds = Date.UTC(
       date.getFullYear(),
@@ -182,12 +187,12 @@ export default function Events(props) {
       date.getDate(),
       date.getHours(),
       date.getMinutes(),
-      date.getSeconds(),
+      date.getSeconds()
     );
     const localTime = new Date(milliseconds);
-    return `${monthNames[localTime.getMonth()]} ${localTime.getDate()}`
+    return `${monthNames[localTime.getMonth()]} ${localTime.getDate()}`;
   };
-  const convertUTCToLocalHoursOnly = (dateString) => {
+  const convertUTCToLocalHoursOnly = dateString => {
     let date = new Date(dateString);
     const milliseconds = Date.UTC(
       date.getFullYear(),
@@ -195,12 +200,12 @@ export default function Events(props) {
       date.getDate(),
       date.getHours(),
       date.getMinutes(),
-      date.getSeconds(),
+      date.getSeconds()
     );
     const localTime = new Date(milliseconds);
-    return `${localTime.getHours()}`
+    return `${localTime.getHours()}`;
   };
-  const convertUTCToLocalTimeOnly = (dateString) => {
+  const convertUTCToLocalTimeOnly = dateString => {
     let date = new Date(dateString);
     const milliseconds = Date.UTC(
       date.getFullYear(),
@@ -208,12 +213,14 @@ export default function Events(props) {
       date.getDate(),
       date.getHours(),
       date.getMinutes(),
-      date.getSeconds(),
+      date.getSeconds()
     );
     const localTime = new Date(milliseconds);
-    return `${localTime.getHours()}:${localTime.getMinutes()===0?"00":localTime.getMinutes()}`
+    return `${localTime.getHours()}:${
+      localTime.getMinutes() === 0 ? '00' : localTime.getMinutes()
+    }`;
   };
-  const convertUTCToLocalTimeLong = (dateString) => {
+  const convertUTCToLocalTimeLong = dateString => {
     let date = new Date(dateString);
     const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
     const milliseconds = Date.UTC(
@@ -222,131 +229,144 @@ export default function Events(props) {
       date.getDate(),
       date.getHours(),
       date.getMinutes(),
-      date.getSeconds(),
+      date.getSeconds()
     );
     const localTime = new Date(milliseconds);
-    return `${dayName}, ${monthNamesFull[localTime.getMonth()]} ${localTime.getDate()} · ${localTime.getHours()}:${localTime.getMinutes()===0?"00":localTime.getMinutes()} `
+    return `${dayName}, ${
+      monthNamesFull[localTime.getMonth()]
+    } ${localTime.getDate()} · ${localTime.getHours()}:${
+      localTime.getMinutes() === 0 ? '00' : localTime.getMinutes()
+    } `;
   };
   const eventHours = () => {
-    let numberOfHours = convertUTCToLocalHoursOnly(eventData.filteredEvents.basicInfo.endDateTime) - convertUTCToLocalHoursOnly(eventData.filteredEvents.basicInfo.startDateTime)
-    console.log(numberOfHours)
-    let hours = ""
-     if (numberOfHours == 1){hours="hour"}
-     else(hours="hours")
-     return hours;
-   };
+    let numberOfHours =
+      convertUTCToLocalHoursOnly(
+        eventData.filteredEvents.basicInfo.endDateTime
+      ) -
+      convertUTCToLocalHoursOnly(
+        eventData.filteredEvents.basicInfo.startDateTime
+      );
+    console.log(numberOfHours);
+    let hours = '';
+    if (numberOfHours == 1) {
+      hours = 'hour';
+    } else hours = 'hours';
+    return hours;
+  };
 
   return (
     <WholePage>
       <FirstHalfPage>
         <FirstHalfPageDiv1>
           <FirstHalfPageDiv2>
-          <PictureDiv>
+            <PictureDiv>
               <PictureDiv2>
                 <PictureDiv3></PictureDiv3>
                 <Picture>
                   <PictureSource
-                  src= {eventData.filteredEvents.eventImage} 
-                  //   srcset="
-                  //   https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=480&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=b5ae25bcc869b2f43ade866d38ef073c 480w,
-                  //   https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=600&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=bbc149e4b288f5f0d89c42b6631ad037 600w,
-                  //   https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=fc25501da772b08802240c110acf41a0 940w
-                  // "
-                  //   sizes=" (max-width:480px) 480px, (max-width:600px) 600px, 940px "
+                    src={eventData.filteredEvents.eventImage}
+                    //   srcset="
+                    //   https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=480&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=b5ae25bcc869b2f43ade866d38ef073c 480w,
+                    //   https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=600&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=bbc149e4b288f5f0d89c42b6631ad037 600w,
+                    //   https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=fc25501da772b08802240c110acf41a0 940w
+                    // "
+                    //   sizes=" (max-width:480px) 480px, (max-width:600px) 600px, 940px "
                   ></PictureSource>
                   <PictureBackgroundEvent
                     width="600"
                     height="300"
-                    src= {eventData.filteredEvents.eventImage} />
+                    src={eventData.filteredEvents.eventImage}
+                  />
                 </Picture>
               </PictureDiv2>
             </PictureDiv>
 
             <DetailsDiv>
-            <ActionPanel>
-                    <ActionPanelul>
-                      <ActionPanelLi>
-                        <LiSpan>
-                          <LiDiv>
-                            <LiDiv2 tabIndex="-1">
-                              <LiDiv3 tabIndex="0" data-spec="tooltip-wrapper">
-                                <LiSpan2 data-spec="icon-button">
-                                  <LiButton
-                                    aria-pressed="false"
-                                    type="button"
-                                    fdprocessedid="4j6grm7"
+              <ActionPanel>
+                <ActionPanelul>
+                  <ActionPanelLi>
+                    <LiSpan>
+                      <LiDiv>
+                        <LiDiv2 tabIndex="-1">
+                          <LiDiv3 tabIndex="0" data-spec="tooltip-wrapper">
+                            <LiSpan2 data-spec="icon-button">
+                              <LiButton
+                                aria-pressed="false"
+                                type="button"
+                                fdprocessedid="4j6grm7"
+                              >
+                                <LiI data-testid="icon" data-spec="icon">
+                                  <LiSvg
+                                    x="0"
+                                    y="0"
+                                    viewBox="0 0 24 24"
+                                    xmlSpace="preserve"
                                   >
-                                    <LiI data-testid="icon" data-spec="icon">
-                                      <LiSvg
-                                        x="0"
-                                        y="0"
-                                        viewBox="0 0 24 24"
-                                        xmlSpace="preserve"
-                                      >
-                                        <LiPath
-                                          fillRule="evenodd"
-                                          clipRule="evenodd"
-                                          d="M18.8 6.2C18.1 5.4 17 5 16 5c-1 0-2 .4-2.8 1.2L12 7.4l-1.2-1.2C10 5.4 9 5 8 5c-1 0-2 .4-2.8 1.2-1.5 1.6-1.5 4.2 0 5.8l6.8 7 6.8-7c1.6-1.6 1.6-4.2 0-5.8zm-1.4 4.4L12 16.1l-5.4-5.5c-.8-.8-.8-2.2 0-3C7 7.2 7.5 7 8 7c.5 0 1 .2 1.4.6l2.6 2.7 2.7-2.7c.3-.4.8-.6 1.3-.6s1 .2 1.4.6c.8.8.8 2.2 0 3z"
-                                        ></LiPath>
-                                      </LiSvg>
-                                      <LiSpan3>Like Event</LiSpan3>
-                                    </LiI>
-                                  </LiButton>
-                                </LiSpan2>
-                              </LiDiv3>
-                            </LiDiv2>
-                          </LiDiv>
-                        </LiSpan>
-                      </ActionPanelLi>
-                      <ActionPanelLi2>
-                        <LiSpan>
-                          <LiDiv>
-                            <LiDiv2 tabIndex="-1">
-                              <LiDiv3 tabIndex="0" data-spec="tooltip-wrapper">
-                                <LiSpan2 data-spec="icon-button">
-                                  <LiButton
-                                    aria-pressed="false"
-                                    type="button"
-                                    fdprocessedid="4j6grm7"
+                                    <LiPath
+                                      fillRule="evenodd"
+                                      clipRule="evenodd"
+                                      d="M18.8 6.2C18.1 5.4 17 5 16 5c-1 0-2 .4-2.8 1.2L12 7.4l-1.2-1.2C10 5.4 9 5 8 5c-1 0-2 .4-2.8 1.2-1.5 1.6-1.5 4.2 0 5.8l6.8 7 6.8-7c1.6-1.6 1.6-4.2 0-5.8zm-1.4 4.4L12 16.1l-5.4-5.5c-.8-.8-.8-2.2 0-3C7 7.2 7.5 7 8 7c.5 0 1 .2 1.4.6l2.6 2.7 2.7-2.7c.3-.4.8-.6 1.3-.6s1 .2 1.4.6c.8.8.8 2.2 0 3z"
+                                    ></LiPath>
+                                  </LiSvg>
+                                  <LiSpan3>Like Event</LiSpan3>
+                                </LiI>
+                              </LiButton>
+                            </LiSpan2>
+                          </LiDiv3>
+                        </LiDiv2>
+                      </LiDiv>
+                    </LiSpan>
+                  </ActionPanelLi>
+                  <ActionPanelLi2>
+                    <LiSpan>
+                      <LiDiv>
+                        <LiDiv2 tabIndex="-1">
+                          <LiDiv3 tabIndex="0" data-spec="tooltip-wrapper">
+                            <LiSpan2 data-spec="icon-button">
+                              <LiButton
+                                aria-pressed="false"
+                                type="button"
+                                fdprocessedid="4j6grm7"
+                              >
+                                <LiI data-testid="icon" data-spec="icon">
+                                  <LiSvg
+                                    x="0"
+                                    y="0"
+                                    viewBox="0 0 24 24"
+                                    xmlSpace="preserve"
                                   >
-                                    <LiI data-testid="icon" data-spec="icon">
-                                      <LiSvg
-                                        x="0"
-                                        y="0"
-                                        viewBox="0 0 24 24"
-                                        xmlSpace="preserve"
-                                      >
-                                        <LiPath
-                                          fillRule="evenodd"
-                                          clipRule="evenodd"
-                                          d="M18 16v2H6v-2H4v4h16v-4z"
-                                        ></LiPath>
-                                        <LiPath
-                                          fillRule="evenodd"
-                                          clipRule="evenodd"
-                                          d="M12 4L7 9l1.4 1.4L11 7.8V16h2V7.8l2.6 2.6L17 9l-5-5z"
-                                        ></LiPath>
-                                      </LiSvg>
-                                      <LiSpan3>Share this event</LiSpan3>
-                                    </LiI>
-                                  </LiButton>
-                                </LiSpan2>
-                              </LiDiv3>
-                            </LiDiv2>
-                          </LiDiv>
-                        </LiSpan>
-                      </ActionPanelLi2>
-                    </ActionPanelul>
-                  </ActionPanel>
+                                    <LiPath
+                                      fillRule="evenodd"
+                                      clipRule="evenodd"
+                                      d="M18 16v2H6v-2H4v4h16v-4z"
+                                    ></LiPath>
+                                    <LiPath
+                                      fillRule="evenodd"
+                                      clipRule="evenodd"
+                                      d="M12 4L7 9l1.4 1.4L11 7.8V16h2V7.8l2.6 2.6L17 9l-5-5z"
+                                    ></LiPath>
+                                  </LiSvg>
+                                  <LiSpan3>Share this event</LiSpan3>
+                                </LiI>
+                              </LiButton>
+                            </LiSpan2>
+                          </LiDiv3>
+                        </LiDiv2>
+                      </LiDiv>
+                    </LiSpan>
+                  </ActionPanelLi2>
+                </ActionPanelul>
+              </ActionPanel>
               <DetailsDiv2>
-              <TicketsEndDiv2 >
+                <TicketsEndDiv2>
                   <TicketsEndDivInner>
                     <TicketsEndI>
                       <DetailsSvg viewBox="0 0 144 144">
-                        <TicketsEndPath 
-                        fillRule="evenodd"
-                        clipRule="evenodd" 
-                        d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"></TicketsEndPath>
+                        <TicketsEndPath
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
+                        ></TicketsEndPath>
                       </DetailsSvg>
                     </TicketsEndI>
                     <TicketsText>Ticket sales end soon</TicketsText>
@@ -354,9 +374,14 @@ export default function Events(props) {
                 </TicketsEndDiv2>
 
                 <MainDetailsDiv>
-                   <EventDate> {convertUTCToLocalTime(eventData.filteredEvents.basicInfo.startDateTime)} </EventDate> 
+                  <EventDate>
+                    {' '}
+                    {convertUTCToLocalTime(
+                      eventData.filteredEvents.basicInfo.startDateTime
+                    )}{' '}
+                  </EventDate>
                   <MainDetailsTitle>
-                    {eventData.filteredEvents.basicInfo.eventName} 
+                    {eventData.filteredEvents.basicInfo.eventName}
                   </MainDetailsTitle>
                   <MainDetailsP>
                     <DetailsStrong>
@@ -368,7 +393,11 @@ export default function Events(props) {
                     <HostInfoDiv>
                       <EventHostDiv>
                         <EventHostSpan>
-                          By <HostName>{eventData.filteredEvents.creatorId.firstName} {eventData.filteredEvents.creatorId.lastName}</HostName>
+                          By{' '}
+                          <HostName>
+                            {eventData.filteredEvents.creatorId.firstName}{' '}
+                            {eventData.filteredEvents.creatorId.lastName}
+                          </HostName>
                         </EventHostSpan>
                       </EventHostDiv>
                     </HostInfoDiv>
@@ -407,7 +436,15 @@ export default function Events(props) {
                             <h3>Date and time</h3>
                           </DetailsTitleDiv>
                           <DetailsP>
-                            <DateSpan>{convertUTCToLocalTimeLong(eventData.filteredEvents.basicInfo.startDateTime)} - {convertUTCToLocalTimeOnly(eventData.filteredEvents.basicInfo.endDateTime)}</DateSpan>
+                            <DateSpan>
+                              {convertUTCToLocalTimeLong(
+                                eventData.filteredEvents.basicInfo.startDateTime
+                              )}{' '}
+                              -{' '}
+                              {convertUTCToLocalTimeOnly(
+                                eventData.filteredEvents.basicInfo.endDateTime
+                              )}
+                            </DateSpan>
                           </DetailsP>
                           {/* <DateSelect aria-label="More options">
                             ::before
@@ -452,13 +489,33 @@ export default function Events(props) {
                             <h3>Location</h3>
                           </DetailsTitleDiv>
                           <DetailsP>
-                            <LocationStrong>{eventData.filteredEvents.basicInfo.location.venueName}</LocationStrong>
                             <LocationStrong>
-                              {eventData.filteredEvents.basicInfo.location.route} 
-                              {eventData.filteredEvents.basicInfo.location.streetNumber},
-                              {eventData.filteredEvents.basicInfo.location.administrativeAreaLevel1}, 
-                              {eventData.filteredEvents.basicInfo.location.city}, 
-                              {eventData.filteredEvents.basicInfo.location.country}
+                              {
+                                eventData.filteredEvents.basicInfo.location
+                                  .venueName
+                              }
+                            </LocationStrong>
+                            <LocationStrong>
+                              {
+                                eventData.filteredEvents.basicInfo.location
+                                  .route
+                              }
+                              {
+                                eventData.filteredEvents.basicInfo.location
+                                  .streetNumber
+                              }
+                              ,
+                              {
+                                eventData.filteredEvents.basicInfo.location
+                                  .administrativeAreaLevel1
+                              }
+                              ,
+                              {eventData.filteredEvents.basicInfo.location.city}
+                              ,
+                              {
+                                eventData.filteredEvents.basicInfo.location
+                                  .country
+                              }
                             </LocationStrong>
                           </DetailsP>
                           <MapButtonDiv>
@@ -481,14 +538,21 @@ export default function Events(props) {
                     </LocationSection>
                   </DateAndLocationDiv>
                 </WhenandWhereSection>
-                
+
                 <AboutEvent>
-                  {!eventData.isEventFree && 
-                    <RefundSection > 
-                    <RefundDiv1><RefundTitle>Refund Policy</RefundTitle></RefundDiv1>
-                    <RefundDiv2 >Contact the organizer to request a refund.</RefundDiv2>
-                    <RefundDiv2>Eventbrite's fee is nonrefundable.</RefundDiv2>
-                  </RefundSection>}
+                  {!eventData.isEventFree && (
+                    <RefundSection>
+                      <RefundDiv1>
+                        <RefundTitle>Refund Policy</RefundTitle>
+                      </RefundDiv1>
+                      <RefundDiv2>
+                        Contact the organizer to request a refund.
+                      </RefundDiv2>
+                      <RefundDiv2>
+                        Eventbrite's fee is nonrefundable.
+                      </RefundDiv2>
+                    </RefundSection>
+                  )}
                   <AboutEventSubDiv1>
                     <AboutEventTitleDiv>
                       <AboutEventTitle>About this event</AboutEventTitle>
@@ -511,7 +575,13 @@ export default function Events(props) {
                             </DetailsSvg>
                           </DetailsI>
                         </LogoSpan>
-                         {convertUTCToLocalHoursOnly(eventData.filteredEvents.basicInfo.endDateTime) - convertUTCToLocalHoursOnly(eventData.filteredEvents.basicInfo.startDateTime)} {eventHours()} 
+                        {convertUTCToLocalHoursOnly(
+                          eventData.filteredEvents.basicInfo.endDateTime
+                        ) -
+                          convertUTCToLocalHoursOnly(
+                            eventData.filteredEvents.basicInfo.startDateTime
+                          )}{' '}
+                        {eventHours()}
                       </AboutEventLi>
                       <AboutEventLi>
                         <LogoSpan>
@@ -541,121 +611,147 @@ export default function Events(props) {
                 </AboutEvent>
               </DetailsDiv2>
               <ReserveDiv>
-                <TicketsEndDiv >
+                <TicketsEndDiv>
                   <TicketsEndDivInner>
                     <TicketsEndI>
                       <DetailsSvg viewBox="0 0 144 144">
-                        <TicketsEndPath 
-                        fillRule="evenodd"
-                        clipRule="evenodd" 
-                        d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"></TicketsEndPath>
+                        <TicketsEndPath
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M113 23v28.242c7.038.538 12 6.718 12 13.462s-4.962 12.924-12 13.462v27.242l-8.421-3.714c-4.595-2.027-12.688-5.132-21.748-7.721-4.91-1.403-9.983-2.619-14.857-3.443l9.053 30.674H60.94L50.818 88.922C38.718 86.68 29 76.847 29 64.204c0-14.431 12.659-25.2 27.073-25.2 7.939 0 17.627-1.96 26.758-4.57 9.06-2.588 17.153-5.693 21.748-7.72L113 23zM86.129 45.973c-9.533 2.724-20.471 5.03-30.056 5.03-8.862 0-15.073 6.424-15.073 13.2 0 6.778 6.21 13.2 15.073 13.2 9.585 0 20.523 2.308 30.056 5.032A203.748 203.748 0 01101 87.325V41.083a203.748 203.748 0 01-14.871 4.89z"
+                        ></TicketsEndPath>
                       </DetailsSvg>
                     </TicketsEndI>
                     <TicketsText>Ticket sales end soon</TicketsText>
                   </TicketsEndDivInner>
                 </TicketsEndDiv>
-                {eventData.isEventFree && !eventData.isEventCapacityFull &&
-                <WholeTicketsDiv>
-                  <TicketsDiv>
-                    <TicketsSection>
-                      <TicketsForm>
-                        <div>
+                {eventData.isEventFree && !eventData.isEventCapacityFull && (
+                  <WholeTicketsDiv>
+                    <TicketsDiv>
+                      <TicketsSection>
+                        <TicketsForm>
                           <div>
                             <div>
-                              <TicketsUL>
-                                <TicketsLi>
-                                  <TicketsSubDiv1>
-                                    <TicketsSubDiv2>
-                                      <TicketsSubDiv3>
+                              <div>
+                                <TicketsUL>
+                                  <TicketsLi>
+                                    <TicketsSubDiv1>
+                                      <TicketsSubDiv2>
                                         <TicketsSubDiv3>
-                                          <TicketsSubDiv5>General Admission</TicketsSubDiv5>
-                                        </TicketsSubDiv3>
-                                        <TicketsSubDiv4>
-                                          <TicketsSubDiv6>
-                                            <TicketsButtonSubtract onClick={subtract}>
-                                              <TicketsI>
-                                                <TicketsSvg
-                                                x="0"
-                                                y="0"
-                                                viewBox='0 0 24 24'
-                                                xmlSpace='preserve'>
-                                                  <g>
-                                                    <TicketsPath 
-                                                    fill="#fff"
-                                                    d="M6.5 11.5h11v1h-11z">
-                                                    </TicketsPath>
+                                          <TicketsSubDiv3>
+                                            <TicketsSubDiv5>
+                                              General Admission
+                                            </TicketsSubDiv5>
+                                          </TicketsSubDiv3>
+                                          <TicketsSubDiv4>
+                                            <TicketsSubDiv6>
+                                              <TicketsButtonSubtract
+                                                onClick={subtract}
+                                              >
+                                                <TicketsI>
+                                                  <TicketsSvg
+                                                    x="0"
+                                                    y="0"
+                                                    viewBox="0 0 24 24"
+                                                    xmlSpace="preserve"
+                                                  >
+                                                    <g>
+                                                      <TicketsPath
+                                                        fill="#fff"
+                                                        d="M6.5 11.5h11v1h-11z"
+                                                      ></TicketsPath>
+                                                      <TicketsPath d="M6.5 11.5h11v1h-11z"></TicketsPath>
+                                                    </g>
+                                                  </TicketsSvg>
+                                                </TicketsI>
+                                              </TicketsButtonSubtract>
+                                              <TicketsSubDiv7>
+                                                {' '}
+                                                {count}{' '}
+                                              </TicketsSubDiv7>
+                                              <TicketsButtonAdd onClick={add}>
+                                                <TicketsI>
+                                                  <TicketsSvg
+                                                    x="0"
+                                                    y="0"
+                                                    viewBox="0 0 24 24"
+                                                    xmlSpace="preserve"
+                                                  >
                                                     <TicketsPath
-                                                    d="M6.5 11.5h11v1h-11z"
+                                                      clipRule="evenodd"
+                                                      fillRule="evenodd"
+                                                      d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
                                                     ></TicketsPath>
-                                                  </g>
-                                                </TicketsSvg>
-                                              </TicketsI>
-                                            </TicketsButtonSubtract>
-                                            <TicketsSubDiv7> {count} </TicketsSubDiv7>
-                                            <TicketsButtonAdd onClick={add}>
-                                              <TicketsI>
-                                                <TicketsSvg
-                                                x="0"
-                                                y="0"
-                                                viewBox='0 0 24 24'
-                                                xmlSpace='preserve'>
-                                                  <TicketsPath
-                                                  clipRule='evenodd'
-                                                  fillRule='evenodd'
-                                                  d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"></TicketsPath>
-                                                </TicketsSvg>
-                                              </TicketsI>
-                                            </TicketsButtonAdd>
-                                          </TicketsSubDiv6>
-                                        </TicketsSubDiv4>
+                                                  </TicketsSvg>
+                                                </TicketsI>
+                                              </TicketsButtonAdd>
+                                            </TicketsSubDiv6>
+                                          </TicketsSubDiv4>
                                         </TicketsSubDiv3>
-                                    <TicketsSubDiv8>
-                                      <TicketsSubDiv9>
-                                        <TicketsFreeSpan>Free</TicketsFreeSpan>
-                                        <BuyTicketsButton>
-                                          <TicketsI>
-                                            <TicketsSvg>
-                                              <TicketsFreePath fillRule="evenodd" clipRule="evenodd" d="M12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6zm0 14c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8z"></TicketsFreePath>
-                                              <TicketsFreePath fillRule="evenodd" clipRule="evenodd" d="M11 8h2v2h-2z"></TicketsFreePath>
-                                              <TicketsFreePath fillRule="evenodd" clipRule="evenodd" d="M11 11h2v5h-2z"></TicketsFreePath>
-                                            </TicketsSvg>
-                                          </TicketsI>
-                                        </BuyTicketsButton>
-                                      </TicketsSubDiv9>
-                                  </TicketsSubDiv8>
-                                  </TicketsSubDiv2>
-                                  </TicketsSubDiv1>
-                                </TicketsLi>
-                              </TicketsUL>
+                                        <TicketsSubDiv8>
+                                          <TicketsSubDiv9>
+                                            <TicketsFreeSpan>
+                                              Free
+                                            </TicketsFreeSpan>
+                                            <BuyTicketsButton>
+                                              <TicketsI>
+                                                <TicketsSvg>
+                                                  <TicketsFreePath
+                                                    fillRule="evenodd"
+                                                    clipRule="evenodd"
+                                                    d="M12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6zm0 14c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8z"
+                                                  ></TicketsFreePath>
+                                                  <TicketsFreePath
+                                                    fillRule="evenodd"
+                                                    clipRule="evenodd"
+                                                    d="M11 8h2v2h-2z"
+                                                  ></TicketsFreePath>
+                                                  <TicketsFreePath
+                                                    fillRule="evenodd"
+                                                    clipRule="evenodd"
+                                                    d="M11 11h2v5h-2z"
+                                                  ></TicketsFreePath>
+                                                </TicketsSvg>
+                                              </TicketsI>
+                                            </BuyTicketsButton>
+                                          </TicketsSubDiv9>
+                                        </TicketsSubDiv8>
+                                      </TicketsSubDiv2>
+                                    </TicketsSubDiv1>
+                                  </TicketsLi>
+                                </TicketsUL>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </TicketsForm>
-                      <TicketsButton>Reserve a spot</TicketsButton>
-                    </TicketsSection>
-                  </TicketsDiv>
-                  <input type='hidden' />
-                </WholeTicketsDiv>}
-                
-                {!eventData.isEventFree && !eventData.isEventCapacityFull &&
-                <PricedTickets>
-                  <PricedTicketsPriceDiv>
-                  <PricedTicketsPrice>
-                     From $0 - ${eventData.filteredEvents.ticketTiers.price} 
-                  </PricedTicketsPrice>
-                  </PricedTicketsPriceDiv>
-                  <PricedTicketsButtonDiv>
-                    <TicketsButton>Get Tickets</TicketsButton>
-                  </PricedTicketsButtonDiv>
-                </PricedTickets>}
-                {eventData.isEventCapacityFull && 
-                <SoldOutTickets>
-                  <PricedTicketsPriceDiv>
-                  <PricedTicketsPrice>
-                    No Tickets Available
-                  </PricedTicketsPrice>
-                  </PricedTicketsPriceDiv>
-                </SoldOutTickets>}
+                        </TicketsForm>
+                        <TicketsButton>Reserve a spot</TicketsButton>
+                      </TicketsSection>
+                    </TicketsDiv>
+                    <input type="hidden" />
+                  </WholeTicketsDiv>
+                )}
+
+                {!eventData.isEventFree && !eventData.isEventCapacityFull && (
+                  <PricedTickets>
+                    <PricedTicketsPriceDiv>
+                      <PricedTicketsPrice>
+                        From $0 - ${eventData.filteredEvents.ticketTiers.price}
+                      </PricedTicketsPrice>
+                    </PricedTicketsPriceDiv>
+                    <PricedTicketsButtonDiv>
+                      <TicketsButton>Get Tickets</TicketsButton>
+                    </PricedTicketsButtonDiv>
+                  </PricedTickets>
+                )}
+                {eventData.isEventCapacityFull && (
+                  <SoldOutTickets>
+                    <PricedTicketsPriceDiv>
+                      <PricedTicketsPrice>
+                        No Tickets Available
+                      </PricedTicketsPrice>
+                    </PricedTicketsPriceDiv>
+                  </SoldOutTickets>
+                )}
               </ReserveDiv>
             </DetailsDiv>
           </FirstHalfPageDiv2>
