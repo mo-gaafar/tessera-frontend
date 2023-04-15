@@ -12,6 +12,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
+import CheckoutForm from './components/CheckoutForm';
 
 /**
  * Function component that renders the main application
@@ -29,6 +30,7 @@ function App() {
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
         <Route path="login" element={<Maincontainer />} />
+        <Route path="checkout" element={<CheckoutForm />} />
       </Routes>
     </>
   );
