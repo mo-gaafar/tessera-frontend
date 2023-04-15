@@ -28,7 +28,7 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<EventPageOrganizer />} />
+        <Route path="/" element={<Events />} />
         {/* <Route path="/" element={<Events />} /> */}
         {/* <Route path="/" element={<Landing />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
