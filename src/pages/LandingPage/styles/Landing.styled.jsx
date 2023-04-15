@@ -1,12 +1,70 @@
 import styled from 'styled-components';
 
 export const StyledLandingEvents = styled.section`
+  input {
+    color: #3659e3;
+    border: none;
+    outline: none;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    line-height: 40px;
+    border-bottom: 2px solid #eeedf2;
+    :focus {
+      color: #6f7287;
+    }
+    :active {
+      color: #6f7287;
+    }
+    ::placeholder {
+      color: #3659e3;
+    }
+  }
+  .location__dropdown {
+    top: 3.5rem;
+    left: 15rem;
+    color: #39364f;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    font-size: 1.4rem;
+    font-weight: 400;
+    z-index: 5;
+    box-shadow: 0 1px 17px 0 rgba(40, 44, 53, 0.1),
+      0 2px 4px 0 rgba(40, 44, 53, 0.1);
+    border-bottom: 1px solid #eeedf2;
+    padding-bottom: 0;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      height: 5rem;
+      padding-left: 1rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      width: 40rem;
+      :hover {
+        background-color: #f8f7fa;
+      }
+      svg {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+  }
+
   padding-inline: 5vw;
   h3 {
+    position: relative;
+    margin-top: 2rem;
     font-size: 3rem;
+    display: flex;
+    align-items: center;
+    z-index: 5;
     svg {
-      width: 3rem;
-      height: 3rem;
+      width: 4rem;
+      height: 4rem;
       fill: var(--clr-blue);
     }
     span {
@@ -169,7 +227,7 @@ export const StyledLandingEvents = styled.section`
 
 export const StyledEventsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
   .error-img {
@@ -189,13 +247,21 @@ export const StyledEventsContainer = styled.div`
     box-shadow: 0 16px 64px -16px rgba(46, 55, 77, 0.1);
     padding-bottom: 2rem;
     margin-top: 2rem;
-
+    @media (min-width: 70em) {
+      max-width: 30rem;
+    }
     & > * {
       padding-inline: 2rem;
     }
-    img {
+    img:first-child {
       padding-inline: 0rem;
-      max-height: 14rem;
+      max-height: 21rem;
+      @media (min-width: 70em) {
+        max-height: 14rem;
+      }
+    }
+    .followers {
+      justify-self: flex-end;
     }
     h5 {
       font-size: 2rem;

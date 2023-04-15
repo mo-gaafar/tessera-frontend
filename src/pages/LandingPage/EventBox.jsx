@@ -16,16 +16,31 @@ Renders a box containing information about an event
 @param {number} props.followers - The number of followers for the event
 @return {JSX.Element} A React component representing the event box
 */
+import { useNavigate } from 'react-router-dom';
 export default function EventBox(props) {
+  const navigate = useNavigate();
+
   return (
-    <div className="event__box">
-      <img src={props.image} alt="event image" />
-      <h5 data-testid="img">{props.eventTitle}</h5>
-      <h6>{props.date}</h6>
-      <p>{props.description}</p>
-      {props.isFree && <p className="free">Free</p>}
-      <span>{props.organizer}</span>
-      <span>{props.followers}</span>
+    <div
+      onClick={() => {
+        navigate(`/${props.id}`);
+      }}
+      className="event__box"
+    >
+      <img src={props.image} alt="event image" className="imageBlock" />
+      <div className="cardTextInfo">
+        <h5 data-testid="img">{props.eventTitle}</h5>
+        <h6>{props.date}</h6>
+        <p>{props.description}</p>
+        <p>{props.price}</p>
+        {props.isFree && <p className="free">Free</p>}
+
+        <span>{props.organizer}</span>
+        <span className="followers">
+          <img src="/images/follower.png" alt="follower img" />
+          {props.followers}
+        </span>
+      </div>
     </div>
   );
 }

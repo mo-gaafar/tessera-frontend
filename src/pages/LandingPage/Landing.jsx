@@ -10,20 +10,31 @@
  * @description This file contains the Landing page components and its logic
  */
 import DateRangePicker from 'tw-daterange';
-import 'react-dater/dist/index.css';
+
 import { useRef } from 'react';
 
 import { useEffect, useState } from 'react';
 import { StyledLandingEvents } from './styles/Landing.styled';
 import { StyledEventsContainer } from './styles/Landing.styled';
-import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import {
+  Link,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 
 import logo from '../../assets/icon-down.png';
 import cross from '../../assets/x-10327.png';
 import error from '../../assets/noevent-error.png';
 import EventBox from './EventBox';
 import Navbar from './nav2';
-
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from 'use-places-autocomplete';
 /**
  * A functional component that handles the landing page and event filtering.
  *
@@ -31,8 +42,20 @@ import Navbar from './nav2';
  */
 
 export default function Landing() {
-  const [city, setCity] = useState('');
+  /**
+   * google maps Autocomplete
+   *
+   */
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI',
+    libraries: ['places'],
+  });
+
+  const [cityData, setCity] = useState({});
   const ref = useRef(null);
+  const reference = useRef(null);
+  const refDrop = useRef(null);
 
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
@@ -50,6 +73,38 @@ export default function Landing() {
   const [select, setSelect] = useState('');
   const [selectCategory, setSelectCategory] = useState('');
   const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    // add event listener to the document
+    document.addEventListener('mousedown', handleClickMenuOutside);
+    return () => {
+      // remove event listener when component unmounts
+      document.removeEventListener('mousedown', handleClickMenuOutside);
+    };
+  }, []);
+
+  const handleClickMenuOutside = event => {
+    if (refDrop.current && !refDrop.current.contains(event.target)) {
+      // if clicked outside of the ref div, hide the element
+      setShowMenu(false);
+    }
+  };
+
+  useEffect(() => {
+    // add event listener to the document
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      // remove event listener when component unmounts
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = event => {
+    if (reference.current && !reference.current.contains(event.target)) {
+      // if clicked outside of the ref div, hide the element
+      setShowCategoryMenu(false);
+    }
+  };
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -60,7 +115,7 @@ export default function Landing() {
     const { name, value } = e.target;
     if (name === 'calender') {
       setShowCalender(true);
-      setShowMenu(false);
+      //setShowMenu(false);
     } else {
       setShowMenu(false);
       setSelect(name);
@@ -85,21 +140,10 @@ export default function Landing() {
     const { name, value } = e.target;
     setShowCategoryMenu(false);
     setSelectCategory(name);
-    if (name === 'School Activities') {
-      setUrl('category=School Activities');
-    }
-    if (name === 'Health') {
-      setUrl('category=Health & wellness');
-    }
-    if (name === 'Business') {
-      setUrl('category=Business & Profession');
-    }
-    if (name === 'Travel') {
-      setUrl('category=Travel & Outdoor');
-    }
-    if (name === 'Sports') {
-      setUrl('category=Sports & Fitness');
-    }
+    let new_name = name.replace(/&/g, '%26');
+    let queryName = 'category=' + new_name;
+    setUrl(queryName);
+    //handleClick()
   }
   function showDropdown() {
     if (!select) {
@@ -140,10 +184,25 @@ export default function Landing() {
       );
 
       const json = await data.json();
+      let country, city;
+
+      json.results[0].address_components.forEach(component => {
+        if (component.types.includes('locality')) {
+          city = component.long_name;
+        }
+        if (component.types.includes('country')) {
+          country = component.long_name;
+        }
+      });
       const cityName =
         json.results[0].address_components[4].long_name.split(' ')[0];
-      setCity(cityName);
+      setCity({
+        city: cityName,
+        country: country,
+      });
     };
+
+    setUrl(`city=${cityData.city}&country=${cityData.country}`);
 
     navigator.geolocation?.getCurrentPosition(poistion => {
       const { latitude, longitude } = poistion.coords;
@@ -154,7 +213,7 @@ export default function Landing() {
 
   function handleForYou() {
     setForYouElement(true);
-    setShowCategoryMenu(false);
+    //setShowCategoryMenu(false);
     setFocused(prevFocus => {
       return {
         forYou: true,
@@ -175,7 +234,7 @@ export default function Landing() {
     });
     setShowMenu(false);
     if (!focused.All) {
-      setShowCategoryMenu(false);
+      //setShowCategoryMenu(false);
     }
     if (name === 'All') {
       setUrl('');
@@ -197,10 +256,13 @@ export default function Landing() {
       setUrl('category=Music');
     }
     if (name === 'food') {
-      setUrl('category=Food & Drink');
+      setUrl('category=Food %26 Drink');
     }
     if (name === 'charity') {
-      setUrl('category=Charity & Causes');
+      setUrl('category=Charity %26 Causes');
+    }
+    if (name === 'free') {
+      setUrl('freeEvent=Free');
     }
   }
 
@@ -245,6 +307,7 @@ export default function Landing() {
     'Dec',
   ];
   const [allFilteredEvents, setAllFilteredEvents] = useState([]);
+  const [allCatEvents, setAllCatEvents] = useState([]);
   const [noEvents, setNoEventsImg] = useState(false);
 
   /**
@@ -265,6 +328,17 @@ export default function Landing() {
     }
     getData();
   }, [url]);
+
+  useEffect(() => {
+    async function getData() {
+      const res = await fetch(
+        'https://www.tessera.social/api/attendee/Eventsby/?'
+      );
+      const data = await res.json();
+      setAllCatEvents(data.categoriesRetreived);
+    }
+    getData();
+  }, []);
 
   /**
    * Changes the Isodate to display date format.
@@ -292,13 +366,34 @@ export default function Landing() {
     }`;
   };
 
+  const minPrice = (p, q) => {
+    if (p > q) {
+      return q;
+    } else {
+      return p;
+    }
+  };
+
   const [eventElements, setEventElement] = useState();
+  const [catElements, setCatElement] = useState();
+  /**
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that updates the events displayed according to query
+   * @param {function} setEventElement
+   * @returns {JSX.Element} An object representing the eventbox
+   */
   useEffect(() => {
-    if (allFilteredEvents?.length === 0) {
+    if (allFilteredEvents.length === 0) {
       setNoEventsImg(true);
     } else {
       setNoEventsImg(false);
     }
+
+    const handleEventPage = id => {
+      console.log('first');
+    };
+
     setEventElement(
       allFilteredEvents.map(event => (
         <EventBox
@@ -307,56 +402,86 @@ export default function Landing() {
           image={
             event.basicInfo.eventImage !== 'https://example.com/image.jpg'
               ? event.basicInfo.eventImage
-              : '/images/event__4.avif'
+              : '/images/event__5.avif'
           }
           eventTitle={event.basicInfo.eventName}
           date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
           description={
             event.basicInfo.location.venueName +
             ' • ' +
-            event.basicInfo.location.city
+            event.basicInfo.location.city +
+            ' '
           }
-          isFree={event.isPublic}
-          organizer={event.eventStatus}
-          followers={event.soldTickets?.length}
+          price={
+            event.ticketTiers[0].price !== 'Free'
+              ? `Starts at ${minPrice(
+                  event.ticketTiers[0].price,
+                  event.ticketTiers[1].price
+                )}`
+              : ''
+          }
+          isFree={event.ticketTiers[0].price === 'Free'}
+          organizer={
+            event.creatorId
+              ? event.creatorId.firstName + ' ' + event.creatorId.lastName
+              : ''
+          }
+          followers={event.ticketTiers.length}
         />
       ))
     );
   }, [allFilteredEvents]);
 
+  /**
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that updates the categories displayed in deropdown list
+   * @param {function} setEventElement
+   * @returns {JSX.Element} An object representing the dropdown elements
+   */
+
+  useEffect(() => {
+    setCatElement(
+      allCatEvents.map(cat => (
+        <div>
+          <button name={cat} className="drop-button" onClick={onClickCategory}>
+            {cat}
+          </button>
+        </div>
+      ))
+    );
+  }, [allCatEvents]);
+
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  console.log(url);
-  console.log(allFilteredEvents);
-
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
-  // console.log(email);
+
+  const [selected, setSelected] = useState(null);
+
+  const [showLocationMenu, setShowLocationMenu] = useState(false);
+  const locationDropDownToggle = e => {
+    const h3 = e.target.closest('h3');
+
+    !h3 && setShowLocationMenu(false);
+  };
   return (
     <>
-      <Navbar />
-      <StyledLandingEvents>
-        <h3>
-          Popular in
-          <svg
-            id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_svg"
-            x="0"
-            y="0"
-            viewBox="0 0 24 24"
-            xmlSpace="preserve"
-          >
-            <path
-              id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_base"
-              fill="evenodd"
-              clip="evenodd"
-              d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z"
-            ></path>
-          </svg>
-          <span>{city}</span>
-        </h3>
+      <Navbar onClick={locationDropDownToggle} />
+      <StyledLandingEvents onClick={locationDropDownToggle}>
+        {isLoaded && (
+          <PlacesAutocomplete
+            setCity={setCity}
+            cityData={cityData}
+            setSelected={setSelected}
+            showLocationMenu={showLocationMenu}
+            setShowLocationMenu={setShowLocationMenu}
+            setURL={setUrl}
+          />
+        )}
 
         <div className="filter__nav">
           <nav className="">
@@ -534,8 +659,8 @@ export default function Landing() {
           </nav>
 
           {focused.All && (
-            <div className="date-dropdown" onClick={showDropdownCategory}>
-              <div className="you--options" data-testid="forYou">
+            <div className="date-dropdown">
+              <div className="you--options" onClick={showDropdownCategory}>
                 {selectCategory ? (
                   <span>
                     {selectCategory}
@@ -551,62 +676,24 @@ export default function Landing() {
                 )}
               </div>
               {showCategoryMenu && (
-                <div id="myDropdown" className="dropdown-content">
-                  <ul>
-                    <div>
-                      <button
-                        name="School Activities"
-                        className="drop-button"
-                        onClick={onClickCategory}
-                      >
-                        School Activities
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        name="Health"
-                        className="drop-button"
-                        onClick={onClickCategory}
-                      >
-                        Health & Wellness
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        name="Travel"
-                        className="drop-button"
-                        onClick={onClickCategory}
-                      >
-                        Travel & Outdoor
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        onClick={onClickCategory}
-                        name="Business"
-                        className="drop-button"
-                      >
-                        Business & Profession
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        name="Sports"
-                        onClick={onClickCategory}
-                        className="drop-button"
-                      >
-                        Sports & Fitness
-                      </button>
-                    </div>
-                  </ul>
+                <div
+                  id="myDropdown"
+                  ref={reference}
+                  className="dropdown-content"
+                >
+                  <ul>{catElements}</ul>
                 </div>
               )}
             </div>
           )}
 
           {forYouElement && (
-            <div className="date-dropdown" onClick={showDropdown}>
-              <div className="you--options" data-testid="forYou">
+            <div className="date-dropdown">
+              <div
+                className="you--options"
+                data-testid="forYou"
+                onClick={showDropdown}
+              >
                 {showDateRange ? (
                   <span>
                     {monthNames[range.startDate.getMonth()] +
@@ -635,7 +722,7 @@ export default function Landing() {
                 )}
               </div>
               {showMenu && (
-                <div id="myDropdown" className="dropdown-content">
+                <div id="myDropdown" className="dropdown-content" ref={refDrop}>
                   <ul>
                     <div>
                       <button
@@ -693,7 +780,7 @@ export default function Landing() {
             </div>
           )}
 
-          <h4>Events in {city}</h4>
+          <h4>Events in {cityData.city}</h4>
           <StyledEventsContainer
             ref={ref}
             img="../../src/assets/svgviewer-output.svg"
@@ -710,3 +797,155 @@ export default function Landing() {
     </>
   );
 }
+const PlacesAutocomplete = ({
+  setSelected,
+  cityData,
+  setCity,
+  showLocationMenu,
+  setShowLocationMenu,
+  setURL,
+}) => {
+  const {
+    ready,
+    value,
+    setValue,
+    suggestions: { status, data },
+    clearSuggestions,
+  } = usePlacesAutocomplete();
+  const [hideDefault, setHideDefault] = useState(false);
+  const handleSelect = async e => {
+    const address = e.target.innerText;
+    setValue(address, false);
+    clearSuggestions();
+
+    const results = await getGeocode({ address });
+    const { lat, lng } = getLatLng(results[0]);
+    console.log(results, lat, lng);
+
+    const data = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
+    );
+
+    const json = await data.json();
+    const cities = json.results;
+
+    let country, city;
+
+    for (let i = 0; i < cities.length; i++) {
+      const addressComponents = cities[i].address_components;
+      for (let j = 0; j < addressComponents.length; j++) {
+        const types = addressComponents[j].types;
+        if (types.indexOf('locality') !== -1) {
+          city = addressComponents[j].long_name;
+        }
+        if (types.indexOf('country') !== -1) {
+          country = addressComponents[j].long_name;
+        }
+      }
+    }
+
+    setCity({
+      city: city,
+      country: country,
+    });
+    console.log(city, country);
+    setURL(`city=${city}&country=${country}`);
+  };
+
+  function handleClick() {
+    setShowLocationMenu(true);
+  }
+
+  return (
+    <>
+      <h3>
+        Popular in
+        <svg
+          id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_svg"
+          x="0"
+          y="0"
+          viewBox="0 0 24 24"
+          xmlSpace="preserve"
+        >
+          <path
+            id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_base"
+            fill="evenodd"
+            clip="evenodd"
+            d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z"
+          ></path>
+        </svg>
+        <input
+          onClick={handleClick}
+          type="text"
+          value={value}
+          placeholder={cityData.city}
+          onChange={e => {
+            setHideDefault(true);
+            setValue(e.target.value);
+          }}
+          disabled={!ready}
+        />
+        {showLocationMenu && (
+          <ul className="location__dropdown">
+            {!hideDefault && (
+              <div className="">
+                <li className="current__location">
+                  <svg viewBox="0 0 24 24">
+                    <g
+                      id="crosshair_svg__Crosshair"
+                      stroke="none"
+                      strokeWidth="1"
+                      fill="blue"
+                      fillRule="evenodd"
+                    >
+                      <path
+                        d="M11 18.93A7.005 7.005 0 015.07 13H3v-2h2.07A7.005 7.005 0 0111 5.07V3h2v2.07A7.005 7.005 0 0118.93 11H21v2h-2.07A7.005 7.005 0 0113 18.93V21h-2v-2.07zM12 17a5 5 0 100-10 5 5 0 000 10zm0-3a2 2 0 110-4 2 2 0 010 4z"
+                        id="crosshair_svg__crosshair"
+                        fill="#blue"
+                      ></path>
+                    </g>
+                  </svg>
+                  Use My Current Location
+                </li>
+                <li className="online__location">
+                  <svg
+                    id="video-chunky_svg__eds-icon--video-chunky_svg"
+                    x="0"
+                    y="0"
+                    viewBox="0 0 24 24"
+                    xmlSpace="preserve"
+                  >
+                    <g id="video-chunky_svg__eds-icon--video-chunky_base">
+                      <path
+                        d="M19 4v1H5V4H3v16h2v-1h14v1h2V4h-2zm0 13H5V7h14v10z"
+                        fill="blue"
+                      ></path>
+                    </g>
+                    <path
+                      id="video-chunky_svg__eds-icon--video-chunky_play"
+                      d="M10 15l5-3-5-3z"
+                      fill="blue"
+                    ></path>
+                  </svg>
+                  Browse Online Events
+                </li>
+              </div>
+            )}
+
+            {status === 'OK' &&
+              data.map(data => {
+                {
+                  /* console.log(data); */
+                }
+                return (
+                  <li onClick={handleSelect} key={data.place_id}>
+                    {data.description}
+                  </li>
+                );
+              })}
+          </ul>
+        )}
+      </h3>
+    </>
+  );
+};

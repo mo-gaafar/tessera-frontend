@@ -16,6 +16,7 @@ import bullet from '../../assets/bullet-list.png';
 import noEvent from '../../assets/noEvents.png';
 import checkmark from '../../assets/checkmark.png';
 import search from  '../../assets/search.png';
+import { useRef } from 'react';
 
 /**
  * A functional component that handles the Organization event page.
@@ -26,7 +27,8 @@ import search from  '../../assets/search.png';
 export default function Organize() {
   const [showMenu,setShowMenu] = useState(false);
   const [doneSelect,setDone] = useState(false);
-  const [select,setSelect] = useState("All events")
+  const [select,setSelect] = useState("All events");
+  const reference = useRef(null)
 
   function displayMenu(){
     if (!doneSelect)
@@ -35,6 +37,21 @@ export default function Organize() {
       setDone(false)
     }
   }
+  useEffect(() => {
+    // add event listener to the document
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // remove event listener when component unmounts
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (reference.current && !reference.current.contains(event.target)) {
+      // if clicked outside of the ref div, hide the element
+      setShowMenu(false);
+    }
+  };
 
   /**
    * Updates the dropdown menu and handles the category selected.
@@ -91,7 +108,9 @@ export default function Organize() {
                   <img src={logoDown}/>
 
                   {showMenu &&
-                <div id="myDropdown" className="dropdown-content">
+                <div id="myDropdown" 
+                className="dropdown-content"
+                ref={reference}>
                   <ul>
                     <div>
                     <button 
