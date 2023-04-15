@@ -1,3 +1,7 @@
+coverage/*
+coverage/
+coverage
+
 # Logs
 logs
 *.log
