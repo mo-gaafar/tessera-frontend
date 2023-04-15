@@ -1,12 +1,37 @@
 import { useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import {AboutTheOrganizer,MoreEventsOrganizer} from './styles/EventOrganizer.styled';
+import {AboutTheOrganizer,MoreEventsOrganizer,OtherEventsYouMayLike} from './styles/EventOrganizer.styled';
 import MoreEvents from './Eventbox'
+
+import {eventsListScroll} from "./EventsList";
+import EventBox from '../LandingPage/EventBox';
 
 
 
 export default function EventPageOrganizer() {
 
+
+    const [data, setData] = useState([...eventsListScroll]); // Your array of values
+    const [currentIndex, setCurrentIndex] = useState(0); // Current index in the array
+
+    const handleForward = () => {
+        if (currentIndex < data.length - 3) {
+          setCurrentIndex(currentIndex + 3);
+        } else {
+          setCurrentIndex(data.length - (data.length % 3));
+        }
+      };
+
+
+      const handleBackward = () => {
+        if (currentIndex >= 3) {
+          setCurrentIndex(currentIndex - 3);
+        } else {
+          setCurrentIndex(0);
+        }
+      };
+
+   
 
 
     return(
@@ -91,14 +116,61 @@ export default function EventPageOrganizer() {
               imageSrc="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;auto=format%2Ccompress&amp;q=75&amp;sharp=10&amp;rect=1%2C372%2C8000%2C4000&amp;s=34c811696b0d73045e71f74e745b37ba"
             />
 
-            
-
         </MoreEventsOrganizer>
         
-         
+
+        <OtherEventsYouMayLike>
+
+        <div className='otherEventsDiv'>
+
+        <div className='titleAndButtons'>
+
+            <div className='title'><h2>Other events you may like</h2></div>
+
+            <div className='buttonsDiv'>
+                <span class='backButtonSpan'>
+                    <button onClick={handleBackward} disabled={currentIndex === 0} className='backbutton'>
+                        <svg class="backSvg" >
+                            <path class="arrow-left-chunky_svg__eds-icon--arrow-left-chunky_base" fill-rule="evenodd" clip-rule="evenodd" d="M4 12l8 8 1.5-1.5L8 13h12v-2H8l5.5-5.5L12 4z">
+                            </path>
+                        </svg>
+                    </button>
+                </span>
+
+                <span class='forwardButtonSpan'>
+                    <button button onClick={handleForward} disabled={currentIndex >= data.length - 3} className='forwardbutton'>
+                        <svg class="forwardSvg" >
+                            <path class="arrow-right-chunky_svg__eds-icon--arrow-right-chunky_base" fill-rule="evenodd" clip-rule="evenodd" d="M10.5 5.5L16 11H4v2h12l-5.5 5.5L12 20l8-8-8-8z">
+                            </path>
+                        </svg>
+                    </button>
+                </span>
+
+            </div>
+        </div>
+        <div className="allEventsDiv">
+        {data
+          .slice(currentIndex, currentIndex + 3)
+          .map((item, index) => (
+            // <div key={index}>{value}</div>
+            <EventBox className='eventCard'
+                        key={index}
+                        image={item.image}
+                        eventTitle={item.eventTitle}
+                        date={item.date}
+                        description={item.description}
+                        organizer={item.organizer}
+                        followers={item.followers}
+                    />
+          ))}
+      </div>
+
+      </div>
+
+
+        </OtherEventsYouMayLike>
             
         </>
     );
 }
-
 

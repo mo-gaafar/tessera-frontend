@@ -19,16 +19,18 @@ Renders a box containing information about an event
 export default function EventBox(props) {
   return (
     <div className="event__box">
-      <img src={props.image} alt="event image" />
+      <img src={props.image} alt="event image" className="imageBlock" />
+      <div className="cardTextInfo">
       <h5 data-testid="img">{props.eventTitle}</h5>
       <h6>{props.date}</h6>
       <p>{props.description}</p>
       {props.isFree && <p className="free">Free</p>}
-      <span>{props.organizer}</span>
+      <span >{props.organizer}</span>
       <span>
         <img src="../../src/assets/follower.png" alt="follower img" />
         {props.followers}
       </span>
+      </div>
     </div>
   );
 }
