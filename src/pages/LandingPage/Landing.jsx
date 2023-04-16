@@ -480,9 +480,9 @@ export default function Landing() {
     <>
       <StyledNav>
         {email && email !== 'undefined' ? (
-          <NavbarLoggedIn email={email} />
+          <NavbarLoggedIn show={true} email={email} />
         ) : (
-          <Navbar onClick={locationDropDownToggle} />
+          <Navbar onClick={locationDropDownToggle} show={true} />
         )}
       </StyledNav>
       <StyledLandingEvents onClick={locationDropDownToggle}>
