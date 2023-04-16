@@ -1064,7 +1064,7 @@ export const RightDetailsDiv = styled.div`
     width: 50rem;
     height: 50rem;
     position: relative;
-    z-index: 5;
+    
   }
 `;
 export const DetailsTitleDiv = styled.div`
