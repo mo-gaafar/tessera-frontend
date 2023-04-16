@@ -19,7 +19,6 @@ h2{
     margin: 3.2rem 0rem;
     padding: 4rem;
     height:34.425rem;
-    // box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, 0.3);
     box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.05);
     border-radius: 0.5rem; 
 }
@@ -51,6 +50,14 @@ h2{
     font-weight: 600;
     font-size: 2rem;
     line-height: 2.4rem;
+
+}
+
+.organizerLink:hover{
+
+    color: #3659e3;
+    text-decoration: underline;
+
 
 }
 
@@ -262,6 +269,11 @@ h2{
 
 }
 
+.eventContainer:hover{
+
+    box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
 .eventTextInfo{
     width:46.8rem;
     height:17.075rem;
@@ -275,7 +287,7 @@ h2{
     height:11rem;
 }
 
-.eventName{
+.eventName,.eventName a {
 
     width:45.225rem;
     height:4.5rem;
@@ -835,18 +847,32 @@ h2{
     background-color:white;
 
     
-    flex: 0 32%;
-    position: relative;
+    // flex: 0 32%;
+    // position: relative;
     border-radius: 0.4rem;
     width: 100%;
     margin:1rem;
 
-    display: flex;
-    // -webkit-box-flex: 1;
-    // flex: 1;
-    // flex-direction: column;
-    overflow: visible;
+
+   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
    
+
+}
+
+
+.event__box:hover{
+
+    box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, 0.2);
+
+}
+
+.imageBlockDiv{
+    width:34.559rem;
+    height:17.28rem;
+    position: absolute;
+    display: inline-block;
 
 }
 
@@ -862,6 +888,8 @@ h2{
     width:34.559rem;
     height:19.635rem;
     padding:2.4rem 1.6rem;
+    display: inline-block;
+
 }
 
 
