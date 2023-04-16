@@ -27,8 +27,8 @@ import Reservation from "./Ticket/TicketsDetails";
 // import { StyledEmail } from "../LogIn/Login/email/Email.styled";
 
 export default function BookingPopUp() {
-  const [MStart, setMStart] = useState(false);
-  const handleStart = () => setMStart(true);
+  const [MStart, setMStart] = useState(true);
+  //const handleStart = () => setMStart(true);
   const [Terminate, setTerminate] = useState(true);
   const [empty, setEmpty] = useState(true);
   const [dataTicket, setdataticket] = useState("");
@@ -42,14 +42,15 @@ export default function BookingPopUp() {
   const ReceiveData = (data) => {
     setdataticket(data);
   };
+  
 
   return (
     <BookingContainer>
-      <BookingetTickets>
+      {/* <BookingetTickets>
         <Button onClick={handleStart} className="lol">
           Get tickets
         </Button>
-      </BookingetTickets>
+      </BookingetTickets> */}
       <BookModal>
         <Modal
           open={MStart}

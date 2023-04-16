@@ -7,6 +7,7 @@ import { TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { styled } from "@mui/material/styles";
+import CheckoutForm from '../CheckoutForm'
 import {
   ContainerBox,
   TicketBody,
@@ -97,7 +98,7 @@ export default function Reservation(props) {
   // }
   const [eventData, setEventData] = React.useState({});
   const [eventExist, setEventExists] = React.useState(false);
-
+  const [showCheckout, setshowCheckout] = React.useState(false);
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -117,8 +118,16 @@ export default function Reservation(props) {
     fetchData();
   }, []);
 
+  function handleOnclick(){
+    setshowCheckout(true);
+  }
+  console.log(showCheckout)
   return (
-    tickets != false &&
+    <>
+    {showCheckout &&
+    <CheckoutForm/> 
+    }
+    {tickets != false &&
     eventExist && (
       <ContainerBox>
         {/* {ticketCredentials()} */}
@@ -264,12 +273,14 @@ export default function Reservation(props) {
           {" "}
           <div className="summarycontainer">50</div>
           <div className="checkoutbtndiv">
-            <button className="buttoncheckout" data-testid="CreateBtn">
+            <button onClick={handleOnclick} className="buttoncheckout" data-testid="CreateBtn">
               Check out
             </button>
           </div>
         </Checkout>
       </ContainerBox>
     )
+    }
+    </>
   );
 }
