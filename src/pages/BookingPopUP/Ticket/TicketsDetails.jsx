@@ -70,7 +70,6 @@ export default function Reservation(props) {
           inputpromo
       );
       const prom = await response.json();
-      console.log('check promom ' + prom.success);
       prom.success ? setPromocode(true) : setPromocode(false);
     } catch (error) {
       console.log(error);
@@ -82,7 +81,6 @@ export default function Reservation(props) {
     promocode ? setErrorMsg(false) : setErrorMsg(true);
   }
 
-  const [showCheckout, setshowCheckout] = React.useState(false);
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -109,36 +107,20 @@ export default function Reservation(props) {
           discountpercent: 0,
           discountamount: 0,
           discount: false,
+          ticketCount: 0,
         }));
       setTicketTierdetails(tempArray);
     };
     fetchData();
   }, []);
 
-  function incrementOrder(index) {
-    let tempArray = ticketsTierdetails;
-    if (tempArray[index].numberOfTicketsSold != tempArray[index].maxCapacity) {
-      tempArray[index].numberOfTicketsSold++;
-      setTicketTierdetails(tempArray);
-      console.log('increment ' + ticketsTierdetails[index].numberOfTicketsSold);
-    }
-  }
-  function decrementOrder(index) {
-    let tempArray = ticketsTierdetails;
-    if (tempArray[index].numberOfTicketsSold != 0) {
-      tempArray[index].numberOfTicketsSold--;
-      setTicketTierdetails(tempArray);
-      console.log('decrement ' + ticketsTierdetails[index].numberOfTicketsSold);
-    }
-  }
   // console.log("tickecyt details " + tempArray[0].tierName);
   function handleOnclick() {
     setshowCheckout(true);
   }
-  console.log(showCheckout);
+  // console.log(showCheckout);
   return (
     <>
-      {showCheckout && <CheckoutForm />}
       {tickets != false && eventExist && (
         <ContainerBox>
           {/* {ticketCredentials()} */}
@@ -171,14 +153,14 @@ export default function Reservation(props) {
                       {promocode && <CheckCircleIcon color="success" />}
                       {!inputValue ? (
                         <Apply
-                          onClick={sendPromo(inputValue)}
+                          // onClick={sendPromo(inputValue)}
                           disabled={!promocode ? !inputValue : false}
                         >
                           {!promocode ? 'Apply' : 'Remove'}
                         </Apply>
                       ) : (
                         <Applyfocus
-                          onClick={sendPromo(inputValue)}
+                          // onClick={sendPromo(inputValue)}
                           disabled={!promocode ? !inputValue : false}
                         >
                           {console.log(inputValue)}
@@ -193,13 +175,20 @@ export default function Reservation(props) {
               />
             </PromoCode>
             {ticketsTierdetails.map((element, index) => {
-              return <TierBox element={element} />;
+              return (
+                <TierBox
+                  element={element}
+                  index={index}
+                  setTicketTierdetails={setTicketTierdetails}
+                  ticketsTierdetails={ticketsTierdetails}
+                />
+              );
             })}
             <TicketEnd>
               <div>
                 Powered by
                 <a href="">
-                  <img src="" alt="" />
+                  <img alt="" />
                 </a>
               </div>
             </TicketEnd>

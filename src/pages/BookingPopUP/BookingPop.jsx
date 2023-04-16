@@ -1,23 +1,23 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import classes from "./Styles/Bookingpopup.module.css";
-import { BookingContainer } from "./Styles/BookingMain.styled";
-import { BookingetTickets } from "./Styles/BookingMain.styled";
-import { BookModal } from "./Styles/BookingMain.styled";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import classes from './Styles/Bookingpopup.module.css';
+import { BookingContainer } from './Styles/BookingMain.styled';
+import { BookingetTickets } from './Styles/BookingMain.styled';
+import { BookModal } from './Styles/BookingMain.styled';
 import {
   BoxContainer,
   Order,
   OrderTicket,
   OrderTitle,
-} from "./Styles/BookingMain.styled";
+} from './Styles/BookingMain.styled';
 // import { Information } from "./Styles/BookingMain.styled";
-import { Ticket, Information } from "./Styles/BookingMain.styled";
-import Reservation from "./Ticket/TicketsDetails";
+import { Ticket, Information } from './Styles/BookingMain.styled';
+import Reservation from './Ticket/TicketsDetails';
 // import {
 //   TicketEnd,
 //   TicketHead,
@@ -31,7 +31,8 @@ export default function BookingPopUp() {
   //const handleStart = () => setMStart(true);
   const [Terminate, setTerminate] = useState(true);
   const [empty, setEmpty] = useState(true);
-  const [dataTicket, setdataticket] = useState("");
+  const [dataTicket, setdataticket] = useState('');
+  const [showCheckout, setshowCheckout] = React.useState(false);
 
   const FormClose = () => {
     setTerminate(false);
@@ -39,10 +40,9 @@ export default function BookingPopUp() {
     setTerminate(true);
   };
 
-  const ReceiveData = (data) => {
+  const ReceiveData = data => {
     setdataticket(data);
   };
-  
 
   return (
     <BookingContainer>
@@ -61,7 +61,7 @@ export default function BookingPopUp() {
           <Box className={classes.Box}>
             {Terminate ? (
               <>
-                {" "}
+                {' '}
                 <Button onClick={() => FormClose()} className={classes.MClose}>
                   <CloseIcon />
                 </Button>
@@ -70,11 +70,15 @@ export default function BookingPopUp() {
 
             <BoxContainer>
               <Ticket>
-                <Reservation liftStateUP={ReceiveData} />
+                <Reservation
+                  showCheckout={showCheckout}
+                  setshowCheckout={setshowCheckout}
+                  liftStateUP={ReceiveData}
+                />
               </Ticket>
               <Information>
                 <div className="eventimage">
-                  <img src={dataTicket} alt="" />
+                  <img src="/images/event__5.avif" />
                 </div>
                 {!empty && (
                   <div className="NoOrder">

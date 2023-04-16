@@ -31,6 +31,7 @@ const StyleDiv = styled.div`
 
   .inputForm {
     width: 70%;
+    overflow-y: scroll;
     @media (max-width: 960px) {
       width: 100%;
     }
