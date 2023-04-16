@@ -27,7 +27,6 @@ export const PwdProgress = styled.progress`
 `;
 export const PasswordShowButton = styled.a`
   border: none;
-  height: 5rem;
   padding: 0rem;
   width: 5rem;
   cursor: pointer;

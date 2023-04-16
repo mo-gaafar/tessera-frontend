@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledSignup = styled.div`
   width: 100%;
-  padding-left:2.5rem;
+  padding-left: 2.5rem;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -139,7 +139,6 @@ export const StyledEditButton = styled.button`
   cursor: pointer;
 `;
 export const StyledInputDiv = styled.div`
-  overflow: hidden;
   pointer-events: none;
   position: absolute;
   color: gray;

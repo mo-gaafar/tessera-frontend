@@ -1,11 +1,26 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DropSt = styled.div`
   margin: 10px 70px;
   height: 100px;
   background-color: white;
   width: 200px;
-
+  #facebook {
+    height: 4.8rem;
+    width: 4.8rem;
+    border-radius: 24px;
+    background-image: url('/images/Facebook-logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1877f2;
+    border: none;
+    margin-top: 3rem;
+    margin-left: 3rem;
+    :hover {
+      cursor: pointer;
+    }
+  }
   button {
     width: 200px;
     font-size: 16px;
