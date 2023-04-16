@@ -1,11 +1,17 @@
 import { useState } from 'react';
 export default function NavbarLoggedIn(props) {
-  const [menu,setMenu] = useState(false);
+  const [menu, setMenu] = useState(false);
   const handleMouseOver = () => {
     setMenu(true);
   };
   const handleMouseOut = () => {
     setMenu(false);
+  };
+
+  const handleClick = () => {
+    localStorage.removeItem('authEmail');
+    localStorage.removeItem('email');
+    window.location.reload();
   };
   return (
     <>
@@ -30,9 +36,7 @@ export default function NavbarLoggedIn(props) {
             </svg>
             Create an Event
           </li>
-          <li 
-          onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseOut} >
+          <li onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             <span>
               <svg
                 className="user__svg"
@@ -77,15 +81,14 @@ export default function NavbarLoggedIn(props) {
               ></path>
             </svg>
 
-            
-            <div className="menu" 
-              >
-              {menu &&   
-              <ul>
-                <li>Browse Events</li>
-                <li>Manage my Events</li>
-                <li>Log out</li>
-              </ul>}
+            <div className="menu">
+              {menu && (
+                <ul>
+                  <li>Browse Events</li>
+                  <li>Manage my Events</li>
+                  <li onClick={handleClick}>Log out</li>
+                </ul>
+              )}
             </div>
           </li>
         </ul>

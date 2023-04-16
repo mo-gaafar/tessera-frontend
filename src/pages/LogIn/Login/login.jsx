@@ -15,12 +15,12 @@ import {
   GoogleButton,
   Googlelogo,
 } from '../../SignUp/styles/SignUpEmail.styled';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 export default function Login() {
   const [user, setUser] = useState([]);
-
+  const navigate = useNavigate();
   const google = useGoogleLogin({
     onSuccess: codeResponse => setUser(codeResponse),
     onError: error => console.log('Login Failed:', error),
@@ -61,6 +61,7 @@ export default function Login() {
       );
       localStorage.setItem('authEmail', email);
       const data = await postData.json();
+
       if (data.success) {
         navigate('/');
       }
