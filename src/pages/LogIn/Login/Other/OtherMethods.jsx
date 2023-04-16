@@ -40,6 +40,8 @@ export default function Other() {
 
     localStorage.setItem('authEmail', email);
 
+    console.log(responseData);
+
     if (responseData.success) {
       navigate('/');
     }
