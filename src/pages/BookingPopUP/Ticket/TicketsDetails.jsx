@@ -28,9 +28,9 @@ export default function Reservation(props) {
   // let { _id } = useParams();
 
   const [tickets, setTickets] = useState(true);
-  const [ticketsAmount, setTicketsAmount] = useState([]);
+  const [eventInfo, seEventInfo] = useState([]);
   const [promocode, setPromocode] = useState(false);
-  const [max, setMax] = useState(true);
+  const [max, setMax] = useState(false);
   const [max2, setMax2] = useState(0);
   const [subtotal, setSubtotal] = useState(0.0);
   const [fee, setFee] = useState(0.0);
@@ -39,22 +39,10 @@ export default function Reservation(props) {
   const [ticketsNum, setTicketsNum] = useState(0);
   const [errorMsg, setErrorMsg] = useState(false);
   const [helper, setHelper] = useState("");
-
+  const [eventData, setEventData] = React.useState({});
+  const [eventExist, setEventExists] = React.useState(false);
+  const [ticketsTierdetails, setTicketTierdetails] = useState([]);
   const eventid = "643aa09ecbfea68c24d93670";
-
-  // const MyTextField = styled(TextField)({
-  //   "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-  //     borderColor: "grey",
-  //   },
-  //   "&:focus-within .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-  //     borderColor: "black",
-  //     borderWidth: "2px",
-  //   },
-  //   "&:focus-within .MuiInputLabel-root": {
-  //     color: "black",
-  //   },
-  // });
-
   const ticketObj = [
     {
       price: 0,
@@ -73,50 +61,74 @@ export default function Reservation(props) {
     },
   ];
 
-  async function sendPromo() {
+  async function sendPromo(inputpromo) {
     try {
-      const response = await axios.get(
-        "https://www.tessera.social/api/attendee/book-ticket/apply-promo-code/:code"
+      const response = await fetch(
+        "https://www.tessera.social/api/attendee/ticket/643aa02d4d2e42199562be5f/promocode/retrieve?=" +
+          inputpromo
       );
-      console.log(response);
+      const prom = await response.json();
+      console.log("check promom " + prom.success);
+      prom.success ? setPromocode(true) : setPromocode(false);
     } catch (error) {
       console.log(error);
     }
-    response.data ? setPromocode(true) : setPromocode(false);
+
+    promocode
+      ? setHelper("Promo code is valid")
+      : setHelper("Promo code is invalid");
+    promocode ? setErrorMsg(false) : setErrorMsg(true);
   }
-  // async function ticketCredentials() {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://www.tessera.social/api/attendee/event/643aa09ecbfea68c24d93670"
-  //     );
-  //     const event = response.json();
-  //     console.log(event.filteredEvents[0] + "this is ");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-  const [eventData, setEventData] = React.useState({});
-  const [eventExist, setEventExists] = React.useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "https://www.tessera.social/api/attendee/event/643aa09ecbfea68c24d93670"
+        "https://www.tessera.social/api/attendee/event/643aa02d4d2e42199562be5f"
       ); //temp (the original one crashed)
       //const response = await fetch('https://www.tessera.social/api/attendee/event/{props.id}'); (the original one)
       //console.log(await response.json())
       const event = await response.json();
       //console.log((event.filteredEvents)[0])
       setEventData(event);
-      console.log(event);
       event.filteredEvents[0]
         ? console.log(event.filteredEvents[0])
         : setEventExists(false);
       event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
+
+      let tempArray = new Array(event.filteredEvents[0].ticketTiers.length)
+        .fill()
+        .map((element, index) => ({
+          tierName: event.filteredEvents[0].ticketTiers[index].tierName,
+          numberOfTicketsSold:
+            event.filteredEvents[0].ticketTiers[index].quantitySold,
+          maxCapacity: event.filteredEvents[0].ticketTiers[index].maxCapacity,
+          price: event.filteredEvents[0].ticketTiers[index].price,
+          discountpercent: 0,
+          discountamount: 0,
+          discount: false,
+        }));
+      setTicketTierdetails(tempArray);
     };
     fetchData();
   }, []);
 
+  function incrementOrder(index) {
+    let tempArray = ticketsTierdetails;
+    if (tempArray[index].numberOfTicketsSold != tempArray[index].maxCapacity) {
+      tempArray[index].numberOfTicketsSold++;
+      setTicketTierdetails(tempArray);
+      console.log("increment " + ticketsTierdetails[index].numberOfTicketsSold);
+    }
+  }
+  function decrementOrder(index) {
+    let tempArray = ticketsTierdetails;
+    if (tempArray[index].numberOfTicketsSold != 0) {
+      tempArray[index].numberOfTicketsSold--;
+      setTicketTierdetails(tempArray);
+      console.log("decrement " + ticketsTierdetails[index].numberOfTicketsSold);
+    }
+  }
+  // console.log("tickecyt details " + tempArray[0].tierName);
   return (
     tickets != false &&
     eventExist && (
@@ -124,7 +136,7 @@ export default function Reservation(props) {
         {/* {ticketCredentials()} */}
 
         <TicketHeader>
-          {props.liftStateUP(eventData.filteredEvents[0].basicInfo.eventImage)}
+          {/* {props.liftStateUP(eventData.filteredEvents[0].basicInfo.eventImage)} */}
           <div className="title">
             {eventData.filteredEvents[0].basicInfo.eventName}
           </div>
@@ -151,44 +163,41 @@ export default function Reservation(props) {
                     {promocode && <CheckCircleIcon color="success" />}
                     {!inputValue ? (
                       <Apply
-                        // onClick={sendPromo()}
+                        onClick={sendPromo(inputValue)}
                         disabled={!promocode ? !inputValue : false}
                       >
                         {!promocode ? "Apply" : "Remove"}
                       </Apply>
                     ) : (
                       <Applyfocus
-                        //onClick={sendPromo()}
+                        onClick={sendPromo(inputValue)}
                         disabled={!promocode ? !inputValue : false}
                       >
+                        {console.log(inputValue)}
                         {!promocode ? "Apply" : "Remove"}
                       </Applyfocus>
                     )}
-                    {/* <button
-                      disabled={!promocode ? !inputValue : false}
-                      // onClick={applypromocode}
-                      // className={
-                      //   !inputValue ? classes.applybtn : classes.applybtnactive
-                      // }
-                    >
-                      {/* {!promocode ? "Apply" : "Remove"} */}
-                    {/* </button> */}
                   </InputAdornment>
                 ),
               }}
-              // error={errorMsg}
-              // helperText={helper}
+              error={errorMsg}
+              helperText={helper}
             />
           </PromoCode>
-          {eventData.filteredEvents[0].ticketTiers.map((element, index) => {
+          {ticketsTierdetails.map((element, index) => {
             return (
               <SelectTicket>
                 <SelectTickContainer className="focus">
                   <SelectTickName>{element.tierName}</SelectTickName>
                   <IncrementDecrement>
                     <div
-                      className={max ? "incdec" : "incdecactive"}
-                      onClick={() => setMax(false)}
+                      className={
+                        ticketsTierdetails[index].numberOfTicketsSold ==
+                        ticketsTierdetails[index].maxCapacity
+                          ? "incdec"
+                          : "incdecactive"
+                      }
+                      onClick={() => incrementOrder(index)}
                     >
                       <svg
                         id="plus-chunky_svg__eds-icon--plus-chunky_svg"
@@ -205,12 +214,19 @@ export default function Reservation(props) {
                       </svg>
                     </div>
                     <div className="Quantity">
-                      {/* {ticketsAmount[index].number} */}
-                      20
+                      {console.log(
+                        "incrementdiv " +
+                          ticketsTierdetails[index].numberOfTicketsSold
+                      )}
+                      {ticketsTierdetails[index].numberOfTicketsSold}
                     </div>
                     <div
-                      className={max2 == 0 ? "incdec" : "incdecactive"}
-                      // onClick={() => removeamount(index)}
+                      className={
+                        ticketsTierdetails[index].numberOfTicketsSold == 0
+                          ? "incdec"
+                          : "incdecactive"
+                      }
+                      onClick={() => decrementOrder(index)}
                     >
                       <svg
                         id="minus-chunky_svg__eds-icon-minus-chunky"

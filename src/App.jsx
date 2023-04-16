@@ -4,21 +4,22 @@
  * @exports App
  */
 
-import SignupTwo from './pages/SignUp/SignupTwo';
-import SignUpOne from './pages/SignUp/SignupOne';
+import SignupTwo from "./pages/SignUp/SignupTwo";
+import SignUpOne from "./pages/SignUp/SignupOne";
 
-import GlobalStyles from './components/styles/Global';
-import Landing from './pages/LandingPage/Landing';
-import Organize from './pages/Organize/Organize';
-import { Route, Routes } from 'react-router-dom';
+import GlobalStyles from "./components/styles/Global";
+import Landing from "./pages/LandingPage/Landing";
+import Organize from "./pages/Organize/Organize";
+import { Route, Routes } from "react-router-dom";
 
-import { useEffect, useState } from 'react';
-import Maincontainer from './pages/LogIn/MainContainer';
-import ResetPassword from './pages/ResetPassword/ResetPassword';
-import Reset from './pages/ResetPassword/Reset';
-import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
-import Events from './pages/EventPage/EventPage';
-import BookingPopUp from './pages/BookingPopUP/BookingPop';
+import { useEffect, useState } from "react";
+import Maincontainer from "./pages/LogIn/MainContainer";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import Reset from "./pages/ResetPassword/Reset";
+import CheckoutForm from "./pages/BookingPopUP/CheckoutForm";
+import Events from "./pages/EventPage/EventPage";
+import BookingPopUp from "./pages/BookingPopUP/BookingPop";
+import Reservation from "./pages/BookingPopUP/Ticket/TicketsDetails";
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -27,12 +28,12 @@ import BookingPopUp from './pages/BookingPopUP/BookingPop';
  * @returns {JSX.Element} The main application component
  */
 function App() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   return (
     <>
       <GlobalStyles />
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
@@ -43,7 +44,8 @@ function App() {
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} />
         <Route path="booking" element={<BookingPopUp />} />
-      </Routes>
+      </Routes> */}
+      <BookingPopUp />
     </>
   );
 }
