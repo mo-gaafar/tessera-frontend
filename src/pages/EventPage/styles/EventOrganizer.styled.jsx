@@ -2,20 +2,20 @@ import styled from 'styled-components';
 
 
 export const AboutTheOrganizer = styled.section`
-
+padding-left:10rem;
 width: 72rem;
 height: 40.25rem;
-
-
-
 margin-left: 7.4rem;
 
+
 h2{
+    color:rgb(30, 10, 60);
     font-size:2.4rem;
+    
 }
 
 .aboutOrganizerContainer{
- 
+
     margin: 3.2rem 0rem;
     padding: 4rem;
     height:34.425rem;
@@ -26,7 +26,7 @@ h2{
 
 
 .organizedBySection{
-
+   
     width:64rem;
     height: 4.925rem;
     margin-bottom:2.4rem;
@@ -237,9 +237,11 @@ background-color: white;
 margin: 3.2rem 0rem;
 margin-left: 7.4rem;
 font-weight: 600;
+padding-left:10rem;
 
 
 h2{
+    color:rgb(30, 10, 60);
     font-size:2.4rem;
     margin: 0rem 0rem 1.6rem;
 }
@@ -722,18 +724,18 @@ export const OtherEventsYouMayLike = styled.section`
 
 width:100%;
 height:54.8rem;
-background-color: #f8f7fa;
 display:flex;
 
 
 h2{
     font-size:2.4rem;
-    
+    color:rgb(30, 10, 60);
 
 }
 
 .otherEventsDiv{
-    z-index: 1;
+    z-index: -1;
+    background-color: #f8f7fa;
     position: relative;
     font-size: 14px;
     line-height: 22px;
