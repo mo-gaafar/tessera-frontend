@@ -136,10 +136,11 @@ import BookingPopUp from '../BookingPopUP/BookingPop'
 export default function Events(props) {
   const eventID = useParams().eventID;
   const [showPopup,setShowPopUp] = useState(false);
+  const [styles,setStyles] = useState();
   // conditional rendering => if the quantity sold = capacity - 10 , render tickets sales ends soon
   // if the event is free or not
   // if the tickets are sold out
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(1);
   const [eventData, setEventData] = React.useState({});
   const [EventExists, setEventExists] = React.useState(false);
   const [showMap, setShowMap] = React.useState(false);
@@ -166,12 +167,15 @@ export default function Events(props) {
 
   function add(e) {
     setCount(count + 1);
+    setStyles({backgroundColor:"#3659e3"})
     e.preventDefault();
   }
   function subtract(e) {
-    if (count == 0) {
-      setCount(0);
+    if (count == 1 || count ===2) {
+      setStyles({backgroundColor:"#eeedf2"})
+      setCount(1);
     } else {
+      setStyles({backgroundColor:"#3659e3"})
       setCount(count - 1);
     }
     e.preventDefault();
@@ -781,6 +785,7 @@ export default function Events(props) {
                                             <TicketsSubDiv4>
                                               <TicketsSubDiv6>
                                                 <TicketsButtonSubtract
+                                                  style={styles}
                                                   onClick={subtract}
                                                 >
                                                   <TicketsI>
