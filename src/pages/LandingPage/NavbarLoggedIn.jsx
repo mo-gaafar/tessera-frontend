@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 export default function NavbarLoggedIn(props) {
   const [menu, setMenu] = useState(false);
   const handleMouseOver = () => {
@@ -16,7 +17,9 @@ export default function NavbarLoggedIn(props) {
   return (
     <>
       <nav className="logged__nav">
-        <img src="/images/LogoFullTextTicketLarge.png" alt="" />
+        <Link to="/">
+          <img src="/images/LogoFullTextTicketLarge.png" alt="" />
+        </Link>
         <ul className="logged__nav__list">
           <li className="logged__nav__list__create">
             <svg
@@ -104,11 +107,12 @@ export default function NavbarLoggedIn(props) {
           srcSet="https://cdn.evbstatic.com/s3-build/fe/build/images/83079b4f5dd9305720cddfba5b614445-4_web_1919x543.jpg"
         />
 
-        {props.show&&
-        <img
-          src="https://cdn.evbstatic.com/s3-build/fe/build/images/542fec493f093cb39b6e1610cad9ff9a-4_mobile_659x494.jpg"
-          alt="Homepage header"
-        />}
+        {props.show && (
+          <img
+            src="https://cdn.evbstatic.com/s3-build/fe/build/images/542fec493f093cb39b6e1610cad9ff9a-4_mobile_659x494.jpg"
+            alt="Homepage header"
+          />
+        )}
       </picture>
     </>
   );

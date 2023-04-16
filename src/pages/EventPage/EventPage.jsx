@@ -357,14 +357,13 @@ export default function Events(props) {
       )}
 
       <WholePage>
-      <StyledNav>
-        {email ? (
-          <NavbarLoggedIn email={email} />
-          
-        ) : (
-          <Navbar onClick={locationDropDownToggle} />
-        )}
-      </StyledNav>
+        <StyledNav>
+          {email && email !== 'undefined' ? (
+            <NavbarLoggedIn email={email} />
+          ) : (
+            <Navbar onClick={locationDropDownToggle} />
+          )}
+        </StyledNav>
         {EventExists && (
           <FirstHalfPage>
             <FirstHalfPageDiv1>
