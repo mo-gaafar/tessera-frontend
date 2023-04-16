@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 
 export const AboutTheOrganizer = styled.section`
-padding-left:10rem;
-color:rgb(30, 10, 60);
+
 width: 72rem;
 height: 40.25rem;
 
@@ -241,14 +240,11 @@ font-weight: 600;
 
 
 h2{
-    color:rgb(30, 10, 60);
-    padding-left:10rem;
     font-size:2.4rem;
     margin: 0rem 0rem 1.6rem;
 }
 
 .eventoxDiv{
-    padding-left:9rem;
     width:72rem;
     height:20.275rem;
     // background-color: red;  
@@ -726,24 +722,24 @@ export const OtherEventsYouMayLike = styled.section`
 
 width:100%;
 height:54.8rem;
-//background-color: #f8f7fa;
+background-color: #f8f7fa;
 display:flex;
 
 
 h2{
     font-size:2.4rem;
-
     
+
 }
 
 .otherEventsDiv{
-    z-index: -1;
+    z-index: 1;
     position: relative;
     font-size: 14px;
     line-height: 22px;
     font-weight: 400;
     margin-top:5rem;
-    background-color: #f8f7fa;
+    // background-color:lightblue;
 
     max-width: 1080px;
     margin-left: auto;
@@ -763,7 +759,6 @@ h2{
 }
 
 .title{
-    color:rgb(30, 10, 60);
     width:98.4rem;
     height:3.8rem;
     margin: 0rem 0.8rem 0rem 0rem;
@@ -783,27 +778,47 @@ h2{
 
     width:4rem;
     height:4rem;
-    margin-right:1rem;
+    margin-right:0.5rem;
+    
 }
 
-.backbutton,.forwardbutton{
+.backbutton:enabled,.forwardbutton:enabled{
     
-    padding:0.8rem;
-    // background-color: #dbdae3;
-    color: var(--eds-ui-700,#4b4d63);
-    fill: #4b4d63;
-    border:none
-    
-    
-    
+    background-color: #4b4d63;
+    border:none;
+    cursor: pointer;
+ 
 }
+
+.backbutton:disabled ,.forwardbutton:disabled {
+ 
+    background-color: #dbdae3;
+    border:none;
+
+}
+
 
 .backSvg, .forwardSvg{
     width:2rem;
     height:2rem;
     align-items: center;
     
+    
 }
+
+.backbutton:enabled svg,.forwardbutton:enabled svg{
+    
+    fill: #dbdae3;
+
+}
+
+.backbutton:disabled svg ,.forwardbutton:disabled svg {
+ 
+    fill: #4b4d63;
+
+}
+
+
 
 
 
@@ -906,7 +921,9 @@ span{
     .otherEventsDiv, .titleAndButtons,.allEventsDiv,.alignEventsDiv{
         width: 100.12rem;
     ]
-  
+        
+
+    
 
 }
 
