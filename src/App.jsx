@@ -18,7 +18,6 @@ import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Reset from './pages/ResetPassword/Reset';
 import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
 import Events from './pages/EventPage/EventPage';
-import BookingPopUp from './pages/BookingPopUP/BookingPop';
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -42,7 +41,6 @@ function App() {
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} />
-        <Route path="booking" element={<BookingPopUp />} />
       </Routes>
     </>
   );
