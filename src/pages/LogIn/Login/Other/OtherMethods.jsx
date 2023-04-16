@@ -42,9 +42,7 @@ export default function Other() {
 
     console.log(responseData);
 
-    if (responseData.success) {
-      navigate('/');
-    }
+    navigate('/');
   }
 
   function handleError(error) {
