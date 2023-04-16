@@ -143,9 +143,10 @@ export default function Events(props) {
   const [eventData, setEventData] = React.useState({});
   const [EventExists, setEventExists] = React.useState(false);
   const [showMap, setShowMap] = React.useState(false);
+  const [mapStatus,setMapStatus] = useState("show map")
   //console.log("pop",showPopup)
   React.useEffect(() => {
-    setShowMap(true);
+    setShowMap(false);
   }, []);
 
   React.useEffect(() => {
@@ -293,6 +294,12 @@ export default function Events(props) {
 
   const handleShowMap = () => {
     setShowMap(prevValue => !prevValue);
+    if (showMap===false){
+      setMapStatus("Hide map")
+    }
+    else{
+      setMapStatus("Show map")
+    }
   };
 
   const handleForward = () => {
@@ -604,8 +611,9 @@ export default function Events(props) {
                               </LocationStrong>
                             </DetailsP>
                             <MapButtonDiv>
+                              
                               <MapButton onClick={handleShowMap}>
-                                Show map
+                                {mapStatus}
                               </MapButton>
                               <MapDetailsI data-spec="icon">
                                 <DetailsSvg
@@ -625,7 +633,7 @@ export default function Events(props) {
                             {showMap && (
                               <Map
                                 style={{
-                                  height: '100vh',
+                                  marginBottom:'3rem',
                                   display: 'flex',
                                   flexDirection: 'column',
                                 }}
@@ -652,7 +660,9 @@ export default function Events(props) {
                                   </GoogleMap>
                                 )}
                               </Map>
-                            )}
+                            )
+                            
+                          }
                           </RightDetailsDiv>
                         </WhenAndWhereDetailsDiv>
                       </LocationSection>
