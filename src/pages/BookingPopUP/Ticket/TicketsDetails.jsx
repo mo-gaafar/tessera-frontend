@@ -1,13 +1,13 @@
-import React from "react";
-import axios from "axios";
-import { Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { TextField } from "@mui/material";
-import InputAdornment from "@mui/material/InputAdornment";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { styled } from "@mui/material/styles";
-import CheckoutForm from "../CheckoutForm";
+import React from 'react';
+import axios from 'axios';
+import { Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { TextField } from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { styled } from '@mui/material/styles';
+import CheckoutForm from '../CheckoutForm';
 import {
   ContainerBox,
   TicketBody,
@@ -23,7 +23,8 @@ import {
   BottomContainerHead,
   Apply,
   Applyfocus,
-} from "./Ticket.styled";
+} from './Ticket.styled';
+import TierBox from './TierBox';
 
 export default function Reservation(props) {
   // let { _id } = useParams();
@@ -36,28 +37,28 @@ export default function Reservation(props) {
   const [subtotal, setSubtotal] = useState(0.0);
   const [fee, setFee] = useState(0.0);
   const [total, setTotal] = useState(0.0);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [ticketsNum, setTicketsNum] = useState(0);
   const [errorMsg, setErrorMsg] = useState(false);
-  const [helper, setHelper] = useState("");
+  const [helper, setHelper] = useState('');
   const [eventData, setEventData] = React.useState({});
   const [eventExist, setEventExists] = React.useState(false);
   const [ticketsTierdetails, setTicketTierdetails] = useState([]);
-  const eventid = "643aa09ecbfea68c24d93670";
+  const eventid = '643aa09ecbfea68c24d93670';
   const ticketObj = [
     {
       price: 0,
-      name: "ahmed",
+      name: 'ahmed',
       quantity: 20,
     },
     {
       price: 5,
-      name: "mohamed",
+      name: 'mohamed',
       quantity: 220,
     },
     {
       price: 9,
-      name: "samir",
+      name: 'samir',
       quantity: 70,
     },
   ];
@@ -65,19 +66,19 @@ export default function Reservation(props) {
   async function sendPromo(inputpromo) {
     try {
       const response = await fetch(
-        "https://www.tessera.social/api/attendee/ticket/643aa02d4d2e42199562be5f/promocode/retrieve?=" +
+        'https://www.tessera.social/api/attendee/ticket/643aa02d4d2e42199562be5f/promocode/retrieve?=' +
           inputpromo
       );
       const prom = await response.json();
-      console.log("check promom " + prom.success);
+      console.log('check promom ' + prom.success);
       prom.success ? setPromocode(true) : setPromocode(false);
     } catch (error) {
       console.log(error);
     }
 
     promocode
-      ? setHelper("Promo code is valid")
-      : setHelper("Promo code is invalid");
+      ? setHelper('Promo code is valid')
+      : setHelper('Promo code is invalid');
     promocode ? setErrorMsg(false) : setErrorMsg(true);
   }
 
@@ -85,7 +86,7 @@ export default function Reservation(props) {
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "https://www.tessera.social/api/attendee/event/643aa02d4d2e42199562be5f"
+        'https://www.tessera.social/api/attendee/event/643aa02d4d2e42199562be5f'
       ); //temp (the original one crashed)
       //const response = await fetch('https://www.tessera.social/api/attendee/event/{props.id}'); (the original one)
       //console.log(await response.json())
@@ -119,7 +120,7 @@ export default function Reservation(props) {
     if (tempArray[index].numberOfTicketsSold != tempArray[index].maxCapacity) {
       tempArray[index].numberOfTicketsSold++;
       setTicketTierdetails(tempArray);
-      console.log("increment " + ticketsTierdetails[index].numberOfTicketsSold);
+      console.log('increment ' + ticketsTierdetails[index].numberOfTicketsSold);
     }
   }
   function decrementOrder(index) {
@@ -127,7 +128,7 @@ export default function Reservation(props) {
     if (tempArray[index].numberOfTicketsSold != 0) {
       tempArray[index].numberOfTicketsSold--;
       setTicketTierdetails(tempArray);
-      console.log("decrement " + ticketsTierdetails[index].numberOfTicketsSold);
+      console.log('decrement ' + ticketsTierdetails[index].numberOfTicketsSold);
     }
   }
   // console.log("tickecyt details " + tempArray[0].tierName);
@@ -148,16 +149,16 @@ export default function Reservation(props) {
               {eventData.filteredEvents[0].basicInfo.eventName}
             </div>
             <div className="Setting">
-              {" "}
+              {' '}
               {eventData.filteredEvents[0].basicInfo.startDateTime}
             </div>
           </TicketHeader>
           <TicketBody>
             <PromoCode>
               <TextField
-                className={"lol"}
+                className={'lol'}
                 value={inputValue}
-                onChange={(newValue) => setInputValue(newValue.target.value)}
+                onChange={newValue => setInputValue(newValue.target.value)}
                 disabled={promocode ? true : false}
                 id="outlined-basic"
                 label="PromoCode"
@@ -173,7 +174,7 @@ export default function Reservation(props) {
                           onClick={sendPromo(inputValue)}
                           disabled={!promocode ? !inputValue : false}
                         >
-                          {!promocode ? "Apply" : "Remove"}
+                          {!promocode ? 'Apply' : 'Remove'}
                         </Apply>
                       ) : (
                         <Applyfocus
@@ -181,7 +182,7 @@ export default function Reservation(props) {
                           disabled={!promocode ? !inputValue : false}
                         >
                           {console.log(inputValue)}
-                          {!promocode ? "Apply" : "Remove"}
+                          {!promocode ? 'Apply' : 'Remove'}
                         </Applyfocus>
                       )}
                     </InputAdornment>
@@ -192,89 +193,10 @@ export default function Reservation(props) {
               />
             </PromoCode>
             {ticketsTierdetails.map((element, index) => {
-              return (
-                <SelectTicket>
-                  <SelectTickContainer className="focus">
-                    <SelectTickName>{element.tierName}</SelectTickName>
-                    <IncrementDecrement>
-                      <div
-                        className={
-                          ticketsTierdetails[index].numberOfTicketsSold ==
-                          ticketsTierdetails[index].maxCapacity
-                            ? "incdec"
-                            : "incdecactive"
-                        }
-                        onClick={() => incrementOrder(index)}
-                      >
-                        <svg
-                          id="plus-chunky_svg__eds-icon--plus-chunky_svg"
-                          x="0"
-                          y="0"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            id="plus-chunky_svg__eds-icon--plus-chunky_base"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
-                          ></path>
-                        </svg>
-                      </div>
-                      <div className="Quantity">
-                        {console.log(
-                          "incrementdiv " +
-                            ticketsTierdetails[index].numberOfTicketsSold
-                        )}
-                        {ticketsTierdetails[index].numberOfTicketsSold}
-                      </div>
-                      <div
-                        className={
-                          ticketsTierdetails[index].numberOfTicketsSold == 0
-                            ? "incdec"
-                            : "incdecactive"
-                        }
-                        onClick={() => decrementOrder(index)}
-                      >
-                        <svg
-                          id="minus-chunky_svg__eds-icon-minus-chunky"
-                          x="0"
-                          y="0"
-                          viewBox="0 0 24 24"
-                        >
-                          <g>
-                            <path fill="#fff" d="M6.5 11.5h11v1h-11z"></path>
-                            <path d="M18 11H6v2h12v-2z"></path>
-                          </g>
-                        </svg>
-                      </div>
-                    </IncrementDecrement>
-                  </SelectTickContainer>
-                  <SelectTickBottomContainer>
-                    <BottomContainerHead>
-                      <p className="Fee">${element.price}</p>
-                      {/* {ticketsAmount[index].discount && (
-                      <pre>
-                        <p className={classes.price}>
-                          {element.price -
-                            element.price *
-                              ticketsAmount[index].discountpercent -
-                            ticketsAmount[index].discountamount}
-                          {"  "}
-                          <del>{element.price}</del>
-                        </p>
-                      </pre>
-                    )} */}
-                      <p className="Sale">
-                        Sales end on {element.endSelling}
-                        {/* {moment(element.salesStart).format("MMMM Do YYYY")} */}
-                      </p>
-                    </BottomContainerHead>
-                  </SelectTickBottomContainer>
-                </SelectTicket>
-              );
+              return <TierBox element={element} />;
             })}
             <TicketEnd>
-              {" "}
+              {' '}
               <div>
                 Powered by
                 <a href="">
@@ -284,7 +206,7 @@ export default function Reservation(props) {
             </TicketEnd>
           </TicketBody>
           <Checkout>
-            {" "}
+            {' '}
             <div className="summarycontainer">50</div>
             <div className="checkoutbtndiv">
               <button
