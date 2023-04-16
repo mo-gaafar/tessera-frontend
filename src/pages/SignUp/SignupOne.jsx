@@ -67,8 +67,6 @@ import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
  */
 
 export default function SignUpOne(props) {
-  const [eventData, setEventData] = React.useState({});
-
   React.useEffect(() => {
     const fetchData = async () => {
       //  const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/'); //temp (the original one crashed)
@@ -324,7 +322,7 @@ export default function SignUpOne(props) {
           <FacebookProvider appId="664174802386073">
             <LoginButton
               id="facebook"
-              scope="public_profile,email"
+              scope="public_profile,emaiemaill"
               onError={handleError}
               onSuccess={handleSuccess}
             ></LoginButton>

@@ -1,11 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const LoginTagSt = styled.div`
   background-color: white;
   button {
     background-color: rgb(221, 73, 28);
     font-size: 14px;
     line-height: 24px;
-    font-family: neue plak;
     letter-spacing: 0.2px;
     font-weight: 600;
     border-radius: 5px;

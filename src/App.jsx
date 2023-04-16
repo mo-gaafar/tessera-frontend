@@ -17,6 +17,9 @@ import Maincontainer from './pages/LogIn/MainContainer';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Reset from './pages/ResetPassword/Reset';
 import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
+import Events from './pages/EventPage/EventPage';
+import BookingPopUp from './pages/BookingPopUP/BookingPop';
+
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
  * Function component that renders the main application
@@ -30,13 +33,16 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
-
+        <Route path="/" element={<Landing />} />
+        <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
+        <Route path="Signuptwo" element={<SignupTwo email={email} />} />
         <Route path="login" element={<Maincontainer />} />
         <Route path="Organize" element={<Organize />} />
         <Route path="forgetPassword" element={<Reset />} />
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
-
+        <Route path="/:eventID" element={<Events />} />
+        <Route path="booking" element={<BookingPopUp />} />
       </Routes>
     </>
   );
