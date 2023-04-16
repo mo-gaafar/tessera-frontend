@@ -321,7 +321,7 @@ export default function Landing() {
     'May',
     'Jun',
     'Jul',
-    'August',
+    'Aug',
     'Sep',
     'Oct',
     'Nov',
@@ -492,9 +492,10 @@ export default function Landing() {
     <>
       <StyledNav>
         {email ? (
-          <Navbar onClick={locationDropDownToggle} />
+          <NavbarLoggedIn email={email} />
+          
         ) : (
-          <NavbarLoggedIn email="mohammed.elsaeed1@gmail.com" />
+          <Navbar onClick={locationDropDownToggle} />
         )}
       </StyledNav>
       <StyledLandingEvents onClick={locationDropDownToggle}>

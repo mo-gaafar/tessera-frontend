@@ -1,4 +1,12 @@
+import { useState } from 'react';
 export default function NavbarLoggedIn(props) {
+  const [menu,setMenu] = useState(false);
+  const handleMouseOver = () => {
+    setMenu(true);
+  };
+  const handleMouseOut = () => {
+    setMenu(false);
+  };
   return (
     <>
       <nav className="logged__nav">
@@ -22,7 +30,9 @@ export default function NavbarLoggedIn(props) {
             </svg>
             Create an Event
           </li>
-          <li>
+          <li 
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut} >
             <span>
               <svg
                 className="user__svg"
@@ -67,12 +77,15 @@ export default function NavbarLoggedIn(props) {
               ></path>
             </svg>
 
-            <div className="menu">
+            
+            <div className="menu" 
+              >
+              {menu &&   
               <ul>
                 <li>Browse Events</li>
                 <li>Manage my Events</li>
                 <li>Log out</li>
-              </ul>
+              </ul>}
             </div>
           </li>
         </ul>

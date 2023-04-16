@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 
 export const AboutTheOrganizer = styled.section`
-
+padding-left:10rem;
 width: 72rem;
 height: 40.25rem;
+color:rgb(30, 10, 60);
 
 
 
@@ -15,7 +16,7 @@ h2{
 }
 
 .aboutOrganizerContainer{
- 
+    
     margin: 3.2rem 0rem;
     padding: 4rem;
     height:34.425rem;
@@ -244,7 +245,8 @@ background-color: white;
 margin: 3.2rem 0rem;
 margin-left: 7.4rem;
 font-weight: 600;
-
+padding-left:10rem;
+color:rgb(30, 10, 60);
 
 h2{
     font-size:2.4rem;
@@ -738,6 +740,7 @@ background-color: #f8f7fa;
 display:flex;
 background-color: #f8f7fa;
 z-index:1;
+color:rgb(30, 10, 60);
 
 
 h2{
