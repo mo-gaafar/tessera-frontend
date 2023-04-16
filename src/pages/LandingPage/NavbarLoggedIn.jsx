@@ -101,10 +101,11 @@ export default function NavbarLoggedIn(props) {
           srcSet="https://cdn.evbstatic.com/s3-build/fe/build/images/83079b4f5dd9305720cddfba5b614445-4_web_1919x543.jpg"
         />
 
+        {props.show&&
         <img
           src="https://cdn.evbstatic.com/s3-build/fe/build/images/542fec493f093cb39b6e1610cad9ff9a-4_mobile_659x494.jpg"
           alt="Homepage header"
-        />
+        />}
       </picture>
     </>
   );
