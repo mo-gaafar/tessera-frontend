@@ -111,9 +111,7 @@ export default function SignUpOne(props) {
 
     const responseData = responseBackend.json();
     localStorage.setItem('authEmail', email);
-    if (responseData.success) {
-      navigate('/');
-    }
+    navigate('/');
   }
 
   function handleError(error) {
