@@ -99,8 +99,10 @@ export const StyledLandingEvents = styled.section`
           padding-left: 1.8rem;
           padding-right: 1.4rem;
           &:focus {
-            border-radius: 3px;
-            background: blue;
+            border-radius: 95%;
+            border: 0.5px solid blue;
+            padding-left: 1.4rem;
+            padding-right: 1.4rem;
           }
         }
       }

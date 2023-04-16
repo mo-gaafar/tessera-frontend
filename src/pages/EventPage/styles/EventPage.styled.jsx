@@ -957,7 +957,7 @@ export const LogoSpan = styled.span`
 }
 `;
 export const RefundSection = styled.section`
-  margin-top: -29rem;
+  margin-top: 29rem;
   margin-bottom: 4.8rem;
   color: #6f7287;
   font-size: 1rem;

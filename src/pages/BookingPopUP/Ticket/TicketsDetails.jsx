@@ -7,6 +7,7 @@ import { TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { styled } from "@mui/material/styles";
+import CheckoutForm from "../CheckoutForm";
 import {
   ContainerBox,
   TicketBody,
@@ -80,6 +81,7 @@ export default function Reservation(props) {
     promocode ? setErrorMsg(false) : setErrorMsg(true);
   }
 
+  const [showCheckout, setshowCheckout] = React.useState(false);
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -129,123 +131,128 @@ export default function Reservation(props) {
     }
   }
   // console.log("tickecyt details " + tempArray[0].tierName);
+  function handleOnclick() {
+    setshowCheckout(true);
+  }
+  console.log(showCheckout);
   return (
-    tickets != false &&
-    eventExist && (
-      <ContainerBox>
-        {/* {ticketCredentials()} */}
+    <>
+      {showCheckout && <CheckoutForm />}
+      {tickets != false && eventExist && (
+        <ContainerBox>
+          {/* {ticketCredentials()} */}
 
-        <TicketHeader>
-          {/* {props.liftStateUP(eventData.filteredEvents[0].basicInfo.eventImage)} */}
-          <div className="title">
-            {eventData.filteredEvents[0].basicInfo.eventName}
-          </div>
-          <div className="Setting">
-            {" "}
-            {eventData.filteredEvents[0].basicInfo.startDateTime}
-          </div>
-        </TicketHeader>
-        <TicketBody>
-          <PromoCode>
-            <TextField
-              className={"lol"}
-              value={inputValue}
-              onChange={(newValue) => setInputValue(newValue.target.value)}
-              disabled={promocode ? true : false}
-              id="outlined-basic"
-              label="PromoCode"
-              variant="outlined"
-              placeholder="Enter Code"
-              InputLabelProps={{ shrink: true }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    {promocode && <CheckCircleIcon color="success" />}
-                    {!inputValue ? (
-                      <Apply
-                        onClick={sendPromo(inputValue)}
-                        disabled={!promocode ? !inputValue : false}
-                      >
-                        {!promocode ? "Apply" : "Remove"}
-                      </Apply>
-                    ) : (
-                      <Applyfocus
-                        onClick={sendPromo(inputValue)}
-                        disabled={!promocode ? !inputValue : false}
-                      >
-                        {console.log(inputValue)}
-                        {!promocode ? "Apply" : "Remove"}
-                      </Applyfocus>
-                    )}
-                  </InputAdornment>
-                ),
-              }}
-              error={errorMsg}
-              helperText={helper}
-            />
-          </PromoCode>
-          {ticketsTierdetails.map((element, index) => {
-            return (
-              <SelectTicket>
-                <SelectTickContainer className="focus">
-                  <SelectTickName>{element.tierName}</SelectTickName>
-                  <IncrementDecrement>
-                    <div
-                      className={
-                        ticketsTierdetails[index].numberOfTicketsSold ==
-                        ticketsTierdetails[index].maxCapacity
-                          ? "incdec"
-                          : "incdecactive"
-                      }
-                      onClick={() => incrementOrder(index)}
-                    >
-                      <svg
-                        id="plus-chunky_svg__eds-icon--plus-chunky_svg"
-                        x="0"
-                        y="0"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          id="plus-chunky_svg__eds-icon--plus-chunky_base"
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div className="Quantity">
-                      {console.log(
-                        "incrementdiv " +
-                          ticketsTierdetails[index].numberOfTicketsSold
+          <TicketHeader>
+            {/* {props.liftStateUP(eventData.filteredEvents[0].basicInfo.eventImage)} */}
+            <div className="title">
+              {eventData.filteredEvents[0].basicInfo.eventName}
+            </div>
+            <div className="Setting">
+              {" "}
+              {eventData.filteredEvents[0].basicInfo.startDateTime}
+            </div>
+          </TicketHeader>
+          <TicketBody>
+            <PromoCode>
+              <TextField
+                className={"lol"}
+                value={inputValue}
+                onChange={(newValue) => setInputValue(newValue.target.value)}
+                disabled={promocode ? true : false}
+                id="outlined-basic"
+                label="PromoCode"
+                variant="outlined"
+                placeholder="Enter Code"
+                InputLabelProps={{ shrink: true }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {promocode && <CheckCircleIcon color="success" />}
+                      {!inputValue ? (
+                        <Apply
+                          onClick={sendPromo(inputValue)}
+                          disabled={!promocode ? !inputValue : false}
+                        >
+                          {!promocode ? "Apply" : "Remove"}
+                        </Apply>
+                      ) : (
+                        <Applyfocus
+                          onClick={sendPromo(inputValue)}
+                          disabled={!promocode ? !inputValue : false}
+                        >
+                          {console.log(inputValue)}
+                          {!promocode ? "Apply" : "Remove"}
+                        </Applyfocus>
                       )}
-                      {ticketsTierdetails[index].numberOfTicketsSold}
-                    </div>
-                    <div
-                      className={
-                        ticketsTierdetails[index].numberOfTicketsSold == 0
-                          ? "incdec"
-                          : "incdecactive"
-                      }
-                      onClick={() => decrementOrder(index)}
-                    >
-                      <svg
-                        id="minus-chunky_svg__eds-icon-minus-chunky"
-                        x="0"
-                        y="0"
-                        viewBox="0 0 24 24"
+                    </InputAdornment>
+                  ),
+                }}
+                error={errorMsg}
+                helperText={helper}
+              />
+            </PromoCode>
+            {ticketsTierdetails.map((element, index) => {
+              return (
+                <SelectTicket>
+                  <SelectTickContainer className="focus">
+                    <SelectTickName>{element.tierName}</SelectTickName>
+                    <IncrementDecrement>
+                      <div
+                        className={
+                          ticketsTierdetails[index].numberOfTicketsSold ==
+                          ticketsTierdetails[index].maxCapacity
+                            ? "incdec"
+                            : "incdecactive"
+                        }
+                        onClick={() => incrementOrder(index)}
                       >
-                        <g>
-                          <path fill="#fff" d="M6.5 11.5h11v1h-11z"></path>
-                          <path d="M18 11H6v2h12v-2z"></path>
-                        </g>
-                      </svg>
-                    </div>
-                  </IncrementDecrement>
-                </SelectTickContainer>
-                <SelectTickBottomContainer>
-                  <BottomContainerHead>
-                    <p className="Fee">${element.price}</p>
-                    {/* {ticketsAmount[index].discount && (
+                        <svg
+                          id="plus-chunky_svg__eds-icon--plus-chunky_svg"
+                          x="0"
+                          y="0"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            id="plus-chunky_svg__eds-icon--plus-chunky_base"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
+                          ></path>
+                        </svg>
+                      </div>
+                      <div className="Quantity">
+                        {console.log(
+                          "incrementdiv " +
+                            ticketsTierdetails[index].numberOfTicketsSold
+                        )}
+                        {ticketsTierdetails[index].numberOfTicketsSold}
+                      </div>
+                      <div
+                        className={
+                          ticketsTierdetails[index].numberOfTicketsSold == 0
+                            ? "incdec"
+                            : "incdecactive"
+                        }
+                        onClick={() => decrementOrder(index)}
+                      >
+                        <svg
+                          id="minus-chunky_svg__eds-icon-minus-chunky"
+                          x="0"
+                          y="0"
+                          viewBox="0 0 24 24"
+                        >
+                          <g>
+                            <path fill="#fff" d="M6.5 11.5h11v1h-11z"></path>
+                            <path d="M18 11H6v2h12v-2z"></path>
+                          </g>
+                        </svg>
+                      </div>
+                    </IncrementDecrement>
+                  </SelectTickContainer>
+                  <SelectTickBottomContainer>
+                    <BottomContainerHead>
+                      <p className="Fee">${element.price}</p>
+                      {/* {ticketsAmount[index].discount && (
                       <pre>
                         <p className={classes.price}>
                           {element.price -
@@ -257,35 +264,40 @@ export default function Reservation(props) {
                         </p>
                       </pre>
                     )} */}
-                    <p className="Sale">
-                      Sales end on {element.endSelling}
-                      {/* {moment(element.salesStart).format("MMMM Do YYYY")} */}
-                    </p>
-                  </BottomContainerHead>
-                </SelectTickBottomContainer>
-              </SelectTicket>
-            );
-          })}
-          <TicketEnd>
+                      <p className="Sale">
+                        Sales end on {element.endSelling}
+                        {/* {moment(element.salesStart).format("MMMM Do YYYY")} */}
+                      </p>
+                    </BottomContainerHead>
+                  </SelectTickBottomContainer>
+                </SelectTicket>
+              );
+            })}
+            <TicketEnd>
+              {" "}
+              <div>
+                Powered by
+                <a href="">
+                  <img src="" alt="" />
+                </a>
+              </div>
+            </TicketEnd>
+          </TicketBody>
+          <Checkout>
             {" "}
-            <div>
-              Powered by
-              <a href="">
-                <img src="" alt="" />
-              </a>
+            <div className="summarycontainer">50</div>
+            <div className="checkoutbtndiv">
+              <button
+                onClick={handleOnclick}
+                className="buttoncheckout"
+                data-testid="CreateBtn"
+              >
+                Check out
+              </button>
             </div>
-          </TicketEnd>
-        </TicketBody>
-        <Checkout>
-          {" "}
-          <div className="summarycontainer">50</div>
-          <div className="checkoutbtndiv">
-            <button className="buttoncheckout" data-testid="CreateBtn">
-              Check out
-            </button>
-          </div>
-        </Checkout>
-      </ContainerBox>
-    )
+          </Checkout>
+        </ContainerBox>
+      )}
+    </>
   );
 }

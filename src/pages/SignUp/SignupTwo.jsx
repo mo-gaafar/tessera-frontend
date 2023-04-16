@@ -243,6 +243,15 @@ export default function SignupTwo(props) {
     });
   }
 
+  function handleBlur(event) {
+    const { name } = event.target;
+    setFocused(prevFocus => {
+      return {
+        [name]: false,
+      };
+    });
+  }
+
   const togglePassword = event => {
     event.preventDefault();
     if (passwordType === 'password') {
@@ -433,6 +442,7 @@ export default function SignupTwo(props) {
                   onChange={handleChange}
                   inputColor={emailConfirmError ? 'red' : 'blue'}
                   onFocus={handleFocus}
+                  onBlur={handleBlur}
                 />
                 <StyledInputDiv>
                   <Label
@@ -474,6 +484,7 @@ export default function SignupTwo(props) {
                     inputColor={firstnameError ? 'red' : 'blue'}
                     onFocus={handleFocus}
                     data-testid="firstname"
+                    onBlur={handleBlur}
                   />
 
                   <StyledInputDiv>
@@ -516,6 +527,7 @@ export default function SignupTwo(props) {
                     onChange={handleChange}
                     inputColor={lastnameError ? 'red' : 'blue'}
                     onFocus={handleFocus}
+                    onBlur={handleBlur}
                   />
                   <StyledInputDiv>
                     <Label
@@ -556,6 +568,7 @@ export default function SignupTwo(props) {
                   onChange={onChange}
                   inputColor={passError ? 'red' : 'blue'}
                   onFocus={handleFocus}
+                  onBlur={handleBlur}
                 />
                 <PasswordShowButton onClick={togglePassword} style={styles}>
                   {passwordType === 'password' ? (

@@ -322,7 +322,7 @@ export default function SignUpOne(props) {
           <FacebookProvider appId="664174802386073">
             <LoginButton
               id="facebook"
-              scope="public_profile,email"
+              scope="public_profile,emaiemaill"
               onError={handleError}
               onSuccess={handleSuccess}
             ></LoginButton>

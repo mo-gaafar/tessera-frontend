@@ -21,7 +21,6 @@ export const StyledPassword = styled.div`
   }
 
   label {
-    font-family: Neue plak;
     margin-left: 10px;
     display: inline-block;
     font-size: 13px;
