@@ -18,8 +18,8 @@ import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Reset from './pages/ResetPassword/Reset';
 import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
 import Events from './pages/EventPage/EventPage';
-import BookingPopUp from './pages/BookingPopUP/BookingPop';
-import Reservation from './pages/BookingPopUP/Ticket/TicketsDetails';
+import BookingPopUp from './Pages/BookingPopUP/BookingPop';
+import Reservation from './Pages/BookingPopUP/Ticket/TicketsDetails';
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**

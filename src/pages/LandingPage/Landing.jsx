@@ -106,7 +106,7 @@ export default function Landing() {
 
   const handleClickCalenderOutside = event => {
     if (refCal.current && !refCal.current.contains(event.target)) {
-      setShowMenu(false)
+      setShowMenu(false);
       setShowCalender(false);
     }
   };
@@ -748,10 +748,7 @@ export default function Landing() {
                 )}
               </div>
               {showMenu && (
-                <div 
-                id="myDropdown" 
-                className="dropdown-content"
-                ref={refDrop} >
+                <div id="myDropdown" className="dropdown-content" ref={refDrop}>
                   <ul>
                     <div>
                       <button

@@ -9,13 +9,49 @@ import {
 
 import { useState } from 'react';
 
-export default function TierBox({ element }) {
+export default function TierBox({
+  element,
+  setTicketTierdetails,
+  index,
+  ticketsTierdetails,
+}) {
   const [count, setCount] = useState(0);
 
-  const incrementOrder = () => {
-    setCount(prevCount => (prevCount = prevCount + 1));
+  const incrementOrder = i => {
+    const currentCapacity = element.maxCapacity - element.numberOfTicketsSold;
+    console.log(currentCapacity);
+    setCount(prevCount => {
+      console.log(prevCount, currentCapacity);
+      return prevCount === currentCapacity ? prevCount : prevCount + 1;
+    });
+
+    setTicketTierdetails(prevState => {
+      const newState = [...prevState];
+      newState.forEach((item, index) => {
+        if (index === i) {
+          item.ticketCount++;
+        }
+      });
+
+      return newState;
+    });
   };
 
+  const decrementOrder = i => {
+    setCount(prevCount => (prevCount === 0 ? prevCount : prevCount - 1));
+
+    setTicketTierdetails(prevState => {
+      const newState = [...prevState];
+      newState.forEach((item, index) => {
+        if (index === i) {
+          item.ticketCount === 0 ? item.ticketCount : item.ticketCount--;
+        }
+      });
+
+      return newState;
+    });
+    console.log(ticketsTierdetails);
+  };
   return (
     <SelectTicket>
       <SelectTickContainer className="focus">
@@ -27,7 +63,7 @@ export default function TierBox({ element }) {
                 ? 'incdec'
                 : 'incdecactive'
             }
-            onClick={() => incrementOrder()}
+            onClick={() => incrementOrder(index)}
           >
             <svg
               id="plus-chunky_svg__eds-icon--plus-chunky_svg"
@@ -48,7 +84,7 @@ export default function TierBox({ element }) {
             className={
               element.numberOfTicketsSold == 0 ? 'incdec' : 'incdecactive'
             }
-            onClick={() => decrementOrder()}
+            onClick={() => decrementOrder(index)}
           >
             <svg
               id="minus-chunky_svg__eds-icon-minus-chunky"

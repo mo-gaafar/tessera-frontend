@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const BookingContainer = styled.div`
   width: 36rem;
   display: flex;
@@ -158,7 +158,6 @@ export const Information = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: yellow;
   .eventimage {
     width: 100%;
     background-size: contain;
