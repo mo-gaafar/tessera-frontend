@@ -25,8 +25,7 @@ const StyleDiv = styled.div`
   .checkoutPage {
     background: #fefefe;
     display: flex;
-    justify-content: space-between;
-    height: 100vh;
+    height: 90vh;
   }
 
   .inputForm {
@@ -45,10 +44,6 @@ const StyleDiv = styled.div`
       padding: 20px;
     }
   }
-
-  /* .name input{
-        width: 50%;
-    } */
 
   .name {
     display: flex;
@@ -87,6 +82,7 @@ const StyleDiv = styled.div`
     @media (max-width: 960px) {
       display: none;
     }
+    height: 90vh;
   }
 
   .totalPrice {
@@ -101,7 +97,6 @@ const StyleDiv = styled.div`
   .ticketDetails {
     padding: 20px;
     background: #f7f6f9;
-    height: 100%;
   }
 
   .paymentOptions {

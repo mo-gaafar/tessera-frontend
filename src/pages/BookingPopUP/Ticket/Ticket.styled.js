@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContainerBox = styled.div`
   height: 100%;
@@ -37,11 +37,13 @@ export const PromoCode = styled.div`
     background-color: white;
   }
 `;
+
 export const Apply = styled.button`
   border: 0;
   background: none;
   cursor: default;
 `;
+
 export const Applyfocus = styled.button`
   border: 0;
   background: none;

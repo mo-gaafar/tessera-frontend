@@ -26,7 +26,7 @@ import {
 } from './Ticket.styled';
 import TierBox from './TierBox';
 
-export default function Reservation(props) {
+export default function Reservation({ setShowCheckout, showCheckout }) {
   // let { _id } = useParams();
 
   const [tickets, setTickets] = useState(true);
@@ -115,10 +115,13 @@ export default function Reservation(props) {
   }, []);
 
   // console.log("tickecyt details " + tempArray[0].tierName);
+
   function handleOnclick() {
-    setshowCheckout(true);
+    setShowCheckout(prevState => {
+      return true;
+    });
   }
-  // console.log(showCheckout);
+
   return (
     <>
       {tickets != false && eventExist && (
