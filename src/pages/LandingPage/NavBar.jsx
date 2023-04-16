@@ -18,14 +18,14 @@ export default function Navbar() {
 
   return (
     <div
-      className="container "
+      className="container"
       onClick={() => {
         dropdownforHamburger && setDropdownHamburger(!dropdownforHamburger);
       }}
     >
       <nav className="navBar">
         <div className="siteLogoSection">
-          <Link to="/Home" relative="path">
+          <Link to="/" relative="path">
             <img
               className="logoPng"
               id="hidden"

@@ -1,5 +1,81 @@
 import styled from 'styled-components';
 
+export const StyledNav = styled.div`
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 5rem;
+    position: relative;
+
+    .menu {
+      width: 20rem;
+      position: absolute;
+      top: 7rem;
+      right: 0;
+      background-color: white;
+      z-index: 5;
+      ul {
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        text-align: left;
+        justify-content: start;
+      }
+
+      li {
+        padding-left: 2rem;
+        color: #6f7287;
+      }
+    }
+    img {
+      width: 10rem;
+      height: 2.7rem;
+    }
+
+    .logged__nav__list {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-block: 0;
+      li {
+        height: 7rem;
+        cursor: pointer;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: rgb(57, 54, 79);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        span {
+          border: solid 5px #f8f7fa;
+          border-radius: 50%;
+        }
+        .user__svg {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+        :hover {
+          background-color: #f8f7fa;
+        }
+      }
+      .logged__nav__list__create {
+        color: rgb(61, 100, 255);
+        padding-top: 1rem;
+
+        flex-direction: column;
+        svg {
+          width: 2rem;
+          height: 2rem;
+          path {
+            fill: rgb(61, 100, 255);
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const StyledLandingEvents = styled.section`
   input {
     color: #3659e3;

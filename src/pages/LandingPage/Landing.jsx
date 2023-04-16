@@ -16,6 +16,7 @@ import { useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { StyledLandingEvents } from './styles/Landing.styled';
 import { StyledEventsContainer } from './styles/Landing.styled';
+import { StyledNav } from './styles/Landing.styled';
 import {
   Link,
   Navigate,
@@ -29,7 +30,8 @@ import logo from '../../assets/icon-down.png';
 import cross from '../../assets/x-10327.png';
 import error from '../../assets/noevent-error.png';
 import EventBox from './EventBox';
-import Navbar from './nav2';
+import NavbarLoggedIn from './NavbarLoggedIn';
+import Navbar from './NavBar';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, {
   getGeocode,
@@ -455,7 +457,6 @@ export default function Landing() {
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
@@ -470,7 +471,13 @@ export default function Landing() {
   };
   return (
     <>
-      <Navbar onClick={locationDropDownToggle} />
+      <StyledNav>
+        {email ? (
+          <Navbar onClick={locationDropDownToggle} />
+        ) : (
+          <NavbarLoggedIn email="mohammed.elsaeed1@gmail.com" />
+        )}
+      </StyledNav>
       <StyledLandingEvents onClick={locationDropDownToggle}>
         {isLoaded && (
           <PlacesAutocomplete
