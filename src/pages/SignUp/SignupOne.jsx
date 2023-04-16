@@ -110,6 +110,7 @@ export default function SignUpOne(props) {
     );
 
     const responseData = responseBackend.json();
+    console.log(responseData);
     localStorage.setItem('authEmail', email);
     navigate('/');
   }
