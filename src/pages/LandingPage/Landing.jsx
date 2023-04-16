@@ -180,7 +180,7 @@ export default function Landing() {
   useEffect(() => {
     const fetchData = async (latitude, longitude) => {
       const data = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=30.0064081,31.1969466&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
       );
 
       const json = await data.json();
@@ -196,7 +196,6 @@ export default function Landing() {
       });
       const cityName =
         json.results[0].address_components[4].long_name.split(' ')[0];
-
       setCity({
         city: cityName,
         country: country,
