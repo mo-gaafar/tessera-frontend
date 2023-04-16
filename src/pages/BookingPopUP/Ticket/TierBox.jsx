@@ -35,6 +35,7 @@ export default function TierBox({
 
       return newState;
     });
+    console.log(ticketsTierdetails);
   };
 
   const decrementOrder = i => {
@@ -59,7 +60,7 @@ export default function TierBox({
         <IncrementDecrement>
           <div
             className={
-              element.numberOfTicketsSold == element.maxCapacity
+              element.ticketCount == element.maxCapacity
                 ? 'incdec'
                 : 'incdecactive'
             }
@@ -81,9 +82,7 @@ export default function TierBox({
           </div>
           <div className="Quantity">{count}</div>
           <div
-            className={
-              element.numberOfTicketsSold == 0 ? 'incdec' : 'incdecactive'
-            }
+            className={element.ticketCount == 0 ? 'incdec' : 'incdecactive'}
             onClick={() => decrementOrder(index)}
           >
             <svg
@@ -102,7 +101,12 @@ export default function TierBox({
       </SelectTickContainer>
       <SelectTickBottomContainer>
         <BottomContainerHead>
-          <p className="Fee">${element.price}</p>
+          <p className="Fee">
+            $
+            {element.price.slice(0, 1) === '$'
+              ? element.price.slice(1)
+              : element.price}
+          </p>
           {/* {ticketsAmount[index].discount && (
       <pre>
         <p className={classes.price}>

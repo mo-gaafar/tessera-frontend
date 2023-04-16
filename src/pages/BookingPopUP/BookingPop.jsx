@@ -27,12 +27,12 @@ import CheckoutForm from './CheckoutForm';
 // } from "./Styles/BookingMain.styled";
 // import { StyledEmail } from "../LogIn/Login/email/Email.styled";
 
-export default function BookingPopUp({ setShowPopUp }) {
+export default function BookingPopUp({ setShowPopUp, image }) {
   const [MStart, setMStart] = useState(true);
   //const handleStart = () => setMStart(true);
   const [Terminate, setTerminate] = useState(true);
   const [empty, setEmpty] = useState(true);
-  const [dataTicket, setdataticket] = useState('');
+  const [dataTicket, setdataticket] = useState({});
   const [showCheckout, setShowCheckout] = React.useState(false);
 
   const FormClose = () => {
@@ -80,7 +80,7 @@ export default function BookingPopUp({ setShowPopUp }) {
                   </Ticket>
                   <Information>
                     <div className="eventimage">
-                      <img src="/images/event__5.avif" />
+                      <img src={image} />
                     </div>
                     {!empty && (
                       <div className="NoOrder">
@@ -123,8 +123,7 @@ export default function BookingPopUp({ setShowPopUp }) {
                                 30.00
                               </div>
                             </div>
-                            {/* ); */}
-                            {/* })} */}
+
                             <OrderTitle>
                               <div className="Tsummary">
                                 <div className="Tcount">Total</div>

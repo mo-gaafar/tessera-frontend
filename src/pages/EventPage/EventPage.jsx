@@ -332,7 +332,17 @@ export default function Events(props) {
 
   return (
     <>
-      {showPopup && <BookingPopUp setShowPopUp={setShowPopUp} />}
+      {showPopup && (
+        <BookingPopUp
+          setShowPopUp={setShowPopUp}
+          image={
+            eventData.filteredEvents[0].basicInfo.eventImage !==
+            'https://example.com/image.jpg'
+              ? eventData.filteredEvents[0].basicInfo.eventImage
+              : '/images/event__5.avif'
+          }
+        />
+      )}
 
       <WholePage>
         {EventExists && (

@@ -27,7 +27,7 @@ import {
 import TierBox from './TierBox';
 
 export default function Reservation({ setShowCheckout, showCheckout }) {
-  // let { _id } = useParams();
+  const eventID = useParams().eventID;
 
   const [tickets, setTickets] = useState(true);
   const [eventInfo, seEventInfo] = useState([]);
@@ -44,24 +44,6 @@ export default function Reservation({ setShowCheckout, showCheckout }) {
   const [eventData, setEventData] = React.useState({});
   const [eventExist, setEventExists] = React.useState(false);
   const [ticketsTierdetails, setTicketTierdetails] = useState([]);
-  const eventid = '643aa09ecbfea68c24d93670';
-  const ticketObj = [
-    {
-      price: 0,
-      name: 'ahmed',
-      quantity: 20,
-    },
-    {
-      price: 5,
-      name: 'mohamed',
-      quantity: 220,
-    },
-    {
-      price: 9,
-      name: 'samir',
-      quantity: 70,
-    },
-  ];
 
   async function sendPromo(inputpromo) {
     try {
@@ -84,7 +66,7 @@ export default function Reservation({ setShowCheckout, showCheckout }) {
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        'https://www.tessera.social/api/attendee/event/643aa02d4d2e42199562be5f'
+        `https://www.tessera.social/api/attendee/event/${eventID}`
       ); //temp (the original one crashed)
       //const response = await fetch('https://www.tessera.social/api/attendee/event/{props.id}'); (the original one)
       //console.log(await response.json())
@@ -188,11 +170,14 @@ export default function Reservation({ setShowCheckout, showCheckout }) {
               );
             })}
             <TicketEnd>
-              <div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 Powered by
-                <a href="">
-                  <img alt="" />
-                </a>
+                <Link to="/">
+                  <img
+                    src="/images/LogoFullTextSmall.png"
+                    style={{ width: '5rem' }}
+                  />
+                </Link>
               </div>
             </TicketEnd>
           </TicketBody>
