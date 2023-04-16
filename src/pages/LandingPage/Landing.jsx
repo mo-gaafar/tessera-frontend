@@ -58,6 +58,7 @@ export default function Landing() {
   const ref = useRef(null);
   const reference = useRef(null);
   const refDrop = useRef(null);
+  const refCal = useRef(null);
 
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
@@ -89,6 +90,24 @@ export default function Landing() {
     if (refDrop.current && !refDrop.current.contains(event.target)) {
       // if clicked outside of the ref div, hide the element
       setShowMenu(false);
+      //if (range.startDate && range.endDate && count === 1)
+      //setShowCalender(false);
+    }
+  };
+
+  useEffect(() => {
+    // add event listener to the document
+    document.addEventListener('mousedown', handleClickCalenderOutside);
+    return () => {
+      // remove event listener when component unmounts
+      document.removeEventListener('mousedown', handleClickCalenderOutside);
+    };
+  }, []);
+
+  const handleClickCalenderOutside = event => {
+    if (refCal.current && !refCal.current.contains(event.target)) {
+      setShowMenu(false)
+      setShowCalender(false);
     }
   };
 
@@ -729,7 +748,10 @@ export default function Landing() {
                 )}
               </div>
               {showMenu && (
-                <div id="myDropdown" className="dropdown-content" ref={refDrop}>
+                <div 
+                id="myDropdown" 
+                className="dropdown-content"
+                ref={refDrop} >
                   <ul>
                     <div>
                       <button
@@ -773,7 +795,7 @@ export default function Landing() {
 
               {showCalender && (
                 <div>
-                  <div className="dropdown-content">
+                  <div className="dropdown-content" ref={refCal}>
                     <DateRangePicker
                       wrapperClassName="datePicker"
                       initialRange={range}

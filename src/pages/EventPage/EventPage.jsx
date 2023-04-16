@@ -130,10 +130,12 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { eventsListScroll } from './EventsList';
 import { useParams } from 'react-router-dom';
 import EventBox from '../LandingPage/EventBox';
+import BookingPopUp from '../BookingPopUP/BookingPop'
+//import CheckoutForm from '../BookingPopUP/CheckoutForm'
 
 export default function Events(props) {
   const eventID = useParams().eventID;
-
+  const [showPopup,setShowPopUp] = useState(false);
   // conditional rendering => if the quantity sold = capacity - 10 , render tickets sales ends soon
   // if the event is free or not
   // if the tickets are sold out
@@ -141,9 +143,10 @@ export default function Events(props) {
   const [eventData, setEventData] = React.useState({});
   const [EventExists, setEventExists] = React.useState(false);
   const [showMap, setShowMap] = React.useState(false);
-
+  const [mapStatus,setMapStatus] = useState("show map")
+  //console.log("pop",showPopup)
   React.useEffect(() => {
-    setShowMap(true);
+    setShowMap(false);
   }, []);
 
   React.useEffect(() => {
@@ -276,6 +279,10 @@ export default function Events(props) {
     } else hours = ' hours';
     return hours;
   };
+  function displayPopup(){
+    if (count > 0)
+    setShowPopUp(true);
+  }
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI',
@@ -287,6 +294,12 @@ export default function Events(props) {
 
   const handleShowMap = () => {
     setShowMap(prevValue => !prevValue);
+    if (showMap===false){
+      setMapStatus("Hide map")
+    }
+    else{
+      setMapStatus("Show map")
+    }
   };
 
   const handleForward = () => {
@@ -316,6 +329,12 @@ export default function Events(props) {
   };
 
   return (
+    <>
+    {showPopup && (
+        //<CheckoutForm />
+        <BookingPopUp/>
+      )}
+    
     <WholePage>
       {EventExists && (
         <FirstHalfPage>
@@ -592,8 +611,9 @@ export default function Events(props) {
                               </LocationStrong>
                             </DetailsP>
                             <MapButtonDiv>
+                              
                               <MapButton onClick={handleShowMap}>
-                                Show map
+                                {mapStatus}
                               </MapButton>
                               <MapDetailsI data-spec="icon">
                                 <DetailsSvg
@@ -613,7 +633,7 @@ export default function Events(props) {
                             {showMap && (
                               <Map
                                 style={{
-                                  height: '100vh',
+                                  marginBottom:'3rem',
                                   display: 'flex',
                                   flexDirection: 'column',
                                 }}
@@ -640,7 +660,9 @@ export default function Events(props) {
                                   </GoogleMap>
                                 )}
                               </Map>
-                            )}
+                            )
+                            
+                          }
                           </RightDetailsDiv>
                         </WhenAndWhereDetailsDiv>
                       </LocationSection>
@@ -837,7 +859,9 @@ export default function Events(props) {
                               </div>
                             </div>
                           </TicketsForm>
-                          <TicketsButton>Reserve a spot</TicketsButton>
+                          <TicketsButton onClick={displayPopup}>
+                            Reserve a spot
+                            </TicketsButton>
                         </TicketsSection>
                       </TicketsDiv>
                       <input type="hidden" />
@@ -1028,5 +1052,6 @@ export default function Events(props) {
         </div>
       </OtherEventsYouMayLike>
     </WholePage>
+    </>
   );
 }

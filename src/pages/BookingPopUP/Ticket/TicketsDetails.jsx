@@ -7,6 +7,7 @@ import { TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { styled } from "@mui/material/styles";
+import CheckoutForm from "../CheckoutForm";
 import {
   ContainerBox,
   TicketBody,
@@ -28,9 +29,9 @@ export default function Reservation(props) {
   // let { _id } = useParams();
 
   const [tickets, setTickets] = useState(true);
-  const [ticketsAmount, setTicketsAmount] = useState([]);
+  const [eventInfo, seEventInfo] = useState([]);
   const [promocode, setPromocode] = useState(false);
-  const [max, setMax] = useState(true);
+  const [max, setMax] = useState(false);
   const [max2, setMax2] = useState(0);
   const [subtotal, setSubtotal] = useState(0.0);
   const [fee, setFee] = useState(0.0);
@@ -39,22 +40,10 @@ export default function Reservation(props) {
   const [ticketsNum, setTicketsNum] = useState(0);
   const [errorMsg, setErrorMsg] = useState(false);
   const [helper, setHelper] = useState("");
-
+  const [eventData, setEventData] = React.useState({});
+  const [eventExist, setEventExists] = React.useState(false);
+  const [ticketsTierdetails, setTicketTierdetails] = useState([]);
   const eventid = "643aa09ecbfea68c24d93670";
-
-  // const MyTextField = styled(TextField)({
-  //   "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-  //     borderColor: "grey",
-  //   },
-  //   "&:focus-within .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-  //     borderColor: "black",
-  //     borderWidth: "2px",
-  //   },
-  //   "&:focus-within .MuiInputLabel-root": {
-  //     color: "black",
-  //   },
-  // });
-
   const ticketObj = [
     {
       price: 0,
@@ -73,163 +62,197 @@ export default function Reservation(props) {
     },
   ];
 
-  async function sendPromo() {
+  async function sendPromo(inputpromo) {
     try {
-      const response = await axios.get(
-        "https://www.tessera.social/api/attendee/book-ticket/apply-promo-code/:code"
+      const response = await fetch(
+        "https://www.tessera.social/api/attendee/ticket/643aa02d4d2e42199562be5f/promocode/retrieve?=" +
+          inputpromo
       );
-      console.log(response);
+      const prom = await response.json();
+      console.log("check promom " + prom.success);
+      prom.success ? setPromocode(true) : setPromocode(false);
     } catch (error) {
       console.log(error);
     }
-    response.data ? setPromocode(true) : setPromocode(false);
-  }
-  // async function ticketCredentials() {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://www.tessera.social/api/attendee/event/643aa09ecbfea68c24d93670"
-  //     );
-  //     const event = response.json();
-  //     console.log(event.filteredEvents[0] + "this is ");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-  const [eventData, setEventData] = React.useState({});
-  const [eventExist, setEventExists] = React.useState(false);
 
+    promocode
+      ? setHelper("Promo code is valid")
+      : setHelper("Promo code is invalid");
+    promocode ? setErrorMsg(false) : setErrorMsg(true);
+  }
+
+  const [showCheckout, setshowCheckout] = React.useState(false);
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "https://www.tessera.social/api/attendee/event/643aa09ecbfea68c24d93670"
+        "https://www.tessera.social/api/attendee/event/643aa02d4d2e42199562be5f"
       ); //temp (the original one crashed)
       //const response = await fetch('https://www.tessera.social/api/attendee/event/{props.id}'); (the original one)
       //console.log(await response.json())
       const event = await response.json();
       //console.log((event.filteredEvents)[0])
       setEventData(event);
-      console.log(event);
       event.filteredEvents[0]
         ? console.log(event.filteredEvents[0])
         : setEventExists(false);
       event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
+
+      let tempArray = new Array(event.filteredEvents[0].ticketTiers.length)
+        .fill()
+        .map((element, index) => ({
+          tierName: event.filteredEvents[0].ticketTiers[index].tierName,
+          numberOfTicketsSold:
+            event.filteredEvents[0].ticketTiers[index].quantitySold,
+          maxCapacity: event.filteredEvents[0].ticketTiers[index].maxCapacity,
+          price: event.filteredEvents[0].ticketTiers[index].price,
+          discountpercent: 0,
+          discountamount: 0,
+          discount: false,
+        }));
+      setTicketTierdetails(tempArray);
     };
     fetchData();
   }, []);
 
+  function incrementOrder(index) {
+    let tempArray = ticketsTierdetails;
+    if (tempArray[index].numberOfTicketsSold != tempArray[index].maxCapacity) {
+      tempArray[index].numberOfTicketsSold++;
+      setTicketTierdetails(tempArray);
+      console.log("increment " + ticketsTierdetails[index].numberOfTicketsSold);
+    }
+  }
+  function decrementOrder(index) {
+    let tempArray = ticketsTierdetails;
+    if (tempArray[index].numberOfTicketsSold != 0) {
+      tempArray[index].numberOfTicketsSold--;
+      setTicketTierdetails(tempArray);
+      console.log("decrement " + ticketsTierdetails[index].numberOfTicketsSold);
+    }
+  }
+  // console.log("tickecyt details " + tempArray[0].tierName);
+  function handleOnclick() {
+    setshowCheckout(true);
+  }
+  console.log(showCheckout);
   return (
-    tickets != false &&
-    eventExist && (
-      <ContainerBox>
-        {/* {ticketCredentials()} */}
+    <>
+      {showCheckout && <CheckoutForm />}
+      {tickets != false && eventExist && (
+        <ContainerBox>
+          {/* {ticketCredentials()} */}
 
-        <TicketHeader>
-          {props.liftStateUP(eventData.filteredEvents[0].basicInfo.eventImage)}
-          <div className="title">
-            {eventData.filteredEvents[0].basicInfo.eventName}
-          </div>
-          <div className="Setting">
-            {" "}
-            {eventData.filteredEvents[0].basicInfo.startDateTime}
-          </div>
-        </TicketHeader>
-        <TicketBody>
-          <PromoCode>
-            <TextField
-              className={"lol"}
-              value={inputValue}
-              onChange={(newValue) => setInputValue(newValue.target.value)}
-              disabled={promocode ? true : false}
-              id="outlined-basic"
-              label="PromoCode"
-              variant="outlined"
-              placeholder="Enter Code"
-              InputLabelProps={{ shrink: true }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    {promocode && <CheckCircleIcon color="success" />}
-                    {!inputValue ? (
-                      <Apply
-                        // onClick={sendPromo()}
-                        disabled={!promocode ? !inputValue : false}
+          <TicketHeader>
+            {/* {props.liftStateUP(eventData.filteredEvents[0].basicInfo.eventImage)} */}
+            <div className="title">
+              {eventData.filteredEvents[0].basicInfo.eventName}
+            </div>
+            <div className="Setting">
+              {" "}
+              {eventData.filteredEvents[0].basicInfo.startDateTime}
+            </div>
+          </TicketHeader>
+          <TicketBody>
+            <PromoCode>
+              <TextField
+                className={"lol"}
+                value={inputValue}
+                onChange={(newValue) => setInputValue(newValue.target.value)}
+                disabled={promocode ? true : false}
+                id="outlined-basic"
+                label="PromoCode"
+                variant="outlined"
+                placeholder="Enter Code"
+                InputLabelProps={{ shrink: true }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {promocode && <CheckCircleIcon color="success" />}
+                      {!inputValue ? (
+                        <Apply
+                          onClick={sendPromo(inputValue)}
+                          disabled={!promocode ? !inputValue : false}
+                        >
+                          {!promocode ? "Apply" : "Remove"}
+                        </Apply>
+                      ) : (
+                        <Applyfocus
+                          onClick={sendPromo(inputValue)}
+                          disabled={!promocode ? !inputValue : false}
+                        >
+                          {console.log(inputValue)}
+                          {!promocode ? "Apply" : "Remove"}
+                        </Applyfocus>
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
+                error={errorMsg}
+                helperText={helper}
+              />
+            </PromoCode>
+            {ticketsTierdetails.map((element, index) => {
+              return (
+                <SelectTicket>
+                  <SelectTickContainer className="focus">
+                    <SelectTickName>{element.tierName}</SelectTickName>
+                    <IncrementDecrement>
+                      <div
+                        className={
+                          ticketsTierdetails[index].numberOfTicketsSold ==
+                          ticketsTierdetails[index].maxCapacity
+                            ? "incdec"
+                            : "incdecactive"
+                        }
+                        onClick={() => incrementOrder(index)}
                       >
-                        {!promocode ? "Apply" : "Remove"}
-                      </Apply>
-                    ) : (
-                      <Applyfocus
-                        //onClick={sendPromo()}
-                        disabled={!promocode ? !inputValue : false}
+                        <svg
+                          id="plus-chunky_svg__eds-icon--plus-chunky_svg"
+                          x="0"
+                          y="0"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            id="plus-chunky_svg__eds-icon--plus-chunky_base"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
+                          ></path>
+                        </svg>
+                      </div>
+                      <div className="Quantity">
+                        {console.log(
+                          "incrementdiv " +
+                            ticketsTierdetails[index].numberOfTicketsSold
+                        )}
+                        {ticketsTierdetails[index].numberOfTicketsSold}
+                      </div>
+                      <div
+                        className={
+                          ticketsTierdetails[index].numberOfTicketsSold == 0
+                            ? "incdec"
+                            : "incdecactive"
+                        }
+                        onClick={() => decrementOrder(index)}
                       >
-                        {!promocode ? "Apply" : "Remove"}
-                      </Applyfocus>
-                    )}
-                    {/* <button
-                      disabled={!promocode ? !inputValue : false}
-                      // onClick={applypromocode}
-                      // className={
-                      //   !inputValue ? classes.applybtn : classes.applybtnactive
-                      // }
-                    >
-                      {/* {!promocode ? "Apply" : "Remove"} */}
-                    {/* </button> */}
-                  </InputAdornment>
-                ),
-              }}
-              // error={errorMsg}
-              // helperText={helper}
-            />
-          </PromoCode>
-          {eventData.filteredEvents[0].ticketTiers.map((element, index) => {
-            return (
-              <SelectTicket>
-                <SelectTickContainer className="focus">
-                  <SelectTickName>{element.tierName}</SelectTickName>
-                  <IncrementDecrement>
-                    <div
-                      className={max ? "incdec" : "incdecactive"}
-                      onClick={() => setMax(false)}
-                    >
-                      <svg
-                        id="plus-chunky_svg__eds-icon--plus-chunky_svg"
-                        x="0"
-                        y="0"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          id="plus-chunky_svg__eds-icon--plus-chunky_base"
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div className="Quantity">
-                      {/* {ticketsAmount[index].number} */}
-                      20
-                    </div>
-                    <div
-                      className={max2 == 0 ? "incdec" : "incdecactive"}
-                      // onClick={() => removeamount(index)}
-                    >
-                      <svg
-                        id="minus-chunky_svg__eds-icon-minus-chunky"
-                        x="0"
-                        y="0"
-                        viewBox="0 0 24 24"
-                      >
-                        <g>
-                          <path fill="#fff" d="M6.5 11.5h11v1h-11z"></path>
-                          <path d="M18 11H6v2h12v-2z"></path>
-                        </g>
-                      </svg>
-                    </div>
-                  </IncrementDecrement>
-                </SelectTickContainer>
-                <SelectTickBottomContainer>
-                  <BottomContainerHead>
-                    <p className="Fee">${element.price}</p>
-                    {/* {ticketsAmount[index].discount && (
+                        <svg
+                          id="minus-chunky_svg__eds-icon-minus-chunky"
+                          x="0"
+                          y="0"
+                          viewBox="0 0 24 24"
+                        >
+                          <g>
+                            <path fill="#fff" d="M6.5 11.5h11v1h-11z"></path>
+                            <path d="M18 11H6v2h12v-2z"></path>
+                          </g>
+                        </svg>
+                      </div>
+                    </IncrementDecrement>
+                  </SelectTickContainer>
+                  <SelectTickBottomContainer>
+                    <BottomContainerHead>
+                      <p className="Fee">${element.price}</p>
+                      {/* {ticketsAmount[index].discount && (
                       <pre>
                         <p className={classes.price}>
                           {element.price -
@@ -241,35 +264,40 @@ export default function Reservation(props) {
                         </p>
                       </pre>
                     )} */}
-                    <p className="Sale">
-                      Sales end on {element.endSelling}
-                      {/* {moment(element.salesStart).format("MMMM Do YYYY")} */}
-                    </p>
-                  </BottomContainerHead>
-                </SelectTickBottomContainer>
-              </SelectTicket>
-            );
-          })}
-          <TicketEnd>
+                      <p className="Sale">
+                        Sales end on {element.endSelling}
+                        {/* {moment(element.salesStart).format("MMMM Do YYYY")} */}
+                      </p>
+                    </BottomContainerHead>
+                  </SelectTickBottomContainer>
+                </SelectTicket>
+              );
+            })}
+            <TicketEnd>
+              {" "}
+              <div>
+                Powered by
+                <a href="">
+                  <img src="" alt="" />
+                </a>
+              </div>
+            </TicketEnd>
+          </TicketBody>
+          <Checkout>
             {" "}
-            <div>
-              Powered by
-              <a href="">
-                <img src="" alt="" />
-              </a>
+            <div className="summarycontainer">50</div>
+            <div className="checkoutbtndiv">
+              <button
+                onClick={handleOnclick}
+                className="buttoncheckout"
+                data-testid="CreateBtn"
+              >
+                Check out
+              </button>
             </div>
-          </TicketEnd>
-        </TicketBody>
-        <Checkout>
-          {" "}
-          <div className="summarycontainer">50</div>
-          <div className="checkoutbtndiv">
-            <button className="buttoncheckout" data-testid="CreateBtn">
-              Check out
-            </button>
-          </div>
-        </Checkout>
-      </ContainerBox>
-    )
+          </Checkout>
+        </ContainerBox>
+      )}
+    </>
   );
 }
