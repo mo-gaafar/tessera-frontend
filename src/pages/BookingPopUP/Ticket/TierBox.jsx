@@ -6,7 +6,16 @@ import {
   SelectTickBottomContainer,
   BottomContainerHead,
 } from './Ticket.styled';
+
+import { useState } from 'react';
+
 export default function TierBox({ element }) {
+  const [count, setCount] = useState(0);
+
+  const incrementOrder = () => {
+    setCount(prevCount => (prevCount = prevCount + 1));
+  };
+
   return (
     <SelectTicket>
       <SelectTickContainer className="focus">
@@ -18,7 +27,7 @@ export default function TierBox({ element }) {
                 ? 'incdec'
                 : 'incdecactive'
             }
-            onClick={() => incrementOrder(index)}
+            onClick={() => incrementOrder()}
           >
             <svg
               id="plus-chunky_svg__eds-icon--plus-chunky_svg"
@@ -34,12 +43,12 @@ export default function TierBox({ element }) {
               ></path>
             </svg>
           </div>
-          <div className="Quantity">{}</div>
+          <div className="Quantity">{count}</div>
           <div
             className={
               element.numberOfTicketsSold == 0 ? 'incdec' : 'incdecactive'
             }
-            onClick={() => decrementOrder(index)}
+            onClick={() => decrementOrder()}
           >
             <svg
               id="minus-chunky_svg__eds-icon-minus-chunky"

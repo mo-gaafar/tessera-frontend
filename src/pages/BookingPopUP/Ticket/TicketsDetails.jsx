@@ -196,7 +196,6 @@ export default function Reservation(props) {
               return <TierBox element={element} />;
             })}
             <TicketEnd>
-              {' '}
               <div>
                 Powered by
                 <a href="">
