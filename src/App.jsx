@@ -33,7 +33,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
@@ -44,8 +44,8 @@ function App() {
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} />
         <Route path="booking" element={<BookingPopUp />} />
-      </Routes> */}
-      <BookingPopUp />
+      </Routes>
+      {/* <BookingPopUp /> */}
     </>
   );
 }
