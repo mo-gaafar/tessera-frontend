@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 import { StyledResetPassword } from './styles/ResetPassword.styled';
 import { ContinueButton } from '../SignUp/styles/SignUpEmail.styled';
 import { StyledHead } from '../SignUp/styles/FormFormat.Styled';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 function ResetPassword() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
   });
 
   const [focused, setFocused] = React.useState(false);
   const [emailerror, setEmailError] = React.useState('');
-
+  const [successMsg, setSuccessMsg] = useState('');
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData(prevFormData => ({
@@ -57,15 +60,29 @@ function ResetPassword() {
           body: Json,
         }
       );
+      const responseData = await response.json();
+      if (responseData.success) {
+        const msg =
+          responseData.message.charAt(0).toUpperCase() +
+          responseData.message.slice(1);
+        setSuccessMsg(msg);
+      }
     }
   }
+  console.log(successMsg);
+
+  useEffect(() => {
+    setTimeout(() => {
+      successMsg === 'Please check your mail inbox and reset password' &&
+        navigate('/');
+    }, 3000);
+  }, [successMsg]);
 
   return (
     <>
       <StyledResetPassword onSubmit={handleSubmit}>
         <div className="container">
           <h1 style={{ width: '10ch' }}>Forget Password</h1>
-
           <div style={{ marginBottom: '-3rem' }} className="email__div">
             <label
               className="email__label"
@@ -97,6 +114,7 @@ function ResetPassword() {
             />
             <span>{emailerror}</span>
           </div>
+          {successMsg && <h2> {successMsg}. </h2>}
 
           <ContinueButton onClick={handleValidation}>
             Send Email Link

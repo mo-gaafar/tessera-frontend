@@ -42,6 +42,7 @@ function App() {
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} />
       </Routes>
+      {/* <BookingPopUp /> */}
     </>
   );
 }

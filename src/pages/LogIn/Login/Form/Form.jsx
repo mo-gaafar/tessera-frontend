@@ -109,7 +109,7 @@ export default function Form() {
         message:
           json.message === 'Invalid Email or Password'
             ? 'There is no associated account with this email'
-            : 'Invalid password',
+            : json.message,
       });
     }
   }

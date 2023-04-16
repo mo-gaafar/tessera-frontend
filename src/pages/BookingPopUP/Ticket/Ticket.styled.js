@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContainerBox = styled.div`
   height: 100%;
-  background-color: white;
+  overflow: hidden;
 `;
 
 export const TicketHeader = styled.div`
@@ -23,11 +23,10 @@ export const TicketHeader = styled.div`
 `;
 export const TicketBody = styled.div`
   margin: auto;
-  min-height: 47rem;
-  max-height: calc(100% - 17rem);
+  /* max-height:  56rem; */
+  max-height: calc(100% - 14rem);
   overflow-y: scroll;
   border-bottom: 2px solid rgb(238, 237, 242);
-  background-color: white;
 `;
 
 export const PromoCode = styled.div`
@@ -38,11 +37,13 @@ export const PromoCode = styled.div`
     background-color: white;
   }
 `;
+
 export const Apply = styled.button`
   border: 0;
   background: none;
   cursor: default;
 `;
+
 export const Applyfocus = styled.button`
   border: 0;
   background: none;
@@ -147,8 +148,9 @@ export const BottomContainerHead = styled.div`
 `;
 export const Checkout = styled.div`
   width: 100%;
-  height: 8rem;
+  min-height: 8rem;
   display: flex;
+  postion: fixed;
   flex-direction: column;
   justify-content: center;
   align-items: end;
@@ -157,7 +159,8 @@ export const Checkout = styled.div`
     margin: 0 auto;
     width: 77.5%;
     justify-content: flex-end;
-    background-color: green;
+    background-color: white;
+    font-size: 2rem;
   }
   @media screen and (min-width: 791px) {
     .summarycontainer {

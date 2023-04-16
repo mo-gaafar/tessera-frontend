@@ -9,7 +9,7 @@ import DropdownHamburger from './DropdownHamburger';
 
 import LogoFullTextTicketLarge from '/images/LogoFullTextTicketLarge.png';
 
-export default function Navbar() {
+export default function Navbar(props) {
   const [dropdownforOrganize, setDropdownOrganize] = useState(false);
 
   const [dropdownforHelp, setDropdownHelp] = useState(false);
@@ -18,14 +18,14 @@ export default function Navbar() {
 
   return (
     <div
-      className="container "
+      className="container"
       onClick={() => {
         dropdownforHamburger && setDropdownHamburger(!dropdownforHamburger);
       }}
     >
       <nav className="navBar">
         <div className="siteLogoSection">
-          <Link to="/Home" relative="path">
+          <Link to="/" relative="path">
             <img
               className="logoPng"
               id="hidden"
@@ -198,10 +198,11 @@ export default function Navbar() {
           srcSet="https://cdn.evbstatic.com/s3-build/fe/build/images/83079b4f5dd9305720cddfba5b614445-4_web_1919x543.jpg"
         />
 
+        {props.show&&
         <img
           src="https://cdn.evbstatic.com/s3-build/fe/build/images/542fec493f093cb39b6e1610cad9ff9a-4_mobile_659x494.jpg"
           alt="Homepage header"
-        />
+        />}
       </picture>
     </div>
   );
