@@ -725,6 +725,8 @@ export const OtherEventsYouMayLike = styled.section`
 width:100%;
 height:54.8rem;
 display:flex;
+background-color: #f8f7fa;
+z-index:1;
 
 
 h2{
@@ -734,7 +736,7 @@ h2{
 }
 
 .otherEventsDiv{
-    z-index: -1;
+    z-index:1;
     background-color: #f8f7fa;
     position: relative;
     font-size: 14px;
@@ -835,10 +837,10 @@ h2{
 
 .event__box{
     background-color:white;
-
+    
     
     flex: 0 32%;
-    position: relative;
+     position: relative;
     border-radius: 0.4rem;
     width: 100%;
     margin:1rem;
