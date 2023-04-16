@@ -455,7 +455,7 @@ text-align: center;
 filter: blur(50px) brightness(.9);
 z-index: 0;`;
 export const Picture = styled.picture`
-position: relative;
+
 width: 100%;
 height: auto;
 z-index: 1;
@@ -463,6 +463,7 @@ aspect-ratio: auto 600 / 300;`;
 export const PictureSource = styled.img`
   filter: blur(50px) brightness(0.9);
   @media(min-width: 940px) and (max-width: 1200px){
+    
     width: 100%;
   }
   @media(max-width: 940px){
@@ -482,8 +483,7 @@ export const PictureBackgroundEvent = styled.img`
   aspect-ratio: auto 600 / 300;
   border-radius: 0rem 0rem 2rem 2rem;
   @media (min-width: 940px) and (max-width: 1200px) {
-    position: fixed;
-    margin-top: -54.5rem;
+    margin-top: -48.5rem;
     margin-left: 8rem;
     border-radius: 0rem;
     max-width: 94rem;
@@ -1407,6 +1407,7 @@ export const PricedTickets = styled.div`
 
   @media (max-width: 940px) {
     position: fixed;
+    z-index: 2;
     bottom: 0;
     width: 100%;
     left: 0;

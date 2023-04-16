@@ -726,24 +726,24 @@ export const OtherEventsYouMayLike = styled.section`
 
 width:100%;
 height:54.8rem;
-background-color: #f8f7fa;
+//background-color: #f8f7fa;
 display:flex;
 
 
 h2{
     font-size:2.4rem;
-    
 
+    
 }
 
 .otherEventsDiv{
-    z-index: 1;
+    z-index: -1;
     position: relative;
     font-size: 14px;
     line-height: 22px;
     font-weight: 400;
     margin-top:5rem;
-    // background-color:lightblue;
+    background-color: #f8f7fa;
 
     max-width: 1080px;
     margin-left: auto;
@@ -906,9 +906,7 @@ span{
     .otherEventsDiv, .titleAndButtons,.allEventsDiv,.alignEventsDiv{
         width: 100.12rem;
     ]
-        
-
-    
+  
 
 }
 
