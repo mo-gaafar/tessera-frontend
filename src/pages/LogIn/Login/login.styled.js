@@ -20,7 +20,21 @@ export const LoginStyled = styled.div`
     width: 100%;
     height: 40%;
   }
+  #facebook {
+    height: 4.8rem;
+    width: 4.8rem;
+    border-radius: 24px;
+    background-image: url('/images/Facebook-logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1877f2;
+    border: none;
 
+    :hover {
+      cursor: pointer;
+    }
+  }
   .Login {
     margin-top: 10px;
     color: rgb(30, 10, 60);

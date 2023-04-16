@@ -5,6 +5,8 @@ import EmailMe from './emailme/Emailme';
 import Googlesign from './google/Googlesign';
 import Other from './Other/OtherMethods';
 import Dropother from './Dropdownother/Dropother';
+import { useGoogleLogin } from '@react-oauth/google';
+
 import { useState } from 'react';
 import React from 'react';
 import {
@@ -14,8 +16,58 @@ import {
   Googlelogo,
 } from '../../SignUp/styles/SignUpEmail.styled';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Login() {
+  const [user, setUser] = useState([]);
+
+  const google = useGoogleLogin({
+    onSuccess: codeResponse => setUser(codeResponse),
+    onError: error => console.log('Login Failed:', error),
+  });
+
+  useEffect(() => {
+    localStorage.removeItem('authEmail');
+    localStorage.removeItem('email');
+    const setUser = async () => {
+      const response = await fetch(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+            Accept: 'application/json',
+          },
+        }
+      );
+
+      const json = await response.json();
+
+      const { email, given_name: firstname, family_name: lastname, id } = json;
+
+      const postData = await fetch(
+        'https://www.tessera.social/api/auth/google/app',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            firstname,
+            lastname,
+            id,
+          }),
+        }
+      );
+      localStorage.setItem('authEmail', email);
+      const data = await postData.json();
+      if (data.success) {
+        navigate('/');
+      }
+    };
+    setUser();
+  }, [user]);
+
   return (
     <LoginStyled>
       <div className="headers">
@@ -26,7 +78,7 @@ export default function Login() {
       <Divider>
         <CircleDivider>or</CircleDivider>
       </Divider>
-      <GoogleButton target={'_blank'}>
+      <GoogleButton onClick={() => google()} target={'_blank'}>
         <Googlelogo src="/images/google-logo.png" />
         Sign in with Google
       </GoogleButton>
@@ -36,7 +88,7 @@ export default function Login() {
         <Link to="/signup" className="Signup">
           Sign up
         </Link>
-        <Link to="/forgetPassword"> Forget Password </Link>
+        <Link to="/forgetPassword"> Forgot Password </Link>
       </div>
     </LoginStyled>
   );

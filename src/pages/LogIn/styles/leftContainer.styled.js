@@ -6,6 +6,7 @@ export const LeftStyled = styled.div`
   grid-template-columns: 1fr;
   justify-self: center;
   align-items: center;
+  max-height: 100vh;
   .blankright {
     display: block;
   }
