@@ -109,8 +109,11 @@ export default function SignUpOne(props) {
       }
     );
 
-    console.log(await responseBackend.json());
+    const responseData = responseBackend.json();
     localStorage.setItem('authEmail', email);
+    if (responseData.success) {
+      navigate('/');
+    }
   }
 
   function handleError(error) {
