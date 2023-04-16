@@ -13,11 +13,23 @@ export const StyledResetPassword = styled.form`
     justify-content: center;
     gap: 2rem;
   }
+  h2 {
+    border-width: 5px;
+    border-style: solid;
+    border-color: white white white rgb(221, 73, 28);
+    color: #39364f;
+    padding-left: 0.5rem;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+  }
   h1 {
     color: rgb(30, 10, 60);
     font-size: 5.2rem;
     font-weight: 800;
     width: 15ch;
+  }
+  button {
+    margin-top: 1rem;
   }
   span {
     display: block;

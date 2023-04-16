@@ -25,7 +25,8 @@ export default function MoreEvents(props) {
 
           <div className='eventTextInfo'>
               <div className='eventName'>
-                  {props.eventName}
+              <a href="https://www.example.com">{props.eventName}</a>
+                  {/* {props.eventName} */}
               </div>
               <div className='eventDateTime'> {props.eventDateTime} </div>
 
@@ -45,7 +46,7 @@ export default function MoreEvents(props) {
           </div>
           <div className='eventImageButtons'>
               <div className='imageCard'>
-                <img className='image' src={props.imageSrc}/>
+              <a href="https://www.example.com"><img className='image' src={props.imageSrc}/></a> 
               </div>
               <div className='buttonsDiv'>
 
