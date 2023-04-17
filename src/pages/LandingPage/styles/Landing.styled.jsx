@@ -95,6 +95,9 @@ export const StyledLandingEvents = styled.section`
     ::placeholder {
       color: #3659e3;
     }
+    @media (max-width: 40em) {
+      width: 20rem !important;
+    }
   }
   .location__dropdown {
     top: 3.5rem;
