@@ -1,16 +1,25 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 export default function NavbarLoggedIn(props) {
-  const [menu,setMenu] = useState(false);
+  const [menu, setMenu] = useState(false);
   const handleMouseOver = () => {
     setMenu(true);
   };
   const handleMouseOut = () => {
     setMenu(false);
   };
+
+  const handleClick = () => {
+    localStorage.removeItem('authEmail');
+    localStorage.removeItem('email');
+    window.location.reload();
+  };
   return (
     <>
       <nav className="logged__nav">
-        <img src="/images/LogoFullTextTicketLarge.png" alt="" />
+        <Link to="/">
+          <img src="/images/LogoFullTextTicketLarge.png" alt="" />
+        </Link>
         <ul className="logged__nav__list">
           <li className="logged__nav__list__create">
             <svg
@@ -30,9 +39,7 @@ export default function NavbarLoggedIn(props) {
             </svg>
             Create an Event
           </li>
-          <li 
-          onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseOut} >
+          <li onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             <span>
               <svg
                 className="user__svg"
@@ -77,15 +84,14 @@ export default function NavbarLoggedIn(props) {
               ></path>
             </svg>
 
-            
-            <div className="menu" 
-              >
-              {menu &&   
-              <ul>
-                <li>Browse Events</li>
-                <li>Manage my Events</li>
-                <li>Log out</li>
-              </ul>}
+            <div className="menu">
+              {menu && (
+                <ul>
+                  <li>Browse Events</li>
+                  <li>Manage my Events</li>
+                  <li onClick={handleClick}>Log out</li>
+                </ul>
+              )}
             </div>
           </li>
         </ul>
@@ -101,10 +107,12 @@ export default function NavbarLoggedIn(props) {
           srcSet="https://cdn.evbstatic.com/s3-build/fe/build/images/83079b4f5dd9305720cddfba5b614445-4_web_1919x543.jpg"
         />
 
-        <img
-          src="https://cdn.evbstatic.com/s3-build/fe/build/images/542fec493f093cb39b6e1610cad9ff9a-4_mobile_659x494.jpg"
-          alt="Homepage header"
-        />
+        {props.show && (
+          <img
+            src="https://cdn.evbstatic.com/s3-build/fe/build/images/542fec493f093cb39b6e1610cad9ff9a-4_mobile_659x494.jpg"
+            alt="Homepage header"
+          />
+        )}
       </picture>
     </>
   );

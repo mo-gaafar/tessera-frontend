@@ -221,17 +221,15 @@ export default function Landing() {
         city: cityName,
         country: country,
       });
+      setUrl(`city=${cityName}&country=${country}`);
     };
-
-    setUrl(`city=${cityData.city}&country=${cityData.country}`);
-
     navigator.geolocation?.getCurrentPosition(poistion => {
       const { latitude, longitude } = poistion.coords;
 
       fetchData(latitude, longitude);
     });
   }, []);
-
+  console.log(url);
   function handleForYou() {
     setForYouElement(true);
     //setShowCategoryMenu(false);
@@ -340,26 +338,17 @@ export default function Landing() {
    */
 
   useEffect(() => {
+    console.log(cityData);
     async function getData() {
       const res = await fetch(
         'https://www.tessera.social/api/attendee/Eventsby/?' + url
       );
       const data = await res.json();
       setAllFilteredEvents(data.filteredEvents);
-    }
-    getData();
-  }, [url]);
-
-  useEffect(() => {
-    async function getData() {
-      const res = await fetch(
-        'https://www.tessera.social/api/attendee/Eventsby/?'
-      );
-      const data = await res.json();
       setAllCatEvents(data.categoriesRetreived);
     }
     getData();
-  }, []);
+  }, [url]);
 
   /**
    * Changes the Isodate to display date format.
@@ -479,7 +468,6 @@ export default function Landing() {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
-
   const [selected, setSelected] = useState(null);
 
   const [showLocationMenu, setShowLocationMenu] = useState(false);
@@ -491,11 +479,10 @@ export default function Landing() {
   return (
     <>
       <StyledNav>
-        {email ? (
-          <NavbarLoggedIn email={email} />
-          
+        {email && email !== 'undefined' ? (
+          <NavbarLoggedIn show={true} email={email} />
         ) : (
-          <Navbar onClick={locationDropDownToggle} />
+          <Navbar onClick={locationDropDownToggle} show={true} />
         )}
       </StyledNav>
       <StyledLandingEvents onClick={locationDropDownToggle}>

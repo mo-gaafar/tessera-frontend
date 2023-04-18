@@ -4,8 +4,11 @@ import { StyledResetPassword } from './styles/ResetPassword.styled';
 import { ContinueButton } from '../SignUp/styles/SignUpEmail.styled';
 import { StyledHead } from '../SignUp/styles/FormFormat.Styled';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function ResetPassword() {
+  const navigate = useNavigate();
+
   const token = useParams().token.slice(1);
 
   const [formData, setFormData] = useState({
@@ -18,6 +21,7 @@ function ResetPassword() {
   const [emailerror, setEmailError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
   const [strength, setStrength] = React.useState(0);
+  const [successMsg, setSuccessMsg] = useState('');
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -93,6 +97,13 @@ function ResetPassword() {
           body: JSON.stringify(responsebody),
         }
       );
+      const responseData = await response.json();
+      if (responseData.success) {
+        const msg =
+          responseData.message.charAt(0).toUpperCase() +
+          responseData.message.slice(1);
+        setSuccessMsg(msg);
+      }
     }
   }
 
@@ -133,7 +144,7 @@ function ResetPassword() {
             />
             <span>{emailerror}</span>
           </div>
-          <div className="password__div">
+          <div style={{ marginTop: '-1.5rem' }} className="password__div">
             <label
               style={
                 passwordError
@@ -166,6 +177,7 @@ function ResetPassword() {
 
             <span>{passwordError}</span>
           </div>
+          {successMsg && <h2> {successMsg}. </h2>}
 
           <ContinueButton onClick={handleValidation}>Reset </ContinueButton>
         </div>

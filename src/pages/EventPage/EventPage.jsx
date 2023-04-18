@@ -1,5 +1,8 @@
 import React from 'react';
+import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
+import Navbar from '../LandingPage/NavBar';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import {
   WholePage,
   WhenandWhereText,
@@ -329,6 +332,15 @@ export default function Events(props) {
       allEventsDiv.classList.remove('fade-transition');
     }, 500);
   };
+  const [showLocationMenu, setShowLocationMenu] = useState(false);
+  const locationDropDownToggle = e => {
+    const h3 = e.target.closest('h3');
+
+    !h3 && setShowLocationMenu(false);
+  };
+  const email = localStorage.getItem('email')
+    ? localStorage.getItem('email')
+    : localStorage.getItem('authEmail');
 
   return (
     <>
@@ -345,6 +357,13 @@ export default function Events(props) {
       )}
 
       <WholePage>
+        <StyledNav>
+          {email && email !== 'undefined' ? (
+            <NavbarLoggedIn email={email} />
+          ) : (
+            <Navbar onClick={locationDropDownToggle} />
+          )}
+        </StyledNav>
         {EventExists && (
           <FirstHalfPage>
             <FirstHalfPageDiv1>

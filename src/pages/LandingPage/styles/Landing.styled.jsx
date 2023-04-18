@@ -7,7 +7,7 @@ export const StyledNav = styled.div`
     justify-content: space-between;
     padding-inline: 5rem;
     position: relative;
-
+    padding-right: 2rem;
     .menu {
       width: 20rem;
       position: absolute;
@@ -326,7 +326,7 @@ export const StyledEventsContainer = styled.div`
     padding-bottom: 2rem;
     margin-top: 2rem;
     @media (min-width: 70em) {
-      max-width: 30rem;
+      max-width: 33rem;
     }
     & > * {
       padding-inline: 2rem;
