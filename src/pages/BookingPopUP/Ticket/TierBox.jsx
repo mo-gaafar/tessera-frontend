@@ -5,9 +5,9 @@ import {
   IncrementDecrement,
   SelectTickBottomContainer,
   BottomContainerHead,
-} from "./Ticket.styled";
+} from './Ticket.styled';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function TierBox({
   element,
@@ -23,38 +23,45 @@ export default function TierBox({
   const [countactual, setCountActual] = useState(0);
   const [countDecrement, setCountDecrement] = useState(0);
 
-  const summaryappend = (newPrice) => {
-    let flag = false;
+  const summaryappend = newPrice => {
+    setSummary(prevValue => {
+      let flag = false;
 
-    for (let i = 0; i < summary.length; i++) {
-      if (summary[i].sumId == element.id) {
-        flag = true;
-        summary[i].sumTicketCount = element.ticketCount;
-        summary[i].sumTicketPrice = newPrice;
+      prevValue.forEach((element, i) => {
+        if (element.sumId == element.id) {
+          flag = false;
+          element.sumTicketCount = element.ticketCount;
+          element.sumTicketPrice = newPrice;
 
-        element.ticketCount == 0 ? summary.splice(i, 1) : null;
-      }
-    }
-    if (!flag) {
-      summary.push({
-        sumId: element.id,
-        sumTicketCount: element.ticketCount,
-        sumTicketPrice: newPrice,
-        sumTierName: element.tierName,
+          element.ticketCount === 0 && prevValue.splice(i, 1);
+        }
       });
 
-      flag = false;
-    }
-    setSummary(summary);
+      if (!flag) {
+        const newValue = [
+          ...prevValue,
+          {
+            sumId: element.id,
+            sumTicketCount: element.ticketCount,
+            sumTicketPrice: newPrice,
+            sumTierName: element.tierName,
+          },
+        ];
+        return newValue;
+      }
+
+      return prevValue;
+    });
   };
-  const incrementOrder = (i) => {
+
+  const incrementOrder = i => {
     const currentCapacity = element.maxCapacity - element.numberOfTicketsSold;
 
-    setCount((prevCount) => {
+    setCount(prevCount => {
       return prevCount == currentCapacity ? prevCount : prevCount + 1;
     });
 
-    setTicketTierdetails((prevState) => {
+    setTicketTierdetails(prevState => {
       const newState = [...prevState];
       newState.forEach((item, index) => {
         if (index === i) {
@@ -62,19 +69,23 @@ export default function TierBox({
           setCountDecrement(count);
         }
       });
-      summaryappend(count * element.price.slice(1));
+      summaryappend(
+        count * element.price.slice(0, 1) === '$'
+          ? element.price.slice(1)
+          : element.price
+      );
+
       return newState;
     });
-
-    summary.length == 0 ? setEmpty(true) : setEmpty(false);
+    summary.length === 0 ? setEmpty(true) : setEmpty(false);
   };
 
-  const decrementOrder = (i) => {
-    setCountDecrement((prevCount) =>
+  const decrementOrder = i => {
+    setCountDecrement(prevCount =>
       prevCount === 0 ? prevCount : prevCount - 1
     );
 
-    setTicketTierdetails((prevState) => {
+    setTicketTierdetails(prevState => {
       const newState = [...prevState];
       newState.forEach((item, index) => {
         if (index === i) {
@@ -82,11 +93,18 @@ export default function TierBox({
           setCount(countDecrement);
         }
       });
-      summaryappend(countDecrement * element.price.slice(1));
+
+      summaryappend(
+        countDecrement * element.price.slice(0, 1) === '$'
+          ? element.price.slice(1)
+          : element.price
+      );
+
       return newState;
     });
-    summary.length == 0 ? setEmpty(true) : setEmpty(false);
+    summary.length === 0 ? setEmpty(true) : setEmpty(false);
   };
+
   return (
     <SelectTicket>
       <SelectTickContainer className="focus">
@@ -95,8 +113,8 @@ export default function TierBox({
           <div
             className={
               element.ticketCount == element.maxCapacity
-                ? "incdec"
-                : "incdecactive"
+                ? 'incdec'
+                : 'incdecactive'
             }
             onClick={() => incrementOrder(index)}
           >
@@ -116,7 +134,7 @@ export default function TierBox({
           </div>
           <div className="Quantity">{element.ticketCount}</div>
           <div
-            className={element.ticketCount == 0 ? "incdec" : "incdecactive"}
+            className={element.ticketCount == 0 ? 'incdec' : 'incdecactive'}
             onClick={() => decrementOrder(index)}
           >
             <svg
@@ -137,7 +155,7 @@ export default function TierBox({
         <BottomContainerHead>
           <p className="Fee">
             $
-            {element.price.slice(0, 1) === "$"
+            {element.price.slice(0, 1) === '$'
               ? element.price.slice(1)
               : element.price}
           </p>
