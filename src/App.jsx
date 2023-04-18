@@ -4,22 +4,20 @@
  * @exports App
  */
 
-import SignupTwo from './pages/SignUp/SignupTwo';
-import SignUpOne from './pages/SignUp/SignupOne';
+import SignupTwo from "./pages/SignUp/SignupTwo";
+import SignUpOne from "./pages/SignUp/SignupOne";
 
-import GlobalStyles from './components/styles/Global';
-import Landing from './pages/LandingPage/Landing';
-import Organize from './pages/Organize/Organize';
-import { Route, Routes } from 'react-router-dom';
+import GlobalStyles from "./components/styles/Global";
+import Landing from "./pages/LandingPage/Landing";
+import Organize from "./pages/Organize/Organize";
+import { Route, Routes } from "react-router-dom";
 
-import { useEffect, useState } from 'react';
-import Maincontainer from './pages/LogIn/MainContainer';
-import ResetPassword from './pages/ResetPassword/ResetPassword';
-import Reset from './pages/ResetPassword/Reset';
-import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
-import Events from './pages/EventPage/EventPage';
-import BookingPopUp from './Pages/BookingPopUP/BookingPop';
-import Reservation from './Pages/BookingPopUP/Ticket/TicketsDetails';
+import { useEffect, useState } from "react";
+import Maincontainer from "./pages/LogIn/MainContainer";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import Reset from "./pages/ResetPassword/Reset";
+import CheckoutForm from "./pages/BookingPopUP/CheckoutForm";
+import Events from "./pages/EventPage/EventPage";
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -27,8 +25,9 @@ import Reservation from './Pages/BookingPopUP/Ticket/TicketsDetails';
  * @function
  * @returns {JSX.Element} The main application component
  */
+
 function App() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   return (
     <>
@@ -43,7 +42,6 @@ function App() {
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} />
-        <Route path="booking" element={<BookingPopUp />} />
       </Routes>
       {/* <BookingPopUp /> */}
     </>

@@ -5,53 +5,87 @@ import {
   IncrementDecrement,
   SelectTickBottomContainer,
   BottomContainerHead,
-} from './Ticket.styled';
+} from "./Ticket.styled";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function TierBox({
   element,
   setTicketTierdetails,
   index,
   ticketsTierdetails,
+  summary,
+  setSummary,
+  setEmpty,
+  total,
 }) {
   const [count, setCount] = useState(0);
+  const [countactual, setCountActual] = useState(0);
+  const [countDecrement, setCountDecrement] = useState(0);
 
-  const incrementOrder = i => {
+  const summaryappend = (newPrice) => {
+    let flag = false;
+
+    for (let i = 0; i < summary.length; i++) {
+      if (summary[i].sumId == element.id) {
+        flag = true;
+        summary[i].sumTicketCount = element.ticketCount;
+        summary[i].sumTicketPrice = newPrice;
+
+        element.ticketCount == 0 ? summary.splice(i, 1) : null;
+      }
+    }
+    if (!flag) {
+      summary.push({
+        sumId: element.id,
+        sumTicketCount: element.ticketCount,
+        sumTicketPrice: newPrice,
+        sumTierName: element.tierName,
+      });
+
+      flag = false;
+    }
+    setSummary(summary);
+  };
+  const incrementOrder = (i) => {
     const currentCapacity = element.maxCapacity - element.numberOfTicketsSold;
-    console.log(currentCapacity);
-    setCount(prevCount => {
-      console.log(prevCount, currentCapacity);
-      return prevCount === currentCapacity ? prevCount : prevCount + 1;
+
+    setCount((prevCount) => {
+      return prevCount == currentCapacity ? prevCount : prevCount + 1;
     });
 
-    setTicketTierdetails(prevState => {
+    setTicketTierdetails((prevState) => {
       const newState = [...prevState];
       newState.forEach((item, index) => {
         if (index === i) {
-          item.ticketCount++;
+          item.ticketCount = count;
+          setCountDecrement(count);
         }
       });
-
+      summaryappend(count * element.price.slice(1));
       return newState;
     });
-    console.log(ticketsTierdetails);
+
+    summary.length == 0 ? setEmpty(true) : setEmpty(false);
   };
 
-  const decrementOrder = i => {
-    setCount(prevCount => (prevCount === 0 ? prevCount : prevCount - 1));
+  const decrementOrder = (i) => {
+    setCountDecrement((prevCount) =>
+      prevCount === 0 ? prevCount : prevCount - 1
+    );
 
-    setTicketTierdetails(prevState => {
+    setTicketTierdetails((prevState) => {
       const newState = [...prevState];
       newState.forEach((item, index) => {
         if (index === i) {
-          item.ticketCount === 0 ? item.ticketCount : item.ticketCount--;
+          item.ticketCount = countDecrement;
+          setCount(countDecrement);
         }
       });
-
+      summaryappend(countDecrement * element.price.slice(1));
       return newState;
     });
-    console.log(ticketsTierdetails);
+    summary.length == 0 ? setEmpty(true) : setEmpty(false);
   };
   return (
     <SelectTicket>
@@ -61,8 +95,8 @@ export default function TierBox({
           <div
             className={
               element.ticketCount == element.maxCapacity
-                ? 'incdec'
-                : 'incdecactive'
+                ? "incdec"
+                : "incdecactive"
             }
             onClick={() => incrementOrder(index)}
           >
@@ -80,9 +114,9 @@ export default function TierBox({
               ></path>
             </svg>
           </div>
-          <div className="Quantity">{count}</div>
+          <div className="Quantity">{element.ticketCount}</div>
           <div
-            className={element.ticketCount == 0 ? 'incdec' : 'incdecactive'}
+            className={element.ticketCount == 0 ? "incdec" : "incdecactive"}
             onClick={() => decrementOrder(index)}
           >
             <svg
@@ -103,7 +137,7 @@ export default function TierBox({
         <BottomContainerHead>
           <p className="Fee">
             $
-            {element.price.slice(0, 1) === '$'
+            {element.price.slice(0, 1) === "$"
               ? element.price.slice(1)
               : element.price}
           </p>

@@ -1,13 +1,13 @@
-import React from 'react';
-import axios from 'axios';
-import { Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { TextField } from '@mui/material';
-import InputAdornment from '@mui/material/InputAdornment';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { styled } from '@mui/material/styles';
-import CheckoutForm from '../CheckoutForm';
+import React from "react";
+import axios from "axios";
+import { Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { TextField } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { styled } from "@mui/material/styles";
+import CheckoutForm from "../CheckoutForm";
 import {
   ContainerBox,
   TicketBody,
@@ -23,10 +23,17 @@ import {
   BottomContainerHead,
   Apply,
   Applyfocus,
-} from './Ticket.styled';
-import TierBox from './TierBox';
+} from "./Ticket.styled";
+import TierBox from "./TierBox";
 
-export default function Reservation({ setShowCheckout, showCheckout }) {
+export default function Reservation({
+  setShowCheckout,
+  showCheckout,
+  liftCheckoutInfo,
+  setliftCheckoutInfo,
+  setEmpty,
+  total,
+}) {
   const eventID = useParams().eventID;
 
   const [tickets, setTickets] = useState(true);
@@ -36,19 +43,21 @@ export default function Reservation({ setShowCheckout, showCheckout }) {
   const [max2, setMax2] = useState(0);
   const [subtotal, setSubtotal] = useState(0.0);
   const [fee, setFee] = useState(0.0);
-  const [total, setTotal] = useState(0.0);
-  const [inputValue, setInputValue] = useState('');
+
+  const [inputValue, setInputValue] = useState("");
   const [ticketsNum, setTicketsNum] = useState(0);
   const [errorMsg, setErrorMsg] = useState(false);
-  const [helper, setHelper] = useState('');
+  const [helper, setHelper] = useState("");
   const [eventData, setEventData] = React.useState({});
   const [eventExist, setEventExists] = React.useState(false);
   const [ticketsTierdetails, setTicketTierdetails] = useState([]);
+  const [summaryInter, setSummaryInter] = useState([]);
+  const [setting, setSetting] = useState("");
 
   async function sendPromo(inputpromo) {
     try {
       const response = await fetch(
-        'https://www.tessera.social/api/attendee/ticket/643aa02d4d2e42199562be5f/promocode/retrieve?=' +
+        "https://www.tessera.social/api/attendee/ticket/643aa02d4d2e42199562be5f/promocode/retrieve?=" +
           inputpromo
       );
       const prom = await response.json();
@@ -56,10 +65,10 @@ export default function Reservation({ setShowCheckout, showCheckout }) {
     } catch (error) {
       console.log(error);
     }
-
+    console.log("ent btetnady");
     promocode
-      ? setHelper('Promo code is valid')
-      : setHelper('Promo code is invalid');
+      ? setHelper("Promo code is valid")
+      : setHelper("Promo code is invalid");
     promocode ? setErrorMsg(false) : setErrorMsg(true);
   }
 
@@ -90,16 +99,46 @@ export default function Reservation({ setShowCheckout, showCheckout }) {
           discountamount: 0,
           discount: false,
           ticketCount: 0,
+          id: event.filteredEvents[0].ticketTiers[index]._id,
         }));
       setTicketTierdetails(tempArray);
     };
     fetchData();
   }, []);
-
-  // console.log("tickecyt details " + tempArray[0].tierName);
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const convertUtcToLocalTime = (dateString) => {
+    let date = new Date(dateString);
+    const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
+    const milliseconds = Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds()
+    );
+    const localTime = new Date(milliseconds);
+    let month = monthNames[localTime.getMonth()];
+    let day = localTime.getDate();
+    let hour = localTime.getHours();
+    return dayName + " " + month + " " + day + " ";
+  };
 
   function handleOnclick() {
-    setShowCheckout(prevState => {
+    setShowCheckout((prevState) => {
       return true;
     });
   }
@@ -111,21 +150,22 @@ export default function Reservation({ setShowCheckout, showCheckout }) {
           {/* {ticketCredentials()} */}
 
           <TicketHeader>
-            {/* {props.liftStateUP(eventData.filteredEvents[0].basicInfo.eventImage)} */}
             <div className="title">
               {eventData.filteredEvents[0].basicInfo.eventName}
             </div>
             <div className="Setting">
-              {' '}
-              {eventData.filteredEvents[0].basicInfo.startDateTime}
+              {" "}
+              {convertUtcToLocalTime(
+                eventData.filteredEvents[0].basicInfo.eventName
+              )}
             </div>
           </TicketHeader>
           <TicketBody>
             <PromoCode>
               <TextField
-                className={'lol'}
+                className={"lol"}
                 value={inputValue}
-                onChange={newValue => setInputValue(newValue.target.value)}
+                onChange={(newValue) => setInputValue(newValue.target.value)}
                 disabled={promocode ? true : false}
                 id="outlined-basic"
                 label="PromoCode"
@@ -138,18 +178,18 @@ export default function Reservation({ setShowCheckout, showCheckout }) {
                       {promocode && <CheckCircleIcon color="success" />}
                       {!inputValue ? (
                         <Apply
-                          // onClick={sendPromo(inputValue)}
+                          onClick={() => sendPromo(inputValue)}
                           disabled={!promocode ? !inputValue : false}
                         >
-                          {!promocode ? 'Apply' : 'Remove'}
+                          {!promocode ? "Apply" : "Remove"}
                         </Apply>
                       ) : (
                         <Applyfocus
-                          // onClick={sendPromo(inputValue)}
+                          onClick={() => sendPromo(inputValue)}
                           disabled={!promocode ? !inputValue : false}
                         >
                           {console.log(inputValue)}
-                          {!promocode ? 'Apply' : 'Remove'}
+                          {!promocode ? "Apply" : "Remove"}
                         </Applyfocus>
                       )}
                     </InputAdornment>
@@ -166,23 +206,30 @@ export default function Reservation({ setShowCheckout, showCheckout }) {
                   index={index}
                   setTicketTierdetails={setTicketTierdetails}
                   ticketsTierdetails={ticketsTierdetails}
-                />
+                  summary={liftCheckoutInfo}
+                  setSummary={setliftCheckoutInfo}
+                  setEmpty={setEmpty}
+                  total={total}
+                >
+                  {" "}
+                  {(liftCheckoutInfo = summaryInter)}
+                </TierBox>
               );
             })}
             <TicketEnd>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 Powered by
                 <Link to="/">
                   <img
                     src="/images/LogoFullTextSmall.png"
-                    style={{ width: '5rem' }}
+                    style={{ width: "5rem" }}
                   />
                 </Link>
               </div>
             </TicketEnd>
           </TicketBody>
           <Checkout>
-            {' '}
+            {" "}
             <div className="summarycontainer">50</div>
             <div className="checkoutbtndiv">
               <button
