@@ -1,3 +1,14 @@
+/**
+ * @file BookingPop.jsx
+ * @name BookingPop.jsx
+ * @author @SeifAllah
+ * @requires react
+ * @requires @mui/material
+ * @exports BookingPop
+ * @description This file contains the BookingPop components and its logic that is the component that renders the reservation with the ordersummary
+ *
+ *
+ */
 import React from "react";
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
@@ -121,6 +132,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
 
                         {checkoutInfo.forEach((orderSummary) => {
                           sum += orderSummary.sumTicketPrice;
+                          console.log("sum 2ooly bkam", sum);
                         })}
 
                         {checkoutInfo.map((orderSummary, index) => {

@@ -1,3 +1,16 @@
+/**
+ * @file TierBox.jsx
+ * @name TierBox.jsx
+ * @author @SeifAllah
+ * @requires react
+ * @requires ./Ticket.styled
+ * @exports TierBox
+ * @description This file contains the TierBox components and its logic
+
+ * 
+ * 
+ */
+
 import {
   SelectTicket,
   SelectTickContainer,
@@ -5,10 +18,22 @@ import {
   IncrementDecrement,
   SelectTickBottomContainer,
   BottomContainerHead,
-} from './Ticket.styled';
+} from "./Ticket.styled";
 
-import { useState } from 'react';
-
+import { useState } from "react";
+/**
+ * description: this function is the TierBox component and returns html elements that contain the ticket tier details
+ * @param {Object} element - the elemnt of the tickettierdetails
+ * @param {Function} setTicketTierdetails - the function to set the tickettierdetails
+ * @param {Number} index - the index of the element
+ * @param {Array} ticketsTierdetails - the array of the tickettierdetails
+ * @param {object} summary - the summary
+ * @param {Function} setSummary - the function to set the summary
+ * @param {Function} setEmpty - the function to set the empty
+ * @param {Number} total - the total of the tickets
+ *
+ * @returns {JSX.Element} - the JSX of the TierBox
+ */
 export default function TierBox({
   element,
   setTicketTierdetails,
@@ -23,8 +48,13 @@ export default function TierBox({
   const [countactual, setCountActual] = useState(0);
   const [countDecrement, setCountDecrement] = useState(0);
 
-  const summaryappend = newPrice => {
-    setSummary(prevValue => {
+  /**
+   * description: this function is to append the summary
+   * @param {Number} newPrice - the new price
+   * @returns {Array} - the new summary
+   */
+  const summaryappend = (newPrice) => {
+    setSummary((prevValue) => {
       let flag = false;
 
       prevValue.forEach((element, i) => {
@@ -53,15 +83,19 @@ export default function TierBox({
       return prevValue;
     });
   };
-
-  const incrementOrder = i => {
+  /**
+   * description: this function is to increment the order
+   * @param {Number} i - the index of the element
+   * @returns {Array} - the new tickettierdetails
+   */
+  const incrementOrder = (i) => {
     const currentCapacity = element.maxCapacity - element.numberOfTicketsSold;
 
-    setCount(prevCount => {
+    setCount((prevCount) => {
       return prevCount == currentCapacity ? prevCount : prevCount + 1;
     });
 
-    setTicketTierdetails(prevState => {
+    setTicketTierdetails((prevState) => {
       const newState = [...prevState];
       newState.forEach((item, index) => {
         if (index === i) {
@@ -70,7 +104,7 @@ export default function TierBox({
         }
       });
       summaryappend(
-        count * element.price.slice(0, 1) === '$'
+        count * element.price.slice(0, 1) === "$"
           ? element.price.slice(1)
           : element.price
       );
@@ -79,13 +113,17 @@ export default function TierBox({
     });
     summary.length === 0 ? setEmpty(true) : setEmpty(false);
   };
-
-  const decrementOrder = i => {
-    setCountDecrement(prevCount =>
+  /**
+   * description: this function is to decrement the order
+   * @param {Number} i - the index of the element
+   * @returns {Array} - the new tickettierdetails
+   */
+  const decrementOrder = (i) => {
+    setCountDecrement((prevCount) =>
       prevCount === 0 ? prevCount : prevCount - 1
     );
 
-    setTicketTierdetails(prevState => {
+    setTicketTierdetails((prevState) => {
       const newState = [...prevState];
       newState.forEach((item, index) => {
         if (index === i) {
@@ -95,7 +133,7 @@ export default function TierBox({
       });
 
       summaryappend(
-        countDecrement * element.price.slice(0, 1) === '$'
+        countDecrement * element.price.slice(0, 1) === "$"
           ? element.price.slice(1)
           : element.price
       );
@@ -113,8 +151,8 @@ export default function TierBox({
           <div
             className={
               element.ticketCount == element.maxCapacity
-                ? 'incdec'
-                : 'incdecactive'
+                ? "incdec"
+                : "incdecactive"
             }
             onClick={() => incrementOrder(index)}
           >
@@ -134,7 +172,7 @@ export default function TierBox({
           </div>
           <div className="Quantity">{element.ticketCount}</div>
           <div
-            className={element.ticketCount == 0 ? 'incdec' : 'incdecactive'}
+            className={element.ticketCount == 0 ? "incdec" : "incdecactive"}
             onClick={() => decrementOrder(index)}
           >
             <svg
@@ -155,7 +193,7 @@ export default function TierBox({
         <BottomContainerHead>
           <p className="Fee">
             $
-            {element.price.slice(0, 1) === '$'
+            {element.price.slice(0, 1) === "$"
               ? element.price.slice(1)
               : element.price}
           </p>
