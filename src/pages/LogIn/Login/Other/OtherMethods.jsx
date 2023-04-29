@@ -2,7 +2,10 @@ import { OtherSt } from './OtherMethods.styled';
 import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
 
 import IconButton from '@mui/material/IconButton';
+import { useNavigate } from 'react-router-dom';
 export default function Other() {
+  const navigate = useNavigate();
+
   async function handleSuccess(response) {
     localStorage.removeItem('authEmail');
     localStorage.removeItem('email');
@@ -33,7 +36,13 @@ export default function Other() {
       }
     );
 
+    const responseData = responseBackend.json();
+
     localStorage.setItem('authEmail', email);
+
+    console.log(responseData);
+
+    navigate('/');
   }
 
   function handleError(error) {
