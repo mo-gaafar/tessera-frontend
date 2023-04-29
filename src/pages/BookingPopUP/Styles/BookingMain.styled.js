@@ -62,12 +62,14 @@ export const BoxContainer = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
-  background-color: blue;
 `;
 export const Ticket = styled.div`
   height: 100%;
   width: calc(100% - 36rem);
   border-right: 2px solid rgb(238, 237, 242);
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 // export const TicketHead = styled.div`
 //   width: 100%;
@@ -85,81 +87,80 @@ export const Ticket = styled.div`
 //     color: #6f7287;
 //   }
 // `;
-export const TicketBody = styled.div`
-  max-height: calc(100% - 17rem);
-  overflow-y: scroll;
-  border-bottom: 4px solid rgb(238, 237, 242);
-  background-color: white;
-`;
+// export const TicketBody = styled.div`
+//   max-height: calc(100% - 17rem);
+//   overflow-y: scroll;
+//   border-bottom: 4px solid rgb(238, 237, 242);
+//   background-color: white;
+// `;
 
-export const StyledPromo = styled.div`
-  border: 3px solid #999999;
-  background-color: white;
-  width: 90%;
-  height: 50px;
-  margin-right: 10px;
-  margin-top: 10px;
-  margin: 30px auto;
-  padding-right: 20px;
-  border-radius: 6px;
+// export const StyledPromo = styled.div`
+//   border: 3px solid #999999;
+//   background-color: white;
+//   width: 90%;
+//   height: 50px;
+//   margin-right: 10px;
+//   margin-top: 10px;
+//   margin: 30px auto;
+//   padding-right: 20px;
+//   border-radius: 6px;
 
-  .inputapply {
-    width: 100%;
-    height: 100%;
-    margin-left: 4px;
+//   .inputapply {
+//     width: 100%;
+//     height: 100%;
+//     margin-left: 4px;
 
-    display: flex;
-    justify-content: space-between;
-  }
-  input {
-    outline: none;
+//     display: flex;
+//     justify-content: space-between;
+//   }
+//   input {
+//     outline: none;
 
-    position: relative;
-    line-height: 1.2em;
-    font-size: 14px;
-    height: 100%;
-    width: 80%;
-    border-style: hidden;
-    padding: 6px 5px 6px;
-  }
+//     position: relative;
+//     line-height: 1.2em;
+//     font-size: 14px;
+//     height: 100%;
+//     width: 80%;
+//     border-style: hidden;
+//     padding: 6px 5px 6px;
+//   }
 
-  label {
-    margin-left: 10px;
-    position: absolute;
-    top: 10.3rem;
-    font-size: 13px;
-    z-index: 2000;
-    padding-left: 4px;
-    padding-right: 4px;
-    background-color: white;
+//   label {
+//     margin-left: 10px;
+//     position: absolute;
+//     top: 10.3rem;
+//     font-size: 13px;
+//     z-index: 2000;
+//     padding-left: 4px;
+//     padding-right: 4px;
+//     background-color: white;
 
-    color: #999999;
-    font-family: Neue plak;
-  }
-  &:hover {
-    border: 3px solid;
-    border-color: blue;
+//     color: #999999;
+//     font-family: Neue plak;
+//   }
+//   &:hover {
+//     border: 3px solid;
+//     border-color: blue;
 
-    label {
-      font-family: Neue plak;
-      display: inline-block;
-      font-size: 13px;
-      color: blue;
-    }
-  }
-  a {
-    padding-top: 10px;
-  }
-`;
+//     label {
+//       font-family: Neue plak;
+//       display: inline-block;
+//       font-size: 13px;
+//       color: blue;
+//     }
+//   }
+//   a {
+//     padding-top: 10px;
+//   }
+// `;
 
-export const TicketEnd = styled.div``;
+// export const TicketEnd = styled.div``;
 
 export const Information = styled.div`
   width: 36rem;
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: yellow;
   .eventimage {
     width: 100%;
     background-size: contain;
@@ -178,6 +179,9 @@ export const Information = styled.div`
       width: 4.8rem;
       fill: #dbdae3;
     }
+  }
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 export const Order = styled.div`
@@ -202,6 +206,7 @@ export const OrderTicket = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 2.4rem;
+  position: relative;
   .Tsummary {
     display: flex;
     justify-content: space-between;

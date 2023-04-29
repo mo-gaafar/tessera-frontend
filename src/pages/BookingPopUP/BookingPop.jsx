@@ -1,3 +1,14 @@
+/**
+ * @file BookingPop.jsx
+ * @name BookingPop.jsx
+ * @author @SeifAllah
+ * @requires react
+ * @requires @mui/material
+ * @exports BookingPop
+ * @description This file contains the BookingPop components and its logic that is the component that renders the reservation with the ordersummary
+ *
+ *
+ */
 import React from "react";
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
@@ -18,6 +29,7 @@ import {
 // import { Information } from "./Styles/BookingMain.styled";
 import { Ticket, Information } from "./Styles/BookingMain.styled";
 import Reservation from "./Ticket/TicketsDetails";
+import CheckoutForm from "./CheckoutForm";
 // import {
 //   TicketEnd,
 //   TicketHead,
@@ -26,113 +38,132 @@ import Reservation from "./Ticket/TicketsDetails";
 // } from "./Styles/BookingMain.styled";
 // import { StyledEmail } from "../LogIn/Login/email/Email.styled";
 
-export default function BookingPopUp() {
-  const [MStart, setMStart] = useState(false);
-  const handleStart = () => setMStart(true);
+export default function BookingPopUp({ setShowPopUp, image }) {
+  const [MStart, setMStart] = useState(true);
+  //const handleStart = () => setMStart(true);
   const [Terminate, setTerminate] = useState(true);
   const [empty, setEmpty] = useState(true);
-  const [dataTicket, setdataticket] = useState("");
-
+  const [dataTicket, setdataticket] = useState({});
+  const [showCheckout, setShowCheckout] = React.useState(false);
+  const [checkoutInfo, setCheckoutInfo] = useState([]);
+  const [total, setTotal] = useState(0);
+  let sum = 0;
   const FormClose = () => {
-    setTerminate(false);
-    setMStart(false);
-    setTerminate(true);
+    setShowPopUp(false);
   };
 
   const ReceiveData = (data) => {
-    setdataticket(data);
+    console.log("data", data);
+    setCheckoutInfo(data);
   };
 
   return (
-    <BookingContainer>
-      <BookingetTickets>
+    <>
+      <BookingContainer>
+        {/* <BookingetTickets>
         <Button onClick={handleStart} className="lol">
           Get tickets
         </Button>
-      </BookingetTickets>
-      <BookModal>
-        <Modal
-          open={MStart}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          className={classes.MStyle}
-        >
-          <Box className={classes.Box}>
-            {Terminate ? (
-              <>
-                {" "}
-                <Button onClick={() => FormClose()} className={classes.MClose}>
-                  <CloseIcon />
-                </Button>
-              </>
-            ) : null}
+      </BookingetTickets> */}
 
-            <BoxContainer>
-              <Ticket>
-                <Reservation liftStateUP={ReceiveData} />
-              </Ticket>
-              <Information>
-                <div className="eventimage">
-                  <img src={dataTicket} alt="" />
-                </div>
-                {!empty && (
-                  <div className="NoOrder">
-                    <svg
-                      id="cart_svg__eds-icon--cart_svg"
-                      x="0"
-                      y="0"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        id="cart_svg__eds-icon--cart_base"
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M20 14l2-9H9v1h11.9l-1.7 7.1L7 14V2H2v3h4v12h14v-1H7v-1l13-1zM3 3h3v1H3V3z"
-                      ></path>
-                      <g
-                        id="cart_svg__eds-icon--cart_circles"
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                      >
-                        <path d="M8 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 3c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zM18 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 3c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"></path>
-                      </g>
-                    </svg>
-                  </div>
-                )}
-                {empty && (
-                  <Order>
-                    <OrderTitle>
-                      Order Summary
-                      <OrderTicket>
-                        {/* {orderSummary.map((singleticket, index) => {
-                          return ( */}
-                        <div className="Tsummary">
-                          <div className="Tcount">
-                            {/* {singleticket.number} x {singleticket.name} */}4
-                            x ahmed
-                          </div>
-                          <div className="SinglePrice">
-                            {/* {singleticket.number * singleticket.price} */}
-                            30.00
-                          </div>
-                        </div>
-                        {/* ); */}
-                        {/* })} */}
+        <BookModal>
+          <Modal
+            open={MStart}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            className={classes.MStyle}
+          >
+            <Box className={classes.Box}>
+              <Button onClick={() => FormClose()} className={classes.MClose}>
+                <CloseIcon />
+              </Button>
+              {showCheckout && (
+                <BoxContainer>
+                  <CheckoutForm />
+                </BoxContainer>
+              )}
+
+              {!showCheckout && (
+                <BoxContainer>
+                  <Ticket>
+                    <Reservation
+                      showCheckout={showCheckout}
+                      setShowCheckout={setShowCheckout}
+                      liftCheckoutInfo={checkoutInfo}
+                      setliftCheckoutInfo={setCheckoutInfo}
+                      setEmpty={setEmpty}
+                      total={setTotal}
+                    />
+                  </Ticket>
+                  <Information>
+                    {/* {console.log("tala3 el7aga yalal")}
+                    {console.log(checkoutInfo)} */}
+
+                    <div className="eventimage">
+                      <img src={image} />
+                    </div>
+                    {empty && (
+                      <div className="NoOrder">
+                        <svg
+                          id="cart_svg__eds-icon--cart_svg"
+                          x="0"
+                          y="0"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            id="cart_svg__eds-icon--cart_base"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M20 14l2-9H9v1h11.9l-1.7 7.1L7 14V2H2v3h4v12h14v-1H7v-1l13-1zM3 3h3v1H3V3z"
+                          ></path>
+                          <g
+                            id="cart_svg__eds-icon--cart_circles"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                          >
+                            <path d="M8 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 3c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zM18 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 3c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"></path>
+                          </g>
+                        </svg>
+                      </div>
+                    )}
+                    {!empty && (
+                      <Order>
+                        <OrderTitle>Order Summary</OrderTitle>
+
+                        {checkoutInfo.forEach((orderSummary) => {
+                          sum += orderSummary.sumTicketPrice;
+                          console.log("sum 2ooly bkam", sum);
+                        })}
+
+                        {checkoutInfo.map((orderSummary, index) => {
+                          console.log("wareena el array", checkoutInfo);
+                          return (
+                            <OrderTicket>
+                              <div className="Tsummary">
+                                <div className="Tcount">
+                                  {orderSummary.sumTicketCount} x
+                                  {orderSummary.sumTierName}
+                                </div>
+                                <div className="SinglePrice"></div>
+                              </div>
+                            </OrderTicket>
+                          );
+                        })}
                         <OrderTitle>
                           <div className="Tsummary">
                             <div className="Tcount">Total</div>
                             <div className="Singleprice">50</div>
                           </div>
                         </OrderTitle>
-                      </OrderTicket>
-                    </OrderTitle>
-                  </Order>
-                )}
-              </Information>
-            </BoxContainer>
-          </Box>
-        </Modal>
-      </BookModal>
-    </BookingContainer>
+                      </Order>
+                    )}
+                  </Information>
+                </BoxContainer>
+              )}
+            </Box>
+          </Modal>
+        </BookModal>
+      </BookingContainer>
+    </>
   );
 }

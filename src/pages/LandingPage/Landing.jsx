@@ -16,6 +16,7 @@ import { useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { StyledLandingEvents } from './styles/Landing.styled';
 import { StyledEventsContainer } from './styles/Landing.styled';
+import { StyledNav } from './styles/Landing.styled';
 import {
   Link,
   Navigate,
@@ -29,7 +30,8 @@ import logo from '../../assets/icon-down.png';
 import cross from '../../assets/x-10327.png';
 import error from '../../assets/noevent-error.png';
 import EventBox from './EventBox';
-import Navbar from './nav2';
+import NavbarLoggedIn from './NavbarLoggedIn';
+import Navbar from './NavBar';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, {
   getGeocode,
@@ -56,6 +58,7 @@ export default function Landing() {
   const ref = useRef(null);
   const reference = useRef(null);
   const refDrop = useRef(null);
+  const refCal = useRef(null);
 
   const [forYouElement, setForYouElement] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
@@ -87,6 +90,24 @@ export default function Landing() {
     if (refDrop.current && !refDrop.current.contains(event.target)) {
       // if clicked outside of the ref div, hide the element
       setShowMenu(false);
+      //if (range.startDate && range.endDate && count === 1)
+      //setShowCalender(false);
+    }
+  };
+
+  useEffect(() => {
+    // add event listener to the document
+    document.addEventListener('mousedown', handleClickCalenderOutside);
+    return () => {
+      // remove event listener when component unmounts
+      document.removeEventListener('mousedown', handleClickCalenderOutside);
+    };
+  }, []);
+
+  const handleClickCalenderOutside = event => {
+    if (refCal.current && !refCal.current.contains(event.target)) {
+      setShowMenu(false);
+      setShowCalender(false);
     }
   };
 
@@ -180,7 +201,7 @@ export default function Landing() {
   useEffect(() => {
     const fetchData = async (latitude, longitude) => {
       const data = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=30.0064081,31.1969466&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
       );
 
       const json = await data.json();
@@ -196,22 +217,19 @@ export default function Landing() {
       });
       const cityName =
         json.results[0].address_components[4].long_name.split(' ')[0];
-
       setCity({
         city: cityName,
         country: country,
       });
+      setUrl(`city=${cityName}&country=${country}`);
     };
-
-    setUrl(`city=${cityData.city}&country=${cityData.country}`);
-
     navigator.geolocation?.getCurrentPosition(poistion => {
       const { latitude, longitude } = poistion.coords;
 
       fetchData(latitude, longitude);
     });
   }, []);
-
+  console.log(url);
   function handleForYou() {
     setForYouElement(true);
     //setShowCategoryMenu(false);
@@ -301,7 +319,7 @@ export default function Landing() {
     'May',
     'Jun',
     'Jul',
-    'August',
+    'Aug',
     'Sep',
     'Oct',
     'Nov',
@@ -320,26 +338,17 @@ export default function Landing() {
    */
 
   useEffect(() => {
+    console.log(cityData);
     async function getData() {
       const res = await fetch(
         'https://www.tessera.social/api/attendee/Eventsby/?' + url
       );
       const data = await res.json();
       setAllFilteredEvents(data.filteredEvents);
-    }
-    getData();
-  }, [url]);
-
-  useEffect(() => {
-    async function getData() {
-      const res = await fetch(
-        'https://www.tessera.social/api/attendee/Eventsby/?'
-      );
-      const data = await res.json();
       setAllCatEvents(data.categoriesRetreived);
     }
     getData();
-  }, []);
+  }, [url]);
 
   /**
    * Changes the Isodate to display date format.
@@ -456,11 +465,9 @@ export default function Landing() {
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
-
   const [selected, setSelected] = useState(null);
 
   const [showLocationMenu, setShowLocationMenu] = useState(false);
@@ -471,7 +478,13 @@ export default function Landing() {
   };
   return (
     <>
-      <Navbar onClick={locationDropDownToggle} />
+      <StyledNav>
+        {email && email !== 'undefined' ? (
+          <NavbarLoggedIn show={true} email={email} />
+        ) : (
+          <Navbar onClick={locationDropDownToggle} show={true} />
+        )}
+      </StyledNav>
       <StyledLandingEvents onClick={locationDropDownToggle}>
         {isLoaded && (
           <PlacesAutocomplete
@@ -767,7 +780,7 @@ export default function Landing() {
 
               {showCalender && (
                 <div>
-                  <div className="dropdown-content">
+                  <div className="dropdown-content" ref={refCal}>
                     <DateRangePicker
                       wrapperClassName="datePicker"
                       initialRange={range}
