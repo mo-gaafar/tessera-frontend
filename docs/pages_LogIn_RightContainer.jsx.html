@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: PasswordChecker</title>
+    <title>JSDoc: Source: pages/LogIn/RightContainer.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,186 +17,54 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: PasswordChecker</h1>
+    <h1 class="page-title">Source: pages/LogIn/RightContainer.jsx</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This function is a component that checks the password strength</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_SignUp_PasswordChecker.jsx.html">pages/SignUp/PasswordChecker.jsx</a>, <a href="pages_SignUp_PasswordChecker.jsx.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This function is a component that checks the password strength</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_SignUp_PasswordChecker.jsx.html">pages/SignUp/PasswordChecker.jsx</a>, <a href="pages_SignUp_PasswordChecker.jsx.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview This file contains the RightContainer component
+ * @name RightContainer.jsx
+ * @author @seif-kishtah
+ * @requires ./right.styled
+ * @exports RightContainer
+ * @description This file contains the RightContainer component and its logic
+ */
+import { RightStyled } from './styles/right.styled';
+/**
+ * @module RightContainer
+ * @returns {JSX.Element} RightContainer component
+ * @description This function is a component that renders the right container
+ * @returns {JSX.Element} RightContainer component
+ */
+export default function RightContainer() {
+  return (
+    &lt;RightStyled>
+      {/* &lt;img src="https://cdn.evbstatic.com/s3-build/perm_001/0fff4c/django/images/login/lateral-image-2-hd.jpg" /> */}
+      &lt;picture>
+        &lt;source
+          media="(min-width: 1608px)"
+          srcSet="https://cdn.evbstatic.com/s3-build/perm_001/0fff4c/django/images/login/lateral-image-2-hd.jpg"
+        />
+        &lt;source
+          media="(min-width: 960px)"
+          srcSet="https://cdn.evbstatic.com/s3-build/perm_001/530d34/django/images/login/lateral-image-2.jpg"
+        />
+        &lt;img
+          src="https://cdn.evbstatic.com/s3-build/perm_001/530d34/django/images/login/lateral-image-2.jpg"
+          alt="Chris standing up holding his daughter Elva"
+        />
+      &lt;/picture>
+    &lt;/RightStyled>
+  );
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

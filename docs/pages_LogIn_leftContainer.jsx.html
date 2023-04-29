@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: PasswordChecker</title>
+    <title>JSDoc: Source: pages/LogIn/leftContainer.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,186 +17,45 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: PasswordChecker</h1>
+    <h1 class="page-title">Source: pages/LogIn/leftContainer.jsx</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This function is a component that checks the password strength</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_SignUp_PasswordChecker.jsx.html">pages/SignUp/PasswordChecker.jsx</a>, <a href="pages_SignUp_PasswordChecker.jsx.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This function is a component that checks the password strength</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_SignUp_PasswordChecker.jsx.html">pages/SignUp/PasswordChecker.jsx</a>, <a href="pages_SignUp_PasswordChecker.jsx.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file leftContainer.jsx
+ * @author @seif-kishtah
+ * @description This file contains the LeftContainer component and its logic
+ * @exports LeftContainer
+ * @requires ./Login/login
+ * @requires ./leftContainer.styled
+ */
+import { LeftStyled } from './styles/leftContainer.styled';
+import Login from './Login/login';
+
+/**
+ * @module LeftContainer
+ * @returns {JSX.Element} LeftContainer component
+ * @description This function is a component that renders the left container
+ * @returns {JSX.Element} LeftContainer component
+ */
+
+export default function LeftContainer() {
+  return (
+    &lt;LeftStyled>
+      &lt;div id="blankleft" />
+      &lt;Login />
+      &lt;div id="blankright" />
+    &lt;/LeftStyled>
+  );
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ContainerBox = styled.div`
   height: 100%;
@@ -13,10 +13,10 @@ export const TicketHeader = styled.div`
   div {
     padding-top: 1.2rem;
     font-weight: 400;
-    font-size: 1.8rem;
+    font-size: 2.4rem;
   }
   .Setting {
-    font-size: 1.2rem !important;
+    font-size: 1.7rem !important;
     margin-top: 0.8rem;
     color: #6f7287;
   }
@@ -32,6 +32,7 @@ export const TicketBody = styled.div`
 export const PromoCode = styled.div`
   margin: 1.6rem auto;
   width: 79%;
+
   .lol {
     width: 100%;
     background-color: white;

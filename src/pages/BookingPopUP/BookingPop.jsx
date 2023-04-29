@@ -1,24 +1,35 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import classes from './Styles/Bookingpopup.module.css';
-import { BookingContainer } from './Styles/BookingMain.styled';
-import { BookingetTickets } from './Styles/BookingMain.styled';
-import { BookModal } from './Styles/BookingMain.styled';
+/**
+ * @file BookingPop.jsx
+ * @name BookingPop.jsx
+ * @author @SeifAllah
+ * @requires react
+ * @requires @mui/material
+ * @exports BookingPop
+ * @description This file contains the BookingPop components and its logic that is the component that renders the reservation with the ordersummary
+ *
+ *
+ */
+import React from "react";
+import { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import classes from "./Styles/Bookingpopup.module.css";
+import { BookingContainer } from "./Styles/BookingMain.styled";
+import { BookingetTickets } from "./Styles/BookingMain.styled";
+import { BookModal } from "./Styles/BookingMain.styled";
 import {
   BoxContainer,
   Order,
   OrderTicket,
   OrderTitle,
-} from './Styles/BookingMain.styled';
+} from "./Styles/BookingMain.styled";
 // import { Information } from "./Styles/BookingMain.styled";
-import { Ticket, Information } from './Styles/BookingMain.styled';
-import Reservation from './Ticket/TicketsDetails';
-import CheckoutForm from './CheckoutForm';
+import { Ticket, Information } from "./Styles/BookingMain.styled";
+import Reservation from "./Ticket/TicketsDetails";
+import CheckoutForm from "./CheckoutForm";
 // import {
 //   TicketEnd,
 //   TicketHead,
@@ -34,13 +45,16 @@ export default function BookingPopUp({ setShowPopUp, image }) {
   const [empty, setEmpty] = useState(true);
   const [dataTicket, setdataticket] = useState({});
   const [showCheckout, setShowCheckout] = React.useState(false);
-
+  const [checkoutInfo, setCheckoutInfo] = useState([]);
+  const [total, setTotal] = useState(0);
+  let sum = 0;
   const FormClose = () => {
     setShowPopUp(false);
   };
 
-  const ReceiveData = data => {
-    setdataticket(data);
+  const ReceiveData = (data) => {
+    console.log("data", data);
+    setCheckoutInfo(data);
   };
 
   return (
@@ -75,14 +89,20 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                     <Reservation
                       showCheckout={showCheckout}
                       setShowCheckout={setShowCheckout}
-                      liftStateUP={ReceiveData}
+                      liftCheckoutInfo={checkoutInfo}
+                      setliftCheckoutInfo={setCheckoutInfo}
+                      setEmpty={setEmpty}
+                      total={setTotal}
                     />
                   </Ticket>
                   <Information>
+                    {/* {console.log("tala3 el7aga yalal")}
+                    {console.log(checkoutInfo)} */}
+
                     <div className="eventimage">
                       <img src={image} />
                     </div>
-                    {!empty && (
+                    {empty && (
                       <div className="NoOrder">
                         <svg
                           id="cart_svg__eds-icon--cart_svg"
@@ -106,31 +126,34 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                         </svg>
                       </div>
                     )}
-                    {empty && (
+                    {!empty && (
                       <Order>
-                        <OrderTitle>
-                          Order Summary
-                          <OrderTicket>
-                            {/* {orderSummary.map((singleticket, index) => {
-                          return ( */}
-                            <div className="Tsummary">
-                              <div className="Tcount">
-                                {/* {singleticket.number} x {singleticket.name} */}
-                                4 x ahmed
-                              </div>
-                              <div className="SinglePrice">
-                                {/* {singleticket.number * singleticket.price} */}
-                                30.00
-                              </div>
-                            </div>
+                        <OrderTitle>Order Summary</OrderTitle>
 
-                            <OrderTitle>
+                        {checkoutInfo.forEach((orderSummary) => {
+                          sum += orderSummary.sumTicketPrice;
+                          console.log("sum 2ooly bkam", sum);
+                        })}
+
+                        {checkoutInfo.map((orderSummary, index) => {
+                          console.log("wareena el array", checkoutInfo);
+                          return (
+                            <OrderTicket>
                               <div className="Tsummary">
-                                <div className="Tcount">Total</div>
-                                <div className="Singleprice">50</div>
+                                <div className="Tcount">
+                                  {orderSummary.sumTicketCount} x
+                                  {orderSummary.sumTierName}
+                                </div>
+                                <div className="SinglePrice"></div>
                               </div>
-                            </OrderTitle>
-                          </OrderTicket>
+                            </OrderTicket>
+                          );
+                        })}
+                        <OrderTitle>
+                          <div className="Tsummary">
+                            <div className="Tcount">Total</div>
+                            <div className="Singleprice">50</div>
+                          </div>
                         </OrderTitle>
                       </Order>
                     )}

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 export const BookingContainer = styled.div`
   width: 36rem;
   display: flex;
@@ -67,6 +67,9 @@ export const Ticket = styled.div`
   height: 100%;
   width: calc(100% - 36rem);
   border-right: 2px solid rgb(238, 237, 242);
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 // export const TicketHead = styled.div`
 //   width: 100%;
@@ -177,6 +180,9 @@ export const Information = styled.div`
       fill: #dbdae3;
     }
   }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 export const Order = styled.div`
   margin: 0 auto;
@@ -200,6 +206,7 @@ export const OrderTicket = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 2.4rem;
+  position: relative;
   .Tsummary {
     display: flex;
     justify-content: space-between;

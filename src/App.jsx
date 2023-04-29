@@ -4,13 +4,14 @@
  * @exports App
  */
 
-import SignupTwo from './pages/SignUp/SignupTwo';
-import SignUpOne from './pages/SignUp/SignupOne';
+import SignupTwo from "./pages/SignUp/SignupTwo";
+import SignUpOne from "./pages/SignUp/SignupOne";
 
-import GlobalStyles from './components/styles/Global';
-import Landing from './pages/LandingPage/Landing';
-import Organize from './pages/Organize/Organize';
-import { Route, Routes } from 'react-router-dom';
+import GlobalStyles from "./components/styles/Global";
+import Landing from "./pages/LandingPage/Landing";
+import Organize from "./pages/Organize/Organize";
+import { Route, Routes } from "react-router-dom";
+
 
 import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
@@ -25,8 +26,9 @@ import Events from './pages/EventPage/EventPage';
  * @function
  * @returns {JSX.Element} The main application component
  */
+
 function App() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   return (
     <>
