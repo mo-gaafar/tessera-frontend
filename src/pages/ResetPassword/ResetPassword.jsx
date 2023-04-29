@@ -95,6 +95,9 @@ function ResetPassword() {
         {
           method: 'POST',
           body: JSON.stringify(responsebody),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
       const responseData = await response.json();

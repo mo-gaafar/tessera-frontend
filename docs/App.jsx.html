@@ -26,49 +26,36 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// import Navbar from './navbar';
-
-/**
+            <pre class="prettyprint source linenums"><code>/**
  * @author @moSaeed15
  * @description This file contains the App component and its logic
  * @exports App
  */
-//import GlobalStyles from "./components/styles/global";
 
-//function App() {
-//return (
-//&lt;>
-//
-//&lt;GlobalStyles />
-//&lt;/>
-//);
-//}
+import SignupTwo from "./pages/SignUp/SignupTwo";
+import SignUpOne from "./pages/SignUp/SignupOne";
 
-//export default App;
+import GlobalStyles from "./components/styles/Global";
+import Landing from "./pages/LandingPage/Landing";
+import Organize from "./pages/Organize/Organize";
+import { Route, Routes } from "react-router-dom";
 
-// import FacebookLogin from './components/LoginFacebook';
-// import GoogleLoginButton from './components/LoginGoogle';
-// const google = () => {
-//   console.log('first');
-//   window.open('', _self);
-// };
+import { useEffect, useState } from "react";
+import Maincontainer from "./pages/LogIn/MainContainer";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import Reset from "./pages/ResetPassword/Reset";
+import CheckoutForm from "./pages/BookingPopUP/CheckoutForm";
+import Events from "./pages/EventPage/EventPage";
 
-import SignupTwo from './components/SignupTwo';
-import SignUpOne from './components/SignupOne';
-import GlobalStyles from './components/styles/global';
-import Landing from './components/Landing.jsx';
-import { Route, Routes } from 'react-router-dom';
-
-import { useEffect, useState } from 'react';
-import Maincontainer from './components/MainContainer';
-
+// import FacebookLoginButton from './components/LoginFacebook';
 /**
  * Function component that renders the main application
  * @function
  * @returns {JSX.Element} The main application component
  */
+
 function App() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   return (
     &lt;>
@@ -78,7 +65,13 @@ function App() {
         &lt;Route path="signup" element={&lt;SignUpOne setEmail={setEmail} />} />
         &lt;Route path="Signuptwo" element={&lt;SignupTwo email={email} />} />
         &lt;Route path="login" element={&lt;Maincontainer />} />
+        &lt;Route path="Organize" element={&lt;Organize />} />
+        &lt;Route path="forgetPassword" element={&lt;Reset />} />
+        &lt;Route path="forgetPassword/:token" element={&lt;ResetPassword />} />
+        &lt;Route path="checkout" element={&lt;CheckoutForm />} />
+        &lt;Route path="/:eventID" element={&lt;Events />} />
       &lt;/Routes>
+      {/* &lt;BookingPopUp /> */}
     &lt;/>
   );
 }
@@ -94,13 +87,13 @@ export default App;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="Landing.module_jsx.html">Landing.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="components_MainContainer.module_jsx.html">components/MainContainer.jsx</a></li><li><a href="components_leftContainer.module_jsx.html">components/leftContainer.jsx</a></li><li><a href="module-FacebookLoginButton.html">FacebookLoginButton</a></li><li><a href="module-GlobalStyles.html">GlobalStyles</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="BookingPop.module_jsx.html">BookingPop.jsx</a></li><li><a href="CheckoutForm.module_jsx.html">CheckoutForm.jsx</a></li><li><a href="Landing.html#.module:jsx">Landing.jsx</a></li><li><a href="Organize.html#.module:jsx">Organize.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="TicketDetails.html#.module:jsx">TicketDetails.jsx</a></li><li><a href="TierBox.html#.module:jsx">TierBox.jsx</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li><li><a href="pages_LogIn_MainContainer.module_jsx.html">pages/LogIn/MainContainer.jsx</a></li><li><a href="pages_LogIn_leftContainer.module_jsx.html">pages/LogIn/leftContainer.jsx</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#eventsListScroll">eventsListScroll</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 25 2023 19:33:23 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 26 2023 11:47:00 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

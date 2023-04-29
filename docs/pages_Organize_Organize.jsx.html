@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/Organize/Organize.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/Organize/Organize.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Organize.jsx
+ * @name Organize.jsx
+ * @author @hlasultanhassan
+ * @requires react
+ * @requires react-router-dom
+ * @requires ./styles/OrganizeEvents.styled
+ * @exports Organize
+ * @description This file contains the Organize component and its logic
+ */
+import {PageContainer} from "./styles/OrganizeEvents.Styled";
+import { useEffect, useState } from 'react';
+import logoDown from '../../assets/icon-down.png';
+import logoPlus from '../../assets/plus-white.png';
+import bullet from '../../assets/bullet-list.png';
+import noEvent from '../../assets/noEvents.png';
+import checkmark from '../../assets/checkmark.png';
+import search from  '../../assets/search.png';
+import { useRef } from 'react';
+
+/**
+ * A functional component that handles the Organization event page.
+ * 
+ * @returns {JSX.Element} The JSX representation of the component.
+ */
+
+export default function Organize() {
+  const [showMenu,setShowMenu] = useState(false);
+  const [doneSelect,setDone] = useState(false);
+  const [select,setSelect] = useState("All events");
+  const reference = useRef(null)
+
+  function displayMenu(){
+    if (!doneSelect)
+    {setShowMenu(true)}
+    else{
+      setDone(false)
+    }
+  }
+  useEffect(() => {
+    // add event listener to the document
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // remove event listener when component unmounts
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (reference.current &amp;&amp; !reference.current.contains(event.target)) {
+      // if clicked outside of the ref div, hide the element
+      setShowMenu(false);
+    }
+  };
+
+  /**
+   * Updates the dropdown menu and handles the category selected.
+   *
+   * @param {Object} e - The event object.
+   */
+  
+  function onClickMenu(e){
+    setDone(true)
+    const {name,value} = e.target;
+    setShowMenu(false);
+    setSelect(name) ;
+  }
+
+ 
+  return (
+   &lt;PageContainer>
+     &lt;div>
+       &lt;p>Events&lt;/p>
+     &lt;/div>
+     &lt;div>
+       &lt;div className="cat-option">
+          &lt;div>
+            &lt;button >
+              Events
+            &lt;/button>
+          &lt;/div>
+          
+          &lt;/div>
+          
+          &lt;div className="events-bar">
+            &lt;div className="first-part-eventbar">
+              &lt;div> 
+                  &lt;div className="search-field">
+                    &lt;button className="search-button">
+                      &lt;img src={search}/>
+                    &lt;/button>
+                    &lt;input placeholder="Search events"/>
+                  &lt;/div>
+                &lt;/div>
+                &lt;div>
+                  &lt;button className="bullet-button">
+                      &lt;img src={bullet}/>
+                      &lt;span>List&lt;/span>
+                  &lt;/button>
+                &lt;/div>
+                &lt;div 
+                className="vertical-divider">
+                &lt;/div>
+                &lt;div className="all-events" onClick={displayMenu}>
+                &lt;span>
+                    {select}
+                  &lt;/span>
+                  &lt;img src={logoDown}/>
+
+                  {showMenu &amp;&amp;
+                &lt;div id="myDropdown" 
+                className="dropdown-content"
+                ref={reference}>
+                  &lt;ul>
+                    &lt;div>
+                    &lt;button 
+                    name="Upcoming events"
+                    className="drop-button"
+                    onClick={onClickMenu}
+                    >
+                      {select==="Upcoming events" ? &lt;img src={checkmark}/> :&lt;span/>}
+                      Upcoming events
+                    &lt;/button>
+                    &lt;/div>
+
+                    &lt;div>
+                    &lt;button 
+                    name="Draft"
+                    className="drop-button"
+                    onClick={onClickMenu}
+                    >
+                      {select==="Draft" ?&lt;img src={checkmark}/>:&lt;span/> }
+                      Draft
+                    &lt;/button>
+                    &lt;/div>
+
+                    &lt;div>
+                    &lt;button 
+                    name="Past events"
+                    className="drop-button"
+                    onClick={onClickMenu}
+                    >
+                      {select==="Past events" ?&lt;img src={checkmark}/> :&lt;span/>}
+                      Past events
+                    &lt;/button>
+                    &lt;/div>
+
+                    &lt;div>
+                    &lt;button 
+                    name="All events"
+                    className="drop-button"
+                    onClick={onClickMenu}
+                    >
+                      {select==="All events" ? &lt;img src={checkmark}/> :&lt;span/> }
+                      All events
+                    &lt;/button>
+                    &lt;/div>
+                  &lt;/ul>
+                &lt;/div>
+                }
+                &lt;/div>
+              &lt;/div>
+
+              
+              
+              &lt;div>
+                &lt;button className="plus-button">
+                  &lt;img src={logoPlus}/>
+                &lt;/button>
+                &lt;button className="create-button">
+                    Create Event
+                &lt;/button>
+              &lt;/div>
+              
+          &lt;/div>
+            
+            &lt;div className="event-body">
+                &lt;div className="noEvents-center">
+                  &lt;div>
+                    &lt;div className="graphic-img-div">
+                      &lt;img src={noEvent}/>
+                    &lt;/div>
+                    &lt;div className="status-description">
+                      No events to show
+                    &lt;/div>
+                  &lt;/div>
+                  
+                &lt;/div>
+            &lt;/div>
+            
+        
+
+     &lt;/div>
+   &lt;/PageContainer>
+  )
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="BookingPop.module_jsx.html">BookingPop.jsx</a></li><li><a href="CheckoutForm.module_jsx.html">CheckoutForm.jsx</a></li><li><a href="Landing.html#.module:jsx">Landing.jsx</a></li><li><a href="Organize.html#.module:jsx">Organize.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="TicketDetails.html#.module:jsx">TicketDetails.jsx</a></li><li><a href="TierBox.html#.module:jsx">TierBox.jsx</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li><li><a href="pages_LogIn_MainContainer.module_jsx.html">pages/LogIn/MainContainer.jsx</a></li><li><a href="pages_LogIn_leftContainer.module_jsx.html">pages/LogIn/leftContainer.jsx</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#eventsListScroll">eventsListScroll</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 26 2023 11:47:00 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
