@@ -91,7 +91,7 @@ function ResetPassword() {
       responsebody.email = formData.email;
 
       const response = await fetch(
-        `https://www.tessera.social/api/auth/reset-password/${token}`,
+        `https://www.tessera.social/api/auth/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgxNzQ4MzI1LCJleHAiOjE2ODE4MzQ3MjV9.0CHrWp4XaNREO9m9KYDKe93GsnawsP2-pKOA5yRn_hY`,
         {
           method: 'POST',
           body: JSON.stringify(responsebody),
