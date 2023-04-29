@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/SignUp/SignupOne.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/SignUp/SignupOne.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file SignupOne.jsx
  * @name SignupOne.jsx
  * @author @sohailaaAshraaf
@@ -67,6 +95,19 @@ import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
  */
 
 export default function SignUpOne(props) {
+  React.useEffect(() => {
+    const fetchData = async () => {
+      //  const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/'); //temp (the original one crashed)
+      const response = await fetch(
+        'https://www.tessera.social/api/attendee/event/6439c17df192628827184ef0'
+      );
+      //console.log(await response.json())
+      const event = await response.json();
+      setEventData(event);
+    };
+    fetchData();
+  }, []);
+
   let navigate;
   if (!props.test) {
     navigate = useNavigate();
@@ -85,7 +126,7 @@ export default function SignUpOne(props) {
 
   async function handleSuccess(response) {
     const facebookResponse = await fetch(
-      `https://graph.facebook.com/v12.0/me?fields=name,email&access_token=${response.authResponse.accessToken}`
+      `https://graph.facebook.com/v12.0/me?fields=name,email&amp;access_token=${response.authResponse.accessToken}`
     );
     const data = await facebookResponse.json();
 
@@ -109,10 +150,7 @@ export default function SignUpOne(props) {
       }
     );
 
-    const responseData = responseBackend.json();
-    console.log(responseData);
-    localStorage.setItem('authEmail', email);
-    navigate('/');
+    // console.log(await responseBackend.json());
   }
 
   function handleError(error) {
@@ -123,6 +161,18 @@ export default function SignUpOne(props) {
     onSuccess: codeResponse => setUser(codeResponse),
     onError: error => console.log('Login Failed:', error),
   });
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(
+        `https://www.tessera.social/api/event-management/retrieve/64395de28e50b131d0403ff8`
+      );
+
+      const data = await response.json();
+      console.log(data.event.description);
+    };
+    getData();
+  }, []);
 
   useEffect(() => {
     localStorage.removeItem('authEmail');
@@ -216,23 +266,23 @@ export default function SignUpOne(props) {
   }
 
   return (
-    <SignUpPage>
-      <Upper2>
-        <UpperPage>
-          <TopHeader>
-            <DivLeft>
-              <EventLogo src="/images/logo.jpg" />
-              <CreateAccount>Create an account</CreateAccount>
-            </DivLeft>
-            <LogInDiv>
-              <LogIn>
-                <Link to="/login"> Log in</Link>
-              </LogIn>
-            </LogInDiv>
-          </TopHeader>
-          <Form onSubmit={handleSubmit}>
-            <FormDiv>
-              <Label
+    &lt;SignUpPage>
+      &lt;Upper2>
+        &lt;UpperPage>
+          &lt;TopHeader>
+            &lt;DivLeft>
+              &lt;EventLogo src="/images/logo.jpg" />
+              &lt;CreateAccount>Create an account&lt;/CreateAccount>
+            &lt;/DivLeft>
+            &lt;LogInDiv>
+              &lt;LogIn>
+                &lt;Link to="/login"> Log in&lt;/Link>
+              &lt;/LogIn>
+            &lt;/LogInDiv>
+          &lt;/TopHeader>
+          &lt;Form onSubmit={handleSubmit}>
+            &lt;FormDiv>
+              &lt;Label
                 style={
                   emailerror
                     ? { color: 'red' }
@@ -241,11 +291,11 @@ export default function SignUpOne(props) {
                     : { color: '#6f7287' }
                 }
               >
-                <span style={{ WebkitBoxDirection: 'normal' }}>
+                &lt;span style={{ WebkitBoxDirection: 'normal' }}>
                   Email address
-                </span>
-              </Label>
-              <InputEmail
+                &lt;/span>
+              &lt;/Label>
+              &lt;InputEmail
                 data-testid="email"
                 style={
                   emailerror
@@ -261,61 +311,84 @@ export default function SignUpOne(props) {
                 onChange={saveEmail}
                 onFocus={() => setFocused(true)}
               />
-              {emailerror && <span style={{ color: 'red' }}>{emailerror}</span>}
-              <ContinueButton onClick={handleValidation}>
+              {emailerror &amp;&amp; &lt;span style={{ color: 'red' }}>{emailerror}&lt;/span>}
+              &lt;ContinueButton onClick={handleValidation}>
                 Continue
-              </ContinueButton>
-            </FormDiv>
-          </Form>
-          <Divider>
-            <CircleDivider>or</CircleDivider>
-          </Divider>
-          <GoogleButton onClick={() => google()}>
-            <Googlelogo src="/images/google-logo.png" />
+              &lt;/ContinueButton>
+            &lt;/FormDiv>
+          &lt;/Form>
+          &lt;Divider>
+            &lt;CircleDivider>or&lt;/CircleDivider>
+          &lt;/Divider>
+          &lt;GoogleButton onClick={() => google()}>
+            &lt;Googlelogo src="/images/google-logo.png" />
             Sign in with Google
-          </GoogleButton>
-          <OtherSignUp>Other sign up methods</OtherSignUp>
-          <OtherSignUpButton
+          &lt;/GoogleButton>
+          &lt;OtherSignUp>Other sign up methods&lt;/OtherSignUp>
+          &lt;OtherSignUpButton
             type="button"
             data-automation="eds-expandable-card-content-button"
           >
-            <OtherSignUpButtonDiv1>
-              <Pother>Other sign up methods</Pother>
-            </OtherSignUpButtonDiv1>
-            <OtherSignUpButtonDiv2>
-              <OtherArrow>
-                <Arrowsvg x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
-                  <ArrowpathUp
+            &lt;OtherSignUpButtonDiv1>
+              &lt;Pother>Other sign up methods&lt;/Pother>
+            &lt;/OtherSignUpButtonDiv1>
+            &lt;OtherSignUpButtonDiv2>
+              &lt;OtherArrow>
+                &lt;Arrowsvg x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
+                  &lt;ArrowpathUp
                     fill-rule="evenodd"
                     clip-rule="evenodd"
                     d="M17 13.8l-5-5-5 5 1.4 1.4 3.6-3.6 3.6 3.6z"
-                  ></ArrowpathUp>
-                  <Arrowspan className="eds-is-hidden-accessible">
+                  >&lt;/ArrowpathUp>
+                  &lt;Arrowspan className="eds-is-hidden-accessible">
                     Toggle Content
-                  </Arrowspan>
-                </Arrowsvg>
-              </OtherArrow>
-            </OtherSignUpButtonDiv2>
-          </OtherSignUpButton>
-          <FacebookProvider appId="664174802386073">
-            <LoginButton
+                  &lt;/Arrowspan>
+                &lt;/Arrowsvg>
+              &lt;/OtherArrow>
+            &lt;/OtherSignUpButtonDiv2>
+          &lt;/OtherSignUpButton>
+          &lt;FacebookProvider appId="664174802386073">
+            &lt;LoginButton
               id="facebook"
-              scope="public_profile,email"
+              scope="public_profile,emaiemaill"
               onError={handleError}
               onSuccess={handleSuccess}
-            ></LoginButton>
-          </FacebookProvider>
+            >&lt;/LoginButton>
+          &lt;/FacebookProvider>
 
-          <LogInDiv2>
-            <LogIn2>
-              <Link to="/login">Log in </Link>
-            </LogIn2>
-          </LogInDiv2>
-        </UpperPage>
-      </Upper2>
-      <RightSide>
-        <ImageRight></ImageRight>
-      </RightSide>
-    </SignUpPage>
+          &lt;LogInDiv2>
+            &lt;LogIn2>
+              &lt;Link to="/login">Log in &lt;/Link>
+            &lt;/LogIn2>
+          &lt;/LogInDiv2>
+        &lt;/UpperPage>
+      &lt;/Upper2>
+      &lt;RightSide>
+        &lt;ImageRight>&lt;/ImageRight>
+      &lt;/RightSide>
+    &lt;/SignUpPage>
   );
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="BookingPop.module_jsx.html">BookingPop.jsx</a></li><li><a href="CheckoutForm.module_jsx.html">CheckoutForm.jsx</a></li><li><a href="Landing.html#.module:jsx">Landing.jsx</a></li><li><a href="Organize.html#.module:jsx">Organize.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="TicketDetails.html#.module:jsx">TicketDetails.jsx</a></li><li><a href="TierBox.html#.module:jsx">TierBox.jsx</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li><li><a href="pages_LogIn_MainContainer.module_jsx.html">pages/LogIn/MainContainer.jsx</a></li><li><a href="pages_LogIn_leftContainer.module_jsx.html">pages/LogIn/leftContainer.jsx</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#eventsListScroll">eventsListScroll</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 26 2023 11:47:00 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

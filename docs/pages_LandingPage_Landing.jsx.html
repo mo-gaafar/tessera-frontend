@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/LandingPage/Landing.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/LandingPage/Landing.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file Landing.jsx
  * @name Landing.jsx
  * @author @moSaeed15
@@ -87,10 +115,10 @@ export default function Landing() {
   }, []);
 
   const handleClickMenuOutside = event => {
-    if (refDrop.current && !refDrop.current.contains(event.target)) {
+    if (refDrop.current &amp;&amp; !refDrop.current.contains(event.target)) {
       // if clicked outside of the ref div, hide the element
       setShowMenu(false);
-      //if (range.startDate && range.endDate && count === 1)
+      //if (range.startDate &amp;&amp; range.endDate &amp;&amp; count === 1)
       //setShowCalender(false);
     }
   };
@@ -105,7 +133,7 @@ export default function Landing() {
   }, []);
 
   const handleClickCalenderOutside = event => {
-    if (refCal.current && !refCal.current.contains(event.target)) {
+    if (refCal.current &amp;&amp; !refCal.current.contains(event.target)) {
       setShowMenu(false);
       setShowCalender(false);
     }
@@ -121,12 +149,11 @@ export default function Landing() {
   }, []);
 
   const handleClickOutside = event => {
-    if (reference.current && !reference.current.contains(event.target)) {
+    if (reference.current &amp;&amp; !reference.current.contains(event.target)) {
       // if clicked outside of the ref div, hide the element
       setShowCategoryMenu(false);
     }
   };
-
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -143,17 +170,17 @@ export default function Landing() {
       setSelect(name);
       if (name === 'Today') {
         setUrl(
-          'startDate=' + range.startDate.toISOString() + '&futureDate=today'
+          'startDate=' + range.startDate.toISOString() + '&amp;futureDate=today'
         );
       }
       if (name === 'This weekend') {
         setUrl(
-          'startDate=' + range.startDate.toISOString() + '&futureDate=weekend'
+          'startDate=' + range.startDate.toISOString() + '&amp;futureDate=weekend'
         );
       }
       if (name === 'Tomorrow') {
         setUrl(
-          'startDate=' + range.startDate.toISOString() + '&futureDate=tomorrow'
+          'startDate=' + range.startDate.toISOString() + '&amp;futureDate=tomorrow'
         );
       }
     }
@@ -162,7 +189,7 @@ export default function Landing() {
     const { name, value } = e.target;
     setShowCategoryMenu(false);
     setSelectCategory(name);
-    let new_name = name.replace(/&/g, '%26');
+    let new_name = name.replace(/&amp;/g, '%26');
     let queryName = 'category=' + new_name;
     setUrl(queryName);
     //handleClick()
@@ -191,17 +218,18 @@ export default function Landing() {
   });
 
   /**
-   * A custom React hook that fetches the city name from the latitude and longitude.
-   *
-   * @param {number} latitude - The latitude of the location.
-   * @param {number} longitude - The longitude of the location.
-   * @returns {string} The name of the city.
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that fetches the city name from the latitude and longitude
+   * @param {function} fetchData
+   * @param {function} navigator.geolocation.getCurrentPosition
+   * @returns {JSX.Element} A React component representing the event box
    */
 
   useEffect(() => {
     const fetchData = async (latitude, longitude) => {
       const data = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&amp;key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
       );
 
       const json = await data.json();
@@ -221,7 +249,7 @@ export default function Landing() {
         city: cityName,
         country: country,
       });
-      setUrl(`city=${cityName}&country=${country}`);
+      setUrl(`city=${cityName}&amp;country=${country}`);
     };
     navigator.geolocation?.getCurrentPosition(poistion => {
       const { latitude, longitude } = poistion.coords;
@@ -263,12 +291,12 @@ export default function Landing() {
     }
     if (name === 'today') {
       setUrl(
-        'startDate=' + range.startDate.toISOString() + '&futureDate=today'
+        'startDate=' + range.startDate.toISOString() + '&amp;futureDate=today'
       );
     }
     if (name === 'weekend') {
       setUrl(
-        'startDate=' + range.startDate.toISOString() + '&futureDate=weekend'
+        'startDate=' + range.startDate.toISOString() + '&amp;futureDate=weekend'
       );
     }
     if (name === 'music') {
@@ -296,14 +324,14 @@ export default function Landing() {
   }
 
   useEffect(() => {
-    if (range.startDate && range.endDate && count === 1) {
+    if (range.startDate &amp;&amp; range.endDate &amp;&amp; count === 1) {
       setShowCalender(false);
       setShowMenu(false);
       setShowDate(true);
       setUrl(
         'startDate=' +
           range.startDate.toISOString() +
-          '&endDate=' +
+          '&amp;endDate=' +
           range.endDate.toISOString()
       );
     } else {
@@ -406,7 +434,7 @@ export default function Landing() {
 
     setEventElement(
       allFilteredEvents.map(event => (
-        <EventBox
+        &lt;EventBox
           id={event._id}
           key={event._id}
           image={
@@ -453,11 +481,11 @@ export default function Landing() {
   useEffect(() => {
     setCatElement(
       allCatEvents.map(cat => (
-        <div>
-          <button name={cat} className="drop-button" onClick={onClickCategory}>
+        &lt;div>
+          &lt;button name={cat} className="drop-button" onClick={onClickCategory}>
             {cat}
-          </button>
-        </div>
+          &lt;/button>
+        &lt;/div>
       ))
     );
   }, [allCatEvents]);
@@ -474,20 +502,20 @@ export default function Landing() {
   const locationDropDownToggle = e => {
     const h3 = e.target.closest('h3');
 
-    !h3 && setShowLocationMenu(false);
+    !h3 &amp;&amp; setShowLocationMenu(false);
   };
   return (
-    <>
-      <StyledNav>
-        {email && email !== 'undefined' ? (
-          <NavbarLoggedIn show={true} email={email} />
+    &lt;>
+      &lt;StyledNav>
+        {email &amp;&amp; email !== 'undefined' ? (
+          &lt;NavbarLoggedIn show={true} email={email} />
         ) : (
-          <Navbar onClick={locationDropDownToggle} show={true} />
+          &lt;Navbar onClick={locationDropDownToggle} show={true} />
         )}
-      </StyledNav>
-      <StyledLandingEvents onClick={locationDropDownToggle}>
-        {isLoaded && (
-          <PlacesAutocomplete
+      &lt;/StyledNav>
+      &lt;StyledLandingEvents onClick={locationDropDownToggle}>
+        {isLoaded &amp;&amp; (
+          &lt;PlacesAutocomplete
             setCity={setCity}
             cityData={cityData}
             setSelected={setSelected}
@@ -497,11 +525,11 @@ export default function Landing() {
           />
         )}
 
-        <div className="filter__nav">
-          <nav className="">
-            <ul>
-              <li className="first-Filter">
-                <button
+        &lt;div className="filter__nav">
+          &lt;nav className="">
+            &lt;ul>
+              &lt;li className="first-Filter">
+                &lt;button
                   className="nav--filter"
                   name="All"
                   onClick={onClickAll}
@@ -516,11 +544,11 @@ export default function Landing() {
                   }
                 >
                   All
-                </button>
-              </li>
+                &lt;/button>
+              &lt;/li>
 
-              <li>
-                <button
+              &lt;li>
+                &lt;button
                   onClick={handleForYou}
                   className="nav--filter"
                   style={
@@ -533,12 +561,12 @@ export default function Landing() {
                       : { background: 'none' }
                   }
                 >
-                  <span>For you</span>
-                </button>
-              </li>
+                  &lt;span>For you&lt;/span>
+                &lt;/button>
+              &lt;/li>
 
-              <li>
-                <button
+              &lt;li>
+                &lt;button
                   className="nav--filter"
                   name="online"
                   onClick={onClickAll}
@@ -553,11 +581,11 @@ export default function Landing() {
                   }
                 >
                   Online
-                </button>
-              </li>
+                &lt;/button>
+              &lt;/li>
 
-              <li>
-                <button
+              &lt;li>
+                &lt;button
                   className="nav--filter"
                   name="today"
                   onClick={onClickAll}
@@ -572,11 +600,11 @@ export default function Landing() {
                   }
                 >
                   Today
-                </button>
-              </li>
+                &lt;/button>
+              &lt;/li>
 
-              <li>
-                <button
+              &lt;li>
+                &lt;button
                   className="nav--filter"
                   name="weekend"
                   onClick={onClickAll}
@@ -591,11 +619,11 @@ export default function Landing() {
                   }
                 >
                   This Weekend
-                </button>
-              </li>
+                &lt;/button>
+              &lt;/li>
 
-              <li>
-                <button
+              &lt;li>
+                &lt;button
                   onClick={onClickAll}
                   name="free"
                   className="nav--filter"
@@ -610,11 +638,11 @@ export default function Landing() {
                   }
                 >
                   Free
-                </button>
-              </li>
+                &lt;/button>
+              &lt;/li>
 
-              <li>
-                <button
+              &lt;li>
+                &lt;button
                   onClick={onClickAll}
                   name="music"
                   className="nav--filter"
@@ -629,11 +657,11 @@ export default function Landing() {
                   }
                 >
                   Music
-                </button>
-              </li>
+                &lt;/button>
+              &lt;/li>
 
-              <li>
-                <button
+              &lt;li>
+                &lt;button
                   className="nav--filter"
                   onClick={onClickAll}
                   name="food"
@@ -647,12 +675,12 @@ export default function Landing() {
                       : { background: 'none' }
                   }
                 >
-                  Food & Drink
-                </button>
-              </li>
+                  Food &amp; Drink
+                &lt;/button>
+              &lt;/li>
 
-              <li>
-                <button
+              &lt;li>
+                &lt;button
                   className="nav--filter"
                   onClick={onClickAll}
                   name="charity"
@@ -666,50 +694,50 @@ export default function Landing() {
                       : { background: 'none' }
                   }
                 >
-                  Charity & causes
-                </button>
-              </li>
-            </ul>
-          </nav>
+                  Charity &amp; causes
+                &lt;/button>
+              &lt;/li>
+            &lt;/ul>
+          &lt;/nav>
 
-          {focused.All && (
-            <div className="date-dropdown">
-              <div className="you--options" onClick={showDropdownCategory}>
+          {focused.All &amp;&amp; (
+            &lt;div className="date-dropdown">
+              &lt;div className="you--options" onClick={showDropdownCategory}>
                 {selectCategory ? (
-                  <span>
+                  &lt;span>
                     {selectCategory}
-                    <button onClick={removeCategory} className="remove-button">
-                      <img src={cross} />
-                    </button>
-                  </span>
+                    &lt;button onClick={removeCategory} className="remove-button">
+                      &lt;img src={cross} />
+                    &lt;/button>
+                  &lt;/span>
                 ) : (
-                  <span>
+                  &lt;span>
                     Category
-                    <img src={logo} />
-                  </span>
+                    &lt;img src={logo} />
+                  &lt;/span>
                 )}
-              </div>
-              {showCategoryMenu && (
-                <div
+              &lt;/div>
+              {showCategoryMenu &amp;&amp; (
+                &lt;div
                   id="myDropdown"
                   ref={reference}
                   className="dropdown-content"
                 >
-                  <ul>{catElements}</ul>
-                </div>
+                  &lt;ul>{catElements}&lt;/ul>
+                &lt;/div>
               )}
-            </div>
+            &lt;/div>
           )}
 
-          {forYouElement && (
-            <div className="date-dropdown">
-              <div
+          {forYouElement &amp;&amp; (
+            &lt;div className="date-dropdown">
+              &lt;div
                 className="you--options"
                 data-testid="forYou"
                 onClick={showDropdown}
               >
                 {showDateRange ? (
-                  <span>
+                  &lt;span>
                     {monthNames[range.startDate.getMonth()] +
                       ' ' +
                       range.startDate.getDate() +
@@ -717,98 +745,98 @@ export default function Landing() {
                       monthNames[range.endDate.getMonth()] +
                       ' ' +
                       range.endDate.getDate()}
-                    <button onClick={removeDate} className="remove-button">
-                      <img src={cross} />
-                    </button>
-                  </span>
+                    &lt;button onClick={removeDate} className="remove-button">
+                      &lt;img src={cross} />
+                    &lt;/button>
+                  &lt;/span>
                 ) : select ? (
-                  <span>
+                  &lt;span>
                     {select}
-                    <button onClick={removeDate} className="remove-button">
-                      <img src={cross} />
-                    </button>
-                  </span>
+                    &lt;button onClick={removeDate} className="remove-button">
+                      &lt;img src={cross} />
+                    &lt;/button>
+                  &lt;/span>
                 ) : (
-                  <span>
+                  &lt;span>
                     Date
-                    <img src={logo} />
-                  </span>
+                    &lt;img src={logo} />
+                  &lt;/span>
                 )}
-              </div>
-              {showMenu && (
-                <div id="myDropdown" className="dropdown-content" ref={refDrop}>
-                  <ul>
-                    <div>
-                      <button
+              &lt;/div>
+              {showMenu &amp;&amp; (
+                &lt;div id="myDropdown" className="dropdown-content" ref={refDrop}>
+                  &lt;ul>
+                    &lt;div>
+                      &lt;button
                         name="calender"
                         className="drop-button"
                         onClick={onClickCalender}
                       >
                         Calender
-                      </button>
-                    </div>
-                    <div>
-                      <button
+                      &lt;/button>
+                    &lt;/div>
+                    &lt;div>
+                      &lt;button
                         name="Today"
                         className="drop-button"
                         onClick={onClickCalender}
                       >
                         Today
-                      </button>
-                    </div>
-                    <div>
-                      <button
+                      &lt;/button>
+                    &lt;/div>
+                    &lt;div>
+                      &lt;button
                         onClick={onClickCalender}
                         name="Tomorrow"
                         className="drop-button"
                       >
                         Tomorrow
-                      </button>
-                    </div>
-                    <div>
-                      <button
+                      &lt;/button>
+                    &lt;/div>
+                    &lt;div>
+                      &lt;button
                         name="This weekend"
                         onClick={onClickCalender}
                         className="drop-button"
                       >
                         This weekend
-                      </button>
-                    </div>
-                  </ul>
-                </div>
+                      &lt;/button>
+                    &lt;/div>
+                  &lt;/ul>
+                &lt;/div>
               )}
 
-              {showCalender && (
-                <div>
-                  <div className="dropdown-content" ref={refCal}>
-                    <DateRangePicker
+              {showCalender &amp;&amp; (
+                &lt;div>
+                  &lt;div className="dropdown-content" ref={refCal}>
+                    &lt;DateRangePicker
                       wrapperClassName="datePicker"
                       initialRange={range}
                       onUpdate={dateRange => {
                         setRange(dateRange);
                       }}
                     />
-                  </div>
-                </div>
+                  &lt;/div>
+                &lt;/div>
               )}
-            </div>
+            &lt;/div>
           )}
 
-          <h4>Events in {cityData.city}</h4>
-          <StyledEventsContainer
+          &lt;h4>Events in {cityData.city}&lt;/h4>
+          &lt;StyledEventsContainer
             ref={ref}
             img="../../src/assets/svgviewer-output.svg"
           >
             {eventElements}
-            {noEvents && (
-              <div className="error-img">
-                <img src={error} />
-              </div>
+            {noEvents &amp;&amp; (
+              &lt;div className="error-img">
+                &lt;img src={error} />
+              &lt;/div>
             )}
-          </StyledEventsContainer>
-        </div>
-      </StyledLandingEvents>
-    </>
+          &lt;/StyledEventsContainer>
+        &lt;/div>
+      &lt;/StyledLandingEvents>
+    &lt;/>
   );
 }
 const PlacesAutocomplete = ({
@@ -837,7 +865,7 @@ const PlacesAutocomplete = ({
     console.log(results, lat, lng);
 
     const data = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&amp;key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
     );
 
     const json = await data.json();
@@ -845,9 +873,9 @@ const PlacesAutocomplete = ({
 
     let country, city;
 
-    for (let i = 0; i < cities.length; i++) {
+    for (let i = 0; i &lt; cities.length; i++) {
       const addressComponents = cities[i].address_components;
-      for (let j = 0; j < addressComponents.length; j++) {
+      for (let j = 0; j &lt; addressComponents.length; j++) {
         const types = addressComponents[j].types;
         if (types.indexOf('locality') !== -1) {
           city = addressComponents[j].long_name;
@@ -863,7 +891,7 @@ const PlacesAutocomplete = ({
       country: country,
     });
     console.log(city, country);
-    setURL(`city=${city}&country=${country}`);
+    setURL(`city=${city}&amp;country=${country}`);
   };
 
   function handleClick() {
@@ -871,24 +899,24 @@ const PlacesAutocomplete = ({
   }
 
   return (
-    <>
-      <h3>
+    &lt;>
+      &lt;h3>
         Popular in
-        <svg
+        &lt;svg
           id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_svg"
           x="0"
           y="0"
           viewBox="0 0 24 24"
           xmlSpace="preserve"
         >
-          <path
+          &lt;path
             id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_base"
             fill="evenodd"
             clip="evenodd"
             d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z"
-          ></path>
-        </svg>
-        <input
+          >&lt;/path>
+        &lt;/svg>
+        &lt;input
           onClick={handleClick}
           type="text"
           value={value}
@@ -899,67 +927,90 @@ const PlacesAutocomplete = ({
           }}
           disabled={!ready}
         />
-        {showLocationMenu && (
-          <ul className="location__dropdown">
-            {!hideDefault && (
-              <div className="">
-                <li className="current__location">
-                  <svg viewBox="0 0 24 24">
-                    <g
+        {showLocationMenu &amp;&amp; (
+          &lt;ul className="location__dropdown">
+            {!hideDefault &amp;&amp; (
+              &lt;div className="">
+                &lt;li className="current__location">
+                  &lt;svg viewBox="0 0 24 24">
+                    &lt;g
                       id="crosshair_svg__Crosshair"
                       stroke="none"
                       strokeWidth="1"
                       fill="blue"
                       fillRule="evenodd"
                     >
-                      <path
+                      &lt;path
                         d="M11 18.93A7.005 7.005 0 015.07 13H3v-2h2.07A7.005 7.005 0 0111 5.07V3h2v2.07A7.005 7.005 0 0118.93 11H21v2h-2.07A7.005 7.005 0 0113 18.93V21h-2v-2.07zM12 17a5 5 0 100-10 5 5 0 000 10zm0-3a2 2 0 110-4 2 2 0 010 4z"
                         id="crosshair_svg__crosshair"
                         fill="#blue"
-                      ></path>
-                    </g>
-                  </svg>
+                      >&lt;/path>
+                    &lt;/g>
+                  &lt;/svg>
                   Use My Current Location
-                </li>
-                <li className="online__location">
-                  <svg
+                &lt;/li>
+                &lt;li className="online__location">
+                  &lt;svg
                     id="video-chunky_svg__eds-icon--video-chunky_svg"
                     x="0"
                     y="0"
                     viewBox="0 0 24 24"
                     xmlSpace="preserve"
                   >
-                    <g id="video-chunky_svg__eds-icon--video-chunky_base">
-                      <path
+                    &lt;g id="video-chunky_svg__eds-icon--video-chunky_base">
+                      &lt;path
                         d="M19 4v1H5V4H3v16h2v-1h14v1h2V4h-2zm0 13H5V7h14v10z"
                         fill="blue"
-                      ></path>
-                    </g>
-                    <path
+                      >&lt;/path>
+                    &lt;/g>
+                    &lt;path
                       id="video-chunky_svg__eds-icon--video-chunky_play"
                       d="M10 15l5-3-5-3z"
                       fill="blue"
-                    ></path>
-                  </svg>
+                    >&lt;/path>
+                  &lt;/svg>
                   Browse Online Events
-                </li>
-              </div>
+                &lt;/li>
+              &lt;/div>
             )}
 
-            {status === 'OK' &&
+            {status === 'OK' &amp;&amp;
               data.map(data => {
                 {
                   /* console.log(data); */
                 }
                 return (
-                  <li onClick={handleSelect} key={data.place_id}>
+                  &lt;li onClick={handleSelect} key={data.place_id}>
                     {data.description}
-                  </li>
+                  &lt;/li>
                 );
               })}
-          </ul>
+          &lt;/ul>
         )}
-      </h3>
-    </>
+      &lt;/h3>
+    &lt;/>
   );
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="BookingPop.module_jsx.html">BookingPop.jsx</a></li><li><a href="CheckoutForm.module_jsx.html">CheckoutForm.jsx</a></li><li><a href="Landing.html#.module:jsx">Landing.jsx</a></li><li><a href="Organize.html#.module:jsx">Organize.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="TicketDetails.html#.module:jsx">TicketDetails.jsx</a></li><li><a href="TierBox.html#.module:jsx">TierBox.jsx</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li><li><a href="pages_LogIn_MainContainer.module_jsx.html">pages/LogIn/MainContainer.jsx</a></li><li><a href="pages_LogIn_leftContainer.module_jsx.html">pages/LogIn/leftContainer.jsx</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#eventsListScroll">eventsListScroll</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 26 2023 11:47:00 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

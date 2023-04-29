@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/SignUp/SignupTwo.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/SignUp/SignupTwo.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file SignupTwo.jsx
+ * @name SignupTwo.jsx
+ * @author @hlasultanhassan
+ * @requires react
+ * @requires react-router-dom
+ * @requires ./styles/FormFormat.styled
+ * @exports SignupTwo
+ * @description This file contains the SignupTwo component and its logic
+ */
+import { Wrapper } from './styles/Password.Styled.jsx';
+import { PwdProgress } from './styles/Password.Styled';
+
+import { StyledSignup } from './styles/FormFormat.Styled';
+import { StyledLoginRef } from './styles/FormFormat.Styled';
+import { StyledHead } from './styles/FormFormat.Styled';
+import { LogoImg } from './styles/FormFormat.Styled';
+import { StyledHeaderInfo } from './styles/FormFormat.Styled';
+import { StyledReference } from './styles/FormFormat.Styled';
+import { StyledSubmitbutton } from './styles/FormFormat.Styled';
+import { StyledEmailInput } from './styles/FormFormat.Styled';
+import { StyledSignupForm } from './styles/FormFormat.Styled';
+import { StyledSignupFormInput } from './styles/FormFormat.Styled';
+import { StyledEditButton } from './styles/FormFormat.Styled';
+import { StyledEditImg } from './styles/FormFormat.Styled.jsx';
+import { StyledEmailDiv } from './styles/FormFormat.Styled.jsx';
+import { StyledNameDiv } from './styles/FormFormat.Styled.jsx';
+import { StyledInputDiv } from './styles/FormFormat.Styled';
+import { StyledInputContainerDiv } from './styles/FormFormat.Styled.jsx';
+import { Label } from './styles/FormFormat.Styled';
+import { Message } from './styles/FormFormat.Styled';
+import { PageContainer } from './styles/FormFormat.Styled';
+import { LoginA } from './styles/FormFormat.Styled';
+import { ImgDescriptionDiv } from './styles/FormFormat.Styled';
+import { FirstRowImgDiv } from './styles/FormFormat.Styled';
+import { SecRowImgDiv } from './styles/FormFormat.Styled';
+import TermsandConditions from './TermsAndConditions';
+import edit from '/images/edit.png';
+import logo from '/images/LogoFullTextSmall.png';
+import pwdhide from '/images/eye.png';
+import pwdShow from '/images/icon-visibility.jpg';
+import { PasswordShowButton, PwdLabel } from './styles/Password.Styled';
+import { PasswordShowImg } from './styles/Password.Styled';
+import React, { useState, useContext, useEffect } from 'react';
+import { Await, Link, useNavigate } from 'react-router-dom';
+
+//import PasswordChecker from './PasswordChecker';
+import { PasswordStrenghP } from './styles/Password.Styled';
+
+import { ImgComatiner } from './styles/FormFormat.Styled.jsx';
+import { PageImgDiv } from './styles/FormFormat.Styled.jsx';
+
+/**
+ * A functional component that handles the second step of the signup process.
+ *
+ * @param {Object} props - The props object passed down from the parent component.
+ * @param {boolean} props.test - A boolean flag to indicate whether this is a test environment or not.
+ * @param {string} props.email - The email of the user passed down from the parent component.
+ * @returns {JSX.Element} The JSX representation of the component.
+ */
+
+export default function SignupTwo(props) {
+  /**
+   * Navigate to redirect after form submission
+   * @type{function}
+   */
+
+  let navigate;
+  if (!props.test) {
+    navigate = useNavigate();
+  }
+
+  /**
+   * A state variable and a function for setting that state variable
+   *
+   */
+
+  const [pwdInput, initValue] = React.useState({
+    password: '',
+  });
+  const [passwordType, setPasswordType] = React.useState('password');
+
+  const [passwordButtonType, setPasswordButtonType] = React.useState('none');
+
+  const [isError, setError] = React.useState(
+    'Your password must be at least 8 characters and strong'
+  );
+
+  const [email, setEmail] = useState(props.email);
+
+  /**
+   * Updates the email state using the email value in the local storage.
+   */
+
+  useEffect(() => {
+    setEmail(localStorage.getItem('email')?.toLowerCase());
+  }, [email]);
+
+  /**
+   * Updates the password state and handles validation.
+   *
+   * @param {Object} e - The event object.
+   */
+
+  const onChange = e => {
+    let password = e.target.value;
+    setPasswordButtonType('inline');
+    initValue({
+      ...pwdInput,
+      password: e.target.value,
+    });
+    setError(null);
+
+    if (password.length === 0) {
+      setPasswordButtonType('none');
+    }
+    if (password.length &lt; 8) {
+      setError('Your password must be at least 8 characters and strong');
+      return;
+    } else {
+      setPassError(false);
+    }
+    //momken ne3mel else hena for further verification (special cases)
+  };
+  const [isStrong, initRobustPassword] = React.useState(null);
+
+  /**
+   * Initializes the robust password state.
+   *
+   * @param {boolean} childData - The value passed down from the child component.
+   */
+
+  const initPwdInput = async childData => {
+    initRobustPassword(childData);
+  };
+
+  const [responseBody, setResponseBody] = React.useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    emailConfirmation: '',
+    password: '',
+  });
+
+  const [formData, setFormData] = React.useState({
+    firstName: '',
+    lastName: '',
+    emailConfirm: '',
+  });
+  //const [count,setCount] = React.useState(0)
+  const [firstnameError, setFirstnameError] = React.useState(null);
+  const [lastnameError, setLastnameError] = React.useState(null);
+  const [emptyPassError, setEmptyPassError] = React.useState(null);
+  const [emailConfirmError, setEmailConfirmError] = React.useState(null);
+  const [passError, setPassError] = React.useState(false);
+  const [errorFound, setErrorFound] = React.useState(false);
+  const [focused, setFocused] = React.useState({
+    firstName: false,
+    lastName: false,
+    emailConfirm: false,
+    password: false,
+  });
+
+  const [showTerms, setShowTerms] = useState(false);
+
+  /**
+   * Handles the form validation on submit.
+   */
+  function handleValidation() {
+    if (!formData.firstName) {
+      setFirstnameError('First name is required');
+      setErrorFound(true);
+    }
+
+    if (!formData.lastName) {
+      setLastnameError('Last name is required');
+      setErrorFound(true);
+    }
+
+    if (pwdInput.password.length &lt; 8) {
+      setEmptyPassError(
+        'Your password must be at least 8 characters and strong'
+      );
+      setPassError(true);
+      setErrorFound(true);
+    }
+
+    if (!pwdInput.password) {
+      setEmptyPassError('Field required');
+      setPassError(true);
+      setErrorFound(true);
+    }
+
+    if (formData.emailConfirm !== email) {
+      setEmailConfirmError("Email address doesn't match. Please try again");
+      setErrorFound(true);
+    }
+
+    if (pwdInput.password.indexOf(' ') >= 0) {
+      setEmptyPassError('Your password cannot be spaces');
+      setPassError(true);
+      setErrorFound(true);
+    }
+  }
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormData(prevFormData => {
+      if (name === 'firstName' &amp;&amp; firstnameError) {
+        setFirstnameError(null);
+      }
+      if (value === ' ' &amp;&amp; name === 'firstName') {
+        setFirstnameError('First name cannot be spaces');
+      }
+      if (name === 'lastName' &amp;&amp; lastnameError) {
+        setLastnameError(null);
+      }
+      if (value === ' ' &amp;&amp; name === 'lastName') {
+        setLastnameError('Last name cannot be spaces');
+      }
+      if (name == 'emailConfirm' &amp;&amp; value == email) {
+        setEmailConfirmError(null);
+      }
+
+      return {
+        ...prevFormData,
+        [name]: name === 'emailConfirm' ? value : value.replace(/[^a-z]/gi, ''),
+      };
+    });
+  }
+
+  function GoBack(e) {
+    e.preventDefault();
+    e.detail &amp;&amp; navigate('/signup', { replace: true });
+  }
+
+  function handleFocus(event) {
+    const { name } = event.target;
+    setFocused(prevFocus => {
+      return {
+        [name]: true,
+      };
+    });
+  }
+
+  function handleBlur(event) {
+    const { name } = event.target;
+    setFocused(prevFocus => {
+      return {
+        [name]: false,
+      };
+    });
+  }
+
+  const togglePassword = event => {
+    event.preventDefault();
+    if (passwordType === 'password') {
+      setPasswordType('text');
+      return;
+    }
+    setPasswordType('password');
+  };
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    handleValidation();
+    if (
+      !errorFound &amp;&amp;
+      (!formData.firstName ||
+        !formData.lastName ||
+        !formData.emailConfirm ||
+        pwdInput.password.length &lt; 8 ||
+        formData.emailConfirm !== email ||
+        initPwdChecker().val !== 'strong' ||
+        pwdInput.password.indexOf(' ') >= 0)
+    ) {
+      setShowTerms(false);
+
+      return;
+    }
+
+    setResponseBody(prevres => ({
+      ...prevres,
+      password: pwdInput.password,
+      emailConfirmation: formData.emailConfirm,
+      email: email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+    }));
+
+    setShowTerms(true);
+  }
+  const styles = {
+    display: `${passwordButtonType}`,
+  };
+
+  React.useEffect(() => {
+    if (passError || firstnameError || lastnameError || emailConfirmError) {
+      setErrorFound(true);
+    } else if (
+      formData.firstName &amp;&amp;
+      formData.lastName &amp;&amp;
+      formData.emailConfirm &amp;&amp;
+      pwdInput.password
+    ) {
+      setErrorFound(false);
+    } else if (
+      !passError ||
+      !firstnameError ||
+      !lastnameError ||
+      !emailConfirmError
+    ) {
+      setErrorFound(false);
+    }
+  }, [
+    passError,
+    firstnameError,
+    lastnameError,
+    emailConfirmError,
+    formData.firstName,
+    formData.lastName,
+    formData.emailConfirm,
+    pwdInput.password,
+  ]);
+
+  React.useEffect(() => {
+    if (passError || firstnameError || lastnameError || emailConfirmError) {
+      handleValidation();
+    }
+  }, [
+    formData.firstName,
+    formData.lastName,
+    formData.emailConfirm,
+    pwdInput.password,
+  ]);
+
+  //password file instead of applying in separate file
+  const pwdValidate = pwdInput.password;
+  const initPwdChecker = () => {
+    let pwdCheck = 0;
+    let validateRegex = ['[A-Z]', '[a-z]', '[0-9]', '\\W'];
+    validateRegex.forEach((regex, i) => {
+      if (new RegExp(regex).test(pwdValidate)) {
+        pwdCheck += 1;
+      }
+    });
+    switch (pwdCheck) {
+      case 0:
+        return {
+          strength: 0,
+          val: '',
+        };
+      case 1:
+        return {
+          strength: 1,
+          val: 'very weak',
+        };
+      case 2:
+        return {
+          strength: 2,
+          val: 'weak',
+        };
+      case 3:
+        return {
+          strength: 3,
+          val: 'moderate',
+        };
+      case 4:
+        return {
+          strength: 4,
+          val: 'strong',
+        };
+
+      default:
+        return null;
+    }
+  };
+  {
+    //initPwdInput(initPwdChecker().val);
+  }
+  let colorCondition = false;
+  if (initPwdChecker().val === 'moderate') {
+    colorCondition = 'moderate';
+  } else if (initPwdChecker().val === 'strong') {
+    colorCondition = 'strong';
+  }
+
+  return (
+    &lt;>
+      {showTerms === true &amp;&amp; showTerms !== undefined &amp;&amp; (
+        &lt;TermsandConditions data={responseBody} show={setShowTerms} />
+      )}
+
+      &lt;PageContainer>
+        &lt;StyledSignup>
+          &lt;div>
+            &lt;StyledHeaderInfo>
+              &lt;div>
+                &lt;Link to="/">
+                  &lt;LogoImg src={logo} />
+                &lt;/Link>
+                &lt;StyledHead>Create an account&lt;/StyledHead>
+              &lt;/div>
+
+              &lt;StyledLoginRef>
+                &lt;StyledReference>
+                  &lt;Link to="/login"> Log In&lt;/Link>
+                &lt;/StyledReference>
+              &lt;/StyledLoginRef>
+            &lt;/StyledHeaderInfo>
+
+            &lt;StyledSignupForm onSubmit={handleSubmit}>
+              &lt;StyledEmailDiv>
+                &lt;StyledEmailInput
+                  id="email-input"
+                  readOnly
+                  value={email}
+                  data-testid="email"
+                />
+                &lt;StyledEditButton onClick={GoBack}>
+                  &lt;StyledEditImg src={edit} />
+                &lt;/StyledEditButton>
+
+                &lt;StyledInputDiv>
+                  &lt;Label>Email address&lt;/Label>
+                &lt;/StyledInputDiv>
+              &lt;/StyledEmailDiv>
+
+              &lt;StyledInputContainerDiv
+                style={
+                  emailConfirmError
+                    ? { borderColor: '#c5162e' }
+                    : { backgroundColor: 'white' }
+                }
+              >
+                &lt;StyledSignupFormInput
+                  id="email-input-1"
+                  type="email"
+                  name="emailConfirm"
+                  value={formData.emailConfirm}
+                  onChange={handleChange}
+                  inputColor={emailConfirmError ? 'red' : 'blue'}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
+                &lt;StyledInputDiv>
+                  &lt;Label
+                    style={
+                      emailConfirmError
+                        ? { color: '#c5162e' }
+                        : !focused.emailConfirm &amp;&amp; !formData.emailConfirm
+                        ? { fontSize: '2rem' }
+                        : focused.emailConfirm
+                        ? { color: 'blue' }
+                        : { color: 'gray' }
+                    }
+                  >
+                    Confirm email
+                  &lt;/Label>
+                &lt;/StyledInputDiv>
+                {emailConfirmError &amp;&amp; (
+                  &lt;Message id="error-message" style={{ color: '#c5162e' }}>
+                    {' '}
+                    {emailConfirmError}
+                  &lt;/Message>
+                )}
+              &lt;/StyledInputContainerDiv>
+
+              &lt;StyledNameDiv>
+                &lt;StyledInputContainerDiv
+                  style={
+                    firstnameError
+                      ? { borderColor: '#c5162e' }
+                      : { backgroundColor: 'white' }
+                  }
+                >
+                  &lt;StyledSignupFormInput
+                    id="name-input"
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    inputColor={firstnameError ? 'red' : 'blue'}
+                    onFocus={handleFocus}
+                    data-testid="firstname"
+                    onBlur={handleBlur}
+                  />
+
+                  &lt;StyledInputDiv>
+                    &lt;Label
+                      style={
+                        firstnameError
+                          ? { color: '#c5162e' }
+                          : !focused.firstName &amp;&amp; !formData.firstName
+                          ? { fontSize: '2rem' }
+                          : focused.firstName
+                          ? { color: 'blue' }
+                          : { color: 'gray' }
+                      }
+                    >
+                      First Name
+                    &lt;/Label>
+                  &lt;/StyledInputDiv>
+                  {firstnameError &amp;&amp; (
+                    &lt;Message id="error-message">
+                      &lt;span data-testid="error" style={{ color: '#c5162e' }}>
+                        {' '}
+                        {firstnameError}
+                      &lt;/span>
+                    &lt;/Message>
+                  )}
+                &lt;/StyledInputContainerDiv>
+
+                &lt;StyledInputContainerDiv
+                  style={
+                    lastnameError
+                      ? { borderColor: '#c5162e' }
+                      : { backgroundColor: 'transperent' }
+                  }
+                >
+                  &lt;StyledSignupFormInput
+                    id="name-input-2"
+                    type="text"
+                    value={formData.lastName}
+                    name="lastName"
+                    onChange={handleChange}
+                    inputColor={lastnameError ? 'red' : 'blue'}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+                  &lt;StyledInputDiv>
+                    &lt;Label
+                      style={
+                        lastnameError
+                          ? { color: '#c5162e' }
+                          : !focused.lastName &amp;&amp; !formData.lastName
+                          ? { fontSize: '2rem' }
+                          : focused.lastName
+                          ? { color: 'blue' }
+                          : { color: 'gray' }
+                      }
+                    >
+                      Last Name
+                    &lt;/Label>
+                  &lt;/StyledInputDiv>
+                  {lastnameError &amp;&amp; (
+                    &lt;Message id="error-message" style={{ color: '#c5162e' }}>
+                      {' '}
+                      {lastnameError}
+                    &lt;/Message>
+                  )}
+                &lt;/StyledInputContainerDiv>
+              &lt;/StyledNameDiv>
+
+              &lt;StyledInputContainerDiv
+                style={
+                  passError
+                    ? { borderColor: '#c5162e' }
+                    : { backgroundColor: 'transperent' }
+                }
+              >
+                &lt;StyledSignupFormInput
+                  type={passwordType}
+                  data-testid="password"
+                  id="password"
+                  name="password"
+                  onChange={onChange}
+                  inputColor={passError ? 'red' : 'blue'}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
+                &lt;PasswordShowButton onClick={togglePassword} style={styles}>
+                  {passwordType === 'password' ? (
+                    &lt;svg
+                      style={{ marginLeft: '1.5rem', marginTop: '1.25rem' }}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-eye-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      &lt;path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                      &lt;path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                    &lt;/svg>
+                  ) : (
+                    &lt;svg
+                      style={{ marginLeft: '1.5rem', marginTop: '1.25rem' }}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-eye-slash-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      &lt;path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                      &lt;path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+                    &lt;/svg>
+                  )}
+                &lt;/PasswordShowButton>
+                &lt;StyledInputDiv>
+                  &lt;Label
+                    style={
+                      passError
+                        ? { color: '#c5162e' }
+                        : !focused.password &amp;&amp; !pwdInput.password
+                        ? { fontSize: '2rem' }
+                        : focused.password
+                        ? { color: 'blue' }
+                        : { color: 'gray' }
+                    }
+                  >
+                    Password
+                  &lt;/Label>
+                &lt;/StyledInputDiv>
+                {passError &amp;&amp; (
+                  &lt;Message id="error-message" style={{ color: '#c5162e' }}>
+                    {' '}
+                    {emptyPassError}
+                  &lt;/Message>
+                )}
+              &lt;/StyledInputContainerDiv>
+              {/* &lt;PasswordChecker
+                password={pwdInput.password}
+                actions={initPwdInput}
+                showStrength={isError}
+              /> */}
+              &lt;>
+                &lt;Wrapper>
+                  &lt;PwdProgress
+                    inputColor={
+                      colorCondition === 'strong'
+                        ? 'green'
+                        : colorCondition === 'moderate'
+                        ? 'orange'
+                        : 'red'
+                    }
+                    className={`pwd-checker-bar strength-${
+                      initPwdChecker().val
+                    }`}
+                    value={initPwdChecker().strength}
+                    max="4"
+                  />
+                  &lt;br />
+                  &lt;PwdLabel>
+                    {pwdInput.password &amp;&amp; (
+                      &lt;div>
+                        &lt;p className={`label strength-${initPwdChecker().val}`}>
+                          {isError != null ? (
+                            ''
+                          ) : (
+                            &lt;PasswordStrenghP>
+                              Your Password
+                              &lt;strong> is {initPwdChecker().val} &lt;/strong>
+                            &lt;/PasswordStrenghP>
+                          )}
+                        &lt;/p>
+                      &lt;/div>
+                    )}
+                  &lt;/PwdLabel>
+                &lt;/Wrapper>
+              &lt;/>
+              {isError !== null &amp;&amp; (
+                &lt;PasswordStrenghP
+                  data-testid="passError"
+                  className="pass-errors"
+                >
+                  {isError}
+                &lt;/PasswordStrenghP>
+              )}
+
+              &lt;StyledSubmitbutton onClick={handleSubmit} disabled={errorFound}>
+                Create account
+              &lt;/StyledSubmitbutton>
+
+              &lt;LoginA>
+                &lt;Link to="/login">Log In&lt;/Link>
+              &lt;/LoginA>
+            &lt;/StyledSignupForm>
+          &lt;/div>
+        &lt;/StyledSignup>
+        &lt;ImgComatiner>
+          &lt;PageImgDiv>&lt;/PageImgDiv>
+          &lt;ImgDescriptionDiv>
+            &lt;FirstRowImgDiv>Hungry Pop&lt;/FirstRowImgDiv>
+            &lt;SecRowImgDiv>Trap Yoga Brooklyn&lt;/SecRowImgDiv>
+            &lt;SecRowImgDiv>Brooklyn, NY&lt;/SecRowImgDiv>
+          &lt;/ImgDescriptionDiv>
+        &lt;/ImgComatiner>
+      &lt;/PageContainer>
+    &lt;/>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="BookingPop.module_jsx.html">BookingPop.jsx</a></li><li><a href="CheckoutForm.module_jsx.html">CheckoutForm.jsx</a></li><li><a href="Landing.html#.module:jsx">Landing.jsx</a></li><li><a href="Organize.html#.module:jsx">Organize.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="TicketDetails.html#.module:jsx">TicketDetails.jsx</a></li><li><a href="TierBox.html#.module:jsx">TierBox.jsx</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li><li><a href="pages_LogIn_MainContainer.module_jsx.html">pages/LogIn/MainContainer.jsx</a></li><li><a href="pages_LogIn_leftContainer.module_jsx.html">pages/LogIn/leftContainer.jsx</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#eventsListScroll">eventsListScroll</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 26 2023 11:47:00 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

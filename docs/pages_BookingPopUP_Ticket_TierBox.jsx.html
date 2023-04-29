@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/BookingPopUP/Ticket/TierBox.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/BookingPopUP/Ticket/TierBox.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file TierBox.jsx
+ * @name TierBox.jsx
+ * @author @SeifAllah
+ * @requires react
+ * @requires ./Ticket.styled
+ * @exports TierBox
+ * @description This file contains the TierBox components and its logic
+
+ * 
+ * 
+ */
+
+import {
+  SelectTicket,
+  SelectTickContainer,
+  SelectTickName,
+  IncrementDecrement,
+  SelectTickBottomContainer,
+  BottomContainerHead,
+} from "./Ticket.styled";
+
+import { useState } from "react";
+/**
+ * description: this function is the TierBox component and returns html elements that contain the ticket tier details
+ * @param {Object} element - the elemnt of the tickettierdetails
+ * @param {Function} setTicketTierdetails - the function to set the tickettierdetails
+ * @param {Number} index - the index of the element
+ * @param {Array} ticketsTierdetails - the array of the tickettierdetails
+ * @param {object} summary - the summary
+ * @param {Function} setSummary - the function to set the summary
+ * @param {Function} setEmpty - the function to set the empty
+ * @param {Number} total - the total of the tickets
+ *
+ * @returns {JSX.Element} - the JSX of the TierBox
+ */
+export default function TierBox({
+  element,
+  setTicketTierdetails,
+  index,
+  ticketsTierdetails,
+  summary,
+  setSummary,
+  setEmpty,
+  total,
+}) {
+  const [count, setCount] = useState(0);
+  const [countactual, setCountActual] = useState(0);
+  const [countDecrement, setCountDecrement] = useState(0);
+
+  /**
+   * description: this function is to append the summary
+   * @param {Number} newPrice - the new price
+   * @returns {Array} - the new summary
+   */
+  const summaryappend = (newPrice) => {
+    setSummary((prevValue) => {
+      let flag = false;
+
+      prevValue.forEach((element, i) => {
+        if (element.sumId == element.id) {
+          flag = false;
+          element.sumTicketCount = element.ticketCount;
+          element.sumTicketPrice = newPrice;
+
+          element.ticketCount === 0 &amp;&amp; prevValue.splice(i, 1);
+        }
+      });
+
+      if (!flag) {
+        const newValue = [
+          ...prevValue,
+          {
+            sumId: element.id,
+            sumTicketCount: element.ticketCount,
+            sumTicketPrice: newPrice,
+            sumTierName: element.tierName,
+          },
+        ];
+        return newValue;
+      }
+
+      return prevValue;
+    });
+  };
+  /**
+   * description: this function is to increment the order
+   * @param {Number} i - the index of the element
+   * @returns {Array} - the new tickettierdetails
+   */
+  const incrementOrder = (i) => {
+    const currentCapacity = element.maxCapacity - element.numberOfTicketsSold;
+
+    setCount((prevCount) => {
+      return prevCount == currentCapacity ? prevCount : prevCount + 1;
+    });
+
+    setTicketTierdetails((prevState) => {
+      const newState = [...prevState];
+      newState.forEach((item, index) => {
+        if (index === i) {
+          item.ticketCount = count;
+          setCountDecrement(count);
+        }
+      });
+      summaryappend(
+        count * element.price.slice(0, 1) === "$"
+          ? element.price.slice(1)
+          : element.price
+      );
+
+      return newState;
+    });
+    summary.length === 0 ? setEmpty(true) : setEmpty(false);
+  };
+  /**
+   * description: this function is to decrement the order
+   * @param {Number} i - the index of the element
+   * @returns {Array} - the new tickettierdetails
+   */
+  const decrementOrder = (i) => {
+    setCountDecrement((prevCount) =>
+      prevCount === 0 ? prevCount : prevCount - 1
+    );
+
+    setTicketTierdetails((prevState) => {
+      const newState = [...prevState];
+      newState.forEach((item, index) => {
+        if (index === i) {
+          item.ticketCount = countDecrement;
+          setCount(countDecrement);
+        }
+      });
+
+      summaryappend(
+        countDecrement * element.price.slice(0, 1) === "$"
+          ? element.price.slice(1)
+          : element.price
+      );
+
+      return newState;
+    });
+    summary.length === 0 ? setEmpty(true) : setEmpty(false);
+  };
+
+  return (
+    &lt;SelectTicket>
+      &lt;SelectTickContainer className="focus">
+        &lt;SelectTickName>{element.tierName}&lt;/SelectTickName>
+        &lt;IncrementDecrement>
+          &lt;div
+            className={
+              element.ticketCount == element.maxCapacity
+                ? "incdec"
+                : "incdecactive"
+            }
+            onClick={() => incrementOrder(index)}
+          >
+            &lt;svg
+              id="plus-chunky_svg__eds-icon--plus-chunky_svg"
+              x="0"
+              y="0"
+              viewBox="0 0 24 24"
+            >
+              &lt;path
+                id="plus-chunky_svg__eds-icon--plus-chunky_base"
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
+              >&lt;/path>
+            &lt;/svg>
+          &lt;/div>
+          &lt;div className="Quantity">{element.ticketCount}&lt;/div>
+          &lt;div
+            className={element.ticketCount == 0 ? "incdec" : "incdecactive"}
+            onClick={() => decrementOrder(index)}
+          >
+            &lt;svg
+              id="minus-chunky_svg__eds-icon-minus-chunky"
+              x="0"
+              y="0"
+              viewBox="0 0 24 24"
+            >
+              &lt;g>
+                &lt;path fill="#fff" d="M6.5 11.5h11v1h-11z">&lt;/path>
+                &lt;path d="M18 11H6v2h12v-2z">&lt;/path>
+              &lt;/g>
+            &lt;/svg>
+          &lt;/div>
+        &lt;/IncrementDecrement>
+      &lt;/SelectTickContainer>
+      &lt;SelectTickBottomContainer>
+        &lt;BottomContainerHead>
+          &lt;p className="Fee">
+            $
+            {element.price.slice(0, 1) === "$"
+              ? element.price.slice(1)
+              : element.price}
+          &lt;/p>
+          {/* {ticketsAmount[index].discount &amp;&amp; (
+      &lt;pre>
+        &lt;p className={classes.price}>
+          {element.price -
+            element.price *
+              ticketsAmount[index].discountpercent -
+            ticketsAmount[index].discountamount}
+          {"  "}
+          &lt;del>{element.price}&lt;/del>
+        &lt;/p>
+      &lt;/pre>
+    )} */}
+          &lt;p className="Sale">
+            Sales end on {element.endSelling}
+            {/* {moment(element.salesStart).format("MMMM Do YYYY")} */}
+          &lt;/p>
+        &lt;/BottomContainerHead>
+      &lt;/SelectTickBottomContainer>
+    &lt;/SelectTicket>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="BookingPop.module_jsx.html">BookingPop.jsx</a></li><li><a href="CheckoutForm.module_jsx.html">CheckoutForm.jsx</a></li><li><a href="Landing.html#.module:jsx">Landing.jsx</a></li><li><a href="Organize.html#.module:jsx">Organize.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="TicketDetails.html#.module:jsx">TicketDetails.jsx</a></li><li><a href="TierBox.html#.module:jsx">TierBox.jsx</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li><li><a href="pages_LogIn_MainContainer.module_jsx.html">pages/LogIn/MainContainer.jsx</a></li><li><a href="pages_LogIn_leftContainer.module_jsx.html">pages/LogIn/leftContainer.jsx</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#eventsListScroll">eventsListScroll</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 26 2023 11:47:00 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
