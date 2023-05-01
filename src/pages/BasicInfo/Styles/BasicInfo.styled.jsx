@@ -145,9 +145,12 @@ export const SectionTitle = styled.h1`
 color: #1e0a3c;
 `
 export const ExplanationDiv = styled.div`
-  @media (min-width: 1152px){
-    width: 75%;
-  }
+  width: 75%;
+`
+export const ExplanationDiv2 = styled.div`
+  font-size: 1.4rem;
+  width: 100%;
+  margin-bottom: 1rem;
 `
 export const ExplanationP = styled.p`
   color: #39364f;
@@ -155,7 +158,7 @@ export const ExplanationP = styled.p`
   font-size: 1.6rem;
   @media (min-width: 960px){
     font-size: 1.3rem;
-    line-height: 1.25rem;
+    line-height: 2rem;
   }
   
   `
@@ -166,6 +169,7 @@ export const ContentsDiv = styled.div`
 `
 export const InputDiv = styled.div`
   margin-bottom: 1.2rem;
+  text-decoration: none;
 `
 export const EventTitleInputDiv = styled.div`
   border-radius: 2px;
@@ -173,9 +177,12 @@ export const EventTitleInputDiv = styled.div`
   padding: 1px;
   position: relative;
   transition: background .24s cubic-bezier(.4,0,.3,1);
+  :active{
+    border: 1px solid red;
+  }
 `
 export const EventTInputDiv = styled.div`
-  display: flex;
+  
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   flex-direction: row;
@@ -185,7 +192,7 @@ export const EventTInputDiv = styled.div`
   background: #fff;
 `
 export const EventT2InputDiv = styled.div`
-  display: flex;
+  
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   flex-direction: row;
@@ -195,7 +202,12 @@ export const EventT2InputDiv = styled.div`
   min-width: 0;
 `
 export const PlaceHolder = styled.div`
-  padding: 0.2rem 1.2rem 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
  
 `
 export const PlaceHolderLabel = styled.label`
@@ -207,6 +219,7 @@ export const PlaceHolderLabel = styled.label`
   transition: all .16s cubic-bezier(.4,0,.3,1);
   white-space: nowrap;
   overflow: hidden;
+  padding: 0.6rem 1.2rem 0;
 `
 export const PlaceHolderSpan = styled.span`
   display: block;
@@ -232,10 +245,9 @@ export const SecondStarSpan = styled.span`
   color: #c5162e;
 `
 export const Input = styled.input`
-  padding: 1.8rem 1.2rem 0.6rem;
+  padding: 0rem 1.2rem 0.6rem;
   @media (min-width: 660px){
     font-size: 14px;
-    line-height: 22px;
     min-height: 22px;
   }
   background: none;
@@ -248,10 +260,466 @@ export const Input = styled.input`
   flex: 1;
   min-width: 0;
   display: inline-block;
+  ::placeholder{
+    color: #5a595d6f;
+    font-size: 1.3rem;
+  }
 `
 export const FieldSet = styled.fieldset`
   margin-top: 1.6rem;
+  display:flex;
+  border: none; 
+  padding: 0;
+`
+export const TypeDropDown = styled.div`
+    padding-right: 1.6rem;
+  @media (min-width: 792px){
+    width: 33.3333333333%;
+  }
+`
+export const TypeDropDown1 = styled.div`
+  margin-bottom: 1.6rem;
+`
+export const TypeBorder = styled.div`
+  border-radius: 2px;
+  //background: #dbdae3;
+  border: 2px solid #dbdae3;
+  padding: 1px;
+  position: relative;
+  transition: background .24s cubic-bezier(.4,0,.3,1);
+  :focus{
+    border-color: blue;
+    background-color: red;
+  }
+  :hover{
+    border: 2px solid #a9a9a9;
+    transition: 0.25s ease-out;
+  }
+  :active{
+    border: 2px solid blue;
+  }
+  :focus{
+    border-color: blue;
+    background-color: red;
+  }
+  
 `
 export const TagsDiv = styled.div`
   margin-top: 1.6rem;
+`
+export const TagsTitleDiv = styled.div`
+  @media (min-width: 960px) {
+    line-height: 1.5rem;
+  }
+  font-size: 1.7rem;
+  letter-spacing: .25px;
+  margin-right: -0.25px;
+  font-weight: 600;
+  margin-bottom: 16px;
+`
+export const TagsInputDiv = styled.div`
+  margin-bottom: 16px;
+  padding-right: 8px;
+  width: 83.3333333333%;
+`
+export const AddButton = styled.button`
+  color: #39364f;
+  fill: #39364f;
+  background: #fff;
+  border-color: #a9a8b3;
+  transform: translateZ(0);
+  position: relative;
+  height: 44px;
+  padding: 0 30px 1px;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  border: 2px solid #a9a8b3;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .4s cubic-bezier(.4,0,.3,1);
+  margin-top: 1rem;
+  :hover{
+    border-color: #39364f;
+    transition-duration: 1s;
+  }
+  :active{
+    background-color: #f3eeee;
+  }
+`
+export const TagsSmall = styled.div`
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+`
+export const NumberOfTags = styled.div`
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
+`
+export const CharactersLimit = styled.div`
+  text-align: right;
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
+`
+export const Aside = styled.aside`
+  @media (min-width: 960px){
+    font-size: 1.2rem;
+    line-height: 1rem;
+  }
+  padding-top: 4px;
+`
+export const StyledInput = styled.div`
+  border: 1px solid #999999;
+  background-color: white;
+  position: relative; 
+  input {
+    outline: none;
+    position: relative;
+    line-height: 1.2em;
+    font-size: 14px;
+    padding: 18px 12px 6px;
+    width: 100%;
+    border-style: hidden;
+    ::placeholder{
+      color: #5a595d6f;
+      font-size: 1.3rem;
+      margin-top: 0.3rem;
+    }
+  }
+
+  label {
+    margin-left: 10px;
+    margin-top: 0.6rem;
+    display: inline-block;
+    font-size: 13px;
+    color: #6f7287;
+    position: absolute;
+    left: 0;
+    z-index: 3;
+  }
+  &:hover {
+    border: 1px solid;
+    border-color: blue;
+
+    label {
+      display: inline-block;
+      font-size: 13px;
+      color: blue;
+    }
+  }
+ 
+`
+export const InputDescription = styled.p`
+  font-size: .875rem;
+  line-height: 1.25rem;
+  padding-top: 0.5rem;`
+
+export const Divider1 = styled.div`
+  margin-bottom: 0.8rem;
+`
+export const OrganizerInfoLink = styled.a`
+  text-decoration: none;
+  color: #3659e3;
+  cursor: pointer;
+  :hover{
+    text-decoration: underline;
+  }
+`
+export const Form = styled.form`
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  flex:1;
+  margin-top: 0rem;
+`
+export const FormDiv = styled.div`
+`
+export const Label = styled.label`
+font-size: 1.2rem;
+text-align: left;
+line-height: 22px;
+color: #6f7287;
+position: absolute;
+white-space: nowrap;
+overflow: hidden;
+display: block;
+padding-left: 1.49rem;
+padding-top: 1.2rem;
+`
+export const OrganizerLabel = styled.label`
+font-size: 1.2rem;
+text-align: left;
+line-height: 22px;
+color: #6f7287;
+position: absolute;
+white-space: nowrap;
+overflow: hidden;
+display: block;
+padding-left: 1.49rem;
+padding-top: 1.2rem;
+&:focus{
+  color: blue;
+  transition-duration: 0.5s;
+}
+`
+export const TagsLabel = styled.label`
+font-size: 1.2rem;
+text-align: left;
+line-height: 22px;
+color: #6f7287;
+position: absolute;
+white-space: nowrap;
+overflow: hidden;
+display: block;
+padding-left: 1.49rem;
+padding-top: 1.2rem;
+&:focused{
+  color: blue;
+  transition-duration: 0.5s;
+}
+`
+export const TagsDisplayedDiv = styled.div`
+  width: 100%
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  max-width: 65.6rem;
+`
+export const TagsDisplayed = styled.div`
+  box-sizing: border-box;
+  margin-left: -8px;
+  margin-right: -8px;
+}`
+export const SingleTagDiv = styled.div`
+  display: inline-block;
+  padding: 0 8px 16px;
+`
+export const SingleTag = styled.div`
+  background-color: #f8f7fa;
+  border-radius: 18px;
+  color: #4b4d63;
+  height: 36px;
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+`
+export const SingleTagSpan = styled.span`
+  font-weight: 600;
+  text-rendering: optimizeLegibility;
+  padding-right: 8px;
+  padding: 0 16px;
+  transition: color .24s cubic-bezier(.4,0,.3,1);
+  display: inline-flex;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+  position: relative;
+  color: #4b4d63;
+  @media (min-width: 960px){
+    font-size: .75rem;
+    line-height: 1rem;
+  }
+`
+export const CloseButtonDiv = styled.div`
+  padding-right: 8px;
+  display: inline-flex;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+  position: relative;
+`
+export const CloseButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  color: #39364f;
+  fill: #39364f;
+  -webkit-appearance: button;
+  cursor: pointer;
+`
+export const InputData = styled.input`
+  width: 100%;
+  height: 47px;
+  border: 1px solid ${({ invalid }) => invalid ? 'red' : '#5a595d6f'};
+  margin-top: 1rem;
+  transition-duration: 0.5s;
+  display: block;
+  padding-top: 1.2rem;
+  padding-left: 1.4rem;
+  font-size: 1.3rem;
+  border-radius: 0.2rem;
+  outline: none;
+  :hover{
+    border:solid 1px rgb(149, 147, 147);
+    transition-duration: 1s;
+  }
+  &:focus{
+    border: 0.1rem solid blue;
+    transition-duration: 0.5s;
+  }
+  ::placeholder{
+    color: #5a595d6f;
+    font-size: 1.3rem;
+    margin-top: 0.3rem;
+  }
+`
+export const InputData2 = styled.input`
+  width: 100%;
+  height: 47px;
+  border:solid 1px #5a595d6f;
+  margin-top: 1rem;
+  transition-duration: 0.5s;
+  display: block;
+  padding-top: 1.2rem;
+  padding-left: 1.4rem;
+  font-size: 1.3rem;
+  border-radius: 0.2rem;
+  outline: none;
+  :hover{
+    border:solid 1px rgb(149, 147, 147);
+    transition-duration: 1s;
+  }
+  &:focus{
+    border: 0.1rem solid blue;
+    transition-duration: 0.5s;
+    ${({ inputerror }) => inputerror && `border-color: red`};
+  }
+  ::placeholder{
+    color: #5a595d6f;
+    font-size: 1.3rem;
+    margin-top: 0.3rem;
+  }
+`
+export const InputTagsData = styled.input`
+  width: 100%;
+  height: 47px;
+  border:solid 1px #5a595d6f;
+  margin-top: 1rem;
+  transition-duration: 0.5s;
+  display: block;
+  padding-top: 1.2rem;
+  padding-left: 1.4rem;
+  font-size: 1.3rem;
+  border-radius: 0.2rem;
+  outline: none;
+  :hover{
+    border:solid 1px rgb(149, 147, 147);
+    transition-duration: 1s;
+  }
+  &:focus{
+    border: 0.1rem solid blue;
+    transition-duration: 0.5s;
+  }
+  ::placeholder{
+    color: #5a595d6f;
+    font-size: 1.3rem;
+    margin-top: 0.3rem;
+  }
+`
+export const ContinueButton = styled.button`
+  background-color: #D1410C;
+  color: white;
+  font-weight: 500;
+  border: none;
+  width: 360px;
+  height: 44px;;
+  margin-top: 2.6rem;
+  font-size: 14px;
+  border-radius: 4px;
+  :hover{
+    background-color: #f3551b;
+    cursor: pointer;
+    transition-duration: 1s;
+  }
+  :active{
+    background-color: #D1410C;
+  }
+`
+export const DropDownDiv = styled.div`
+  width: 100%;
+  height: 46px;
+  position: relative;  
+`
+export const DropDownSpan = styled.span`
+  color: #39364f;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  line-height: 22px;
+  padding: 12px 12px 0px 14px;
+  
+`
+export const DropDownTitleSpan = styled.span`
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`
+export const DropDownArrowSpan = styled.span`
+  margin-top: 0;
+  fill: #4b4d63;
+  -webkit-box-align: center;
+  align-items: center;
+  display: flex;
+  height: 24px;
+  `
+export const DropDownLabel = styled.label`
+  position: absolute;
+  left: -999999px;
+` 
+export const DropDownLabelSpan = styled.span`
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+` 
+export const DropDownSelect = styled.select`
+  line-height: 22px;
+  padding: 12px 14px;
+  background: none;
+  border: none;
+  color: #39364f;
+  white-space: nowrap;
+  outline: none;
+  transition: padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1);
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  -webkit-appearance: menulist-button;
+  overflow: visible;
+  @media (min-width: 660px){
+    font-size: 14px;
+    min-height: 22px;
+  }
+`
+export const DropDownOption = styled.option`
+  font-weight: normal;
+  display: block;
+  white-space: nowrap;
+  min-height: 1.2em;
+  padding: 0px 2px 1px;`
+export const ErrorMessage = styled.p`
+  display: flex;
+  color: red;
+  font-size: 1.2rem;
+  padding-top: 4px;
 `
