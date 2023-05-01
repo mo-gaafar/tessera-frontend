@@ -322,7 +322,7 @@ export const TagsInputDiv = styled.div`
   padding-right: 8px;
   width: 83.3333333333%;
 `
-export const AddButton = styled.button`
+export const UsedButton = styled.button`
   color: #39364f;
   fill: #39364f;
   background: #fff;
@@ -722,4 +722,37 @@ export const ErrorMessage = styled.p`
   color: red;
   font-size: 1.2rem;
   padding-top: 4px;
+`
+export const FixedDiv = styled.div`
+  position: fixed;
+  transform: translateY(0);
+  background-color: #fff;
+  border-top: 1px solid #eeedf2;
+  bottom: 0;
+  left: 0;
+  min-height: 64px;
+  overflow: hidden;
+  transition: transform .32s cubic-bezier(.4,0,.3,1),-webkit-transform .32s cubic-bezier(.4,0,.3,1);
+  width: 100%;
+  will-change: transform;
+`
+export const FixedInnerDiv = styled.div`
+  @media (min-width: 792px){
+    margin-left: 30%;
+  }
+  max-width: 960px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin-right: auto;
+`
+export const FixedButtonDiv = styled.div`
+  text-align: right;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  @media (min-width: 1152px){
+    padding: 0 48px;
+}
 `
