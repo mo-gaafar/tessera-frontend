@@ -344,6 +344,13 @@ export const PageContainer = styled.div`
       .search-button{
         border:none;
         background:none;
+        cursor:pointer;
+        border-radius:50%;
+        background:none;
+        transition: 0.3s;
+        &:hover{
+          background:rgba(0, 1, 0, 0.05);
+        }
       }
       img{
       }
