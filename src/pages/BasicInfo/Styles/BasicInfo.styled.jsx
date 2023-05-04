@@ -1,8 +1,35 @@
 import styled from 'styled-components';
 export const Page = styled.div`
-@media (min-width: 792px){
-  margin-left: 5.6rem;
-}
+  @media (min-width: 792px){
+    margin-left: 5.6rem;
+  }
+  .dropdownLast{
+    width: 100%;
+    height: 46px;
+    position: relative;
+  }
+  .timeboxes{
+    overflow: visible;
+    padding-right: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    @media (min-width: 480px){
+    width: 50%;
+    }
+  }
+  .timeboxesborders{
+    background: #a9a8b3;
+    border-radius: 2px;
+    background: #dbdae3;
+    padding: 1px;
+    position: relative;
+    transition: background .24s cubic-bezier(.4,0,.3,1);
+  }
 ` 
 export const Main = styled.main`
   max-width: 960px;
@@ -182,7 +209,7 @@ export const EventTitleInputDiv = styled.div`
   }
 `
 export const EventTInputDiv = styled.div`
-  
+  display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   flex-direction: row;
@@ -593,7 +620,6 @@ export const InputData2 = styled.input`
   &:focus{
     border: 0.1rem solid blue;
     transition-duration: 0.5s;
-    ${({ inputerror }) => inputerror && `border-color: red`};
   }
   ::placeholder{
     color: #5a595d6f;
@@ -755,4 +781,165 @@ export const FixedButtonDiv = styled.div`
   @media (min-width: 1152px){
     padding: 0 48px;
 }
+`
+export const LocationButtonsDiv = styled.div`
+  overflow: visible;
+  @media (min-width: 960px){
+    width: 66.6666666667%;
+  }
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  box-sizing: border-box;
+  display: block;
+  vertical-align: top;
+`
+export const LocationFlexButtonsDiv = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+`
+export const ButtonsDivs = styled.div`
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  display: flex;
+  margin-right: 16px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0.03rem;
+  @media (min-width: 960px){
+    min-width: 9.7rem; 
+  }
+`
+export const ButtonsLabels = styled.label`
+  color: #1e0a3c;
+  font-weight: 400;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #dbdae3;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+  :active{
+    background-color: rgba(54,89,227,.1);
+    border: 1px solid #3659e3;
+    color: #3659e3;
+  }
+`
+export const SearchVenueDiv1 = styled.div`
+  border-radius: 2px;
+  background: #dbdae3;
+  padding: 1px;
+  position: relative;
+  transition: background .24s cubic-bezier(.4,0,.3,1);
+`
+export const SearchVenueDiv = styled.div`
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  position: relative;
+  background: #fff;
+  border-radius: 1px;
+  border: 1px solid #fff;
+` 
+export const SearchCalendarSpan = styled.span`
+  margin-left: 12px;
+  color: #a9a8b3;
+  font-size: 14px;
+  height: 24px;
+  margin: auto 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`
+export const DisplayEndTime = styled.div`
+ position: relative;
+ display: flex;
+ -webkit-box-align: center;
+ align-items: center;
+`
+export const CheckLabel = styled.label`
+  :hover{
+    border-color: #a9a8b3;
+  }
+  text-align: center;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #dbdae3;
+  border-radius: 2px;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  line-height: 0;
+  transition: border-color .16s ease-in;
+  -webkit-box-flex: 0;
+  flex: none;
+  display: inline-block;
+  cursor: pointer;
+  color: #39364f;
+`
+export const CheckBox = styled.input`
+  box-sizing: border-box;
+  padding: 0;
+  visibility: visible;
+  position: absolute;
+  :checked{
+    border-color: #3d64ff;
+  }
+`
+export const CheckTextLabel = styled.label`
+  margin-left: 16px;
+  margin-right: 12px;
+  cursor: pointer;
+  color: #39364f; 
+`
+export const SpanText = styled.span`
+  display: block;
+  cursor: pointer;
+  font-weight: 400;
+`
+export const TextP =styled.p`
+  @media (min-width: 960px){
+      font-size: 1.2rem;
+      line-height: 1rem;
+  }
+  color: #4b4d63;
+`
+export const TimeDropDownDiv = styled.div`
+  @media (min-width: 660px){
+      width: 50%;
+  }
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+`
+export const Placeholder2 = styled.div`
+  padding: 2px 12px 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+`
+export const SpanText2 = styled.span`
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  font-weight: 400;
+  :active{
+    color: #3659e3;
+  }
 `
