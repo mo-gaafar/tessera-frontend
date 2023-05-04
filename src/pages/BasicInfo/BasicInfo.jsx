@@ -92,8 +92,7 @@ import {
   Placeholder2,
   SpanText2
 } from './Styles/BasicInfo.styled'
-import { Done, Height, Margin } from '@mui/icons-material';
-import { colors } from '@mui/material';
+
 export default function BasicInfo(){
   const [focused,setFocused] = React.useState(false, {flag:false})
   const [title, setTitle] = React.useState("")

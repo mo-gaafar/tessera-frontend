@@ -20,6 +20,7 @@ import Reset from './pages/ResetPassword/Reset';
 import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
 import Events from './pages/EventPage/EventPage';
 import BasicInfo from './pages/BasicInfo/BasicInfo';
+import Details from "./pages/BasicInfo/BasicInfoSecondPage";
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -44,7 +45,8 @@ function App() {
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} /> */}
-        <Route path="/" element={<BasicInfo />} />
+        {/* <Route path="/" element={<BasicInfo />} /> */}
+        <Route path="/" element={<Details />} />
       </Routes>
       {/* <BookingPopUp /> */}
     </>
