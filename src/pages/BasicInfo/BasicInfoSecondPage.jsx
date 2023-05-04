@@ -1,7 +1,14 @@
+//DONE
+//most of the UI only missing the description box and summary validation
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { WholePage } from './Styles/BasicInfoSecondPage.styled';
 export default function Details(){
+  const [value, setValue] = React.useState("");
+  const [focused,setFocused] = React.useState(false, {flag:false})
+  function handleChange(event){
+    setValue(event.target.value);
+  }
   return(
     <WholePage>
       <form>
@@ -56,7 +63,7 @@ export default function Details(){
               </h2>
               <p className='explainsection'>
               Add photos to show what your event will be about. You can upload up to 10 images.
-              </p>
+              </p> 
               <div
               style={
                 {marginBottom: '24px',
@@ -114,13 +121,171 @@ export default function Details(){
                                 <div className='subtitle'>
                                   Drag and drop an image or
                                 </div>
+                                <div className='picturebuttons'>
+                                  <div className='buttonsflex'>
+                                    <button className='buttons'>
+                                      <i className='smallI'>
+                                        <svg 
+                                        className='smallSvg'
+                                        x="0"
+                                        y="0" 
+                                        viewBox="0 0 24 24" 
+                                        xmlSpace="preserve">
+                                          <path
+                                            d="M6 18h12V6H6v12zM4 4h16v16H4V4z"
+                                          >
+                                          </path>
+                                          <path
+                                            d="M17 9.5c0-.8-.7-1.5-1.5-1.5S14 8.7 14 9.5s.7 1.5 1.5 1.5 1.5-.7 1.5-1.5z"> 
+                                          </path>
+                                          <path
+                                          d="M17 16l-2.7-3-1.3 1-2-2.9L7 16h6.9z">
+                                          </path>
+                                        </svg>
+                                      </i>
+                                      <span className='buttonspan'>
+                                        Upload image
+                                      </span>
+                                    </button>
+                                    <div>
+                                      <button className='buttons'>
+                                        <i className='smallI'>
+                                          <svg 
+                                          className='smallSvg'
+                                          x="0"
+                                          y="0" 
+                                          viewBox="0 0 24 24" 
+                                          xmlSpace="preserve">
+                                            <circle
+                                            cx='950'
+                                            cy='950'
+                                            r='950'
+                                            fill="#7D2AE7"
+                                            >
+                                            </circle>
+                                            <circle
+                                            cx='950'
+                                            cy='950'
+                                            r='950'
+                                            fill="url(#canva-logo_svg__paint1_radial)"
+                                            >
+                                            </circle>
+                                            <circle
+                                            cx='950'
+                                            cy='950'
+                                            r='950'
+                                            fill="url(#canva-logo_svg__paint2_radial)"
+                                            >
+                                            </circle>
+                                            <circle
+                                            cx='950'
+                                            cy='950'
+                                            r='950'
+                                            fill="url(#canva-logo_svg__paint3_radial)"
+                                            >
+                                            </circle>
+                                            <path
+                                            d="M1360.14 1144.88c-7.84 0-14.74 6.62-21.92 21.08-81.08 164.41-221.12 280.74-383.174 280.74-187.38 0-303.419-169.15-303.419-402.83 0-395.834 220.548-624.697 414.263-624.697 90.52 0 145.8 56.885 145.8 147.41 0 107.439-61.04 164.324-61.04 202.216 0 17.009 10.58 27.308 31.56 27.308 84.29 0 183.22-96.855 183.22-233.682 0-132.669-115.47-230.186-309.18-230.186-320.145 0-604.665 296.804-604.665 707.471 0 317.88 181.522 527.94 461.601 527.94 297.274 0 469.164-295.77 469.164-391.77 0-21.26-10.87-31-22.21-31z">
+                                            </path>
+                                            <defs>
+                                              <radialGradient
+                                                cx="0"
+                                                cy="0"
+                                                r="1"
+                                                gradientUnits="userSpaceOnUse"
+                                                gradientTransform="rotate(-49.416 2013.483 443.185) scale(1469.49)"
+                                              >
+                                                <stop
+                                                stopColor='#6420FF'
+                                                >
+                                                </stop>
+                                                <stop
+                                                  offset="1"
+                                                  stop-opacity="0"
+                                                  stopColor='#6420FF'
+                                                >
+                                                </stop>
+                                              </radialGradient>
+                                              <radialGradient
+                                                cx="0"
+                                                cy="0"
+                                                r="1"
+                                                gradientUnits="userSpaceOnUse"
+                                                gradientTransform="rotate(54.703 42.717 594.194) scale(1657.12)"
+                                              >
+                                                <stop
+                                                stopColor='#00C4CC'
+                                                >
+                                                </stop>
+                                                <stop
+                                                  offset="1"
+                                                  stop-opacity="0"
+                                                  stopColor='#00C4CC'
+                                                >
+                                                </stop>
+                                              </radialGradient>
+                                              <radialGradient
+                                                cx="0"
+                                                cy="0"
+                                                r="1"
+                                                gradientUnits="userSpaceOnUse"
+                                                gradientTransform="matrix(1023.00018 -1030.00171 473.71139 470.4913 367 1684)"
+                                              >
+                                                <stop
+                                                stopColor='#6420FF'
+                                                >
+                                                </stop>
+                                                <stop
+                                                  offset="1"
+                                                  stop-opacity="0"
+                                                  stopColor='#6420FF'
+                                                >
+                                                </stop>
+                                              </radialGradient>
+                                              <radialGradient
+                                                cx="0"
+                                                cy="0"
+                                                r="1"
+                                                gradientUnits="userSpaceOnUse"
+                                                gradientTransform="rotate(66.52 193.341 720.338) scale(1495.86 2505.9)"
+                                              >
+                                                <stop
+                                                stopColor='#00C4CC'
+                                                >
+                                                </stop>
+                                                <stop
+                                                  offset="1"
+                                                  stop-opacity="0"
+                                                  stopColor='#00C4CC'
+                                                >
+                                                </stop>
+                                              </radialGradient>
+                                            </defs>
+                                          </svg>
+                                        </i>
+                                        <span className='buttonspan'>
+                                          Design With Canva
+                                        </span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                             <label></label>
                         </div>
                       </div>
                     </div>
-                    <ul>
+                    <ul className='ulstyle'>
+                      <li className='listyle'>
+                        Recommended image size: 2160 x 1080px
+                      </li>
+                      <li className='listyle'>
+                        Maximum file size: 10MB
+                      </li>
+                      <li className='listyle'>
+                        Supported image files: JPEG or PNG
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -154,6 +319,61 @@ export default function Details(){
               </svg>
             </i>
           </div>
+          <div className='informationdiv'>
+            <div>
+              <h1 className='title'>
+                Summary
+              </h1>
+              <p className='explainsection'>
+                Grab people's attention with a short description about your event. Attendees will see this at the top of your event page. (140 characters max) 
+                <a className='links'>See examples</a>
+              </p> 
+              <div
+              style={
+                {marginTop:'16px'}
+              }>
+                <div
+                style={
+                  {marginBottom:'4px'}
+                }>
+                  <div className='summarybox'>
+                    <div className='summaryboxflex'>
+                      <div className='summaryboxflex2'>
+                        <div className='summaryplaceholder'>
+                          <label className='summarylabel'>
+                            <span className='summaryspan'>Summary</span>
+                            <span className='starspan'>
+                              <span className='starspan'>*</span>
+                            </span>
+                          </label>
+                        </div>
+                          <textarea 
+                          className='textarea'
+                          role="textbox"
+                          maxlength="140"
+                          placeholder="Write a short event summary to get attendees excited."
+                        >
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='undersummarybox'>
+                    <div className='errormessagediv'>
+                      <aside className='aside'>
+                        {focused && value.trim() === '' && (
+                          <p className='errormessage'>Title is required</p>
+                        )}
+                      </aside>
+                    </div>
+                    <div className='characterslimitdiv'>
+                      <aside className='aside'>
+                        {value.length}/140
+                      </aside>
+                    </div>
+                  </div>  
+                </div>
+              </div>
+              </div>
         </div>
         <div 
         style={
@@ -192,7 +412,84 @@ export default function Details(){
               </svg>
             </i>
           </div>
+          <div className='informationdiv'>
+            <div>
+                <h1 className='title'>
+                  Description
+                </h1>
+                <p className='explainsection'>
+                  Add more details to your event like your schedule, sponsors, or featured guests.  
+                  <a className='links'>Learn more</a>
+                </p> 
+                <div
+                style={
+                  {marginTop:'20px'}
+                }>
+                  <div>
+                    <div>
+                      <div
+                      style={
+                        {
+                          display: 'flex',
+                          position: 'relative',
+                          marginTop: '20px'
+                        }
+                      }>
+                        <div
+                        style={
+                          {
+                            width:' 100%',
+                            WebkitBoxFlex:'1',
+                            flex: '1'
+                          }
+                        }>
+                          <div>
+                            <div>
+                              <section
+                              style={
+                                {minWidth: '284px'}
+                              }></section>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                style={
+                  {
+                    marginTop:'24px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                  }
+                }>
+                  <div className='buttondiv1'>
+                    <div className='buttondiv2'>
+                      <button className='horizontalbuttons'>
+                        Add Text
+                      </button>
+                    </div>
+                  </div>
+                  <div className='buttondiv1'>
+                    <div className='buttondiv2'>
+                      <button className='horizontalbuttons'>
+                        Add Image
+                      </button>
+                    </div>
+                  </div>
+                  <div className='buttondiv1'>
+                    <div className='buttondiv2'>
+                      <button className='horizontalbuttons'>
+                        Add Video
+                      </button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </div>
         </div>
+      </div>
       </form>
     </WholePage>
   )
