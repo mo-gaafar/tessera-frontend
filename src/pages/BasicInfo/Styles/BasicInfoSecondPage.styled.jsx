@@ -1,11 +1,28 @@
 import styled from 'styled-components';
 export const WholePage = styled.div`
+  @media (max-width: 792px){
+    padding: 0 16px;
+  }
+  
+.wholepage{
   margin-bottom: 48px;
   padding-top: 40px;
   padding-bottom: 40px;
   margin-left: auto;
   margin-right: auto;
   max-width: 960px;
+  @media (max-width: 792px){
+    max-width: 655px;
+  }
+  @media (max-width: 959px){
+  margin-bottom: 120px;
+  }
+  @media (min-width: 790px) and (max-width: 960px){
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 960px;
+  }
+}
   .addmoresections{
 
   }
@@ -72,6 +89,21 @@ export const WholePage = styled.div`
     overflow: hidden;
   }
   .mediumI{
+    display: block;
+    margin: 0 auto;
+    vertical-align: middle;
+    background-size: contain;
+    line-height: 0;
+    width: 24px;
+    height: 24px;
+    box-sizing: initial;
+  }
+  .mediumSvg{
+    overflow: hidden;
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .largeI{
     display: inline-block;
     margin: 0 auto;
     vertical-align: middle;
@@ -81,10 +113,41 @@ export const WholePage = styled.div`
     height: 4.8rem;
     box-sizing: initial;
   }
-  .mediumSvg{
+  .largeSvg{
     overflow: hidden;
     width: 4.8rem;
     height: 4.8rem;
+  }
+  .emptysmallbox{
+    padding-top: 8px;
+    position: relative;
+    height: 28px;
+    @media (min-width: 480px){
+        display: block;
+        margin: 0 8px;
+    }
+  }
+  .descriptionp{
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    margin-bottom: 16px;
+    @media (min-width: 960px){
+      font-size: .875rem;
+      line-height: 1.25rem;
+    }
+  }
+  .trashcan{
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    @media (min-width: 660px){
+        position: absolute;
+        left: 100%;
+        height: 100%;
+    }
   }
   .informationdiv{
     .subtitle{
@@ -252,6 +315,7 @@ export const WholePage = styled.div`
       white-space: nowrap;
     }
     .textarea{
+      border: 1px solid ${({ invalid }) => invalid ? 'red' : '#5a595d6f'};
       padding: 18px 12px 6px;
       resize: none;
       white-space: pre-wrap;
@@ -269,6 +333,20 @@ export const WholePage = styled.div`
           line-height: 22px;
           min-height: 22px;
       }
+      :hover{
+        border:solid 1px rgb(149, 147, 147);
+        transition-duration: 1s;
+      }
+      &:focus{
+        border: 0.1rem solid blue;
+        transition-duration: 0.5s;
+      }
+      ::placeholder{
+        color: #5a595d6f;
+        font-size: 1.3rem;
+        margin-top: 0.3rem;
+      }
+
     }
     .undersummarybox{
       display: flex;
@@ -367,6 +445,71 @@ export const WholePage = styled.div`
         fill: #39364f;
         cursor: pointer;
       }
+    }
+    .descriptionheader{
+      background-color: #fff;
+      height: 46px;
+      border-radius: 2px 2px 0 0;
+      display: flex;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+      border: solid #dbdae3;
+      border-width: 1px 1px 0;
+    }
+    .descriptionbox{
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      @media (min-width: 1080px){
+        font-size: 14px;
+      }
+      width: 100%;
+      position: relative;
+      display: block;
+      background-color: #dbdae3;
+      border-radius: 2px;
+      box-sizing: border-box;
+      padding: 1px;
+      outline: none;
+      color: #39364f;
+      :hover{
+        border: 1px solid rgb(149, 147, 147);
+        transition-duration: 1s;
+      }
+      &:focus{
+        border: 1px solid blue;
+        transition-duration: 0.5s;
+      }
+      :active{
+        border: 1px solid blue;
+      }
+    }
+    .leftheader{
+      display: inline-flex;
+      @media (min-width: 480px){
+        margin-left: 16px;
+      }
+    }
+    .rightheader{
+      display: inline-flex;
+      @media (min-width: 480px){
+        margin-right: 16px;
+      }
+    }
+    .smallbuttons{
+      height: 35px;
+      width: 35px;
+      padding: 0;
+      border-radius: 40px;
+      transition: all .4s cubic-bezier(.4,0,.3,1);
+      color: #4b4d63;
+      fill: #4b4d63;
+      background: none;
+      border: none;
+      text-align: left;
+      -webkit-appearance: button;
+      cursor: pointer;
+      text-transform: none;
+      overflow: visible;
     }
     .aside{
       @media (min-width: 960px){

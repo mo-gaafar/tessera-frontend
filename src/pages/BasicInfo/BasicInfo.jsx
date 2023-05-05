@@ -90,7 +90,8 @@ import {
   TextP,
   TimeDropDownDiv,
   Placeholder2,
-  SpanText2
+  SpanText2,
+  WholePage
 } from './Styles/BasicInfo.styled'
 
 export default function BasicInfo(){
@@ -165,7 +166,8 @@ export default function BasicInfo(){
     borderColor: "#d1410c",
   };
   return(
-    <div>
+    <WholePage>
+      <div className='wholepage'>
       <Page>
         <Main>
           <section>
@@ -1272,6 +1274,7 @@ export default function BasicInfo(){
           </FixedButtonDiv>
         </FixedInnerDiv>
       </FixedDiv>
-    </div>
+      </div>
+    </WholePage>
   )
 }

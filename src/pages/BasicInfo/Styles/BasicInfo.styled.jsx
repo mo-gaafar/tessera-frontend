@@ -1,34 +1,53 @@
 import styled from 'styled-components';
+export const WholePage = styled.div`
+  @media (max-width: 792px){
+      padding: 0 16px;
+  }
+  .wholepage{
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 48px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 960px;
+    @media (max-width: 792px){
+      max-width: 655px;
+    }
+    @media (max-width: 959px){
+    margin-bottom: 120px;
+    }
+  }
+.dropdownLast{
+  width: 100%;
+  height: 46px;
+  position: relative;
+}
+.timeboxes{
+  overflow: visible;
+  padding-right: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  @media (min-width: 480px){
+  width: 50%;
+  }
+}
+.timeboxesborders{
+  background: #a9a8b3;
+  border-radius: 2px;
+  background: #dbdae3;
+  padding: 1px;
+  position: relative;
+  transition: background .24s cubic-bezier(.4,0,.3,1);
+}
+`
 export const Page = styled.div`
   @media (min-width: 792px){
     margin-left: 5.6rem;
-  }
-  .dropdownLast{
-    width: 100%;
-    height: 46px;
-    position: relative;
-  }
-  .timeboxes{
-    overflow: visible;
-    padding-right: 8px;
-    width: 100%;
-    box-sizing: border-box;
-    display: inline-block;
-    vertical-align: top;
-    font-size: 14px;
-    line-height: 22px;
-    font-weight: 400;
-    @media (min-width: 480px){
-    width: 50%;
-    }
-  }
-  .timeboxesborders{
-    background: #a9a8b3;
-    border-radius: 2px;
-    background: #dbdae3;
-    padding: 1px;
-    position: relative;
-    transition: background .24s cubic-bezier(.4,0,.3,1);
   }
 ` 
 export const Main = styled.main`
@@ -297,6 +316,10 @@ export const FieldSet = styled.fieldset`
   display:flex;
   border: none; 
   padding: 0;
+  @media(max-width: 790px){
+    display: block;
+    width: 100%;
+  }
 `
 export const TypeDropDown = styled.div`
     padding-right: 1.6rem;
