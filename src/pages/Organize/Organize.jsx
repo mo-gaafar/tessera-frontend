@@ -9,6 +9,7 @@
  * @description This file contains the Organize component and its logic
  */
 import {PageContainer} from "./styles/OrganizeEvents.Styled";
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import logoDown from '../../assets/icon-down.png';
 import logoPlus from '../../assets/plus-white.png';
@@ -27,7 +28,7 @@ import LinearProgress from "@mui/material/LinearProgress";
  * @returns {JSX.Element} The JSX representation of the component.
  */
 
-export default function Organize() {
+export default function Organize(props) {
   const [showMenu,setShowMenu] = useState(false);
   //const [showEdit,setShowEdit] = useState(false);
  
@@ -38,6 +39,10 @@ export default function Organize() {
   const [nameInput,setNameInput] = useState("");
   const [eventsList,setList] = useState();
   const [selectedEventIndex,setSelectedEventIndex]= useState();
+  let navigate;
+  if (!props.test) {
+    navigate = useNavigate();
+  }
   // const [nameEvents,setNameEvents] = useState(
   //             [{id: 1, country: 'event'},
   //             {id: 2, country: 'Germany'},
@@ -247,7 +252,7 @@ export default function Organize() {
     setList(//nameEvents.filteredEvents
       element.map((list,index) => (
       <div>
-      <div className="event-details">
+      <div className="event-details" onClick={() => navigate('/')}>
         <div className="event-data">
 
           <div className="data-date">
@@ -412,7 +417,7 @@ export default function Organize() {
    <PageContainer>
     <StyledNav>
           {email && email !== 'undefined' ? (
-            <NavbarLoggedIn email={email} />
+            <NavbarLoggedIn creator={true} email={email} />
           ) : (
             <Navbar />
           )}
@@ -429,7 +434,7 @@ export default function Organize() {
           </div>
           
           </div>
-          
+
           <div className="events-bar">
             <div className="first-part-eventbar">
               <div> 
@@ -512,10 +517,10 @@ export default function Organize() {
               
               
               <div>
-                <button className="plus-button">
+                <button className="plus-button" onClick={() => {navigate('/')}}>
                   <img src={logoPlus}/>
                 </button>
-                <button className="create-button">
+                <button className="create-button" onClick={() => {navigate('/')}}>
                     Create Event
                 </button>
               </div>

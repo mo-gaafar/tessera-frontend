@@ -49,6 +49,7 @@ export const PageContainer = styled.div`
     }
   }
   .event-details{
+    cursor:pointer;
     @media (min-width: 480px) and (max-width: 659px){
       margin-top:3rem;
     }
