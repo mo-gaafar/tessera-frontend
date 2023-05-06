@@ -9,6 +9,7 @@
  * @description This file contains the Organize component and its logic
  */
 import {PageContainer} from "./styles/OrganizeEvents.Styled";
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import logoDown from '../../assets/icon-down.png';
 import logoPlus from '../../assets/plus-white.png';
@@ -17,18 +18,144 @@ import noEvent from '../../assets/noEvents.png';
 import checkmark from '../../assets/checkmark.png';
 import search from  '../../assets/search.png';
 import { useRef } from 'react';
-
+import { StyledNav } from '../LandingPage/styles/Landing.styled';
+import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
+import Navbar from '../LandingPage/NavBar';
+import LinearProgress from "@mui/material/LinearProgress";
 /**
  * A functional component that handles the Organization event page.
  * 
  * @returns {JSX.Element} The JSX representation of the component.
  */
 
-export default function Organize() {
+export default function Organize(props) {
   const [showMenu,setShowMenu] = useState(false);
+  //const [showEdit,setShowEdit] = useState(false);
+ 
   const [doneSelect,setDone] = useState(false);
+  const [isAvailable,setIsAvailable] = useState(true);
+  const [issearch,setIsSearch] = useState();
   const [select,setSelect] = useState("All events");
-  const reference = useRef(null)
+  const [nameInput,setNameInput] = useState("");
+  const [eventsList,setList] = useState();
+  const [selectedEventIndex,setSelectedEventIndex]= useState();
+  let navigate;
+  if (!props.test) {
+    navigate = useNavigate();
+  }
+  // const [nameEvents,setNameEvents] = useState(
+  //             [{id: 1, country: 'event'},
+  //             {id: 2, country: 'Germany'},
+  //             {id: 3, country: 'Austria'},]
+  // );
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  const [nameEvents,setNameEvents] = useState(
+    {
+      "filteredEvents": [
+        {
+          "basicInfo": {
+            "location": {
+              "longitude": 45.523064,
+              "latitude": -122.676483,
+              "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+              "venueName": "My Venue",
+              "streetNumber": 123,
+              "route": "Main St",
+              "administrativeAreaLevel1": "OR",
+              "country": "US",
+              "city": "Portland"
+            },
+            "eventName": "Tessseraaaaaa",
+            "startDateTime": "2023-05-01T14:30:00.000Z",
+            "endDateTime": "2023-05-01T18:00:00.000Z",
+            "eventImage": "https://picsum.photos/282/140",
+            "categories": "Music"
+          },
+          "eventUrl": "https://example.com/my-event"
+        },
+        {
+          "basicInfo": {
+            "location": {
+              "longitude": -96,
+              "latitude": 37,
+              "placeId": "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+              "venueName": "United Center ",
+              "streetNumber": 55,
+              "route": "Magnificent Mile",
+              "administrativeAreaLevel1": "Illinois",
+              "country": "United States",
+              "city": "Chicago"
+            },
+            "eventName": "Adult Mental Health First Aid Training April 18 & 25",
+            "startDateTime": "2023-07-03T20:30:15.528Z",
+            "endDateTime": "2023-09-09T22:52:38.471Z",
+            "eventImage": "https://picsum.photos/282/140",
+            "categories": "Home & Lifestyle"
+          },
+          "eventUrl": "https://www.tessera.social/"
+        },
+        {
+          "basicInfo": {
+            "location": {
+              "longitude": 45.523064,
+              "latitude": -122.676483,
+              "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+              "venueName": "My Venue",
+              "streetNumber": 123,
+              "route": "Main St",
+              "administrativeAreaLevel1": "OR",
+              "country": "US",
+              "city": "Portland"
+            },
+            "eventName": "Cross Platform",
+            "startDateTime": "2023-05-01T14:30:00.000Z",
+            "endDateTime": "2023-05-01T18:00:00.000Z",
+            "eventImage": "https://picsum.photos/282/140",
+            "categories": "Music"
+          },
+          "eventUrl": "https://example.com/my-event"
+        }
+      ],
+      "eventsoldtickets": [
+        118,
+        2,
+        2
+      ],
+      "isEventOnSale": [
+        false,
+        false,
+        false
+      ],
+      "gross": [
+        0,
+        7943.16,
+        0
+      ],
+      "maxCapacity": [
+        6150,
+        2,
+        150
+      ]
+    }
+  )
+  console.log(nameEvents);
+  const reference = useRef(null);
+  const referenceEdit = useRef(null);
+  const [showEdit, setShowEdit] = useState(Array(nameEvents.filteredEvents.length).fill(false));
+  
 
   function displayMenu(){
     if (!doneSelect)
@@ -53,22 +180,248 @@ export default function Organize() {
     }
   };
 
+  useEffect(() => {
+    // add event listener to the document
+    document.addEventListener("mousedown", handleClickingOutside);
+    return () => {
+      // remove event listener when component unmounts
+      document.removeEventListener("mousedown", handleClickingOutside);
+    };
+  }, []);
+
+  const handleClickingOutside = (event) => {
+    if (referenceEdit.current && !referenceEdit.current.contains(event.target)) {
+      // if clicked outside of the ref div, hide the element
+      setShowEdit(Array(nameEvents.filteredEvents.length).fill(false));
+      
+    }
+  };
   /**
    * Updates the dropdown menu and handles the category selected.
    *
    * @param {Object} e - The event object.
    */
-  
+  function onClickEdit(index){
+    //console.log(index);
+    setSelectedEventIndex(index);
+    //console.log(selectedEventIndex)
+    const newShowEdit = [...showEdit];
+    newShowEdit[index] = !newShowEdit[index];
+    setShowEdit(newShowEdit);
+    
+  }
   function onClickMenu(e){
     setDone(true)
     const {name,value} = e.target;
     setShowMenu(false);
-    setSelect(name) ;
+    setSelect(name);
   }
+  function onClickEditButton(e){
+    const {name,value} = e.target;
+    setShowEdit(Array(nameEvents.filteredEvents.length).fill(false));
+  }
+  
+  const convertUtcToLocalTime = (dateString, loc) =>  {
+    let date = new Date(dateString);
+    const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+    const milliseconds = Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds()
+    );
+    const localTime = new Date(milliseconds);
+    if(loc){
+      return localTime;
+    }
+    return `${dayName}, ${
+      monthNames[localTime.getMonth()]
+    } ${localTime.getDate()} at ${localTime.getHours()}:${
+      localTime.getMinutes() === 0 ? '00' : localTime.getMinutes()
+    } EET`;
+  };
+  //console.log(showEdit)
+
+  useEffect(() => {
+    const element = issearch ? issearch : nameEvents.filteredEvents
+    // console.log(element)
+    // console.log("element")
+    // console.log(issearch)
+    setList(//nameEvents.filteredEvents
+      element.map((list,index) => (
+      <div>
+      <div className="event-details" onClick={() => navigate('/')}>
+        <div className="event-data">
+
+          <div className="data-date">
+            <div className="month">{monthNames[(convertUtcToLocalTime(list.basicInfo.startDateTime, true)).getMonth()].toUpperCase()}</div>
+            <div>{(convertUtcToLocalTime(list.basicInfo.startDateTime, true)).getDay()}</div>
+          </div>
+
+          <div>
+            {list.basicInfo.eventImage ?
+            <img src={list.basicInfo.eventImage}/>
+            :
+            <img src="https://cdn.evbstatic.com/s3-build/perm_001/5287e3/django/images/pages/organizations/no-event-image-placeholder-2x.png"/>
+            }
+          </div>
+
+          <div className="data-name">
+            <div className="name">{list.basicInfo.eventName}</div>
+            <div className="date">{convertUtcToLocalTime(list.basicInfo.startDateTime, false)}</div>
+          </div>
+
+        </div>
+        
+        <div className="event-price-status">
+
+          <div className="event-sold">
+            <div className="rate-div">
+             {nameEvents.eventsoldtickets[index]}/{nameEvents.maxCapacity[index]}
+            </div>
+            <div className="App">
+              <div className="progress">
+                <LinearProgress
+                  className="charProgress"
+                  variant="determinate"
+                  value={(nameEvents.eventsoldtickets[index]/nameEvents.maxCapacity[index])*100}
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div className="gross">
+           ${nameEvents.gross[index]} <a>Gross</a>
+          </div>
+          <div className="status">
+            <svg
+             id="status-dot"
+              x="0"
+               y="0"
+                viewBox="0 0 24 24"
+                 xml:space="preserve"
+                 style={{fill: !nameEvents.isEventOnSale[index] && "yellow"}}>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <div id="status-name">
+              {nameEvents.isEventOnSale[index]? "On sale":"Scheduled"}
+            </div>
+            
+          </div>
+          
+            
+        </div>
+        <div className="opt">
+              <button className="other-options" onClick={() => onClickEdit(index)}>
+              <svg id="vertical-dots" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
+                  <path id="vertical-dots" fill-rule="evenodd" clip-rule="evenodd" d="M10 18c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z">
+                  </path>
+                  <circle id="vertical-dots" fill-rule="evenodd" clip-rule="evenodd" cx="12" cy="12" r="2">
+                  </circle>
+                  <circle id="vertical-dots" fill-rule="evenodd" clip-rule="evenodd" cx="12" cy="6" r="2">
+                  </circle>
+              </svg>
+              </button>
+              {showEdit[index] && selectedEventIndex === index && (
+                <div id="myDropdown" className="dropdown-content" ref={referenceEdit}>
+                  <ul>
+                    <div>
+                      <button
+                        name="view"
+                        className="drop-button"
+                        onClick={() => {
+                          setShowEdit(Array(nameEvents.filteredEvents.length).fill(false));
+                          window.location.href = list.eventUrl;
+                        }}
+                       
+                      >
+                        View
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        className="drop-button"
+                        onClick={onClickEditButton}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        className="drop-button"
+                        name="copy"
+                        //onClick={onClickEditButton}
+                        onClick={() => {
+                          setShowEdit(Array(nameEvents.filteredEvents.length).fill(false));
+                          navigator.clipboard.writeText(list.eventUrl)
+                        }}
+                      >
+                        Copy URL
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        name="delete"
+                        className="drop-button"
+                        onClick={onClickEditButton}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </ul>
+                </div>
+              )}
+          </div>
+          
+      </div>
+      </div>
+      ))
+    );
+  }, [nameEvents,showEdit,issearch]);
+
+  function handleSearch(){
+    if (!nameInput){
+      setIsSearch()
+    }
+    const filtered = nameEvents.filteredEvents.filter(obj => {
+      return obj.basicInfo.eventName.toLowerCase().includes(nameInput.toLowerCase());
+    });
+    const index = nameEvents.filteredEvents.findIndex((obj) => obj === filtered[0]);
+    console.log("filtered")
+    console.log(filtered)
+    
+    if (filtered.length){
+      setIsAvailable(true);
+      console.log(index);
+      setIsSearch(filtered)
+    } else {
+      setIsAvailable(false);
+    }
+  }
+
+  function handleChange(event) {
+    const {name, value} = event.target
+    setNameInput(value)
+  }
+
+
+
+  const email = localStorage.getItem('email')
+    ? localStorage.getItem('email')
+    : localStorage.getItem('authEmail');
 
  
   return (
    <PageContainer>
+    <StyledNav>
+          {email && email !== 'undefined' ? (
+            <NavbarLoggedIn creator={true} email={email} />
+          ) : (
+            <Navbar />
+          )}
+        </StyledNav>
      <div>
        <p>Events</p>
      </div>
@@ -81,15 +434,15 @@ export default function Organize() {
           </div>
           
           </div>
-          
+
           <div className="events-bar">
             <div className="first-part-eventbar">
               <div> 
                   <div className="search-field">
-                    <button className="search-button">
+                    <button onClick={handleSearch} className="search-button">
                       <img src={search}/>
                     </button>
-                    <input placeholder="Search events"/>
+                    <input onChange={handleChange} placeholder="Search events"/>
                   </div>
                 </div>
                 <div>
@@ -104,10 +457,10 @@ export default function Organize() {
                 <div className="all-events" onClick={displayMenu}>
                 <span>
                     {select}
-                  </span>
-                  <img src={logoDown}/>
+                </span>
+                <img src={logoDown}/>
 
-                  {showMenu &&
+                {showMenu &&
                 <div id="myDropdown" 
                 className="dropdown-content"
                 ref={reference}>
@@ -164,17 +517,18 @@ export default function Organize() {
               
               
               <div>
-                <button className="plus-button">
+                <button className="plus-button" onClick={() => {navigate('/')}}>
                   <img src={logoPlus}/>
                 </button>
-                <button className="create-button">
+                <button className="create-button" onClick={() => {navigate('/')}}>
                     Create Event
                 </button>
               </div>
               
           </div>
             
-            <div className="event-body">
+            {!isAvailable &&
+             <div className="event-body">
                 <div className="noEvents-center">
                   <div>
                     <div className="graphic-img-div">
@@ -186,11 +540,164 @@ export default function Organize() {
                   </div>
                   
                 </div>
+            </div> 
+            }
+            {isAvailable &&
+            <div>
+              <div>
+                <div className="event-header">
+                  <div className="event-info">
+                    Event
+                  </div>
+                  <div className="event-sold">
+                    Sold
+                  </div>
+                  <div className="event-gross">
+                    Gross
+                  </div>
+                  <div className="event-status">
+                    Status
+                  </div>
+                </div>
+              </div>
+              {eventsList}
+            {/* <div>
+              <div className="event-header">
+                <div className="event-info">
+                  Event
+                </div>
+                <div className="event-sold">
+                  Sold
+                </div>
+                <div className="event-gross">
+                  Gross
+                </div>
+                <div className="event-status">
+                  Status
+                </div>
+              </div>
             </div>
+
+            <div className="event-details">
+              <div className="event-data">
+  
+                <div className="data-date">
+                  <div className="month">JUN</div>
+                  <div>8</div>
+                </div>
+
+                <div>
+                  <img src="https://cdn.evbstatic.com/s3-build/perm_001/5287e3/django/images/pages/organizations/no-event-image-placeholder-2x.png"/>
+                </div>
+
+                <div className="data-name">
+                  <div className="name">Event name</div>
+                  <div className="date">Thursday, June 8, 2023 at 7:00 PM EET</div>
+                </div>
+
+              </div>
+              
+              <div className="event-price-status">
+
+                <div className="event-sold">
+                  <div className="rate-div">
+                   1/20
+                  </div>
+                  <div className="App">
+                    <div className="progress">
+                      <LinearProgress
+                        className="charProgress"
+                        variant="determinate"
+                        value={(1/20)*100}
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="gross">
+                  $0.00 <a>Gross</a>
+                </div>
+                <div className="status">
+                  <svg id="status-dot" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <div id="status-name">
+                    On sale
+                  </div>
+                  
+                </div>
+                
+                  
+              </div>
+              <div className="opt">
+                    <button className="other-options" onClick={onClickEdit}>
+                    <svg id="vertical-dots" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
+                        <path id="vertical-dots" fill-rule="evenodd" clip-rule="evenodd" d="M10 18c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z">
+                        </path>
+                        <circle id="vertical-dots" fill-rule="evenodd" clip-rule="evenodd" cx="12" cy="12" r="2">
+                        </circle>
+                        <circle id="vertical-dots" fill-rule="evenodd" clip-rule="evenodd" cx="12" cy="6" r="2">
+                        </circle>
+                    </svg>
+                    </button>
+                    {showEdit && (
+                      <div id="myDropdown" className="dropdown-content" ref={referenceEdit}>
+                        <ul>
+                          <div>
+                            <button
+                              className="drop-button"
+                              onClick={onClickEditButton}
+                            >
+                              View
+                            </button>
+                          </div>
+                          <div>
+                            <button
+                              className="drop-button"
+                              onClick={onClickEditButton}
+                            >
+                              Edit
+                            </button>
+                          </div>
+                          <div>
+                            <button
+                              className="drop-button"
+                              onClick={onClickEditButton}
+                            >
+                              Copy URL
+                            </button>
+                          </div>
+                          <div>
+                            <button
+                              className="drop-button"
+                              onClick={onClickEditButton}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </ul>
+                      </div>
+                    )}
+                </div>
+                
+            </div> */}
+            <div className="export-div">
+              <svg id="download_svg__eds-icon--download_svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
+                  <path id="download_svg__eds-icon--download_base" fill="#231F20" d="M16 16v1h5v4H3v-4h5v-1H2v6h20v-6z">
+                  </path>
+                  <path fill-rule="evenodd" clip-rule="evenodd" fill="#231F20" d="M17.3 11.4l-4.8 4.7V2h-1v14.1l-4.8-4.7-.7.7 6 5.9 6-5.8z">
+                    </path>
+              </svg>
+              <a>
+                CSV Export
+              </a>
+              
+            </div>
+            </div>}
             
         
 
-     </div>
+    </div>
    </PageContainer>
   )
 }

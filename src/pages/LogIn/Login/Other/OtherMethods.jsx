@@ -36,13 +36,14 @@ export default function Other() {
       }
     );
 
+
     const responseData = responseBackend.json();
-
+    const json = responseBackend.json();
     localStorage.setItem('authEmail', email);
-
-    console.log(responseData);
+    localStorage.setItem('token', json.token);
 
     navigate('/');
+
   }
 
   function handleError(error) {
