@@ -102,7 +102,7 @@ export default function Form() {
       });
       localStorage.setItem('email', responsebody.email);
       localStorage.setItem('token', json.accessToken);
-      // navigate('/');
+      navigate('/');
     } else {
       // email not found
       setErrorMessages({
