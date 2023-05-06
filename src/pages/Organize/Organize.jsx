@@ -58,95 +58,7 @@ export default function Organize(props) {
     'Nov',
     'Dec',
   ];
-  const [nameEvents,setNameEvents] = useState(
-    //{
-    //   "filteredEvents": [
-    //     {
-    //       "basicInfo": {
-    //         "location": {
-    //           "longitude": 45.523064,
-    //           "latitude": -122.676483,
-    //           "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
-    //           "venueName": "My Venue",
-    //           "streetNumber": 123,
-    //           "route": "Main St",
-    //           "administrativeAreaLevel1": "OR",
-    //           "country": "US",
-    //           "city": "Portland"
-    //         },
-    //         "eventName": "Tessseraaaaaa",
-    //         "startDateTime": "2023-05-01T14:30:00.000Z",
-    //         "endDateTime": "2023-05-01T18:00:00.000Z",
-    //         "eventImage": "https://picsum.photos/282/140",
-    //         "categories": "Music"
-    //       },
-    //       "eventUrl": "https://example.com/my-event"
-    //     },
-    //     {
-    //       "basicInfo": {
-    //         "location": {
-    //           "longitude": -96,
-    //           "latitude": 37,
-    //           "placeId": "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
-    //           "venueName": "United Center ",
-    //           "streetNumber": 55,
-    //           "route": "Magnificent Mile",
-    //           "administrativeAreaLevel1": "Illinois",
-    //           "country": "United States",
-    //           "city": "Chicago"
-    //         },
-    //         "eventName": "Adult Mental Health First Aid Training April 18 & 25",
-    //         "startDateTime": "2023-07-03T20:30:15.528Z",
-    //         "endDateTime": "2023-09-09T22:52:38.471Z",
-    //         "eventImage": "https://picsum.photos/282/140",
-    //         "categories": "Home & Lifestyle"
-    //       },
-    //       "eventUrl": "https://www.tessera.social/"
-    //     },
-    //     {
-    //       "basicInfo": {
-    //         "location": {
-    //           "longitude": 45.523064,
-    //           "latitude": -122.676483,
-    //           "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
-    //           "venueName": "My Venue",
-    //           "streetNumber": 123,
-    //           "route": "Main St",
-    //           "administrativeAreaLevel1": "OR",
-    //           "country": "US",
-    //           "city": "Portland"
-    //         },
-    //         "eventName": "Cross Platform",
-    //         "startDateTime": "2023-05-01T14:30:00.000Z",
-    //         "endDateTime": "2023-05-01T18:00:00.000Z",
-    //         "eventImage": "https://picsum.photos/282/140",
-    //         "categories": "Music"
-    //       },
-    //       "eventUrl": "https://example.com/my-event"
-    //     }
-    //   ],
-    //   "eventsoldtickets": [
-    //     118,
-    //     2,
-    //     2
-    //   ],
-    //   "isEventOnSale": [
-    //     false,
-    //     false,
-    //     false
-    //   ],
-    //   "gross": [
-    //     0,
-    //     7943.16,
-    //     0
-    //   ],
-    //   "maxCapacity": [
-    //     6150,
-    //     2,
-    //     150
-    //   ]
-    // }
-  )
+  const [nameEvents,setNameEvents] = useState()
   console.log(filter)
   useEffect(() => {
     fetch("https://www.tessera.social/api/event-management/listEvents/?filterBy="+filter, {
@@ -440,6 +352,30 @@ export default function Organize(props) {
     setNameInput(value)
   }
 
+  
+  const exportCsv = () => {
+    fetch('https://www.tessera.social/api/event-management/csv-exports?filterBy=allevents', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'text/csv',
+        "Authorization": `Bearer ${token}`
+      },
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'data.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch(error => {
+        console.error('Error downloading CSV:', error);
+      });
+  };
+  
 
   const token = localStorage.getItem('token') 
   ? localStorage.getItem('token') : ''
@@ -606,7 +542,7 @@ export default function Organize(props) {
                   <path fill-rule="evenodd" clip-rule="evenodd" fill="#231F20" d="M17.3 11.4l-4.8 4.7V2h-1v14.1l-4.8-4.7-.7.7 6 5.9 6-5.8z">
                     </path>
               </svg>
-              <a>
+              <a onClick={exportCsv}>
                 CSV Export
               </a>
               
