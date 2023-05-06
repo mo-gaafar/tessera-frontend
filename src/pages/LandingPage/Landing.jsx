@@ -422,7 +422,7 @@ export default function Landing() {
             event.basicInfo.location.city +
             ' '
           }
-          price={
+          let price={
             event.ticketTiers[0]?.price !== 'Free'
               ? `Starts at ${minPrice(
                   event.ticketTiers[0]?.price,
