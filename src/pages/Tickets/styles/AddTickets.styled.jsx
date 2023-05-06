@@ -143,7 +143,7 @@ export const AddTicketsSideMenu = styled.div`
         background-color: white;
         z-index: 1;
         background: Thistle;
-        height: 100%; /* Add a fixed height to enable scrolling */
+        height: 60rem;
         // overflow-y: scroll;
     }
 
@@ -217,7 +217,7 @@ export const AddTicketsSideMenu = styled.div`
         background:Pink;
     }
 
-    .NameTextboxDiv{
+    .NameTextboxDiv, .AvailableQuantityTextboxDiv{
 
         display: flex;
         justify-content: flex-start;
@@ -227,7 +227,7 @@ export const AddTicketsSideMenu = styled.div`
         border: 0.1rem solid;
     }
 
-    .NameLabelDiv{
+    .NameLabelDiv,.AvailableQuantityLabelDiv,.PriceLabelDiv{
         
         display:flex;
         flex-direction: row;
@@ -241,6 +241,8 @@ export const AddTicketsSideMenu = styled.div`
     }
 
     .asterisk{
+        
+        margin-left:0.2rem;
         color: red;
     }
 
@@ -265,5 +267,108 @@ export const AddTicketsSideMenu = styled.div`
         
 
     }
+
+    .AvailableQuantityDiv{
+        
+        width:33.5rem;
+        height:7rem;
+        margin-bottom:1.6rem;
+        background:MediumPurple;
+    }
+
+    .AvailabilityInput{
+    border:  none;
+    background-color: transparent;
+    margin-top:-0.5rem;
+    }
+
+    
+    .AvailabilityError {
+    font-size: 12px;
+    color: red;
+    margin-top:1rem;
+    }
+    
+    .error-border {
+    border: 1px solid red;
+    }
+    
+    .error-color {
+    color: red;
+    }
+
+
+    .TicketPriceDiv{
+
+        display:flex;
+        flex-direction: row;
+        
+        align-items: center;
+        align-content: center;
+        width:33.5rem;
+        height:5rem;
+        margin-bottom:1.6rem;
+        background:Lavender;
+        border: 0.1rem solid;
+        
+
+    }   
+    
+    .DollarSignDiv{
+
+        width:0.847rem;
+        height:2.4rem;
+        margin-left:1.2rem;
+        font-size: 1.4rem;
+        color: #a9a8b3;
+
+    }
+
+    .PriceTextboxDiv{
+
+        display:flex;
+        
+        position: relative;
+        width:31.053rem;
+        // flex-grow: 1;
+        height:4.6rem;
+        background:white;
+        flex-flow : column wrap;
+    }
+
+    .PriceAmountInput{
+
+       height:2.4rem;
+       width:31.053rem;
+       margin-top:1.6rem;
+       margin-left:-4.75rem;
+       padding-left:1rem;
+       border:none;
+    }
+
+    .DatesGroupDiv{
+        display:flex;
+        flex-wrap : wrap;
+        width:33.5rem;
+        height:16.259rem;
+        background:Violet ;
+        justify-content: space-between;
+    }
+
+    .DateBoxDiv{
+        width:15.95rem;
+        height:5rem;
+        display:flex;
+        flex-direction : row;
+        background:Fuchsia ;
+       
+    }
+
+    .CalanderIconSpan{
+
+        margin-left:1.2rem;
+        margin-top:1.3rem;
+    }
+    
 
 `

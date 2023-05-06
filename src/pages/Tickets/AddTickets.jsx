@@ -33,6 +33,33 @@ export default function CreateTickets() {
         setInputText('');
     }
 
+
+    /////////////////////////////////////for the Ticket Quantity//////////////////////////////////////////////////
+    const [quantity, setQuantity] = useState("");
+    const [isError, setIsError] = useState(false);
+
+    const handleInputChange = (e) => {
+        const inputValue = e.target.value;
+        // Check if input value is a number
+        if (!isNaN(inputValue) || inputValue === "") {
+        setQuantity(inputValue);
+        setIsError(false);
+        } else {
+        setIsError(true);
+        }
+    };
+
+    const handleInputBlur = (e) => {
+        const inputValue = e.target.value;
+        // Check if input value is empty or not a number
+        if (inputValue === "" || isNaN(inputValue)) {
+        setIsError(true);
+        } else {
+        setIsError(false);
+        }
+    };
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     
   return (
     <>
@@ -106,9 +133,69 @@ export default function CreateTickets() {
                     </div>
                     <div className='TicketNameLength'>{inputText.length}/50</div>
                 </div>
-                <button onClick={handleCloseMenu}>Cancel</button>
+
+                <div className='AvailableQuantityDiv'>
+                    <div className={isError ? "AvailableQuantityTextboxDiv error-color" : "AvailableQuantityTextboxDiv"}>
+                    <div className={isError ? "AvailableQuantityLabelDiv error-color" : "AvailableQuantityLabelDiv"}>Available quantity <span class="eds-label__required-indicator eds-text-bs" data-spec="required-indicator"><span className='asterisk'> *</span></span></div>
+                    <input
+                    type="text"
+                    value={quantity}
+                    onChange={handleInputChange}
+                    onBlur={handleInputBlur}
+                    className="AvailabilityInput"
+                    />
+                    {isError && <div className="AvailabilityError">Quantity is required.</div>}
+                    </div>
+                </div>
+
+                <div className='TicketPriceDiv'> 
+
+                <span className='DollarSignDiv'>$</span>
+
+                <div className='PriceTextboxDiv'>
+
+                    <div className='PriceLabelDiv'>
+                        Price <span class="eds-label__required-indicator eds-text-bs" data-spec="required-indicator"><span className='asterisk'> *</span></span>
+
+                        <div className='PriceAmountDiv'>
+                        <input className='PriceAmountInput' placeholder="0.00" type="text" />
+                        </div>
+                   
+                    </div>
 
                 </div>
+
+                </div>
+
+                <div className='DatesGroupDiv'>
+
+                    <div className='DateBoxDiv'>
+
+                    <span class="CalanderIconSpan"><i class="eds-vector-image eds-icon--small eds-vector-image--grey-800" data-spec="icon" data-testid="icon" aria-hidden="true"><svg id="calendar-chunky_svg__eds-icon--calendar-chunky_svg" xml:space="preserve"><path id="calendar-chunky_svg__eds-icon--calendar-chunky_base" d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path></svg></i></span>
+
+                    <div className=''>
+
+                    </div>
+                    </div>
+                    <div className='DateBoxDiv'>
+
+                    </div>
+                    <div className='DateBoxDiv'>
+                    <span class="CalanderIconSpan"><i class="eds-vector-image eds-icon--small eds-vector-image--grey-800" data-spec="icon" data-testid="icon" aria-hidden="true"><svg id="calendar-chunky_svg__eds-icon--calendar-chunky_svg" xml:space="preserve"><path id="calendar-chunky_svg__eds-icon--calendar-chunky_base" d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path></svg></i></span>
+
+                    </div>
+                    <div className='DateBoxDiv'>
+
+                    </div>
+
+
+                </div>
+
+                <button onClick={handleCloseMenu}>Cancel</button>
+                
+
+                </div>
+                
 
 
 
