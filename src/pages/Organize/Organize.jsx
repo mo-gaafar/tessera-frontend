@@ -43,11 +43,6 @@ export default function Organize(props) {
   if (!props.test) {
     navigate = useNavigate();
   }
-  // const [nameEvents,setNameEvents] = useState(
-  //             [{id: 1, country: 'event'},
-  //             {id: 2, country: 'Germany'},
-  //             {id: 3, country: 'Austria'},]
-  // );
   const monthNames = [
     'Jan',
     'Feb',
@@ -205,6 +200,7 @@ export default function Organize(props) {
     //console.log(index);
     setSelectedEventIndex(index);
     //console.log(selectedEventIndex)
+
     const newShowEdit = [...showEdit];
     newShowEdit[index] = !newShowEdit[index];
     setShowEdit(newShowEdit);
@@ -252,7 +248,8 @@ export default function Organize(props) {
     setList(//nameEvents.filteredEvents
       element.map((list,index) => (
       <div>
-      <div className="event-details" onClick={() => navigate('/')}>
+      <div className="event-details" >
+        {/* onClick={() => navigate('/')} */}
         <div className="event-data">
 
           <div className="data-date">
@@ -440,7 +437,7 @@ export default function Organize(props) {
               <div> 
                   <div className="search-field">
                     <button onClick={handleSearch} className="search-button">
-                      <img src={search}/>
+                      <img src={search}  data-testid="search-inp"/>
                     </button>
                     <input onChange={handleChange} placeholder="Search events"/>
                   </div>
