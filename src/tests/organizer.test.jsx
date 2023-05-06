@@ -2,13 +2,11 @@ import React from 'react';
 import { fireEvent, getByRole, render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
-import {Organize} from '../pages/Organize/Organize'
-
-
+import { Organize } from '../pages/Organize/Organize';
 
 describe('organize', () => {
   it('select is working', () => {
-    const { getByText,getAllByRole } = render(
+    const { getByText, getAllByRole } = render(
       <BrowserRouter>
         <Organize test={true} />
       </BrowserRouter>
