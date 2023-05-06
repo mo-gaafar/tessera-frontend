@@ -423,14 +423,14 @@ export default function Landing() {
             ' '
           }
           price={
-            event.ticketTiers[0].price !== 'Free'
+            event.ticketTiers[0]?.price !== 'Free'
               ? `Starts at ${minPrice(
-                  event.ticketTiers[0].price,
-                  event.ticketTiers[1].price
+                  event.ticketTiers[0]?.price,
+                  event.ticketTiers[1]?.price
                 )}`
               : ''
           }
-          isFree={event.ticketTiers[0].price === 'Free'}
+          isFree={event.ticketTiers[0]?.price === 'Free'}
           organizer={
             event.creatorId
               ? event.creatorId.firstName + ' ' + event.creatorId.lastName

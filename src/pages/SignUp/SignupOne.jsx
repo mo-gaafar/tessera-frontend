@@ -79,8 +79,9 @@ export default function SignUpOne(props) {
 
   useEffect(() => {
     localStorage.removeItem('authEmail');
+    localStorage.removeItem('token');
 
-    localStorage.setItem('email', email);
+    localStorage.setItem('emails', email);
   }, [email]);
 
   async function handleSuccess(response) {
@@ -112,6 +113,8 @@ export default function SignUpOne(props) {
     const responseData = responseBackend.json();
     console.log(responseData);
     localStorage.setItem('authEmail', email);
+    localStorage.setItem('token', responseData.token);
+
     navigate('/');
   }
 
@@ -127,6 +130,8 @@ export default function SignUpOne(props) {
   useEffect(() => {
     localStorage.removeItem('authEmail');
     localStorage.removeItem('email');
+    localStorage.removeItem('token  ');
+
     const setUser = async () => {
       const response = await fetch(
         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
@@ -158,10 +163,11 @@ export default function SignUpOne(props) {
         }
       );
       localStorage.setItem('authEmail', email);
+
       const data = await postData.json();
       console.log(data);
       if (data.success) {
-        // navigate('/');
+        navigate('/');
       }
     };
     setUser();

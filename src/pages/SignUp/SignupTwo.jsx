@@ -93,7 +93,7 @@ export default function SignupTwo(props) {
    */
 
   useEffect(() => {
-    setEmail(localStorage.getItem('email')?.toLowerCase());
+    setEmail(localStorage.getItem('emails')?.toLowerCase());
   }, [email]);
 
   /**
