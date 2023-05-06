@@ -10,87 +10,6 @@
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import {
-  Page,
-  Main,
-  Div1,
-  EventsDiv,
-  LowerDiv,
-  BasicInfoDiv,
-  LocationDiv,
-  DateAndTimeDiv,
-  EventsButton,
-  BackEvents,
-  SmallI,
-  SmallSvg,
-  ArrowPath,
-  EventsWord,
-  LineDivider,
-  MediumI,
-  MediumSvg,
-  Path,
-  IconsDiv,
-  InfoDiv,
-  SectionTitle,
-  ExplanationDiv,
-  ExplanationP,
-  ExplanationSpan,
-  ContentsDiv,
-  FieldSet,
-  TagsDiv,
-  Divider1,
-  InputDescription,
-  OrganizerInfoLink,
-  TypeDropDown,
-  TypeDropDown1,
-  TypeBorder,
-  InputData,
-  Form,
-  FormDiv,
-  Label,
-  DropDownDiv,
-  DropDownSpan,
-  DropDownTitleSpan,
-  DropDownArrowSpan,
-  DropDownSelect,
-  DropDownOption,
-  TagsTitleDiv,
-  ExplanationDiv2,
-  TagsInputDiv,
-  InputTagsData,
-  TagsLabel,
-  UsedButton,
-  TagsSmall,
-  Aside,
-  NumberOfTags,
-  CharactersLimit,
-  InputData2,
-  TagsDisplayedDiv,
-  TagsDisplayed,
-  SingleTagDiv,
-  SingleTag,
-  SingleTagSpan,
-  CloseButtonDiv,
-  CloseButton,
-  ErrorMessage,
-  FixedDiv,
-  FixedInnerDiv,
-  FixedButtonDiv,
-  LocationButtonsDiv,
-  LocationFlexButtonsDiv,
-  ButtonsDivs,
-  ButtonsLabels,
-  SearchVenueDiv,
-  SearchCalendarSpan,
-  SearchVenueDiv1,
-  DisplayEndTime,
-  CheckLabel,
-  CheckBox,
-  CheckTextLabel,
-  SpanText,
-  TextP,
-  TimeDropDownDiv,
-  Placeholder2,
-  SpanText2,
   WholePage
 } from './Styles/BasicInfo.styled'
 
@@ -103,18 +22,49 @@ export default function BasicInfo(){
   const [organizervalue, setOrganizerValue] = React.useState("")
   const [count, setCount] = useState(0);
   const [displayValue, setDisplayValue] = useState([]);
-  const [showvenue, setShowVenue] = useState(false);
+  const [showvenue, setShowVenue] = useState(true);
   const [showonline, setShowOnline] = useState(false);
-  const [showlater, setShowLater] = useState(false);
+  const [shownone, setShowNone] = useState(false);
+  const [showsingle, setShowSingle] = useState(true);
+  const [showrecurring, setShowRecurring] = useState(false);
   function handleDivClick(event) {
-    const id = event.target.id;
-    if (id === 'venue') {
+    const {name, locvalue} = event.target.getAttribute('name');
+    console.log(name)
+    if (name === 'venue') {
       setShowVenue(true);
       setShowOnline(false); // hide the other div if it was previously shown
-    } else if (id === 'online') {
+      setShowRecurring(false);
+      setShowSingle(false);
+      setShowNone(false);
+    } else if (name === 'online') {
       setShowOnline(true);
       setShowVenue(false); // hide the other div if it was previously shown
+      setShowNone(false);
+      setShowRecurring(false);
+      setShowSingle(false);
     }
+    else if (name == "recurring"){
+      setShowRecurring(true);
+      setShowSingle(false); // hide the other div if it was previously shown
+      setShowNone(false);
+      setShowOnline(false);
+      setShowVenue(false);
+    }
+    else if (name == "single"){
+      setShowRecurring(false);
+      setShowSingle(true); // hide the other div if it was previously shown
+      setShowNone(false);
+      setShowOnline(false);
+      setShowVenue(false);
+    }
+    else if (name == "none"){
+      setShowRecurring(false);
+      setShowSingle(false); // hide the other div if it was previously shown
+      setShowNone(true);
+      setShowOnline(false);
+      setShowVenue(false);
+    }
+    event.preventDefault();
     console.log(event)
   }
 
@@ -168,78 +118,95 @@ export default function BasicInfo(){
   return(
     <WholePage>
       <div className='wholepage'>
-      <Page>
-        <Main>
+      <div className='page'>
+        <main className='main'>
           <section>
-            <Div1>
+            <div>
               <div>
-                <EventsDiv>
-                  <EventsButton>
-                    <BackEvents>
-                      <SmallI>
-                        <SmallSvg
+                <div
+                style={
+                  {paddingTop: '1.6rem'}
+                }>
+                  <button className = 'eventsbutton'>
+                    <div className = 'backevents'>
+                      <i className='smallI'>
+                        <svg className='smallSvg'
                         x="0"
                         y="0" 
                         viewBox="0 0 24 24" 
                         xmlSpace="preserve">
-                          <ArrowPath
+                          <path
                           fillRule="evenodd"
                           clipRule="evenodd"
+                          fill= '#3659e3'
                           d="M13.8 7l-5 5 5 5 1.4-1.4-3.6-3.6 3.6-3.6z">
-                          </ArrowPath>
-                        </SmallSvg>
-                      </SmallI>
-                      <EventsWord>
+                          </path>
+                        </svg>
+                      </i>
+                      <p className='eventsword'>
                         Events
-                      </EventsWord>
-                    </BackEvents>
-                  </EventsButton>
-                </EventsDiv>
-                <LowerDiv>
+                      </p>
+                    </div>
+                  </button>
+                </div>
+                <div className='lowerdiv'>
                   <form>
-                    <BasicInfoDiv>
-                      <IconsDiv>
-                        <MediumI>
-                          <MediumSvg
+                    <div className='basicinfodiv'>
+                      <div className='iconsdiv'>
+                        <i className='mediumI'>
+                          <svg className='mediumSvg'
                           x="0"
                           y="0" 
                           viewBox="0 0 24 24" 
                           xmlSpace="preserve">
-                            <Path
+                            <path
+                            fill='#dbdae3'
                             fillRule="evenodd"
                             clipRule="evenodd"
                             d="M2 2v3h1V3h5v10H6v1h5v-1H9V3h5v2h1V2H2z">
-                            </Path>
+                            </path>
                             <g
                             fillRule="evenodd"
                             clipRule="evenodd">
-                              <Path
+                              <path
+                              fill='#dbdae3'
                               d="M15 9h7v1h-7zM15 13h7v1h-7zM6 17h16v1H6zM6 21h16v1H6z">
-                              </Path>
+                              </path>
                             </g>
-                          </MediumSvg>
-                        </MediumI>
-                      </IconsDiv>
-                      <InfoDiv>
+                          </svg>
+                        </i>
+                      </div>
+                      <div className='infodiv'>
                         <div>
-                          <SectionTitle>
+                          <h1 className='sectiontitle'>
                             Basic Info
-                          </SectionTitle>
-                          <ExplanationDiv>
-                            <ExplanationP>
-                              <ExplanationSpan>
+                          </h1>
+                          <div
+                          style={
+                            {
+                              width: '75%'
+                            }
+                          }>
+                            <p className='explanationp'>
+                              <span className='explanationspan'>
                                 Name your event and tell event-goers why they should come. Add details that highlight what makes it unique.
-                              </ExplanationSpan>
-                            </ExplanationP>
-                          </ExplanationDiv>
+                              </span>
+                            </p>
+                          </div>
                         </div>
-                        <ContentsDiv>
-                            <Form >
-                              <FormDiv>
-                                <Label> 
+                        <div
+                        style={
+                          {
+                            marginTop : '16px'
+                          }
+                        }>
+                            <form className='form' >
+                              <div>
+                                <label className='label'> 
                                   <span style={{WebkitBoxDirection: "normal"}}>Event Title</span>
-                                </Label>
-                                <InputData
+                                </label>
+                                <input
+                                  className='inputdata'
                                   invalid={focused && value.trim() === ''} 
                                   data-testid="title"
                                   type="text"
@@ -254,28 +221,50 @@ export default function BasicInfo(){
                                 {inputerror && (
                                 <span style={{color:"red"}}>{inputerror}</span>
                                 )}
-                              </FormDiv>
-                          </Form>
-                          <TagsSmall>
-                                <NumberOfTags>
-                                <Aside>
+                              </div>
+                          </form>
+                            <div
+                            style={
+                              {
+                                display: 'flex',
+                                WebkitBoxPack: 'justify',
+                                justifyContent: 'space-between'
+                              }
+                            }>
+                                <div
+                                style={
+                                  {
+                                    WebkitBoxFlex: '1',
+                                    flex: '1 1 auto'
+                                  }
+                                }>
+                                <aside className='aside'>
                                   {focused && value.trim() === '' && (
-                                  <ErrorMessage>Title is required</ErrorMessage>
+                                  <p className='errormessage'>Title is required</p>
                                   )}
-                                </Aside>
-                                </NumberOfTags>
-                                <CharactersLimit>
-                                  <Aside>
+                                </aside>
+                                </div>
+                                <div
+                                  style={
+                                    {
+                                      WebkitBoxFlex: '1',
+                                      flex: '1 1 auto',
+                                      textAlign: 'right'
+                                    }
+                                  }>
+                                  <aside className='aside'>
                                     {value.length}/75
-                                  </Aside>
-                                </CharactersLimit>
-                              </TagsSmall>
-                            <Form>
-                              <FormDiv >
-                                <Label> 
+                                  </aside>
+                                </div>
+                              </div>
+                            <form className='form'>
+                              <div >
+                                <label className='label'> 
                                   <span style={{WebkitBoxDirection: "normal"}}>Organizer</span>
-                                </Label>
-                                <InputData2 data-testid="input" 
+                                </label>
+                                <input 
+                                 className='inputdata2'
+                                 data-testid="input" 
                                   type="input" 
                                   name="enter-organizer" 
                                   id="organizer-input"
@@ -284,24 +273,36 @@ export default function BasicInfo(){
                                   onChange={handleOrganizerChange}
                                   onFocus={() => setFocused(true)}
                                   />
-                              </FormDiv>
-                          </Form>
-                            <InputDescription>
+                              </div>
+                          </form>
+                            <p className='inputdescription'>
                               This profile describes a unique organizer and shows all of the events on one page.
-                              <OrganizerInfoLink>View Organizer Info</OrganizerInfoLink>
-                            </InputDescription>
-                          <FieldSet>
-                            <TypeDropDown>
-                              <TypeDropDown1>
-                                <TypeBorder>
+                              <a className='organizerinfolink'>View Organizer Info</a>
+                            </p>
+                          <fieldset className='fieldset'>
+                            <div className='typedropdown'>
+                              <div
+                              style={
+                                {
+                                  marginBottom: '16px'
+                                }
+                              }>
+                                <div className='typeborder'>
                                   <div>
                                     <div>
-                                      <DropDownDiv>
-                                        <DropDownSpan>
-                                          <DropDownTitleSpan>Type</DropDownTitleSpan>
-                                          <DropDownArrowSpan>
-                                            <SmallI>
-                                              <SmallSvg
+                                      <div
+                                      style={
+                                        {
+                                          width: '100%',
+                                          height: '46px',
+                                          position: 'relative'
+                                        }
+                                      }>
+                                        <span className='dropdownspan'>
+                                          <span className='dropdowntitlespan'>Type</span>
+                                          <span className='dropdownarrowspan'>
+                                            <i className='"smallI'>
+                                              <svg className='smallSvg'
                                               x="0"
                                               y="0" 
                                               viewBox="0 0 24 24" 
@@ -311,134 +312,168 @@ export default function BasicInfo(){
                                                 clipRule="evenodd"
                                                 d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z">
                                                 </path>
-                                              </SmallSvg>
-                                            </SmallI>
-                                          </DropDownArrowSpan>
-                                        </DropDownSpan>
-                                        <DropDownSelect>
-                                        <DropDownOption 
+                                              </svg>
+                                            </i>
+                                          </span>
+                                        </span>
+                                        <select className='dropdownselect'>
+                                        <option
+                                          className='dropdownoption' 
                                           value
                                           data-spec="select-option">
                                             Type
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption' 
                                           value="3" 
                                           data-spec="select-option">
                                             Tradeshow, Consumer Show, or Expo
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption' 
                                           value="13" 
                                           data-spec="select-option">
                                             Tournament
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="16" 
                                           data-spec="select-option">
                                             Tour
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="2" 
                                           data-spec="select-option">
                                             Seminar or Talk
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="7" 
                                           data-spec="select-option">
                                             Screening
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="12" 
                                           data-spec="select-option">
                                             Rally
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="15" 
                                           data-spec="select-option">
                                             Race or Endurance Event
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="11" 
                                           data-spec="select-option">
                                             Party or Social Gathering
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="100" 
                                           data-spec="select-option">
                                             Other
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="10" 
                                           data-spec="select-option">
                                             Meeting or Networking Event
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="14" 
                                           data-spec="select-option">
                                             Game or Competition
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="5" 
                                           data-spec="select-option">
                                             Festival or Fair
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="8" 
                                           data-spec="select-option">
                                             Dinner or Gala
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="4" 
                                           data-spec="select-option">
                                             Convention
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="1" 
                                           data-spec="select-option">
                                             Conference
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="6" 
                                           data-spec="select-option">
                                             Concert or Performance
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="9" 
                                           data-spec="select-option">
                                             Class, Training, or Workshop
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="18" 
                                           data-spec="select-option">
                                             Camp, Trip, or Retreat
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="17" 
                                           data-spec="select-option">
                                             Attraction
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="19" 
                                           data-spec="select-option">
                                             Appearance or Signing
-                                          </DropDownOption>
-                                        </DropDownSelect>
-                                      </DropDownDiv>
+                                          </option>
+                                        </select>
+                                      </div>
                                     </div>
                                   </div>
-                                </TypeBorder>
-                              </TypeDropDown1>
-                            </TypeDropDown>
-                            <TypeDropDown>
-                              <TypeDropDown1>
-                                <TypeBorder>
+                                </div>
+                              </div>
+                            </div>
+                            <div className='typedropdown'>
+                              <div
+                              style={
+                                {
+                                  marginBottom:'16px'
+                                }
+                              }>
+                                <div
+                                className='typeborder'>
                                   <div>
                                     <div>
-                                      <DropDownDiv>
-                                        <DropDownSpan>
-                                          <DropDownTitleSpan>Category</DropDownTitleSpan>
-                                          <DropDownArrowSpan>
-                                            <SmallI>
-                                              <SmallSvg
+                                    <div
+                                      style={
+                                        {
+                                          width: '100%',
+                                          height: '46px',
+                                          position: 'relative'
+                                        }
+                                      }>
+                                        <span className='dropdownspan'>
+                                          <span className='dropdowntitlespan'>Category</span>
+                                          <span className='dropdownarrowspan'>
+                                            <i className='smallI'>
+                                              <svg className='smallSvg'
                                               x="0"
                                               y="0" 
                                               viewBox="0 0 24 24" 
@@ -448,147 +483,181 @@ export default function BasicInfo(){
                                                 clipRule="evenodd"
                                                 d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z">
                                                 </path>
-                                              </SmallSvg>
-                                            </SmallI>
-                                          </DropDownArrowSpan>
-                                        </DropDownSpan>
-                                        <DropDownSelect>
-                                        <DropDownOption 
+                                              </svg>
+                                            </i>
+                                          </span>
+                                        </span>
+                                        <select className='dropdownselect'>
+                                        <option
+                                          className='dropdownoption'  
                                           value
                                           data-spec="select-option">
                                             Category
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="118" 
                                           data-spec="select-option">
                                             Auto, Boat & Air
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="101" 
                                           data-spec="select-option">
                                             Business & Professional
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="111" 
                                           data-spec="select-option">
                                             Charity & Causes
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="113" 
                                           data-spec="select-option">
                                             Community & Culture
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="115" 
                                           data-spec="select-option">
                                             Family & Education
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="106" 
                                           data-spec="select-option">
                                             Fashion & Beauty
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="104" 
                                           data-spec="select-option">
                                             Film, Media & Entertainment
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="110" 
                                           data-spec="select-option">
                                             Food & Drink
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="112" 
                                           data-spec="select-option">
                                             Government & Politics
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="107" 
                                           data-spec="select-option">
                                             Health & Wellness
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="119" 
                                           data-spec="select-option">
                                             Hobbies & Special Interest
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="117" 
                                           data-spec="select-option">
                                             Home & Lifestyle
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="103" 
                                           data-spec="select-option">
                                             Music
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="199" 
                                           data-spec="select-option">
                                             Other
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="105" 
                                           data-spec="select-option">
                                             Performing & Visual Arts
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="114" 
                                           data-spec="select-option">
                                             Religion & Spirituality
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="120" 
                                           data-spec="select-option">
                                             School Activities
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="102" 
                                           data-spec="select-option">
                                             Science & Technology
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="116" 
                                           data-spec="select-option">
                                             Seasonal & Holiday
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="108" 
                                           data-spec="select-option">
                                             Sports & Fitness
-                                          </DropDownOption>
-                                          <DropDownOption 
+                                          </option>
+                                          <option
+                                          className='dropdownoption'  
                                           value="109" 
                                           data-spec="select-option">
                                             Travel & Outdoor  
-                                          </DropDownOption>
-                                        </DropDownSelect>
-                                      </DropDownDiv>
+                                          </option>
+                                        </select>
+                                      </div>
                                     </div>
                                   </div>
-                                </TypeBorder>
-                              </TypeDropDown1>
-                            </TypeDropDown>
-                          </FieldSet>
-                          <TagsDiv>
-                            <TagsTitleDiv>Tags</TagsTitleDiv>
-                            <ExplanationDiv2>
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                          <div 
+                          style={
+                            {
+                              marginTop: '16px'
+                            }
+                          }>
+                            <div className='tagstitlediv'>Tags</div>
+                            <div className='explanationdiv'>
                               Improve discoverability of your event by adding tags relevant to the subject matter.
-                            </ExplanationDiv2>
+                            </div>
                             <div >
-                              <TypeDropDown1 style={{display: "flex"}}>
-                                <TagsInputDiv>
+                              <div style={{display: "flex", marginBottom: '16px'}}>
+                                <div className='tagsinputdiv'>
                                   <div tabIndex="-1">
                                     <div>
                                       <div style={{position: "relative"}}>
-                                        <Divider1>
-                                          <Form>
-                                            <FormDiv >
-                                              <TagsLabel> 
+                                        <div
+                                        style={
+                                          {
+                                            marginBottom: '8px'
+                                          }
+                                        }>
+                                          <form className='form'>
+                                            <div >
+                                              <label
+                                              className='tagslabel'> 
                                                 <span style={{WebkitBoxDirection: "normal"}}>Press Enter to add a tag</span>
-                                              </TagsLabel>
-                                              <InputTagsData
+                                              </label>
+                                              <input
+                                                className = 'inputtagsdata'
                                                 data-testid="tags"
                                                 type="input" 
                                                 name="taginput" 
@@ -600,128 +669,173 @@ export default function BasicInfo(){
                                                 onKeyPress={handleKeyPress}
                                                 onFocus={() => setFocused(true)}
                                                 />
-                                            </FormDiv>
-                                        </Form>
-                                        <TagsSmall>
-                                          <NumberOfTags>
-                                          <Aside>
+                                            </div>
+                                        </form>
+                                        <div
+                                          style={
+                                            {
+                                              display: 'flex',
+                                              WebkitBoxPack: 'justify',
+                                              justifyContent: 'space-between'
+                                            }
+                                          }>
+                                          <div
+                                            style={
+                                              {
+                                                WebkitBoxFlex: '1',
+                                                flex: '1 1 auto'
+                                              }
+                                            }>
+                                          <aside className = 'aside'>
                                           {displayValue.length}/10 tags
-                                          </Aside>
-                                          </NumberOfTags>
-                                          <CharactersLimit>
-                                            <Aside>
+                                          </aside>
+                                          </div>
+                                          <div
+                                            style={
+                                              {
+                                                WebkitBoxFlex: '1',
+                                                flex: '1 1 auto',
+                                                textAlign: 'right'
+                                              }
+                                            }>
+                                            <aside className = 'aside'>
                                               {tagvalue.length}/25
-                                            </Aside>
-                                            </CharactersLimit>
-                                        </TagsSmall>
-                                      </Divider1>
+                                            </aside>
+                                            </div>
+                                        </div>
+                                      </div>
                                       </div>
                                     </div>
                                   </div>
-                                </TagsInputDiv>
-                                <UsedButton onClick={handleButtonClick}>Add</UsedButton>
-                              </TypeDropDown1>
+                                </div>
+                                <button className='usedbutton' onClick={handleButtonClick}>Add</button>
+                              </div>
                                   {displayValue.map((value, index) => (
-                                    <TagsDisplayedDiv key={index}>
-                                      <TagsDisplayed>
-                                        <SingleTagDiv>
-                                          <SingleTag>
-                                            <SingleTagSpan>
+                                    <div className='tagsdisplayeddiv' key={index}>
+                                      <div className='tagsdisplayed'>
+                                        <div
+                                        style={
+                                          {
+                                            display:'inline-block',
+                                            padding: '0 8px 16px'
+                                          }
+                                        }>
+                                          <div className='singletag'>
+                                            <span className='singletagspan'>
                                               <p>{value}</p>
-                                            </SingleTagSpan>
-                                            <CloseButtonDiv>
-                                              <CloseButton onClick={(event) => handleTagDelete(index, event)}>
-                                                <SmallI>
-                                                  <SmallSvg x="0" y="0" viewBox="0 0 24 24" xmlSpace="preserve">
+                                            </span>
+                                            <div className='closebuttondiv'>
+                                              <button className='closebutton' onClick={(event) => handleTagDelete(index, event)}>
+                                                <i className = 'smallI'>
+                                                  <svg className='smallSvg' x="0" y="0" viewBox="0 0 24 24" xmlSpace="preserve">
                                                     <path fill="#4b4d63" d="M13.4 12l3.5-3.5-1.4-1.4-3.5 3.5-3.5-3.5-1.4 1.4 3.5 3.5-3.5 3.5 1.4 1.4 3.5-3.5 3.5 3.5 1.4-1.4z"></path>
-                                                  </SmallSvg>
-                                                </SmallI>
-                                              </CloseButton>
-                                            </CloseButtonDiv>
-                                          </SingleTag>
-                                        </SingleTagDiv>
-                                      </TagsDisplayed>
-                                    </TagsDisplayedDiv>
+                                                  </svg>
+                                                </i>
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                   ))}
                             </div>
-                          </TagsDiv>
-                        </ContentsDiv>
-                      </InfoDiv>
-                    </BasicInfoDiv>
-                    <LineDivider></LineDivider>
-                    <LocationDiv>
-                    <IconsDiv>
-                        <MediumI>
-                          <MediumSvg
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr className = 'linedivider'></hr>
+                    <div className='locationdiv'>
+                    <div className='iconsdiv'>
+                        <i className = 'mediumI'>
+                          <svg className='mediumsvg'
                           x="0"
                           y="0" 
                           viewBox="0 0 24 24" 
                           xmlSpace="preserve">
-                            <Path
+                            <path
+                            fill='#dbdae3'
                             fillRule="evenodd"
                             clipRule="evenodd"
                             d="M20 3c-1.1 0-2 .9-2 2H2v16h17.8c1.1 0 2.1-.9 2.1-2V5c.1-1.1-.8-2-1.9-2zm-.2 17H3V6h15v13h1c0-.6.4-1 1-1 .5 0 .9.4 1 .9-.1.6-.6 1.1-1.2 1.1zm1.2-2.7c-.3-.2-.6-.3-1-.3s-.7.1-1 .3V5c0-.6.4-1 1-1s1 .4 1 1v12.3z">
-                            </Path>
-                            <Path
+                            </path>
+                            <path
+                              fill='#dbdae3'
                               fillRule="evenodd"
                               clipRule="evenodd"
                               d="M8.8 12.7l.7-.7-1.1-1 1.1-1-.7-.7-1.1 1-1-1-.7.7 1 1-1 1 .7.7 1-1z">
-                            </Path>
-                            <Path
+                            </path>
+                            <path
+                              fill='#dbdae3'
                               fillRule="evenodd"
                               clipRule="evenodd"
                               d="M12 10h2v1h-2z">
-                            </Path>
-                            <Path
+                            </path>
+                            <path
+                              fill='#dbdae3'
                               fillRule="evenodd"
                               clipRule="evenodd"
                               d="M15 12h1v2h-1z">
-                            </Path>
-                            <Path
+                            </path>
+                            <path
+                              fill='#dbdae3'
                               fillRule="evenodd"
                               clipRule="evenodd"
                               d="M12 15h2v1h-2z">
-                            </Path>
-                            <Path
+                            </path>
+                            <path
+                              fill='#dbdae3'
                               fillRule="evenodd"
                               clipRule="evenodd"
                               d="M8 15h2v1H8z">
-                            </Path>
-                          </MediumSvg>
-                        </MediumI>
-                      </IconsDiv>
+                            </path>
+                          </svg>
+                        </i>
+                      </div>
                       <div style={{display: "block"}}>
                         <div>
-                          <SectionTitle>
+                          <h1 
+                          style={
+                            {
+                              color: '#1e0a3c'
+                            }
+                          }>
                             Location
-                          </SectionTitle>
-                          <ExplanationDiv>
-                            <ExplanationP>
-                              <ExplanationSpan>
+                          </h1>
+                          <div style={
+                            {width: '75%'}
+                          }>
+                            <p className = 'explanationp'>
+                              <span className = 'explanationspan'>
                                 Help people in the area discover your event and let attendees know where to show up.
-                              </ExplanationSpan>
-                            </ExplanationP>
-                          </ExplanationDiv>
+                              </span>
+                            </p>
+                          </div>
                         </div>
                         <div style={{marginTop: 20}}>
-                          <LocationButtonsDiv>
-                            <LocationFlexButtonsDiv>
-                              <ButtonsDivs id='venue' onClick={handleDivClick}>
-                                <ButtonsLabels>
+                          <div className = 'locationsbuttonsdiv'>
+                            <div
+                            style={
+                              {
+                                display:'flex',
+                                marginBottom: '20px'
+                              }
+                            }>
+                              <div className = 'buttonsdiv'>
+                                <label className = 'buttonslabels' name='venue' onClick={handleDivClick}>
                                   Venue
-                                </ButtonsLabels>
-                              </ButtonsDivs>
-                              <ButtonsDivs id='online' onClick={handleDivClick}>
-                                <ButtonsLabels>
+                                </label>
+                              <div>
+                              <div className = 'buttonsdiv'>
+                                <label className = 'buttonslabels' name='online' onClick={handleDivClick}>
                                   Online Event
-                                </ButtonsLabels>
-                              </ButtonsDivs>
-                              <ButtonsDivs>
-                                <ButtonsLabels>
+                                </label>
+                              <div>
+                              <div className = 'buttonsdiv'>
+                                <label className = 'buttonslabels' name='none' onClick={handleDivClick}>
                                   To Be Announced
-                                </ButtonsLabels>
-                              </ButtonsDivs>
-                              {showvenue && (
+                                </label>
+                              <div>
+                              {/* {showvenue && (
                                 <div>
                                   This is the venue div.
                                   <button>Like</button>
@@ -732,25 +846,32 @@ export default function BasicInfo(){
                                   This is the online event div.
                                 </div>
                               )}
-                            </LocationFlexButtonsDiv>
-                          </LocationButtonsDiv>
-                          <ExplanationDiv>
-                            <ExplanationP 
+                              {shownone && (
+                                <div>
+                                  This is the none event div.
+                                </div>
+                              )} */}
+                            </div>
+                          </div>
+                          <div style={
+                            {width: '75%'}
+                          }>
+                            <p className = 'explanationp'
                             style={
                               {fontWeight: 600}
                             }
                             >
                               Venue location
-                            </ExplanationP>
-                          </ExplanationDiv>
+                            </p>
+                          </div>
                           <div 
                           style={
                             {
                               marginBottom:8
                             }
                           }>
-                            <SearchVenueDiv1>
-                              <SearchVenueDiv>
+                            <div className = 'searchvenuediv1'>
+                              <div className = 'searchvenuediv'>
                                 <SearchCalendarSpan
                                 style={
                                   {
@@ -762,7 +883,7 @@ export default function BasicInfo(){
                                   style={
                                     {display:'block'}
                                   }>
-                                    <SmallSvg
+                                    <svg className='smallSvg'
                                       x="0"
                                       y="0" 
                                       viewBox="0 0 24 24" 
@@ -774,8 +895,8 @@ export default function BasicInfo(){
                                       d="M10 14c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm3.5.9c-1 .7-2.2 1.1-3.5 1.1-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6c0 1.3-.4 2.5-1.1 3.4l5.1 5.1-1.5 1.5-5-5.1z"
                                       >
                                       </path>
-                                    </SmallSvg>
-                                  </SmallI>
+                                    </svg>
+                                  </i>
                                 </SearchCalendarSpan>
                                 {/* <InputData 
                                 style={
@@ -804,7 +925,10 @@ export default function BasicInfo(){
                                       marginTop: '0'
                                     }
                                   }
-                                  placeholder='Search for a venue or address'>
+                                  placeholder='Search for a venue or address'
+                                  value={organizervalue}
+                                  onChange={handleOrganizerChange}
+                                  onFocus={() => setFocused(true)}>
                                   </InputTagsData>
                                 </div>
                               </SearchVenueDiv>
@@ -813,78 +937,91 @@ export default function BasicInfo(){
                         </div>
                       </div>
                     </LocationDiv>
-                    <LineDivider></LineDivider>
+                    <hr className = 'linedivider'></hr>
                     <DateAndTimeDiv>
-                    <IconsDiv>
-                        <MediumI>
-                          <MediumSvg
+                    <div className='iconsdiv'>
+                        <i className = 'mediumI'>
+                          <svg className='mediumsvg'
                           x="0"
                           y="0" 
                           viewBox="0 0 24 24" 
                           xmlSpace="preserve">
-                            <Path
+                            <path
+                            fill='#dbdae3'
                             fillRule="evenodd"
                             clipRule="evenodd"
                             d="M17 4V2h-1v2H8V2H7v2H2v18h20V4h-5zm4 17H3V9h18v12zM3 8V5h4v1h1V5h8v1h1V5h4v3H3z">
-                            </Path>
+                            </path>
                             <g
                             fillRule="evenodd"
                             clipRule="evenodd">
-                              <Path
+                              <path
+                              fill='#dbdae3'
                               d="M15 16h2v2h-2zM11 16h2v2h-2zM7 16h2v2H7zM15 12h2v2h-2zM11 12h2v2h-2zM7 12h2v2H7z">
-                              </Path>
+                              </path>
                             </g>
-                          </MediumSvg>
-                        </MediumI>
-                      </IconsDiv>
+                          </svg>
+                        </i>
+                      </div>
                       <div style={{display: "block"}}>
                         <div>
                           <SectionTitle>
                             Date and time
                           </SectionTitle>
-                          <ExplanationDiv>
-                            <ExplanationP>
-                              <ExplanationSpan>
+                          <div style={
+                            {width: '75%'}
+                          }>
+                            <p className = 'explanationp'>
+                              <span className = 'explanationspan'>
                                 Tell event-goers when your event starts and ends so they can make plans to attend.
-                              </ExplanationSpan>
-                            </ExplanationP>
-                          </ExplanationDiv>
+                              </span>
+                            </p>
+                          </div>
                         </div>
                         <div style={{marginTop: 20}}>
-                          <LocationButtonsDiv>
-                            <LocationFlexButtonsDiv>
-                              <ButtonsDivs id='single' onClick={handleDivClick}>
-                                <ButtonsLabels>
+                          <div className = 'locationsbuttonsdiv'>
+                            <div
+                            style={
+                              {
+                                display:'flex',
+                                marginBottom: '20px'
+                              }
+                            }>
+                              <div className = 'buttonsdiv'>
+                                <label className = 'buttonslabels' name='single' onClick={handleDivClick}>
                                   Single Event
-                                </ButtonsLabels>
-                              </ButtonsDivs>
-                              <ButtonsDivs id='recurring' onClick={handleDivClick}>
-                                <ButtonsLabels>
+                                </label>
+                              <div>
+                              <div className = 'buttonsdiv'>
+                                <label className = 'buttonslabels' name='recurring' onClick={handleDivClick}>
                                   Recurring Event
-                                </ButtonsLabels>
-                              </ButtonsDivs>
-                              {/* {showvenue && (
+                                </label>
+                              <div>
+                              {/* {showsingle && (
                                 <div>
-                                  This is the venue div.
+                                  This is the single div.
                                   <button>Like</button>
                                 </div>
                               )}
-                              {showonline && (
+                              {showrecurring && (
                                 <div>
-                                  This is the online event div.
+                                  This is the recurring event div.
                                 </div>
                               )} */}
-                            </LocationFlexButtonsDiv>
-                          </LocationButtonsDiv>
+                            </div>
+                          </div>
                         </div>
-                        <ExplanationDiv 
-                          style={
-                            {marginBottom: 16}
+                        <div
+                         style={
+                            {
+                              width: '75%',
+                              marginBottom: '16px'
+                            }
                           }>
-                            <ExplanationP>
+                            <p className = 'explanationp'>
                             You’ll be able to set a schedule for your recurring event in the next step. Event details and ticket types will apply to all instances.
-                            </ExplanationP>
-                          </ExplanationDiv>
+                            </p>
+                          </div>
                           <div
                           style={
                             {marginTop: 16}
@@ -908,7 +1045,14 @@ export default function BasicInfo(){
 
                                   </CheckLabel>
                                   <CheckTextLabel>
-                                    <SpanText>
+                                    <span
+                                    style={
+                                      {
+                                        display: 'block',
+                                        cursor: 'pointer',
+                                        fontWeight: '400'
+                                      }
+                                    }>
                                       <p
                                       style={
                                         {color:'#39364f'}
@@ -921,7 +1065,7 @@ export default function BasicInfo(){
                                       }>
                                         The end time of your event will be displayed to attendees.
                                       </TextP>
-                                    </SpanText>
+                                    </span>
                                   </CheckTextLabel>
                                 </DisplayEndTime>
                                 <div 
@@ -954,9 +1098,9 @@ export default function BasicInfo(){
                                       style={
                                         {marginBottom: 8}
                                       }>
-                                        <SearchVenueDiv1>
-                                          <SearchVenueDiv>
-                                            <SearchVenueDiv>
+                                        <div className = 'searchvenuediv1'>
+                                          <div className = 'searchvenuediv'>
+                                            <div className = 'searchvenuediv'>
                                               
                                               <div className='dropdownLast'>
                                                 <DropDownSpan>
@@ -973,8 +1117,8 @@ export default function BasicInfo(){
                                                       paddingTop: '5px'
                                                     }
                                                   }>
-                                                    <SmallI>
-                                                      <SmallSvg
+                                                    <i className = 'smallI'>
+                                                      <svg className='smallSvg'
                                                       x="0"
                                                       y="0" 
                                                       viewBox="0 0 24 24" 
@@ -984,8 +1128,8 @@ export default function BasicInfo(){
                                                         clipRule="evenodd"
                                                         d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z">
                                                         </path>
-                                                      </SmallSvg>
-                                                    </SmallI>
+                                                      </svg>
+                                                    </i>
                                                   </DropDownArrowSpan>
                                                 </DropDownSpan>
                                                 <select
@@ -1180,9 +1324,9 @@ export default function BasicInfo(){
                                       style={
                                         {marginBottom: 8}
                                       }>
-                                        <SearchVenueDiv1>
-                                          <SearchVenueDiv>
-                                            <SearchVenueDiv>
+                                        <div className = 'searchvenuediv1'>
+                                          <div className = 'searchvenuediv'>
+                                            <div className = 'searchvenuediv'>
                                               
                                               <div className='dropdownLast'>
                                                 <DropDownSpan>
@@ -1199,8 +1343,8 @@ export default function BasicInfo(){
                                                       paddingTop: '5px'
                                                     }
                                                   }>
-                                                    <SmallI>
-                                                      <SmallSvg
+                                                    <i className = 'smallI'>
+                                                      <svg className='smallSvg'
                                                       x="0"
                                                       y="0" 
                                                       viewBox="0 0 24 24" 
@@ -1210,8 +1354,8 @@ export default function BasicInfo(){
                                                         clipRule="evenodd"
                                                         d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z">
                                                         </path>
-                                                      </SmallSvg>
-                                                    </SmallI>
+                                                      </svg>
+                                                    </i>
                                                   </DropDownArrowSpan>
                                                 </DropDownSpan>
                                                 <select
@@ -1252,12 +1396,12 @@ export default function BasicInfo(){
                       </div>
                     </DateAndTimeDiv>
                     </form>
-                </LowerDiv>
+                </div>
               </div>
-            </Div1>
+            </div>
           </section>
-        </Main>
-      </Page>
+        </main>
+      </div>
       <FixedDiv>
         <FixedInnerDiv>
           <FixedButtonDiv>

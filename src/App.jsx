@@ -45,8 +45,8 @@ function App() {
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} /> */}
-        {/* <Route path="/" element={<BasicInfo />} /> */}
-        <Route path="/" element={<Details />} />
+        <Route path="/" element={<BasicInfo />} />
+        {/* <Route path="/" element={<Details />} /> */}
       </Routes>
       {/* <BookingPopUp /> */}
     </>

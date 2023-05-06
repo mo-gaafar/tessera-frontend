@@ -17,6 +17,19 @@ export const WholePage = styled.div`
     margin-bottom: 120px;
     }
   }
+  .page{
+    @media (min-width: 792px){
+      margin-left: 5.6rem;
+    }
+  }
+  .main{
+    max-width: 960px;
+  -webkit-box-flex: 1;
+  flex: 1 0 auto;
+  position: relative;
+  align-self: center;
+  width: 100%;
+  }
 .dropdownLast{
   width: 100%;
   height: 46px;
@@ -44,27 +57,7 @@ export const WholePage = styled.div`
   position: relative;
   transition: background .24s cubic-bezier(.4,0,.3,1);
 }
-`
-export const Page = styled.div`
-  @media (min-width: 792px){
-    margin-left: 5.6rem;
-  }
-` 
-export const Main = styled.main`
-  max-width: 960px;
-  -webkit-box-flex: 1;
-  flex: 1 0 auto;
-  position: relative;
-  align-self: center;
-  width: 100%;
-`
-export const Div1 = styled.div`
-  padding: 0; 
-`
-export const EventsDiv = styled.div`
-  padding-top: 1.6rem;
-`
-export const EventsButton = styled.button`
+.eventsbutton{
   color: #3659e3;
   background: none;
   border: none;
@@ -75,16 +68,16 @@ export const EventsButton = styled.button`
   text-transform: none;
   overflow: visible;
   display: inline-block;
-`
-export const BackEvents = styled.div`
+}
+.backevents{
   display: flex;
   -webkit-box-pack: center;
   justify-content: center;
   font-size: 1.4rem;
   align-items: center;
   margin: auto;
-`
-export const SmallI = styled.i`
+}
+.smallI{
   display: inline-block;
   margin: 0 auto;
   vertical-align: middle;
@@ -93,8 +86,8 @@ export const SmallI = styled.i`
   width: 2.4rem;
   height: 2.4rem;
   box-sizing: initial;
-`
-export const MediumI = styled.i`
+}
+.mediumI{
   display: inline-block;
   margin: 0 auto;
   vertical-align: middle;
@@ -103,55 +96,48 @@ export const MediumI = styled.i`
   width: 4.8rem;
   height: 4.8rem;
   box-sizing: initial;
-`
-export const SmallSvg = styled.svg`
+}
+.smallSvg{
   overflow: hidden;
   width: 2.4rem;
   height: 2.4rem;
-`
-export const MediumSvg = styled.svg`
+}
+.mediumSvg{
   overflow: hidden;
   width: 4.8rem;
   height: 4.8rem;
-`
-export const ArrowPath = styled.path`
-  fill: #3659e3;
-`
-export const Path = styled.path`
-  fill: #dbdae3;
-`
-
-export const EventsWord = styled.div`
+}
+.eventsword{
   :hover{
     text-decoration: underline;
   }
-`
-export const LowerDiv = styled.div`
+}
+.lowerdiv{
   margin-bottom: 48px;
   margin-top: 20px;    
   padding-bottom: 48px;
   padding-top: 20px;  
   margin-left: auto;
   margin-right: auto;
-`
-export const BasicInfoDiv = styled.div`
+}
+.basicinfodiv{
   margin-bottom: 32px;
   display: flex;
   flex-direction: row;
-`
-export const LocationDiv = styled.div`
+}
+.locationdiv{
   margin-top: 40px;
   margin-bottom: 32px;
   display: flex;
   flex-direction: row;
-`
-export const DateAndTimeDiv = styled.div`
+}
+.dateandtimediv{
   margin-top: 40px;
   margin-bottom: 32px;
   display: flex;
   flex-direction: row;
-`
-export const LineDivider = styled.hr`
+}
+.linedivider{
   width: 100%;
   height: 1px;
   background-color: #eeedf2;
@@ -165,20 +151,20 @@ export const LineDivider = styled.hr`
   margin-inline-start: auto;
   margin-inline-end: auto;
   overflow: hidden;
-`
-export const IconsDiv = styled.div`
-@media(max-width: 960px){
-  display: none;
 }
-  padding-top: 0.4rem;  
-  margin-left: 8.3333333333%;
-  width: 8.3333333333%;
-  box-sizing: border-box;
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-`
-export const InfoDiv = styled.div`
+.iconsdiv{
+  @media(max-width: 960px){
+    display: none;
+  }
+    padding-top: 0.4rem;  
+    margin-left: 8.3333333333%;
+    width: 8.3333333333%;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+}
+.infodiv{
   overflow: visible;
   @media (min-width: 1152px){
     width: 66.6666666667%;
@@ -186,19 +172,13 @@ export const InfoDiv = styled.div`
   @media (min-width: 960px){
     margin-left: 0;
   }
-`
-export const SectionTitle = styled.h1`
-color: #1e0a3c;
-`
-export const ExplanationDiv = styled.div`
-  width: 75%;
-`
-export const ExplanationDiv2 = styled.div`
+}
+.explanationdiv{
   font-size: 1.4rem;
   width: 100%;
   margin-bottom: 1rem;
-`
-export const ExplanationP = styled.p`
+}
+.explanationp{
   color: #39364f;
   font-weight: 400;
   font-size: 1.6rem;
@@ -206,18 +186,8 @@ export const ExplanationP = styled.p`
     font-size: 1.3rem;
     line-height: 2rem;
   }
-  
-  `
-export const ExplanationSpan = styled.span`
-`
-export const ContentsDiv = styled.div`
-  margin-top: 1.6rem;
-`
-export const InputDiv = styled.div`
-  margin-bottom: 1.2rem;
-  text-decoration: none;
-`
-export const EventTitleInputDiv = styled.div`
+}
+eventtitleinputdiv{
   border-radius: 2px;
   background: #dbdae3;    
   padding: 1px;
@@ -226,8 +196,8 @@ export const EventTitleInputDiv = styled.div`
   :active{
     border: 1px solid red;
   }
-`
-export const EventTInputDiv = styled.div`
+}
+.eventtinputdiv{
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -236,9 +206,9 @@ export const EventTInputDiv = styled.div`
   border-radius: 1px;
   border: 1px solid #fff;
   background: #fff;
-`
-export const EventT2InputDiv = styled.div`
-  
+}
+
+.eventt2inputdiv{
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   flex-direction: row;
@@ -246,17 +216,16 @@ export const EventT2InputDiv = styled.div`
   -webkit-box-flex: 1;
   flex: 1;
   min-width: 0;
-`
-export const PlaceHolder = styled.div`
+}
+.placeholder{
   overflow: hidden;
   pointer-events: none;
   position: absolute;
   width: 100%;
   box-sizing: border-box;
   padding: 12px;
- 
-`
-export const PlaceHolderLabel = styled.label`
+}
+.placeholderlabel{
   color: #6f7287;
   font-size: 1.2rem;
   line-height: 2.2rem;
@@ -266,31 +235,31 @@ export const PlaceHolderLabel = styled.label`
   white-space: nowrap;
   overflow: hidden;
   padding: 0.6rem 1.2rem 0;
-`
-export const PlaceHolderSpan = styled.span`
+}
+.placeholderspan{
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
   font-weight: 400;
-`
-export const StarSpan = styled.span`
+}
+.starspan{
   @media (min-width: 960px){}
     font-size: .75rem;
     line-height: 1rem;
   }
   color: #c5162e;
   padding-left: 0.2rem;
-`
-export const SecondStarSpan = styled.span`
+}
+.secondstarspan{
   @media (min-width: 960px){}
     font-size: .75rem;
     line-height: 1rem;
   }
   color: #c5162e;
-`
-export const Input = styled.input`
+}
+.input{
   padding: 0rem 1.2rem 0.6rem;
   @media (min-width: 660px){
     font-size: 14px;
@@ -310,8 +279,8 @@ export const Input = styled.input`
     color: #5a595d6f;
     font-size: 1.3rem;
   }
-`
-export const FieldSet = styled.fieldset`
+}
+.fieldset{
   margin-top: 1.6rem;
   display:flex;
   border: none; 
@@ -320,17 +289,14 @@ export const FieldSet = styled.fieldset`
     display: block;
     width: 100%;
   }
-`
-export const TypeDropDown = styled.div`
-    padding-right: 1.6rem;
+}
+.typedropdown{
+  padding-right: 1.6rem;
   @media (min-width: 792px){
     width: 33.3333333333%;
   }
-`
-export const TypeDropDown1 = styled.div`
-  margin-bottom: 1.6rem;
-`
-export const TypeBorder = styled.div`
+}
+.typeborder{
   border-radius: 2px;
   //background: #dbdae3;
   border: 2px solid #dbdae3;
@@ -352,12 +318,8 @@ export const TypeBorder = styled.div`
     border-color: blue;
     background-color: red;
   }
-  
-`
-export const TagsDiv = styled.div`
-  margin-top: 1.6rem;
-`
-export const TagsTitleDiv = styled.div`
+}
+.tagstitlediv{
   @media (min-width: 960px) {
     line-height: 1.5rem;
   }
@@ -366,13 +328,13 @@ export const TagsTitleDiv = styled.div`
   margin-right: -0.25px;
   font-weight: 600;
   margin-bottom: 16px;
-`
-export const TagsInputDiv = styled.div`
+}
+.tagsinputdiv{
   margin-bottom: 16px;
   padding-right: 8px;
   width: 83.3333333333%;
-`
-export const UsedButton = styled.button`
+}
+.usedbutton{
   color: #39364f;
   fill: #39364f;
   background: #fff;
@@ -399,29 +361,15 @@ export const UsedButton = styled.button`
   :active{
     background-color: #f3eeee;
   }
-`
-export const TagsSmall = styled.div`
-  display: flex;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-`
-export const NumberOfTags = styled.div`
-  -webkit-box-flex: 1;
-  flex: 1 1 auto;
-`
-export const CharactersLimit = styled.div`
-  text-align: right;
-  -webkit-box-flex: 1;
-  flex: 1 1 auto;
-`
-export const Aside = styled.aside`
+}
+.aside{
   @media (min-width: 960px){
     font-size: 1.2rem;
     line-height: 1rem;
   }
   padding-top: 4px;
-`
-export const StyledInput = styled.div`
+}
+.styledinput{
   border: 1px solid #999999;
   background-color: white;
   position: relative; 
@@ -460,78 +408,72 @@ export const StyledInput = styled.div`
       color: blue;
     }
   }
- 
-`
-export const InputDescription = styled.p`
+}
+.inputdescription{
   font-size: .875rem;
   line-height: 1.25rem;
-  padding-top: 0.5rem;`
-
-export const Divider1 = styled.div`
-  margin-bottom: 0.8rem;
-`
-export const OrganizerInfoLink = styled.a`
+  padding-top: 0.5rem;
+}
+.organizerinfolink{
   text-decoration: none;
   color: #3659e3;
   cursor: pointer;
   :hover{
     text-decoration: underline;
   }
-`
-export const Form = styled.form`
+}
+.form{
   display:flex;
   flex-direction:column;
   justify-content:space-between;
   flex:1;
   margin-top: 0rem;
-`
-export const FormDiv = styled.div`
-`
-export const Label = styled.label`
-font-size: 1.2rem;
-text-align: left;
-line-height: 22px;
-color: #6f7287;
-position: absolute;
-white-space: nowrap;
-overflow: hidden;
-display: block;
-padding-left: 1.49rem;
-padding-top: 1.2rem;
-`
-export const OrganizerLabel = styled.label`
-font-size: 1.2rem;
-text-align: left;
-line-height: 22px;
-color: #6f7287;
-position: absolute;
-white-space: nowrap;
-overflow: hidden;
-display: block;
-padding-left: 1.49rem;
-padding-top: 1.2rem;
-&:focus{
-  color: blue;
-  transition-duration: 0.5s;
 }
-`
-export const TagsLabel = styled.label`
-font-size: 1.2rem;
-text-align: left;
-line-height: 22px;
-color: #6f7287;
-position: absolute;
-white-space: nowrap;
-overflow: hidden;
-display: block;
-padding-left: 1.49rem;
-padding-top: 1.2rem;
-&:focused{
-  color: blue;
-  transition-duration: 0.5s;
+.label{
+  font-size: 1.2rem;
+  text-align: left;
+  line-height: 22px;
+  color: #6f7287;
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  padding-left: 1.49rem;
+  padding-top: 1.2rem;
 }
-`
-export const TagsDisplayedDiv = styled.div`
+.organizerlabel{
+  font-size: 1.2rem;
+  text-align: left;
+  line-height: 22px;
+  color: #6f7287;
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  padding-left: 1.49rem;
+  padding-top: 1.2rem;
+  &:focus{
+    color: blue;
+    transition-duration: 0.5s;
+  }
+}
+.tagslabel{
+  font-size: 1.2rem;
+  text-align: left;
+  line-height: 22px;
+  color: #6f7287;
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  padding-left: 1.49rem;
+  padding-top: 1.2rem;
+  &:focused{
+    color: blue;
+    transition-duration: 0.5s;
+  }
+}
+.tagsdisplayeddiv{
   width: 100%
   font-size: 14px;
   line-height: 22px;
@@ -541,17 +483,13 @@ export const TagsDisplayedDiv = styled.div`
   overflow: hidden;
   vertical-align: top;
   max-width: 65.6rem;
-`
-export const TagsDisplayed = styled.div`
+}
+.tagsdisplayed{
   box-sizing: border-box;
   margin-left: -8px;
   margin-right: -8px;
-}`
-export const SingleTagDiv = styled.div`
-  display: inline-block;
-  padding: 0 8px 16px;
-`
-export const SingleTag = styled.div`
+}
+.singletag{
   background-color: #f8f7fa;
   border-radius: 18px;
   color: #4b4d63;
@@ -564,8 +502,8 @@ export const SingleTag = styled.div`
   position: relative;
   overflow: hidden;
   outline: none;
-`
-export const SingleTagSpan = styled.span`
+}
+.singletagspan{
   font-weight: 600;
   text-rendering: optimizeLegibility;
   padding-right: 8px;
@@ -580,15 +518,15 @@ export const SingleTagSpan = styled.span`
     font-size: .75rem;
     line-height: 1rem;
   }
-`
-export const CloseButtonDiv = styled.div`
+}
+.closebuttondiv{
   padding-right: 8px;
   display: inline-flex;
   -webkit-box-flex: 0;
   flex: 0 0 auto;
   position: relative;
-`
-export const CloseButton = styled.button`
+}
+.closebutton{
   background: none;
   border: none;
   padding: 0;
@@ -597,8 +535,8 @@ export const CloseButton = styled.button`
   fill: #39364f;
   -webkit-appearance: button;
   cursor: pointer;
-`
-export const InputData = styled.input`
+}
+.inputdata{
   width: 100%;
   height: 47px;
   border: 1px solid ${({ invalid }) => invalid ? 'red' : '#5a595d6f'};
@@ -623,8 +561,8 @@ export const InputData = styled.input`
     font-size: 1.3rem;
     margin-top: 0.3rem;
   }
-`
-export const InputData2 = styled.input`
+}
+.inputdata2{
   width: 100%;
   height: 47px;
   border:solid 1px #5a595d6f;
@@ -649,8 +587,8 @@ export const InputData2 = styled.input`
     font-size: 1.3rem;
     margin-top: 0.3rem;
   }
-`
-export const InputTagsData = styled.input`
+}
+inputtagsdata{
   width: 100%;
   height: 47px;
   border:solid 1px #5a595d6f;
@@ -675,8 +613,8 @@ export const InputTagsData = styled.input`
     font-size: 1.3rem;
     margin-top: 0.3rem;
   }
-`
-export const ContinueButton = styled.button`
+}
+.continuebutton{
   background-color: #D1410C;
   color: white;
   font-weight: 500;
@@ -694,13 +632,8 @@ export const ContinueButton = styled.button`
   :active{
     background-color: #D1410C;
   }
-`
-export const DropDownDiv = styled.div`
-  width: 100%;
-  height: 46px;
-  position: relative;  
-`
-export const DropDownSpan = styled.span`
+}
+.dropdownspan{
   color: #39364f;
   display: flex;
   -webkit-box-orient: horizontal;
@@ -710,34 +643,23 @@ export const DropDownSpan = styled.span`
   justify-content: flex-start;
   line-height: 22px;
   padding: 12px 12px 0px 14px;
-  
-`
-export const DropDownTitleSpan = styled.span`
+}
+.dropdowntitlespan{
   -webkit-box-flex: 1;
   flex-grow: 1;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-`
-export const DropDownArrowSpan = styled.span`
+}
+.dropdownarrowspan{
   margin-top: 0;
   fill: #4b4d63;
   -webkit-box-align: center;
   align-items: center;
   display: flex;
   height: 24px;
-  `
-export const DropDownLabel = styled.label`
-  position: absolute;
-  left: -999999px;
-` 
-export const DropDownLabelSpan = styled.span`
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-` 
-export const DropDownSelect = styled.select`
+}
+.dropdownselect{
   line-height: 22px;
   padding: 12px 14px;
   background: none;
@@ -759,20 +681,21 @@ export const DropDownSelect = styled.select`
     font-size: 14px;
     min-height: 22px;
   }
-`
-export const DropDownOption = styled.option`
+}
+.dropdownoption{
   font-weight: normal;
   display: block;
   white-space: nowrap;
   min-height: 1.2em;
-  padding: 0px 2px 1px;`
-export const ErrorMessage = styled.p`
+  padding: 0px 2px 1px;
+}
+.errormessage{
   display: flex;
   color: red;
   font-size: 1.2rem;
   padding-top: 4px;
-`
-export const FixedDiv = styled.div`
+}
+.fixeddiv{
   position: fixed;
   transform: translateY(0);
   background-color: #fff;
@@ -784,8 +707,8 @@ export const FixedDiv = styled.div`
   transition: transform .32s cubic-bezier(.4,0,.3,1),-webkit-transform .32s cubic-bezier(.4,0,.3,1);
   width: 100%;
   will-change: transform;
-`
-export const FixedInnerDiv = styled.div`
+}
+.fixedinnerdiv{
   @media (min-width: 792px){
     margin-left: 30%;
   }
@@ -793,8 +716,8 @@ export const FixedInnerDiv = styled.div`
   padding-top: 16px;
   padding-bottom: 16px;
   margin-right: auto;
-`
-export const FixedButtonDiv = styled.div`
+}
+.fixedbuttondiv{
   text-align: right;
   width: 100%;
   box-sizing: border-box;
@@ -804,8 +727,8 @@ export const FixedButtonDiv = styled.div`
   @media (min-width: 1152px){
     padding: 0 48px;
 }
-`
-export const LocationButtonsDiv = styled.div`
+}
+.locationbuttonsdiv{
   overflow: visible;
   @media (min-width: 960px){
     width: 66.6666666667%;
@@ -816,12 +739,8 @@ export const LocationButtonsDiv = styled.div`
   box-sizing: border-box;
   display: block;
   vertical-align: top;
-`
-export const LocationFlexButtonsDiv = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-`
-export const ButtonsDivs = styled.div`
+}
+.buttonsdiv{
   -webkit-box-flex: 1;
   flex-grow: 1;
   display: flex;
@@ -833,8 +752,8 @@ export const ButtonsDivs = styled.div`
   @media (min-width: 960px){
     min-width: 9.7rem; 
   }
-`
-export const ButtonsLabels = styled.label`
+}
+.buttonslabels{
   color: #1e0a3c;
   font-weight: 400;
   background-color: #fff;
@@ -854,15 +773,15 @@ export const ButtonsLabels = styled.label`
     border: 1px solid #3659e3;
     color: #3659e3;
   }
-`
-export const SearchVenueDiv1 = styled.div`
+}
+.searchvenuediv1{
   border-radius: 2px;
   background: #dbdae3;
   padding: 1px;
   position: relative;
   transition: background .24s cubic-bezier(.4,0,.3,1);
-`
-export const SearchVenueDiv = styled.div`
+}
+.searchvenuediv{
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -871,8 +790,8 @@ export const SearchVenueDiv = styled.div`
   background: #fff;
   border-radius: 1px;
   border: 1px solid #fff;
-` 
-export const SearchCalendarSpan = styled.span`
+}
+.searchcalendarspan{
   margin-left: 12px;
   color: #a9a8b3;
   font-size: 14px;
@@ -881,14 +800,14 @@ export const SearchCalendarSpan = styled.span`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-`
-export const DisplayEndTime = styled.div`
- position: relative;
+}
+.displayendtime{
+  position: relative;
  display: flex;
  -webkit-box-align: center;
  align-items: center;
-`
-export const CheckLabel = styled.label`
+}
+.checklabel{
   :hover{
     border-color: #a9a8b3;
   }
@@ -907,8 +826,8 @@ export const CheckLabel = styled.label`
   display: inline-block;
   cursor: pointer;
   color: #39364f;
-`
-export const CheckBox = styled.input`
+}
+.checkbox{
   box-sizing: border-box;
   padding: 0;
   visibility: visible;
@@ -916,46 +835,41 @@ export const CheckBox = styled.input`
   :checked{
     border-color: #3d64ff;
   }
-`
-export const CheckTextLabel = styled.label`
+}
+.checktextlabel{
   margin-left: 16px;
   margin-right: 12px;
   cursor: pointer;
   color: #39364f; 
-`
-export const SpanText = styled.span`
-  display: block;
-  cursor: pointer;
-  font-weight: 400;
-`
-export const TextP =styled.p`
+}
+.textp{
   @media (min-width: 960px){
-      font-size: 1.2rem;
-      line-height: 1rem;
-  }
-  color: #4b4d63;
-`
-export const TimeDropDownDiv = styled.div`
+    font-size: 1.2rem;
+    line-height: 1rem;
+}
+color: #4b4d63;
+}
+.timedropdowndiv{
   @media (min-width: 660px){
-      width: 50%;
-  }
-  font-size: 14px;
-  line-height: 22px;
-  font-weight: 400;
-  box-sizing: border-box;
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-`
-export const Placeholder2 = styled.div`
+    width: 50%;
+}
+font-size: 14px;
+line-height: 22px;
+font-weight: 400;
+box-sizing: border-box;
+display: inline-block;
+overflow: hidden;
+vertical-align: top;
+}
+.placeholder2{
   padding: 2px 12px 0;
   overflow: hidden;
   pointer-events: none;
   position: absolute;
   width: 100%;
   box-sizing: border-box;
-`
-export const SpanText2 = styled.span`
+}
+.spantext2{
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -965,4 +879,5 @@ export const SpanText2 = styled.span`
   :active{
     color: #3659e3;
   }
+}
 `
