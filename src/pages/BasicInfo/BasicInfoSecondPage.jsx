@@ -6,13 +6,36 @@ import { WholePage } from './Styles/BasicInfoSecondPage.styled';
 export default function Details(){
   const [value, setValue] = React.useState("");
   const [inputerror, setinputerror] = React.useState("")
-  const [focused,setFocused] = React.useState(false, {flag:false})
+  const [focused,setFocused] = React.useState(false)
+  const [inputError, setInputError] = useState('');
+  const handleChange = (event) => {
+    setValue(event.target.value);
+    if (event.target.value.trim() === '') {
+      setInputError('Summary is required');
+    } else {
+      setInputError('');
+    }
+  };
   const handleFocus = () => {
     setFocused(true);
   };
-  function handleChange(event){
-    setValue(event.target.value);
-  }
+  const handleBlur = () => {
+    setFocused(false);
+  };
+  const getValidationClassName = () => {
+    if (inputError) {
+      return 'red-text';
+    } else if (focused) {
+      return 'blue-text';
+    }
+    return '';
+  };
+  const saveButtonStyle ={
+    backgroundColor: '#d1410c',
+    fill: '#fff',
+    color: 'white',
+    borderColor: "#d1410c",
+  };
   return(
     <WholePage>
       <div className='wholepage'>
@@ -206,7 +229,7 @@ export default function Details(){
                                                 </stop>
                                                 <stop
                                                   offset="1"
-                                                  stop-opacity="0"
+                                                  stopOpacity="0"
                                                   stopColor='#6420FF'
                                                 >
                                                 </stop>
@@ -341,48 +364,39 @@ export default function Details(){
                 style={
                   {marginBottom:'4px'}
                 }>
-                  <div className='summarybox'>
                     <div className='summaryboxflex'>
                       <div className='summaryboxflex2'>
                         <div className='summaryplaceholder'>
-                          <label className='summarylabel'>
+                          <label className={`summarylabel ${getValidationClassName()}`}>
                             <span className='summaryspan'>Summary</span>
                             <span className='starspan'>
                               <span className='starspan'>*</span>
                             </span>
                           </label>
                         </div>
-                          <textarea 
-                          invalid={focused && value.trim() === ''} 
-                          className='textarea'
+                        <textarea 
+                          className={`textarea ${focused ? 'blue-border' : ''} ${inputError ? 'red-border' : ''}`}
                           role="textbox"
-                          maxlength="140"
+                          maxLength="140"
                           placeholder="Write a short event summary to get attendees excited."
                           value={value}
                           onChange={handleChange}
                           onFocus={() => setFocused(true)}
-                        >{inputerror && (
-                          <span style={{color:"red"}}>{inputerror}</span>
-                          )}
-                        </textarea>
+                          onBlur={() => setFocused(false)}
+                        />
                       </div>
                     </div>
                   </div>
                   <div className='undersummarybox'>
-                    <div className='errormessagediv'>
-                      <aside className='aside'>
-                        {focused && value.trim() === '' && (
-                          <p className='errormessage'>Summary is required</p>
+                   {inputError && (
+                          <div className='error'>{inputError}</div>
                         )}
-                      </aside>
-                    </div>
                     <div className='characterslimitdiv'>
                       <aside className='aside'>
                         {value.length}/140
                       </aside>
                     </div>
                   </div>  
-                </div>
               </div>
               </div>
         </div>
@@ -704,6 +718,22 @@ export default function Details(){
         </div>
       </div>
       </form>
+      </div>
+      <div className='fixeddiv'>
+        <div className='fixedinnerdiv'>
+          <div className='fixedbuttondiv'>
+            <div>
+              <button className='usedbutton' 
+                style={{marginRight: 16}}>
+                Discard
+              </button>
+              <button className='usedbutton' 
+                style={saveButtonStyle}>
+                Save & Continue
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </WholePage>
   )

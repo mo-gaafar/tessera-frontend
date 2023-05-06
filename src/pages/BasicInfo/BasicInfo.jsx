@@ -115,6 +115,123 @@ export default function BasicInfo(){
     color: 'white',
     borderColor: "#d1410c",
   };
+  //DONE
+//design is almost done only a few things left 
+//functionalities are not done 
+
+//MISSING
+//Labels above the input boxes should change colors
+//venue in location
+//* beside event title
+//lesa hazabat el style sheet 3ashan ma3lmsh import ll hagat deh kolaha
+import React from 'react';
+import { useRef, useEffect, useState } from 'react';
+import {
+  WholePage
+} from './Styles/BasicInfo.styled'
+
+export default function BasicInfo(){
+  const [focused,setFocused] = React.useState(false, {flag:false})
+  const [title, setTitle] = React.useState("")
+  const [inputerror, setinputerror] = React.useState("")
+  const [value, setValue] = React.useState("")
+  const [tagvalue, setTagValue] = React.useState("")
+  const [organizervalue, setOrganizerValue] = React.useState("")
+  const [count, setCount] = useState(0);
+  const [displayValue, setDisplayValue] = useState([]);
+  const [showvenue, setShowVenue] = useState(true);
+  const [showonline, setShowOnline] = useState(false);
+  const [shownone, setShowNone] = useState(false);
+  const [showsingle, setShowSingle] = useState(true);
+  const [showrecurring, setShowRecurring] = useState(false);
+  function handleDivClick(event) {
+    const {name, locvalue} = event.target.getAttribute('name');
+    console.log(name)
+    if (name === 'venue') {
+      setShowVenue(true);
+      setShowOnline(false); // hide the other div if it was previously shown
+      setShowRecurring(false);
+      setShowSingle(false);
+      setShowNone(false);
+    } else if (name === 'online') {
+      setShowOnline(true);
+      setShowVenue(false); // hide the other div if it was previously shown
+      setShowNone(false);
+      setShowRecurring(false);
+      setShowSingle(false);
+    }
+    else if (name == "recurring"){
+      setShowRecurring(true);
+      setShowSingle(false); // hide the other div if it was previously shown
+      setShowNone(false);
+      setShowOnline(false);
+      setShowVenue(false);
+    }
+    else if (name == "single"){
+      setShowRecurring(false);
+      setShowSingle(true); // hide the other div if it was previously shown
+      setShowNone(false);
+      setShowOnline(false);
+      setShowVenue(false);
+    }
+    else if (name == "none"){
+      setShowRecurring(false);
+      setShowSingle(false); // hide the other div if it was previously shown
+      setShowNone(true);
+      setShowOnline(false);
+      setShowVenue(false);
+    }
+    event.preventDefault();
+    console.log(event)
+  }
+
+  function handleChange(event){
+    setValue(event.target.value);
+    //console.log("Value:", value);
+    //console.log("count:", count);
+  }
+  function handleTagChange(event){
+    setTagValue(event.target.value)
+    setCount(prevCount => event.target.value.length);
+  }
+  function handleButtonClick(e) {
+    //this allows the user to enter 10 tags only 
+    if (displayValue.length < 10) {
+      setDisplayValue([...displayValue, tagvalue]);
+      setTagValue('');
+    }
+    e.preventDefault();
+  }
+  //This function doesn't allow the user to enter anything other than letters, numbers and underscores
+  function handleKeyPress(event) {
+    const format = /^[a-zA-Z0-9_]+$/;
+    const key = event.key;
+    if (!format.test(key)) {
+      event.preventDefault();
+    }
+  }
+  
+  //this function allows the user to delete a tag they entered
+  function handleTagDelete(index, event) {
+    const newDisplayValue = [...displayValue];
+    newDisplayValue.splice(index, 1);
+    setDisplayValue(newDisplayValue);
+    event.preventDefault();
+  }
+  function handleOrganizerChange(event){
+    setOrganizerValue(event.target.value)
+  }
+  function handleValidation(event){
+  if (value.trim() === '') {
+    return; // Exit the function if input is empty or only contains whitespace
+  }
+  }
+  const saveButtonStyle ={
+    backgroundColor: '#d1410c',
+    fill: '#fff',
+    color: 'white',
+    borderColor: "#d1410c",
+  };
   return(
     <WholePage>
       <div className='wholepage'>
@@ -872,14 +989,14 @@ export default function BasicInfo(){
                           }>
                             <div className = 'searchvenuediv1'>
                               <div className = 'searchvenuediv'>
-                                <SearchCalendarSpan
+                                <span className = 'searchcalendarspan'
                                 style={
                                   {
                                     paddingLeft: '10px',
                                     maxHeight: '49px'
                                   }
                                 }>
-                                  <SmallI
+                                  <i
                                   style={
                                     {display:'block'}
                                   }>
@@ -897,7 +1014,7 @@ export default function BasicInfo(){
                                       </path>
                                     </svg>
                                   </i>
-                                </SearchCalendarSpan>
+                                </span>
                                 {/* <InputData 
                                 style={
                                   {paddingTop: 0}
@@ -917,7 +1034,7 @@ export default function BasicInfo(){
                                     minWidth: '0'
                                   }
                                 }>
-                                  <InputTagsData
+                                  <input className = 'inputtagsdata'
                                   style={
                                     {
                                       border:'none',
@@ -929,16 +1046,16 @@ export default function BasicInfo(){
                                   value={organizervalue}
                                   onChange={handleOrganizerChange}
                                   onFocus={() => setFocused(true)}>
-                                  </InputTagsData>
+                                  </input>
                                 </div>
-                              </SearchVenueDiv>
-                            </SearchVenueDiv1>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </LocationDiv>
+                    </div>
                     <hr className = 'linedivider'></hr>
-                    <DateAndTimeDiv>
+                    <div className = 'dateandtimediv'>
                     <div className='iconsdiv'>
                         <i className = 'mediumI'>
                           <svg className='mediumsvg'
@@ -965,9 +1082,9 @@ export default function BasicInfo(){
                       </div>
                       <div style={{display: "block"}}>
                         <div>
-                          <SectionTitle>
+                          <h1 className = 'sectiontitle'>
                             Date and time
-                          </SectionTitle>
+                          </h1>
                           <div style={
                             {width: '75%'}
                           }>
@@ -1031,20 +1148,22 @@ export default function BasicInfo(){
                               {marginBottom: 20}
                             }>
                               <div>
-                                <DisplayEndTime
+                                <div className = 'displayendtime'
                                 style={
                                   {
                                     marginTop: '20px'
                                   }
                                 }>
-                                  <CheckBox
+                                  <input
+                                  className='checkbox'
                                    type='checkbox'
                                    checked>
-                                   </CheckBox>
-                                  <CheckLabel>
+                                   </input>
+                                  <label
+                                  className='checklabel'>
 
-                                  </CheckLabel>
-                                  <CheckTextLabel>
+                                  </label>
+                                  <label className='checktextlabel'>
                                     <span
                                     style={
                                       {
@@ -1059,15 +1178,15 @@ export default function BasicInfo(){
                                       }>
                                         Display end time.
                                       </p>
-                                      <TextP
+                                      <p className='textp'
                                       style={
                                         {marginTop: '7px'}
                                       }>
                                         The end time of your event will be displayed to attendees.
-                                      </TextP>
+                                      </p>
                                     </span>
-                                  </CheckTextLabel>
-                                </DisplayEndTime>
+                                  </label>
+                                </div>
                                 <div 
                                 style={
                                   {marginTop: 24,
@@ -1075,7 +1194,7 @@ export default function BasicInfo(){
                                   cursor: 'pointer'
                                 }
                                 }>
-                                  <Placeholder2
+                                  <div className ='placeholder2'
                                     style={
                                       {position:'absolute',
                                         top: '-10px',
@@ -1086,14 +1205,14 @@ export default function BasicInfo(){
                                       }
                                     }
                                   >
-                                    <Label >
-                                      <SpanText2>
+                                    <label className='label'>
+                                      <span className='spantext2'>
                                         Time Zone
-                                      </SpanText2>
-                                    </Label>
-                                  </Placeholder2>
+                                      </span>
+                                    </label>
+                                  </div>
                                   <div>
-                                    <TimeDropDownDiv>
+                                    <div className = 'timedropdowndiv'>
                                       <div 
                                       style={
                                         {marginBottom: 8}
@@ -1103,14 +1222,14 @@ export default function BasicInfo(){
                                             <div className = 'searchvenuediv'>
                                               
                                               <div className='dropdownLast'>
-                                                <DropDownSpan>
-                                                  <DropDownTitleSpan
+                                                <span className = 'dropdownspan'>
+                                                  <span className = 'dropdowntitlespan'
                                                   style={
                                                     {paddingTop: '5px'}
                                                   }>
                                                     (GMT+0200) Egypt Time
-                                                  </DropDownTitleSpan>
-                                                  <DropDownArrowSpan
+                                                  </span>
+                                                  <span className = 'dropdownarrowspan'
                                                   style={
                                                     {
                                                       paddingLeft: '30px',
@@ -1130,8 +1249,8 @@ export default function BasicInfo(){
                                                         </path>
                                                       </svg>
                                                     </i>
-                                                  </DropDownArrowSpan>
-                                                </DropDownSpan>
+                                                  </span>
+                                                </span>
                                                 <select
                                                 style={
                                                   {
@@ -1287,11 +1406,11 @@ export default function BasicInfo(){
                                                   // <option value="America/Argentina/San_Luis" data-spec="select-option">(GMT-0300) Argentina (Argentina/San Luis) Time</option><option value="America/Argentina/Tucuman" data-spec="select-option">(GMT-0300) Argentina (Argentina/Tucuman) Time</option><option value="America/Argentina/Ushuaia" data-spec="select-option">(GMT-0300) Argentina (Argentina/Ushuaia) Time</option><option value="America/Argentina/Buenos_Aires" data-spec="select-option">(GMT-0300) Argentina (Buenos Aires) Time</option><option value="America/Argentina/Catamarca" data-spec="select-option">(GMT-0300) Argentina (Catamarca) Time</option><option value="America/Argentina/Cordoba" data-spec="select-option">(GMT-0300) Argentina (Cordoba) Time</option><option value="America/Argentina/Jujuy" data-spec="select-option">(GMT-0300) Argentina (Jujuy) Time</option><option value="America/Argentina/Mendoza" data-spec="select-option">(GMT-0300) Argentina (Mendoza) Time</option><option value="Atlantic/Bermuda" data-spec="select-option">(GMT-0300) Bermuda Time</option><option value="America/Araguaina" data-spec="select-option">(GMT-0300) Brazil (Araguaina) Time</option><option value="America/Bahia" data-spec="select-option">(GMT-0300) Brazil (Bahia) Time</option><option value="America/Belem" data-spec="select-option">(GMT-0300) Brazil (Belem) Time</option><option value="America/Fortaleza" data-spec="select-option">(GMT-0300) Brazil (Fortaleza) Time</option><option value="America/Maceio" data-spec="select-option">(GMT-0300) Brazil (Maceio) Time</option><option value="America/Recife" data-spec="select-option">(GMT-0300) Brazil (Recife) Time</option><option value="America/Santarem" data-spec="select-option">(GMT-0300) Brazil (Santarem) Time</option><option value="America/Sao_Paulo" data-spec="select-option">(GMT-0300) Brazil (Sao Paulo) Time</option><option value="America/Glace_Bay" data-spec="select-option">(GMT-0300) Canada (Glace Bay) Time</option><option value="America/Goose_Bay" data-spec="select-option">(GMT-0300) Canada (Goose Bay) Time</option><option value="America/Halifax" data-spec="select-option">(GMT-0300) Canada (Halifax) Time</option><option value="America/Moncton" data-spec="select-option">(GMT-0300) Canada (Moncton) Time</option><option value="Atlantic/Stanley" data-spec="select-option">(GMT-0300) Falkland Islands Time</option><option value="America/Cayenne" data-spec="select-option">(GMT-0300) French Guiana Time</option><option value="America/Thule" data-spec="select-option">(GMT-0300) Greenland (Thule) Time</option><option value="America/Paramaribo" data-spec="select-option">(GMT-0300) Suriname Time</option><option value="America/Punta_Arenas" data-spec="select-option">(GMT-0300) Unknown Region (Punta Arenas) Time</option><option value="America/Montevideo" data-spec="select-option">(GMT-0300) Uruguay Time</option><option value="America/St_Johns" data-spec="select-option">(GMT-0230) Canada (St. John’s) Time</option><option value="America/Noronha" data-spec="select-option">(GMT-0200) Brazil (Noronha) Time</option><option value="Atlantic/South_Georgia" data-spec="select-option">(GMT-0200) South Georgia &amp; South Sandwich Islands Time</option><option value="America/Nuuk" data-spec="select-option">(GMT-0200) Unknown Region (Nuuk) Time</option><option value="America/Miquelon" data-spec="select-option">(GMT-0200) World (Miquelon) Time</option><option value="Atlantic/Cape_Verde" data-spec="select-option">(GMT-0100) Cape Verde Time</option><option value="Africa/Ouagadougou" data-spec="select-option">(GMT+0000) Burkina Faso Time</option><option value="Africa/Abidjan" data-spec="select-option">(GMT+0000) Côte d’Ivoire Time</option><option value="Africa/Banjul" data-spec="select-option">(GMT+0000) Gambia Time</option><option value="Africa/Accra" data-spec="select-option">(GMT+0000) Ghana Time</option><option value="America/Danmarkshavn" data-spec="select-option">(GMT+0000) Greenland (Danmarkshavn) Time</option><option value="America/Scoresbysund" data-spec="select-option">(GMT+0000) Greenland (Ittoqqortoormiit) Time</option><option value="Africa/Conakry" data-spec="select-option">(GMT+0000) Guinea Time</option><option value="Africa/Bissau" data-spec="select-option">(GMT+0000) Guinea-Bissau Time</option><option value="Atlantic/Reykjavik" data-spec="select-option">(GMT+0000) Iceland Time</option><option value="Africa/Monrovia" data-spec="select-option">(GMT+0000) Liberia Time</option><option value="Africa/Bamako" data-spec="select-option">(GMT+0000) Mali Time</option><option value="Africa/Nouakchott" data-spec="select-option">(GMT+0000) Mauritania Time</option><option value="Atlantic/Azores" data-spec="select-option">(GMT+0000) Portugal (Azores) Time</option><option value="Africa/Sao_Tome" data-spec="select-option">(GMT+0000) São Tomé &amp; Príncipe Time</option><option value="Africa/Dakar" data-spec="select-option">(GMT+0000) Senegal Time</option><option value="Africa/Freetown" data-spec="select-option">(GMT+0000) Sierra Leone Time</option><option value="Atlantic/St_Helena" data-spec="select-option">(GMT+0000) St. Helena Time</option><option value="Africa/Lome" data-spec="select-option">(GMT+0000) Togo Time</option><option value="UTC" data-spec="select-option">UTC</option><option value="Africa/Algiers" data-spec="select-option">(GMT+0100) Algeria Time</option><option value="Africa/Luanda" data-spec="select-option">(GMT+0100) Angola Time</option><option value="Africa/Porto-Novo" data-spec="select-option">(GMT+0100) Benin Time</option><option value="Africa/Douala" data-spec="select-option">(GMT+0100) Cameroon Time</option><option value="Africa/Bangui" data-spec="select-option">(GMT+0100) Central African Republic Time</option><option value="Africa/Ndjamena" data-spec="select-option">(GMT+0100) Chad Time</option><option value="Africa/Brazzaville" data-spec="select-option">(GMT+0100) Congo - Brazzaville Time</option><option value="Africa/Kinshasa" data-spec="select-option">(GMT+0100) Congo - Kinshasa (Kinshasa) Time</option><option value="Africa/Malabo" data-spec="select-option">(GMT+0100) Equatorial Guinea Time</option><option value="Atlantic/Faroe" data-spec="select-option">(GMT+0100) Faroe Islands Time</option><option value="Africa/Libreville" data-spec="select-option">(GMT+0100) Gabon Time</option><option value="Europe/Guernsey" data-spec="select-option">(GMT+0100) Guernsey Time</option><option value="Europe/Dublin" data-spec="select-option">(GMT+0100) Ireland Time</option><option value="Europe/Isle_of_Man" data-spec="select-option">(GMT+0100) Isle of Man Time</option><option value="Europe/Jersey" data-spec="select-option">(GMT+0100) Jersey Time</option><option value="Africa/Casablanca" data-spec="select-option">(GMT+0100) Morocco Time</option><option value="Africa/Niamey" data-spec="select-option">(GMT+0100) Niger Time</option><option value="Africa/Lagos" data-spec="select-option">(GMT+0100) Nigeria Time</option><option value="Europe/Lisbon" data-spec="select-option">(GMT+0100) Portugal (Lisbon) Time</option><option value="Atlantic/Madeira" data-spec="select-option">(GMT+0100) Portugal (Madeira) Time</option><option value="Atlantic/Canary" data-spec="select-option">(GMT+0100) Spain (Canary) Time</option><option value="Africa/Tunis" data-spec="select-option">(GMT+0100) Tunisia Time</option><option value="Europe/London" data-spec="select-option">(GMT+0100) United Kingdom Time</option><option value="Africa/El_Aaiun" data-spec="select-option">(GMT+0100) Western Sahara Time</option><option value="Europe/Tirane" data-spec="select-option">(GMT+0200) Albania Time</option><option value="Europe/Andorra" data-spec="select-option">(GMT+0200) Andorra Time</option><option value="Europe/Vienna" data-spec="select-option">(GMT+0200) Austria Time</option><option value="Europe/Brussels" data-spec="select-option">(GMT+0200) Belgium Time</option><option value="Europe/Sarajevo" data-spec="select-option">(GMT+0200) Bosnia &amp; Herzegovina Time</option><option value="Africa/Gaborone" data-spec="select-option">(GMT+0200) Botswana Time</option><option value="Africa/Bujumbura" data-spec="select-option">(GMT+0200) Burundi Time</option><option value="Africa/Lubumbashi" data-spec="select-option">(GMT+0200) Congo - Kinshasa (Lubumbashi) Time</option><option value="Europe/Zagreb" data-spec="select-option">(GMT+0200) Croatia Time</option><option value="Europe/Prague" data-spec="select-option">(GMT+0200) Czech Republic Time</option><option value="Europe/Copenhagen" data-spec="select-option">(GMT+0200) Denmark Time</option><option value="Africa/Cairo" data-spec="select-option">(GMT+0200) Egypt Time</option><option value="Europe/Paris" data-spec="select-option">(GMT+0200) France Time</option><option value="Europe/Berlin" data-spec="select-option">(GMT+0200) Germany (Berlin) Time</option><option value="Europe/Busingen" data-spec="select-option">(GMT+0200) Germany (Busingen) Time</option><option value="Europe/Gibraltar" data-spec="select-option">(GMT+0200) Gibraltar Time</option><option value="Europe/Budapest" data-spec="select-option">(GMT+0200) Hungary Time</option><option value="Europe/Rome" data-spec="select-option">(GMT+0200) Italy Time</option><option value="Africa/Maseru" data-spec="select-option">(GMT+0200) Lesotho Time</option><option value="Africa/Tripoli" data-spec="select-option">(GMT+0200) Libya Time</option><option value="Europe/Vaduz" data-spec="select-option">(GMT+0200) Liechtenstein Time</option><option value="Europe/Luxembourg" data-spec="select-option">(GMT+0200) Luxembourg Time</option><option value="Europe/Skopje" data-spec="select-option">(GMT+0200) Macedonia Time</option><option value="Africa/Blantyre" data-spec="select-option">(GMT+0200) Malawi Time</option><option value="Europe/Malta" data-spec="select-option">(GMT+0200) Malta Time</option><option value="Europe/Monaco" data-spec="select-option">(GMT+0200) Monaco Time</option><option value="Europe/Podgorica" data-spec="select-option">(GMT+0200) Montenegro Time</option><option value="Africa/Maputo" data-spec="select-option">(GMT+0200) Mozambique Time</option><option value="Africa/Windhoek" data-spec="select-option">(GMT+0200) Namibia Time</option><option value="Europe/Amsterdam" data-spec="select-option">(GMT+0200) Netherlands Time</option><option value="Europe/Oslo" data-spec="select-option">(GMT+0200) Norway Time</option><option value="Europe/Warsaw" data-spec="select-option">(GMT+0200) Poland Time</option><option value="Europe/Kaliningrad" data-spec="select-option">(GMT+0200) Russia (Kaliningrad) Time</option><option value="Africa/Kigali" data-spec="select-option">(GMT+0200) Rwanda Time</option><option value="Europe/San_Marino" data-spec="select-option">(GMT+0200) San Marino Time</option><option value="Europe/Belgrade" data-spec="select-option">(GMT+0200) Serbia Time</option><option value="Europe/Bratislava" data-spec="select-option">(GMT+0200) Slovakia Time</option><option value="Europe/Ljubljana" data-spec="select-option">(GMT+0200) Slovenia Time</option><option value="Africa/Johannesburg" data-spec="select-option">(GMT+0200) South Africa Time</option><option value="Africa/Ceuta" data-spec="select-option">(GMT+0200) Spain (Ceuta) Time</option><option value="Europe/Madrid" data-spec="select-option">(GMT+0200) Spain (Madrid) Time</option><option value="Africa/Khartoum" data-spec="select-option">(GMT+0200) Sudan Time</option><option value="Arctic/Longyearbyen" data-spec="select-option">(GMT+0200) Svalbard &amp; Jan Mayen Time</option><option value="Africa/Mbabane" data-spec="select-option">(GMT+0200) Swaziland Time</option><option value="Europe/Stockholm" data-spec="select-option">(GMT+0200) Sweden Time</option><option value="Europe/Zurich" data-spec="select-option">(GMT+0200) Switzerland Time</option><option value="Europe/Vatican" data-spec="select-option">(GMT+0200) Vatican City Time</option><option value="Antarctica/Troll" data-spec="select-option">(GMT+0200) World (Troll) Time</option><option value="Africa/Lusaka" data-spec="select-option">(GMT+0200) Zambia Time</option><option value="Africa/Harare" data-spec="select-option">(GMT+0200) Zimbabwe Time</option><option value="Europe/Mariehamn" data-spec="select-option">(GMT+0300) Åland Islands Time</option><option value="Antarctica/Syowa" data-spec="select-option">(GMT+0300) Antarctica (Syowa) Time</option><option value="Asia/Bahrain" data-spec="select-option">(GMT+0300) Bahrain Time</option><option value="Europe/Minsk" data-spec="select-option">(GMT+0300) Belarus Time</option><option value="Europe/Sofia" data-spec="select-option">(GMT+0300) Bulgaria Time</option><option value="Indian/Comoro" data-spec="select-option">(GMT+0300) Comoros Time</option><option value="Asia/Nicosia" data-spec="select-option">(GMT+0300) Cyprus Time</option><option value="Africa/Djibouti" data-spec="select-option">(GMT+0300) Djibouti Time</option><option value="Africa/Asmara" data-spec="select-option">(GMT+0300) Eritrea Time</option><option value="Europe/Tallinn" data-spec="select-option">(GMT+0300) Estonia Time</option><option value="Africa/Addis_Ababa" data-spec="select-option">(GMT+0300) Ethiopia Time</option><option value="Europe/Helsinki" data-spec="select-option">(GMT+0300) Finland Time</option><option value="Europe/Athens" data-spec="select-option">(GMT+0300) Greece Time</option><option value="Asia/Baghdad" data-spec="select-option">(GMT+0300) Iraq Time</option><option value="Asia/Jerusalem" data-spec="select-option">(GMT+0300) Israel Time</option><option value="Asia/Amman" data-spec="select-option">(GMT+0300) Jordan Time</option><option value="Africa/Nairobi" data-spec="select-option">(GMT+0300) Kenya Time</option><option value="Asia/Kuwait" data-spec="select-option">(GMT+0300) Kuwait Time</option><option value="Europe/Riga" data-spec="select-option">(GMT+0300) Latvia Time</option><option value="Asia/Beirut" data-spec="select-option">(GMT+0300) Lebanon Time</option><option value="Europe/Vilnius" data-spec="select-option">(GMT+0300) Lithuania Time</option><option value="Indian/Antananarivo" data-spec="select-option">(GMT+0300) Madagascar Time</option><option value="Indian/Mayotte" data-spec="select-option">(GMT+0300) Mayotte Time</option><option value="Europe/Chisinau" data-spec="select-option">(GMT+0300) Moldova Time</option><option value="Asia/Qatar" data-spec="select-option">(GMT+0300) Qatar Time</option><option value="Europe/Bucharest" data-spec="select-option">(GMT+0300) Romania Time</option><option value="Europe/Moscow" data-spec="select-option">(GMT+0300) Russia (Moscow) Time</option><option value="Europe/Simferopol" data-spec="select-option">(GMT+0300) Russia (Simferopol) Time</option><option value="Asia/Riyadh" data-spec="select-option">(GMT+0300) Saudi Arabia Time</option><option value="Africa/Mogadishu" data-spec="select-option">(GMT+0300) Somalia Time</option><option value="Africa/Juba" data-spec="select-option">(GMT+0300) South Sudan Time</option><option value="Asia/Damascus" data-spec="select-option">(GMT+0300) Syria Time</option><option value="Africa/Dar_es_Salaam" data-spec="select-option">(GMT+0300) Tanzania Time</option><option value="Europe/Istanbul" data-spec="select-option">(GMT+0300) Turkey Time</option><option value="Africa/Kampala" data-spec="select-option">(GMT+0300) Uganda Time</option><option value="Europe/Kiev" data-spec="select-option">(GMT+0300) Ukraine (Kiev) Time</option><option value="Europe/Uzhgorod" data-spec="select-option">(GMT+0300) Ukraine (Uzhhorod) Time</option><option value="Europe/Zaporozhye" data-spec="select-option">(GMT+0300) Ukraine (Zaporozhye) Time</option><option value="Asia/Famagusta" data-spec="select-option">(GMT+0300) Unknown Region (Famagusta) Time</option><option value="Europe/Kirov" data-spec="select-option">(GMT+0300) Unknown Region (Kirov) Time</option><option value="Asia/Gaza" data-spec="select-option">(GMT+0300) World (Gaza) Time</option><option value="Asia/Hebron" data-spec="select-option">(GMT+0300) World (Hebron) Time</option><option value="Asia/Aden" data-spec="select-option">(GMT+0300) Yemen Time</option><option value="Asia/Yerevan" data-spec="select-option">(GMT+0400) Armenia Time</option><option value="Asia/Baku" data-spec="select-option">(GMT+0400) Azerbaijan Time</option><option value="Asia/Tbilisi" data-spec="select-option">(GMT+0400) Georgia Time</option><option value="Indian/Mauritius" data-spec="select-option">(GMT+0400) Mauritius Time</option><option value="Asia/Muscat" data-spec="select-option">(GMT+0400) Oman Time</option><option value="Indian/Reunion" data-spec="select-option">(GMT+0400) Réunion Time</option><option value="Europe/Samara" data-spec="select-option">(GMT+0400) Russia (Samara) Time</option><option value="Europe/Volgograd" data-spec="select-option">(GMT+0400) Russia (Volgograd) Time</option><option value="Indian/Mahe" data-spec="select-option">(GMT+0400) Seychelles Time</option><option value="Asia/Dubai" data-spec="select-option">(GMT+0400) United Arab Emirates Time</option><option value="Europe/Astrakhan" data-spec="select-option">(GMT+0400) Unknown Region (Astrakhan) Time</option><option value="Europe/Saratov" data-spec="select-option">(GMT+0400) Unknown Region (Saratov) Time</option><option value="Europe/Ulyanovsk" data-spec="select-option">(GMT+0400) Unknown Region (Ulyanovsk) Time</option><option value="Asia/Kabul" data-spec="select-option">(GMT+0430) Afghanistan Time</option><option value="Asia/Tehran" data-spec="select-option">(GMT+0430) Iran Time</option><option value="Antarctica/Mawson" data-spec="select-option">(GMT+0500) Antarctica (Mawson) Time</option><option value="Indian/Kerguelen" data-spec="select-option">(GMT+0500) French Southern Territories Time</option><option value="Asia/Aqtau" data-spec="select-option">(GMT+0500) Kazakhstan (Aqtau) Time</option><option value="Asia/Aqtobe" data-spec="select-option">(GMT+0500) Kazakhstan (Aqtobe) Time</option><option value="Asia/Oral" data-spec="select-option">(GMT+0500) Kazakhstan (Oral) Time</option><option value="Asia/Qyzylorda" data-spec="select-option">(GMT+0500) Kazakhstan (Qyzylorda) Time</option><option value="Indian/Maldives" data-spec="select-option">(GMT+0500) Maldives Time</option><option value="Asia/Karachi" data-spec="select-option">(GMT+0500) Pakistan Time</option><option value="Asia/Yekaterinburg" data-spec="select-option">(GMT+0500) Russia (Yekaterinburg) Time</option><option value="Asia/Dushanbe" data-spec="select-option">(GMT+0500) Tajikistan Time</option><option value="Asia/Ashgabat" data-spec="select-option">(GMT+0500) Turkmenistan Time</option><option value="Asia/Atyrau" data-spec="select-option">(GMT+0500) Unknown Region (Atyrau) Time</option><option value="Asia/Samarkand" data-spec="select-option">(GMT+0500) Uzbekistan (Samarkand) Time</option><option value="Asia/Tashkent" data-spec="select-option">(GMT+0500) Uzbekistan (Tashkent) Time</option><option value="Asia/Kolkata" data-spec="select-option">(GMT+0530) India Time</option><option value="Asia/Colombo" data-spec="select-option">(GMT+0530) Sri Lanka Time</option><option value="Asia/Kathmandu" data-spec="select-option">(GMT+0545) Nepal Time</option><option value="Antarctica/Vostok" data-spec="select-option">(GMT+0600) Antarctica (Vostok) Time</option><option value="Asia/Dhaka" data-spec="select-option">(GMT+0600) Bangladesh Time</option><option value="Asia/Thimphu" data-spec="select-option">(GMT+0600) Bhutan Time</option><option value="Indian/Chagos" data-spec="select-option">(GMT+0600) British Indian Ocean Territory Time</option><option value="Asia/Urumqi" data-spec="select-option">(GMT+0600) China (Urumqi) Time</option><option value="Asia/Almaty" data-spec="select-option">(GMT+0600) Kazakhstan (Almaty) Time</option><option value="Asia/Bishkek" data-spec="select-option">(GMT+0600) Kyrgyzstan Time</option><option value="Asia/Omsk" data-spec="select-option">(GMT+0600) Russia (Omsk) Time</option><option value="Asia/Qostanay" data-spec="select-option">(GMT+0600) Unknown Region (Qostanay) Time</option><option value="Indian/Cocos" data-spec="select-option">(GMT+0630) Cocos (Keeling) Islands Time</option><option value="Asia/Rangoon" data-spec="select-option">(GMT+0630) Myanmar (Burma) Time</option><option value="Asia/Yangon" data-spec="select-option">(GMT+0630) Unknown Region (Yangon) Time</option><option value="Antarctica/Davis" data-spec="select-option">(GMT+0700) Antarctica (Davis) Time</option><option value="Asia/Phnom_Penh" data-spec="select-option">(GMT+0700) Cambodia Time</option><option value="Indian/Christmas" data-spec="select-option">(GMT+0700) Christmas Island Time</option><option value="Asia/Jakarta" data-spec="select-option">(GMT+0700) Indonesia (Jakarta) Time</option><option value="Asia/Pontianak" data-spec="select-option">(GMT+0700) Indonesia (Pontianak) Time</option><option value="Asia/Vientiane" data-spec="select-option">(GMT+0700) Laos Time</option><option value="Asia/Krasnoyarsk" data-spec="select-option">(GMT+0700) Russia (Krasnoyarsk) Time</option><option value="Asia/Novokuznetsk" data-spec="select-option">(GMT+0700) Russia (Novokuznetsk) Time</option><option value="Asia/Novosibirsk" data-spec="select-option">(GMT+0700) Russia (Novosibirsk) Time</option><option value="Asia/Bangkok" data-spec="select-option">(GMT+0700) Thailand Time</option><option value="Asia/Barnaul" data-spec="select-option">(GMT+0700) Unknown Region (Barnaul) Time</option><option value="Asia/Tomsk" data-spec="select-option">(GMT+0700) Unknown Region (Tomsk) Time</option><option value="Asia/Ho_Chi_Minh" data-spec="select-option">(GMT+0700) Vietnam Time</option><option value="Asia/Hovd" data-spec="select-option">(GMT+0700) World (Hovd) Time</option><option value="Antarctica/Casey" data-spec="select-option">(GMT+0800) Antarctica (Casey) Time</option><option value="Australia/Perth" data-spec="select-option">(GMT+0800) Australia (Perth) Time</option><option value="Asia/Brunei" data-spec="select-option">(GMT+0800) Brunei Time</option><option value="Asia/Shanghai" data-spec="select-option">(GMT+0800) China (Shanghai) Time</option><option value="Asia/Hong_Kong" data-spec="select-option">(GMT+0800) Hong Kong SAR China Time</option><option value="Asia/Makassar" data-spec="select-option">(GMT+0800) Indonesia (Makassar) Time</option><option value="Asia/Macau" data-spec="select-option">(GMT+0800) Macau SAR China Time</option><option value="Asia/Kuala_Lumpur" data-spec="select-option">(GMT+0800) Malaysia (Kuala Lumpur) Time</option><option value="Asia/Kuching" data-spec="select-option">(GMT+0800) Malaysia (Kuching) Time</option><option value="Asia/Choibalsan" data-spec="select-option">(GMT+0800) Mongolia (Choibalsan) Time</option><option value="Asia/Ulaanbaatar" data-spec="select-option">(GMT+0800) Mongolia (Ulaanbaatar) Time</option><option value="Asia/Manila" data-spec="select-option">(GMT+0800) Philippines Time</option><option value="Asia/Irkutsk" data-spec="select-option">(GMT+0800) Russia (Irkutsk) Time</option><option value="Asia/Singapore" data-spec="select-option">(GMT+0800) Singapore Time</option><option value="Asia/Taipei" data-spec="select-option">(GMT+0800) Taiwan Time</option><option value="Australia/Eucla" data-spec="select-option">(GMT+0845) World (Eucla) Time</option><option value="Asia/Jayapura" data-spec="select-option">(GMT+0900) Indonesia (Jayapura) Time</option><option value="Asia/Tokyo" data-spec="select-option">(GMT+0900) Japan Time</option><option value="Asia/Pyongyang" data-spec="select-option">(GMT+0900) North Korea Time</option><option value="Pacific/Palau" data-spec="select-option">(GMT+0900) Palau Time</option><option value="Asia/Chita" data-spec="select-option">(GMT+0900) Russia (Chita) Time</option><option value="Asia/Khandyga" data-spec="select-option">(GMT+0900) Russia (Khandyga) Time</option><option value="Asia/Yakutsk" data-spec="select-option">(GMT+0900) Russia (Yakutsk) Time</option><option value="Asia/Seoul" data-spec="select-option">(GMT+0900) South Korea Time</option><option value="Asia/Dili" data-spec="select-option">(GMT+0900) Timor-Leste Time</option><option value="Australia/Adelaide" data-spec="select-option">(GMT+0930) Australia (Adelaide) Time</option><option value="Australia/Broken_Hill" data-spec="select-option">(GMT+0930) Australia (Broken Hill) Time</option><option value="Australia/Darwin" data-spec="select-option">(GMT+0930) Australia (Darwin) Time</option><option value="Antarctica/DumontDUrville" data-spec="select-option">(GMT+1000) Antarctica (Dumont d’Urville) Time</option><option value="Australia/Brisbane" data-spec="select-option">(GMT+1000) Australia (Brisbane) Time</option><option value="Australia/Currie" data-spec="select-option">(GMT+1000) Australia (Currie) Time</option><option value="Australia/Hobart" data-spec="select-option">(GMT+1000) Australia (Hobart) Time</option><option value="Australia/Lindeman" data-spec="select-option">(GMT+1000) Australia (Lindeman) Time</option><option value="Australia/Melbourne" data-spec="select-option">(GMT+1000) Australia (Melbourne) Time</option><option value="Australia/Sydney" data-spec="select-option">(GMT+1000) Australia (Sydney) Time</option><option value="Pacific/Guam" data-spec="select-option">(GMT+1000) Guam Time</option><option value="Pacific/Chuuk" data-spec="select-option">(GMT+1000) Micronesia (Chuuk) Time</option><option value="Pacific/Saipan" data-spec="select-option">(GMT+1000) Northern Mariana Islands Time</option><option value="Pacific/Port_Moresby" data-spec="select-option">(GMT+1000) Papua New Guinea (Port Moresby) Time</option><option value="Asia/Ust-Nera" data-spec="select-option">(GMT+1000) Russia (Ust-Nera) Time</option><option value="Asia/Vladivostok" data-spec="select-option">(GMT+1000) Russia (Vladivostok) Time</option><option value="Australia/Lord_Howe" data-spec="select-option">(GMT+1030) World (Lord Howe) Time</option><option value="Antarctica/Macquarie" data-spec="select-option">(GMT+1100) Australia (Macquarie) Time</option><option value="Pacific/Kosrae" data-spec="select-option">(GMT+1100) Micronesia (Kosrae) Time</option><option value="Pacific/Pohnpei" data-spec="select-option">(GMT+1100) Micronesia (Pohnpei) Time</option><option value="Pacific/Noumea" data-spec="select-option">(GMT+1100) New Caledonia Time</option><option value="Pacific/Norfolk" data-spec="select-option">(GMT+1100) Norfolk Island Time</option><option value="Pacific/Bougainville" data-spec="select-option">(GMT+1100) Papua New Guinea (Bougainville) Time</option><option value="Asia/Magadan" data-spec="select-option">(GMT+1100) Russia (Magadan) Time</option><option value="Asia/Sakhalin" data-spec="select-option">(GMT+1100) Russia (Sakhalin) Time</option><option value="Asia/Srednekolymsk" data-spec="select-option">(GMT+1100) Russia (Srednekolymsk) Time</option><option value="Pacific/Guadalcanal" data-spec="select-option">(GMT+1100) Solomon Islands Time</option><option value="Pacific/Efate" data-spec="select-option">(GMT+1100) Vanuatu Time</option><option value="Antarctica/McMurdo" data-spec="select-option">(GMT+1200) Antarctica (McMurdo) Time</option><option value="Pacific/Fiji" data-spec="select-option">(GMT+1200) Fiji Time</option><option value="Pacific/Tarawa" data-spec="select-option">(GMT+1200) Kiribati (Tarawa) Time</option><option value="Pacific/Kwajalein" data-spec="select-option">(GMT+1200) Marshall Islands (Kwajalein) Time</option><option value="Pacific/Majuro" data-spec="select-option">(GMT+1200) Marshall Islands (Majuro) Time</option><option value="Pacific/Nauru" data-spec="select-option">(GMT+1200) Nauru Time</option><option value="Pacific/Auckland" data-spec="select-option">(GMT+1200) New Zealand Time</option><option value="Asia/Anadyr" data-spec="select-option">(GMT+1200) Russia (Anadyr) Time</option><option value="Asia/Kamchatka" data-spec="select-option">(GMT+1200) Russia (Kamchatka) Time</option><option value="Pacific/Funafuti" data-spec="select-option">(GMT+1200) Tuvalu Time</option><option value="Pacific/Wake" data-spec="select-option">(GMT+1200) U.S. Outlying Islands (Wake) Time</option><option value="Pacific/Wallis" data-spec="select-option">(GMT+1200) Wallis &amp; Futuna Time</option><option value="Pacific/Chatham" data-spec="select-option">(GMT+1245) World (Chatham) Time</option><option value="Pacific/Enderbury" data-spec="select-option">(GMT+1300) Kiribati (Enderbury) Time</option><option value="Pacific/Apia" data-spec="select-option">(GMT+1300) Samoa Time</option><option value="Pacific/Fakaofo" data-spec="select-option">(GMT+1300) Tokelau Time</option><option value="Pacific/Tongatapu" data-spec="select-option">(GMT+1300) Tonga Time</option><option value="Pacific/Kiritimati" data-spec="select-option">(GMT+1400) Kiribati (Kiritimati) Time</option>
                                                 </select>
                                               </div>
-                                            </SearchVenueDiv>
-                                          </SearchVenueDiv>
-                                        </SearchVenueDiv1>
+                                            </div>
+                                          </div>
+                                        </div>
                                       </div>
-                                    </TimeDropDownDiv>
+                                    </div>
                                   </div>
                                 </div>
                                 <div 
@@ -1301,7 +1420,7 @@ export default function BasicInfo(){
                                   cursor: 'pointer'
                                 }
                                 }>
-                                  <Placeholder2
+                                  <div className ='placeholder2'
                                     style={
                                       {position:'absolute',
                                         top: '-10px',
@@ -1312,14 +1431,14 @@ export default function BasicInfo(){
                                       }
                                     }
                                   >
-                                    <Label >
-                                      <SpanText2>
+                                    <label className='label'>
+                                      <span className='spantext2'>
                                       Event Page Language
-                                      </SpanText2>
-                                    </Label>
-                                  </Placeholder2>
+                                      </span>
+                                    </label>
+                                  </div>
                                   <div>
-                                    <TimeDropDownDiv>
+                                    <div className = 'timedropdowndiv'>
                                       <div 
                                       style={
                                         {marginBottom: 8}
@@ -1329,14 +1448,14 @@ export default function BasicInfo(){
                                             <div className = 'searchvenuediv'>
                                               
                                               <div className='dropdownLast'>
-                                                <DropDownSpan>
-                                                  <DropDownTitleSpan
+                                                <span className = 'dropdownspan'>
+                                                  <span className = 'dropdowntitlespan'
                                                   style={
                                                     {paddingTop: '5px'}
                                                   }>
                                                     English (US)
-                                                  </DropDownTitleSpan>
-                                                  <DropDownArrowSpan
+                                                  </span>
+                                                  <span className = 'dropdownarrowspan'
                                                   style={
                                                     {
                                                       paddingLeft: '110px',
@@ -1356,8 +1475,8 @@ export default function BasicInfo(){
                                                         </path>
                                                       </svg>
                                                     </i>
-                                                  </DropDownArrowSpan>
-                                                </DropDownSpan>
+                                                  </span>
+                                                </span>
                                                 <select
                                                 style={
                                                   {
@@ -1382,42 +1501,43 @@ export default function BasicInfo(){
                                                 }>
                                                 </select>
                                               </div>
-                                            </SearchVenueDiv>
-                                          </SearchVenueDiv>
-                                        </SearchVenueDiv1>
+                                            </div>
+                                          </div>
+                                        </div>
                                       </div>
-
-                                    </TimeDropDownDiv>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                       </div>
-                    </DateAndTimeDiv>
+                    </div>
+                    </div>
                     </form>
+                    </div>
                 </div>
               </div>
             </div>
           </section>
         </main>
       </div>
-      <FixedDiv>
-        <FixedInnerDiv>
-          <FixedButtonDiv>
+      <div className='fixeddiv'>
+        <div className='fixedinnerdiv'>
+          <div className='fixedbuttondiv'>
             <div>
-              <UsedButton 
+              <button className='usedbutton' 
                 style={{marginRight: 16}}>
                 Discard
-              </UsedButton>
-              <UsedButton
+              </button>
+              <button className='usedbutton' 
                 style={saveButtonStyle}>
                 Save & Continue
-              </UsedButton>
+              </button>
             </div>
-          </FixedButtonDiv>
-        </FixedInnerDiv>
-      </FixedDiv>
+          </div>
+        </div>
+      </div>
       </div>
     </WholePage>
   )

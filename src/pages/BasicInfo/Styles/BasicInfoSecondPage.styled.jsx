@@ -315,12 +315,16 @@ export const WholePage = styled.div`
       white-space: nowrap;
     }
     .textarea{
-      border: 1px solid ${({ invalid }) => invalid ? 'red' : '#5a595d6f'};
+      border: 1px solid #5a595d6f;
+      border-radius: 2px;
+      background: #dbdae3;
+      padding: 1px;
+      position: relative;
+      transition: background .24s cubic-bezier(.4,0,.3,1);
       padding: 18px 12px 6px;
       resize: none;
       white-space: pre-wrap;
       background: none;
-      border: none;
       color: #39364f;
       outline: none;
       transition: padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1);
@@ -347,6 +351,25 @@ export const WholePage = styled.div`
         margin-top: 0.3rem;
       }
 
+    }
+    .blue-border:focus {
+      border-color: blue;
+    }
+    
+    .red-border {
+      border-color: red;
+    }
+    .red-text {
+      color: red;
+    }
+    
+    .blue-text {
+      color: blue;
+    }
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 4px;
     }
     .undersummarybox{
       display: flex;
@@ -550,5 +573,65 @@ export const WholePage = styled.div`
     overflow: hidden;
     text-align: center;
     transition: box-shadow .32s linear,-webkit-box-shadow .32s linear;
+  }
+  .fixeddiv{
+    position: fixed;
+    transform: translateY(0);
+    background-color: #fff;
+    border-top: 1px solid #eeedf2;
+    bottom: 0;
+    left: 0;
+    min-height: 64px;
+    overflow: hidden;
+    transition: transform .32s cubic-bezier(.4,0,.3,1),-webkit-transform .32s cubic-bezier(.4,0,.3,1);
+    width: 100%;
+    will-change: transform;
+  }
+  .fixedinnerdiv{
+    @media (min-width: 792px){
+      margin-left: 30%;
+    }
+    max-width: 960px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-right: auto;
+  }
+  .fixedbuttondiv{
+    text-align: right;
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    @media (min-width: 1152px){
+      padding: 0 48px;
+  }
+  .usedbutton{
+    color: #39364f;
+    fill: #39364f;
+    background: #fff;
+    border-color: #a9a8b3;
+    transform: translateZ(0);
+    position: relative;
+    height: 44px;
+    padding: 0 30px 1px;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+    line-height: 24px;
+    font-weight: 600;
+    letter-spacing: .2px;
+    border: 2px solid #a9a8b3;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .4s cubic-bezier(.4,0,.3,1);
+    margin-top: 1rem;
+    :hover{
+      border-color: #39364f;
+      transition-duration: 1s;
+    }
+    :active{
+      background-color: #f3eeee;
+    }
   }
 `
