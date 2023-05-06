@@ -165,8 +165,9 @@ export default function SignUpOne(props) {
       localStorage.setItem('authEmail', email);
 
       const data = await postData.json();
+      console.log(data);
       if (data.success) {
-        localStorage.setItem('token', data.token);
+        navigate('/');
       }
     };
     setUser();

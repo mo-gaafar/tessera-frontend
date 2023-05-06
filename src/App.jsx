@@ -12,8 +12,6 @@ import Landing from './pages/LandingPage/Landing';
 import Organize from './pages/Organize/Organize';
 import { Route, Routes } from 'react-router-dom';
 
-
-
 import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
@@ -21,7 +19,6 @@ import Reset from './pages/ResetPassword/Reset';
 import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
 import Events from './pages/EventPage/EventPage';
 import Dashboard from './pages/Dashboard/Dashboard';
-
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
