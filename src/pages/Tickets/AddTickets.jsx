@@ -20,6 +20,18 @@ export default function CreateTickets() {
         setIsMenuOpen(false);
     };
 
+    const [inputText, setInputText] = useState('General Admission');
+    const [inputArray, setInputArray] = useState([]);
+
+    const handleChange = (event) => {
+        setInputText(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setInputArray([...inputArray, inputText]);
+        setInputText('');
+    }
 
     
   return (
@@ -58,7 +70,50 @@ export default function CreateTickets() {
         <AddTicketsSideMenu >
         {isMenuOpen && (
           <div className="AddTicketsMenuDiv">
-            <button onClick={handleCloseMenu}>Cancel</button>
+
+                <div className='AddTicketsMenuHeaderDiv'>
+                    <div className='AddTicketsTitleDiv'>
+                        Add tickets
+                    </div>
+                    <div className='LearnMoreDiv'>
+                        Learn more
+                    </div>
+
+                </div>
+                <div className='CreateTicketInfoDiv'>
+
+                <div className='TicketTypeSelectorDiv'>
+                    <button className='PaidTierButton'>
+                        Paid
+                    </button>
+                    <button className='FreeTierButton'>
+                        Free
+                    </button>
+                    <button className='DonationTierButton'>
+                        Donation
+                    </button>
+
+                </div>
+                <div className='TicketNameDiv'>
+                    <div className='NameTextboxDiv'>
+                        <div className='NameLabelDiv'> Name <span class="eds-label__required-indicator eds-text-bs" data-spec="required-indicator"><span className='asterisk'> *</span></span></div>
+                            <form onSubmit={handleSubmit}>
+                                <label>
+                                    <input className='TicketNameInputDiv' placeholder="General Admission" type="text" value={inputText} onChange={handleChange} />
+                                </label>
+                                    
+                            </form>   
+                    </div>
+                    <div className='TicketNameLength'>{inputText.length}/50</div>
+                </div>
+                <button onClick={handleCloseMenu}>Cancel</button>
+
+                </div>
+
+
+
+
+            
 
             {/* menu contents */}
           </div>

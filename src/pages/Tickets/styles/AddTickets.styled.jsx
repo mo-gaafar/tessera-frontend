@@ -132,6 +132,7 @@ export const AddTicketsSideMenu = styled.div`
 
 
     position: relative;
+    display:flex;
 
     .AddTicketsMenuDiv {
         position: absolute;
@@ -143,7 +144,126 @@ export const AddTicketsSideMenu = styled.div`
         z-index: 1;
         background: Thistle;
         height: 100%; /* Add a fixed height to enable scrolling */
+        // overflow-y: scroll;
+    }
+
+    .AddTicketsMenuHeaderDiv{
+
+        display:flex;
+        height:5.2rem;
+        padding:1.6rem 0.8rem 1.2rem 2.4rem;
+        justify-content: space-between;
+        background:RosyBrown;
+    }
+
+    .AddTicketsTitleDiv{
+        
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+        font-weight: 600;
+        color: #1e0a3c;
+    }
+
+    .LearnMoreDiv{
+        
+        color: #3659e3;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        font-weight: 400;
+        padding-right:2.4rem;
+    }
+
+    .CreateTicketInfoDiv{
+        height: 100%;
         overflow-y: scroll;
+        padding:2.4rem;
+        display:flex;
+        flex-flow : column wrap;
+
+
+    }
+
+    .TicketTypeSelectorDiv{
+        
+        width:33.5rem;
+        height:4.6rem;
+        margin-bottom:2rem;
+        display:flex;
+        justify-content: space-between;
+        background:Plum;
+
+    }
+
+    .PaidTierButton, .FreeTierButton, .DonationTierButton{
+        
+        color: #1e0a3c;
+        padding: 1.2rem 3.2rem 1.2rem 3.2rem;
+        font-size: 1.35rem;
+        line-height: 2rem;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 1px solid ;
+        cursor: pointer;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .TicketNameDiv{
+        display: flex;
+        flex-direction: column;
+        width:33.5rem;
+        height:7rem;
+        margin-bottom:1.6rem;
+        background:Pink;
+    }
+
+    .NameTextboxDiv{
+
+        display: flex;
+        justify-content: flex-start;
+        width:33.5rem;
+        height:4.6rem;
+        flex-direction: column;
+        border: 0.1rem solid;
+    }
+
+    .NameLabelDiv{
+        
+        display:flex;
+        flex-direction: row;
+       
+        color: #6f7287;
+        font-size: 1.3rem;
+        line-height: 2.2rem;
+        padding: 0.2rem 1.2rem 0;
+        width:100%;
+        height:2.4rem;
+    }
+
+    .asterisk{
+        color: red;
+    }
+
+    .TicketNameInputDiv{
+
+        
+        width: 33.1rem;
+        font-size: 1.4rem;
+        line-height: 2.2rem;
+        font-weight: 400;
+        border: none;
+        padding: 1.8rem 1.2rem 0.6rem;
+        background:transparent;
+        margin-top:-2.5rem;
+
+    }
+
+    .TicketNameLength{
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+        align-self: flex-end;
+        
+
     }
 
 `
