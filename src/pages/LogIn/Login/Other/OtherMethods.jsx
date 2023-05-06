@@ -32,8 +32,9 @@ export default function Other() {
         }),
       }
     );
-
+    const json = responseBackend.json();
     localStorage.setItem('authEmail', email);
+    localStorage.setItem('token', json.token);
   }
 
   function handleError(error) {
