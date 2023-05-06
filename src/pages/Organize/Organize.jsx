@@ -37,6 +37,7 @@ export default function Organize(props) {
   const [issearch,setIsSearch] = useState();
   const [select,setSelect] = useState("All events");
   const [nameInput,setNameInput] = useState("");
+  const [filter,setFilter] = useState("allevents");
   const [eventsList,setList] = useState();
   const [selectedEventIndex,setSelectedEventIndex]= useState();
   let navigate;
@@ -58,98 +59,128 @@ export default function Organize(props) {
     'Dec',
   ];
   const [nameEvents,setNameEvents] = useState(
-    {
-      "filteredEvents": [
-        {
-          "basicInfo": {
-            "location": {
-              "longitude": 45.523064,
-              "latitude": -122.676483,
-              "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
-              "venueName": "My Venue",
-              "streetNumber": 123,
-              "route": "Main St",
-              "administrativeAreaLevel1": "OR",
-              "country": "US",
-              "city": "Portland"
-            },
-            "eventName": "Tessseraaaaaa",
-            "startDateTime": "2023-05-01T14:30:00.000Z",
-            "endDateTime": "2023-05-01T18:00:00.000Z",
-            "eventImage": "https://picsum.photos/282/140",
-            "categories": "Music"
-          },
-          "eventUrl": "https://example.com/my-event"
-        },
-        {
-          "basicInfo": {
-            "location": {
-              "longitude": -96,
-              "latitude": 37,
-              "placeId": "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
-              "venueName": "United Center ",
-              "streetNumber": 55,
-              "route": "Magnificent Mile",
-              "administrativeAreaLevel1": "Illinois",
-              "country": "United States",
-              "city": "Chicago"
-            },
-            "eventName": "Adult Mental Health First Aid Training April 18 & 25",
-            "startDateTime": "2023-07-03T20:30:15.528Z",
-            "endDateTime": "2023-09-09T22:52:38.471Z",
-            "eventImage": "https://picsum.photos/282/140",
-            "categories": "Home & Lifestyle"
-          },
-          "eventUrl": "https://www.tessera.social/"
-        },
-        {
-          "basicInfo": {
-            "location": {
-              "longitude": 45.523064,
-              "latitude": -122.676483,
-              "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
-              "venueName": "My Venue",
-              "streetNumber": 123,
-              "route": "Main St",
-              "administrativeAreaLevel1": "OR",
-              "country": "US",
-              "city": "Portland"
-            },
-            "eventName": "Cross Platform",
-            "startDateTime": "2023-05-01T14:30:00.000Z",
-            "endDateTime": "2023-05-01T18:00:00.000Z",
-            "eventImage": "https://picsum.photos/282/140",
-            "categories": "Music"
-          },
-          "eventUrl": "https://example.com/my-event"
-        }
-      ],
-      "eventsoldtickets": [
-        118,
-        2,
-        2
-      ],
-      "isEventOnSale": [
-        false,
-        false,
-        false
-      ],
-      "gross": [
-        0,
-        7943.16,
-        0
-      ],
-      "maxCapacity": [
-        6150,
-        2,
-        150
-      ]
-    }
+    //{
+    //   "filteredEvents": [
+    //     {
+    //       "basicInfo": {
+    //         "location": {
+    //           "longitude": 45.523064,
+    //           "latitude": -122.676483,
+    //           "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+    //           "venueName": "My Venue",
+    //           "streetNumber": 123,
+    //           "route": "Main St",
+    //           "administrativeAreaLevel1": "OR",
+    //           "country": "US",
+    //           "city": "Portland"
+    //         },
+    //         "eventName": "Tessseraaaaaa",
+    //         "startDateTime": "2023-05-01T14:30:00.000Z",
+    //         "endDateTime": "2023-05-01T18:00:00.000Z",
+    //         "eventImage": "https://picsum.photos/282/140",
+    //         "categories": "Music"
+    //       },
+    //       "eventUrl": "https://example.com/my-event"
+    //     },
+    //     {
+    //       "basicInfo": {
+    //         "location": {
+    //           "longitude": -96,
+    //           "latitude": 37,
+    //           "placeId": "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+    //           "venueName": "United Center ",
+    //           "streetNumber": 55,
+    //           "route": "Magnificent Mile",
+    //           "administrativeAreaLevel1": "Illinois",
+    //           "country": "United States",
+    //           "city": "Chicago"
+    //         },
+    //         "eventName": "Adult Mental Health First Aid Training April 18 & 25",
+    //         "startDateTime": "2023-07-03T20:30:15.528Z",
+    //         "endDateTime": "2023-09-09T22:52:38.471Z",
+    //         "eventImage": "https://picsum.photos/282/140",
+    //         "categories": "Home & Lifestyle"
+    //       },
+    //       "eventUrl": "https://www.tessera.social/"
+    //     },
+    //     {
+    //       "basicInfo": {
+    //         "location": {
+    //           "longitude": 45.523064,
+    //           "latitude": -122.676483,
+    //           "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+    //           "venueName": "My Venue",
+    //           "streetNumber": 123,
+    //           "route": "Main St",
+    //           "administrativeAreaLevel1": "OR",
+    //           "country": "US",
+    //           "city": "Portland"
+    //         },
+    //         "eventName": "Cross Platform",
+    //         "startDateTime": "2023-05-01T14:30:00.000Z",
+    //         "endDateTime": "2023-05-01T18:00:00.000Z",
+    //         "eventImage": "https://picsum.photos/282/140",
+    //         "categories": "Music"
+    //       },
+    //       "eventUrl": "https://example.com/my-event"
+    //     }
+    //   ],
+    //   "eventsoldtickets": [
+    //     118,
+    //     2,
+    //     2
+    //   ],
+    //   "isEventOnSale": [
+    //     false,
+    //     false,
+    //     false
+    //   ],
+    //   "gross": [
+    //     0,
+    //     7943.16,
+    //     0
+    //   ],
+    //   "maxCapacity": [
+    //     6150,
+    //     2,
+    //     150
+    //   ]
+    // }
   )
+  console.log(filter)
+  useEffect(() => {
+    fetch("https://www.tessera.social/api/event-management/listEvents/?filterBy="+filter, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          setNameEvents(data);
+          if (!data.filteredEvents.length){
+            setIsAvailable(false);
+          }
+        })
+        .catch(error => {
+          console.error("There was a problem fetching the data:", error);
+        })
+        
+      }
+  ,[filter]);
+
   console.log(nameEvents);
   const reference = useRef(null);
   const referenceEdit = useRef(null);
-  const [showEdit, setShowEdit] = useState(Array(nameEvents.filteredEvents.length).fill(false));
+  let showOpt = nameEvents ? Array(nameEvents.filteredEvents.length).fill(false):"";
+  const [showEdit, setShowEdit] = useState(showOpt);
   
 
   function displayMenu(){
@@ -211,6 +242,7 @@ export default function Organize(props) {
     const {name,value} = e.target;
     setShowMenu(false);
     setSelect(name);
+    setFilter(name)
   }
   function onClickEditButton(e){
     const {name,value} = e.target;
@@ -241,7 +273,12 @@ export default function Organize(props) {
   //console.log(showEdit)
 
   useEffect(() => {
-    const element = issearch ? issearch : nameEvents.filteredEvents
+    if (!nameEvents){
+      return
+    }
+    const element = issearch 
+    ?issearch
+    : nameEvents.filteredEvents
     // console.log(element)
     // console.log("element")
     // console.log(issearch)
@@ -404,10 +441,13 @@ export default function Organize(props) {
   }
 
 
-
+  const token = localStorage.getItem('token') 
+  ? localStorage.getItem('token') : ''
+  //console.log(token)
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+    
 
  
   return (
@@ -558,126 +598,7 @@ export default function Organize(props) {
                 </div>
               </div>
               {eventsList}
-            {/* <div>
-              <div className="event-header">
-                <div className="event-info">
-                  Event
-                </div>
-                <div className="event-sold">
-                  Sold
-                </div>
-                <div className="event-gross">
-                  Gross
-                </div>
-                <div className="event-status">
-                  Status
-                </div>
-              </div>
-            </div>
-
-            <div className="event-details">
-              <div className="event-data">
-  
-                <div className="data-date">
-                  <div className="month">JUN</div>
-                  <div>8</div>
-                </div>
-
-                <div>
-                  <img src="https://cdn.evbstatic.com/s3-build/perm_001/5287e3/django/images/pages/organizations/no-event-image-placeholder-2x.png"/>
-                </div>
-
-                <div className="data-name">
-                  <div className="name">Event name</div>
-                  <div className="date">Thursday, June 8, 2023 at 7:00 PM EET</div>
-                </div>
-
-              </div>
-              
-              <div className="event-price-status">
-
-                <div className="event-sold">
-                  <div className="rate-div">
-                   1/20
-                  </div>
-                  <div className="App">
-                    <div className="progress">
-                      <LinearProgress
-                        className="charProgress"
-                        variant="determinate"
-                        value={(1/20)*100}
-                      />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="gross">
-                  $0.00 <a>Gross</a>
-                </div>
-                <div className="status">
-                  <svg id="status-dot" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                  <div id="status-name">
-                    On sale
-                  </div>
-                  
-                </div>
-                
-                  
-              </div>
-              <div className="opt">
-                    <button className="other-options" onClick={onClickEdit}>
-                    <svg id="vertical-dots" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
-                        <path id="vertical-dots" fill-rule="evenodd" clip-rule="evenodd" d="M10 18c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z">
-                        </path>
-                        <circle id="vertical-dots" fill-rule="evenodd" clip-rule="evenodd" cx="12" cy="12" r="2">
-                        </circle>
-                        <circle id="vertical-dots" fill-rule="evenodd" clip-rule="evenodd" cx="12" cy="6" r="2">
-                        </circle>
-                    </svg>
-                    </button>
-                    {showEdit && (
-                      <div id="myDropdown" className="dropdown-content" ref={referenceEdit}>
-                        <ul>
-                          <div>
-                            <button
-                              className="drop-button"
-                              onClick={onClickEditButton}
-                            >
-                              View
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              className="drop-button"
-                              onClick={onClickEditButton}
-                            >
-                              Edit
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              className="drop-button"
-                              onClick={onClickEditButton}
-                            >
-                              Copy URL
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              className="drop-button"
-                              onClick={onClickEditButton}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </ul>
-                      </div>
-                    )}
-                </div>
-                
-            </div> */}
+            
             <div className="export-div">
               <svg id="download_svg__eds-icon--download_svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve">
                   <path id="download_svg__eds-icon--download_base" fill="#231F20" d="M16 16v1h5v4H3v-4h5v-1H2v6h20v-6z">
