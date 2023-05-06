@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+
+import {
+  StyledMainSidebar,
+  StyledCreateTicketSidebar,
+} from './styles/Sidebar.styled';
 const Sidebar = ({ event, dashboard }) => {
   const [hovered, setHovered] = useState(false);
   const [reportHovered, setReportHovered] = useState(false);
