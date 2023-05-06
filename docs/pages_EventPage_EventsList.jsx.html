@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/EventPage/EventsList.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/EventPage/EventsList.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * This file contains the list of events
+ * @name EventsList.jsx
+ * @author @MaryamMoataz
+ */
+
+/**
+exports an Array of Event details
+@param {Object} eventsListScroll - Array of elements that contain details about the event
+@param {number} key - The unique identifier of every array
+@param {string} image - image promoting the event
+@param {string} eventTitle - The name of the event
+@param {string} date- The date of the event
+@param {string} description - The price of the event could be free or a starting price
+@param {string} organizer - The name of the event's organizer
+@param {number} followers - The number of followers for the event
+@param {string} cName - The classname for the array
+@return {JSX.Element} A React component representing the event card
+*/
+
+export const eventsListScroll = [
+  {
+    key: '1',
+    image:
+      'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;amp;auto=format%2Ccompress&amp;amp;q=75&amp;amp;sharp=10&amp;amp;rect=1%2C372%2C8000%2C4000&amp;amp;s=34c811696b0d73045e71f74e745b37ba',
+    eventTitle:
+      'Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN',
+    date: 'Today at 2:00 PM',
+    description: 'Free',
+    organizer: 'GoMyCode',
+    followers: '2.8k followers',
+    cName: 'eventsList',
+  },
+  {
+    key: '2',
+    image:
+      'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;amp;auto=format%2Ccompress&amp;amp;q=75&amp;amp;sharp=10&amp;amp;rect=1%2C372%2C8000%2C4000&amp;amp;s=34c811696b0d73045e71f74e745b37ba',
+    eventTitle:
+      'Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN',
+    date: 'Today at 2:00 PM',
+    description: 'Free',
+    organizer: 'GoMyCode',
+    followers: '2.8k followers',
+    cName: 'eventsList',
+  },
+  {
+    key: '3',
+    image:
+      'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;amp;auto=format%2Ccompress&amp;amp;q=75&amp;amp;sharp=10&amp;amp;rect=1%2C372%2C8000%2C4000&amp;amp;s=34c811696b0d73045e71f74e745b37ba',
+    eventTitle:
+      'Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN',
+    date: 'Today at 2:00 PM',
+    description: 'Free',
+    organizer: 'GoMyCode',
+    followers: '2.8k followers',
+    cName: 'eventsList',
+  },
+  {
+    key: '4',
+    image:
+      'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;amp;auto=format%2Ccompress&amp;amp;q=75&amp;amp;sharp=10&amp;amp;rect=1%2C372%2C8000%2C4000&amp;amp;s=34c811696b0d73045e71f74e745b37ba',
+    eventTitle:
+      'Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN',
+    date: 'Today at 2:00 PM',
+    description: 'Free',
+    organizer: 'GoMyCode',
+    followers: '2.8k followers',
+    cName: 'eventsList',
+  },
+  {
+    key: '5',
+    image:
+      'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;amp;auto=format%2Ccompress&amp;amp;q=75&amp;amp;sharp=10&amp;amp;rect=1%2C372%2C8000%2C4000&amp;amp;s=34c811696b0d73045e71f74e745b37ba',
+    eventTitle:
+      'Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN',
+    date: 'Today at 2:00 PM',
+    description: 'Free',
+    organizer: 'GoMyCode',
+    followers: '2.8k followers',
+    cName: 'eventsList',
+  },
+  {
+    key: '6',
+    eventName:
+      'Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN',
+    image:
+      'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;amp;auto=format%2Ccompress&amp;amp;q=75&amp;amp;sharp=10&amp;amp;rect=1%2C372%2C8000%2C4000&amp;amp;s=34c811696b0d73045e71f74e745b37ba',
+    eventTitle:
+      'Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN',
+    date: 'Today at 2:00 PM',
+    description: 'Free',
+    organizer: 'GoMyCode',
+    followers: '2.8k followers',
+    cName: 'eventsList',
+  },
+  {
+    key: '7',
+    image:
+      'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;amp;auto=format%2Ccompress&amp;amp;q=75&amp;amp;sharp=10&amp;amp;rect=1%2C372%2C8000%2C4000&amp;amp;s=34c811696b0d73045e71f74e745b37ba',
+    eventTitle:
+      'Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN',
+    date: 'Today at 2:00 PM',
+    description: 'Free',
+    organizer: 'GoMyCode',
+    followers: '2.8k followers',
+    cName: 'eventsList',
+  },
+  {
+    key: '8',
+    image:
+      'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F487781489%2F233874568789%2F1%2Foriginal.20230407-162824?w=512&amp;amp;auto=format%2Ccompress&amp;amp;q=75&amp;amp;sharp=10&amp;amp;rect=1%2C372%2C8000%2C4000&amp;amp;s=34c811696b0d73045e71f74e745b37ba',
+    eventTitle:
+      'Atelier Gratuit : construis ton propre ChatGPT ! - GOMYCODE ABkeyJAN',
+    date: 'Today at 2:00 PM',
+    description: 'Free',
+    organizer: 'GoMyCode',
+    followers: '2.8k followers',
+    cName: 'eventsList',
+  },
+];
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="BookingPop.module_jsx.html">BookingPop.jsx</a></li><li><a href="CheckoutForm.module_jsx.html">CheckoutForm.jsx</a></li><li><a href="Landing.html#.module:jsx">Landing.jsx</a></li><li><a href="Organize.html#.module:jsx">Organize.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="TicketDetails.html#.module:jsx">TicketDetails.jsx</a></li><li><a href="TierBox.html#.module:jsx">TierBox.jsx</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li><li><a href="pages_LogIn_MainContainer.module_jsx.html">pages/LogIn/MainContainer.jsx</a></li><li><a href="pages_LogIn_leftContainer.module_jsx.html">pages/LogIn/leftContainer.jsx</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#eventsListScroll">eventsListScroll</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 26 2023 11:47:00 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: PasswordChecker</title>
+    <title>JSDoc: Source: pages/LogIn/MainContainer.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,186 +17,46 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: PasswordChecker</h1>
+    <h1 class="page-title">Source: pages/LogIn/MainContainer.jsx</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This function is a component that checks the password strength</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_SignUp_PasswordChecker.jsx.html">pages/SignUp/PasswordChecker.jsx</a>, <a href="pages_SignUp_PasswordChecker.jsx.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This function is a component that checks the password strength</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_SignUp_PasswordChecker.jsx.html">pages/SignUp/PasswordChecker.jsx</a>, <a href="pages_SignUp_PasswordChecker.jsx.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { MainContainerStyled } from './styles/MainContainer.styled';
+import RightContainer from './RightContainer';
+import LeftContainer from './leftContainer';
+/**
+ * @file MainContainer.jsx
+ * @author @seif-kishtah
+ * @description This file contains the MainContainer component and its logic
+ * @exports MainContainer
+ * @requires ./leftContainer/leftContainer
+ * @requires ./rightContainer/RightContainer
+ *
+ */
+
+/**
+ * @module MainContainer
+ * @returns {JSX.Element} MainContainer component
+ * @description This function is a component that renders the main container for the login page
+ * @returns {JSX.Element} MainContainer component
+ */
+
+export default function Maincontainer() {
+  return (
+    &lt;MainContainerStyled>
+      &lt;LeftContainer />
+      &lt;RightContainer />
+    &lt;/MainContainerStyled>
+  );
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

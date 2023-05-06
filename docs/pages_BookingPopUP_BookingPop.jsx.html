@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/BookingPopUP/BookingPop.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/BookingPopUP/BookingPop.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file BookingPop.jsx
+ * @name BookingPop.jsx
+ * @author @SeifAllah
+ * @requires react
+ * @requires @mui/material
+ * @exports BookingPop
+ * @description This file contains the BookingPop components and its logic that is the component that renders the reservation with the ordersummary
+ *
+ *
+ */
+import React from "react";
+import { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import classes from "./Styles/Bookingpopup.module.css";
+import { BookingContainer } from "./Styles/BookingMain.styled";
+import { BookingetTickets } from "./Styles/BookingMain.styled";
+import { BookModal } from "./Styles/BookingMain.styled";
+import {
+  BoxContainer,
+  Order,
+  OrderTicket,
+  OrderTitle,
+} from "./Styles/BookingMain.styled";
+// import { Information } from "./Styles/BookingMain.styled";
+import { Ticket, Information } from "./Styles/BookingMain.styled";
+import Reservation from "./Ticket/TicketsDetails";
+import CheckoutForm from "./CheckoutForm";
+// import {
+//   TicketEnd,
+//   TicketHead,
+//   TicketBody,
+//   StyledPromo,
+// } from "./Styles/BookingMain.styled";
+// import { StyledEmail } from "../LogIn/Login/email/Email.styled";
+
+export default function BookingPopUp({ setShowPopUp, image }) {
+  const [MStart, setMStart] = useState(true);
+  //const handleStart = () => setMStart(true);
+  const [Terminate, setTerminate] = useState(true);
+  const [empty, setEmpty] = useState(true);
+  const [dataTicket, setdataticket] = useState({});
+  const [showCheckout, setShowCheckout] = React.useState(false);
+  const [checkoutInfo, setCheckoutInfo] = useState([]);
+  const [total, setTotal] = useState(0);
+  let sum = 0;
+  const FormClose = () => {
+    setShowPopUp(false);
+  };
+
+  const ReceiveData = (data) => {
+    console.log("data", data);
+    setCheckoutInfo(data);
+  };
+
+  return (
+    &lt;>
+      &lt;BookingContainer>
+        {/* &lt;BookingetTickets>
+        &lt;Button onClick={handleStart} className="lol">
+          Get tickets
+        &lt;/Button>
+      &lt;/BookingetTickets> */}
+
+        &lt;BookModal>
+          &lt;Modal
+            open={MStart}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            className={classes.MStyle}
+          >
+            &lt;Box className={classes.Box}>
+              &lt;Button onClick={() => FormClose()} className={classes.MClose}>
+                &lt;CloseIcon />
+              &lt;/Button>
+              {showCheckout &amp;&amp; (
+                &lt;BoxContainer>
+                  &lt;CheckoutForm />
+                &lt;/BoxContainer>
+              )}
+
+              {!showCheckout &amp;&amp; (
+                &lt;BoxContainer>
+                  &lt;Ticket>
+                    &lt;Reservation
+                      showCheckout={showCheckout}
+                      setShowCheckout={setShowCheckout}
+                      liftCheckoutInfo={checkoutInfo}
+                      setliftCheckoutInfo={setCheckoutInfo}
+                      setEmpty={setEmpty}
+                      total={setTotal}
+                    />
+                  &lt;/Ticket>
+                  &lt;Information>
+                    {/* {console.log("tala3 el7aga yalal")}
+                    {console.log(checkoutInfo)} */}
+
+                    &lt;div className="eventimage">
+                      &lt;img src={image} />
+                    &lt;/div>
+                    {empty &amp;&amp; (
+                      &lt;div className="NoOrder">
+                        &lt;svg
+                          id="cart_svg__eds-icon--cart_svg"
+                          x="0"
+                          y="0"
+                          viewBox="0 0 24 24"
+                        >
+                          &lt;path
+                            id="cart_svg__eds-icon--cart_base"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M20 14l2-9H9v1h11.9l-1.7 7.1L7 14V2H2v3h4v12h14v-1H7v-1l13-1zM3 3h3v1H3V3z"
+                          >&lt;/path>
+                          &lt;g
+                            id="cart_svg__eds-icon--cart_circles"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                          >
+                            &lt;path d="M8 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 3c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zM18 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 3c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z">&lt;/path>
+                          &lt;/g>
+                        &lt;/svg>
+                      &lt;/div>
+                    )}
+                    {!empty &amp;&amp; (
+                      &lt;Order>
+                        &lt;OrderTitle>Order Summary&lt;/OrderTitle>
+
+                        {checkoutInfo.forEach((orderSummary) => {
+                          sum += orderSummary.sumTicketPrice;
+                          console.log("sum 2ooly bkam", sum);
+                        })}
+
+                        {checkoutInfo.map((orderSummary, index) => {
+                          console.log("wareena el array", checkoutInfo);
+                          return (
+                            &lt;OrderTicket>
+                              &lt;div className="Tsummary">
+                                &lt;div className="Tcount">
+                                  {orderSummary.sumTicketCount} x
+                                  {orderSummary.sumTierName}
+                                &lt;/div>
+                                &lt;div className="SinglePrice">&lt;/div>
+                              &lt;/div>
+                            &lt;/OrderTicket>
+                          );
+                        })}
+                        &lt;OrderTitle>
+                          &lt;div className="Tsummary">
+                            &lt;div className="Tcount">Total&lt;/div>
+                            &lt;div className="Singleprice">50&lt;/div>
+                          &lt;/div>
+                        &lt;/OrderTitle>
+                      &lt;/Order>
+                    )}
+                  &lt;/Information>
+                &lt;/BoxContainer>
+              )}
+            &lt;/Box>
+          &lt;/Modal>
+        &lt;/BookModal>
+      &lt;/BookingContainer>
+    &lt;/>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="BookingPop.module_jsx.html">BookingPop.jsx</a></li><li><a href="CheckoutForm.module_jsx.html">CheckoutForm.jsx</a></li><li><a href="Landing.html#.module:jsx">Landing.jsx</a></li><li><a href="Organize.html#.module:jsx">Organize.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="TicketDetails.html#.module:jsx">TicketDetails.jsx</a></li><li><a href="TierBox.html#.module:jsx">TierBox.jsx</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li><li><a href="pages_LogIn_MainContainer.module_jsx.html">pages/LogIn/MainContainer.jsx</a></li><li><a href="pages_LogIn_leftContainer.module_jsx.html">pages/LogIn/leftContainer.jsx</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#eventsListScroll">eventsListScroll</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 26 2023 11:47:00 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
