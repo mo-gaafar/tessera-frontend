@@ -993,4 +993,14 @@ vertical-align: top;
     outline: none;
   }
 }
+.starspan{
+  @media (min-width: 960px){
+      font-size: .75rem;
+      line-height: 1rem;
+  }
+  text-rendering: optimizeLegibility;
+  color: #c5162e;
+  padding-left: 2px;
+  white-space: nowrap;
+}
 `
