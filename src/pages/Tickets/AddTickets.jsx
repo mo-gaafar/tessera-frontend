@@ -20,18 +20,37 @@ export default function CreateTickets() {
         setIsMenuOpen(false);
     };
 
-    const [inputText, setInputText] = useState('General Admission');
-    const [inputArray, setInputArray] = useState([]);
+    
 
-    const handleChange = (event) => {
-        setInputText(event.target.value);
-    }
+    //////////////////////////////////////for the Ticket Name///////////////////////////////////////////////////////
+    const [inputText, setInputText] = useState('general admission');
+    const [error, setError] = useState(false);
+  
+    const handleChange = (e) => {
+      setInputText(e.target.value);
+    };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if (isEmpty(inputText)) {
+        setError(true);
+      } else {
+        setError(false);
+        // code to handle form submission
+      }
+    };
+  
+    const isEmpty = (str) => {
+      return str.trim() === '';
+    };
+  
+    useEffect(() => {
+      setError(isEmpty(inputText));
+    }, [inputText]);
+  
+  
+  
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setInputArray([...inputArray, inputText]);
-        setInputText('');
-    }
 
 
     /////////////////////////////////////for the Ticket Quantity//////////////////////////////////////////////////
@@ -121,17 +140,22 @@ export default function CreateTickets() {
                     </button>
 
                 </div>
-                <div className='TicketNameDiv'>
-                    <div className='NameTextboxDiv'>
-                        <div className='NameLabelDiv'> Name <span class="eds-label__required-indicator eds-text-bs" data-spec="required-indicator"><span className='asterisk'> *</span></span></div>
-                            <form onSubmit={handleSubmit}>
-                                <label>
-                                    <input className='TicketNameInputDiv' placeholder="General Admission" type="text" value={inputText} onChange={handleChange} />
-                                </label>
-                                    
-                            </form>   
+                <div className={`TicketNameDiv ${error ? 'error' : ''}`}>
+                    <div className="NameTextboxDiv">
+                        <div className={`NameLabelDiv ${error ? 'error' : ''}`}>
+                        Name
+                        <span className="eds-label__required-indicator eds-text-bs" data-spec="required-indicator">
+                            <span className="asterisk"> *</span>
+                        </span>
+                        </div>
+                        <form onSubmit={handleSubmit}>
+                        <label>
+                            <input className="TicketNameInputDiv" type="text" value={inputText} onChange={handleChange} />
+                        </label>
+                        </form>
                     </div>
-                    <div className='TicketNameLength'>{inputText.length}/50</div>
+                    <div className="TicketNameLength">{inputText.length}/50</div>
+                    {error && <div className="ErrorMessage">Name is required.</div>}
                 </div>
 
                 <div className='AvailableQuantityDiv'>
@@ -171,18 +195,35 @@ export default function CreateTickets() {
 
                     <div className='DateBoxDiv'>
 
-                    <span class="CalanderIconSpan"><i class="eds-vector-image eds-icon--small eds-vector-image--grey-800" data-spec="icon" data-testid="icon" aria-hidden="true"><svg id="calendar-chunky_svg__eds-icon--calendar-chunky_svg" xml:space="preserve"><path id="calendar-chunky_svg__eds-icon--calendar-chunky_base" d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path></svg></i></span>
+                        <span class="CalendarIconSpan"><i class="eds-vector-image eds-icon--small eds-vector-image--grey-800" data-spec="icon" data-testid="icon" aria-hidden="true"><svg className='CalendarSvg' xml:space="preserve"><path id="calendar-chunky_svg__eds-icon--calendar-chunky_base" d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path></svg></i></span>
 
-                    <div className=''>
+                        <div className='SalesStartTextBoxDiv'>
+                            
+                            <div className='SalesStartLabel'>
+                                Sales start <span class="eds-label__required-indicator eds-text-bs" data-spec="required-indicator"><span className='asterisk'> *</span></span>
+                            </div>
 
-                    </div>
+                            <div className='calendarBoxDiv'>
+                                
+                            </div>
+                        </div>
                     </div>
                     <div className='DateBoxDiv'>
 
                     </div>
                     <div className='DateBoxDiv'>
-                    <span class="CalanderIconSpan"><i class="eds-vector-image eds-icon--small eds-vector-image--grey-800" data-spec="icon" data-testid="icon" aria-hidden="true"><svg id="calendar-chunky_svg__eds-icon--calendar-chunky_svg" xml:space="preserve"><path id="calendar-chunky_svg__eds-icon--calendar-chunky_base" d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path></svg></i></span>
+                    <span class="CalendarIconSpan"><i class="eds-vector-image eds-icon--small eds-vector-image--grey-800" data-spec="icon" data-testid="icon" aria-hidden="true"><svg className='CalendarSvg' xml:space="preserve"><path id="calendar-chunky_svg__eds-icon--calendar-chunky_base" d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path></svg></i></span>
 
+                    <div className='SalesEndTextBoxDiv'>
+                            
+                            <div className='SalesEndLabel'>
+                                Sales end <span class="eds-label__required-indicator eds-text-bs" data-spec="required-indicator"><span className='asterisk'> *</span></span>
+                            </div>
+
+                            <div className='calendarBoxDiv'>
+
+                            </div>
+                        </div>
                     </div>
                     <div className='DateBoxDiv'>
 
@@ -191,18 +232,19 @@ export default function CreateTickets() {
 
                 </div>
 
-                <button onClick={handleCloseMenu}>Cancel</button>
                 
+                </div>
+
+                <div className='ButtonsMenuDiv'>
+
+                <button className=' CancelButton'onClick={handleCloseMenu}>Cancel</button>
+
+                    <button className='SaveButton'>Save </button>
+
+                    
 
                 </div>
-                
 
-
-
-
-            
-
-            {/* menu contents */}
           </div>
         )}
       </AddTicketsSideMenu>
@@ -214,4 +256,3 @@ export default function CreateTickets() {
     </>
   );
 }    
-

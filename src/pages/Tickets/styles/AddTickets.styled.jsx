@@ -5,7 +5,7 @@ export const MainTicketsDiv = styled.div`
 
     display:flex;
     margin: 6rem 0 0 34.1rem;
-    background-color:lightblue;
+    // background-color:lightblue;
     height:58.4rem;
 
 
@@ -17,7 +17,7 @@ export const LetsCreateTicketsDiv = styled.div`
     padding:6.4rem 0 0;
     height:42.6rem;
     width:100%;
-    background:CadetBlue;
+    // background:CadetBlue;
     justify-content: center;
     // position: relative;
 
@@ -28,7 +28,7 @@ export const LetsCreateTicketsDiv = styled.div`
         // width:43.2rem;
         width:35.975rem;
         height:29.8rem;
-        background:CornflowerBlue;
+        // background:CornflowerBlue;
         flex-flow : column wrap;
         // flex-direction:column;
         // flex-wrap : wrap;
@@ -39,7 +39,7 @@ export const LetsCreateTicketsDiv = styled.div`
 
         display:flex;
         height:11.2rem;
-        background:Coral;
+        // background:Coral;
         justify-content: center;
     }
 
@@ -52,7 +52,7 @@ export const LetsCreateTicketsDiv = styled.div`
         width: 11.2rem;
         height: 11.2rem;
         border-radius: 50%;
-        background:MintCream;
+        // background:MintCream;
     }
 
     .CreateTicketsImg{
@@ -70,7 +70,7 @@ export const LetsCreateTicketsDiv = styled.div`
         margin:3.2rem -0.025rem 0 0;
         // width:36rem;
         height:3.2rem;
-        background:Chocolate;
+        // background:Chocolate;
         color: #1e0a3c;
         font-size: 2.4rem;
         line-height: 3.2rem;
@@ -83,7 +83,7 @@ export const LetsCreateTicketsDiv = styled.div`
         text-align: center;
         height:4.8rem;
         margin: 0.4rem -0.025rem 0 0;
-        background: Peru;
+        // background: Peru;
         color: #6f7287;
         font-size: 1.4rem;
         line-height: 2.4rem;
@@ -96,7 +96,7 @@ export const LetsCreateTicketsDiv = styled.div`
         justify-content: space-around;
         align-items:flex-end;
         height:6.8rem;
-        background:BurlyWood;
+        // background:BurlyWood;
         font-size: 1.42rem;
         font-weight: 500;
         
@@ -133,18 +133,20 @@ export const AddTicketsSideMenu = styled.div`
 
     position: relative;
     display:flex;
+    
 
     .AddTicketsMenuDiv {
-        position: absolute;
+        position: fixed;
         width: 40rem;
         top: 0;
         right: 0;
         bottom: 0;
         background-color: white;
         z-index: 1;
-        background: Thistle;
+        // background: Thistle;
         height: 60rem;
         // overflow-y: scroll;
+        margin-top:6rem;
     }
 
     .AddTicketsMenuHeaderDiv{
@@ -153,7 +155,7 @@ export const AddTicketsSideMenu = styled.div`
         height:5.2rem;
         padding:1.6rem 0.8rem 1.2rem 2.4rem;
         justify-content: space-between;
-        background:RosyBrown;
+        // background:RosyBrown;
     }
 
     .AddTicketsTitleDiv{
@@ -190,7 +192,7 @@ export const AddTicketsSideMenu = styled.div`
         margin-bottom:2rem;
         display:flex;
         justify-content: space-between;
-        background:Plum;
+        // background:Plum;
 
     }
 
@@ -202,7 +204,7 @@ export const AddTicketsSideMenu = styled.div`
         line-height: 2rem;
         background-color: #fff;
         border-radius: 4px;
-        border: 1px solid ;
+        border: 1px solid #a9a8b3;
         cursor: pointer;
         text-align: center;
         font-weight: 500;
@@ -214,8 +216,18 @@ export const AddTicketsSideMenu = styled.div`
         width:33.5rem;
         height:7rem;
         margin-bottom:1.6rem;
-        background:Pink;
+        // background:Pink;
     }
+
+    .TicketNameDiv.error,.NameLabelDiv.error{
+        color: red;
+    }
+
+    .ErrorMessage {
+        font-size: 12px;
+        color: red;
+        margin-top:-1rem;
+        }
 
     .NameTextboxDiv, .AvailableQuantityTextboxDiv{
 
@@ -224,10 +236,10 @@ export const AddTicketsSideMenu = styled.div`
         width:33.5rem;
         height:4.6rem;
         flex-direction: column;
-        border: 0.1rem solid;
+        border: 0.1rem solid #a9a8b3;
     }
 
-    .NameLabelDiv,.AvailableQuantityLabelDiv,.PriceLabelDiv{
+    .NameLabelDiv,.AvailableQuantityLabelDiv,.PriceLabelDiv,.SalesStartLabel, .SalesEndLabel{
         
         display:flex;
         flex-direction: row;
@@ -273,7 +285,7 @@ export const AddTicketsSideMenu = styled.div`
         width:33.5rem;
         height:7rem;
         margin-bottom:1.6rem;
-        background:MediumPurple;
+        // background:MediumPurple;
     }
 
     .AvailabilityInput{
@@ -308,8 +320,8 @@ export const AddTicketsSideMenu = styled.div`
         width:33.5rem;
         height:5rem;
         margin-bottom:1.6rem;
-        background:Lavender;
-        border: 0.1rem solid;
+        // background:Lavender;
+        border: 0.1rem solid #a9a8b3;
         
 
     }   
@@ -320,6 +332,7 @@ export const AddTicketsSideMenu = styled.div`
         height:2.4rem;
         margin-left:1.2rem;
         font-size: 1.4rem;
+        font-weight: 600;
         color: #a9a8b3;
 
     }
@@ -351,7 +364,7 @@ export const AddTicketsSideMenu = styled.div`
         flex-wrap : wrap;
         width:33.5rem;
         height:16.259rem;
-        background:Violet ;
+        // background:Violet ;
         justify-content: space-between;
     }
 
@@ -360,14 +373,63 @@ export const AddTicketsSideMenu = styled.div`
         height:5rem;
         display:flex;
         flex-direction : row;
-        background:Fuchsia ;
+        // background:Fuchsia ;
        
     }
 
-    .CalanderIconSpan{
+    .CalendarIconSpan{
 
         margin-left:1.2rem;
         margin-top:1.3rem;
+    }
+
+    .CalendarSvg{
+        width:2.4rem;
+        height:2.4rem;
+        
+    }
+
+    .ButtonsMenuDiv{
+        
+        display:flex;
+        justify-content: center;
+        align-content: center;
+        width:40rem;
+        height:6.8rem;
+        // background:RebeccaPurple ;
+        z-index:1;
+        margin-top:-10.8rem;
+    }
+
+
+    .CancelButton{
+        width:13.333rem;
+        height:4.4rem;
+        margin-right:2.4rem;
+        margin-top:1.2rem;
+        margin-bottom:1.2rem;
+        color: #39364f;
+        font-weight: 600;
+        font-size: 1.35rem;
+        border: 0.2rem solid;
+        border-color: #a9a8b3;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        background: #ffffff;
+    }
+
+    .SaveButton{
+        width:13.333rem;
+        height:4.4rem;
+        margin-top: 1.2rem;
+        margin-bottom: 1.2rem;
+        font-weight: 600;
+        font-size: 1.35rem;
+        border: 0.2rem solid #f05537;
+        border-radius: 0.4rem;
+        background:#f05537;
+        color: #ffffff;
+        cursor: pointer;
     }
     
 
