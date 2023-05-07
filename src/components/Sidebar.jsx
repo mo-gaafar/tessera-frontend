@@ -5,7 +5,7 @@ import {
   StyledMainSidebar,
   StyledCreateTicketSidebar,
 } from './styles/Sidebar.styled';
-const Sidebar = ({ event, dashboard }) => {
+const Sidebar = (props,{ event, dashboard }) => {
   const [hovered, setHovered] = useState(false);
   const [reportHovered, setReportHovered] = useState(false);
 
@@ -48,7 +48,7 @@ const Sidebar = ({ event, dashboard }) => {
           )}
         </div>
       </StyledMainSidebar>
-      <StyledCreateTicketSidebar>
+      {!props.hide && <StyledCreateTicketSidebar>
         <Link className="events__page">
           <svg viewBox="0 0 24 24" xml:space="preserve">
             <path
@@ -174,7 +174,7 @@ const Sidebar = ({ event, dashboard }) => {
           <span className={dashboard ? 'active' : ''}> Dashboard</span>
           <span>Manage Attendes</span>
         </div>
-      </StyledCreateTicketSidebar>
+      </StyledCreateTicketSidebar>}
     </>
   );
 };

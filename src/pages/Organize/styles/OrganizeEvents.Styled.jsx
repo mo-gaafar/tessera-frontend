@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const PageContainer = styled.div`
-  margin:2rem;
+  width:100%;
+  margin:0px 5rem 5rem 5rem;
   
   p{
     font-size: 28px;

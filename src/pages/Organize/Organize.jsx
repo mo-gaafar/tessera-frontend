@@ -22,6 +22,7 @@ import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
 import LinearProgress from "@mui/material/LinearProgress";
+import Sidebar from "../../components/Sidebar"
 /**
  * A functional component that handles the Organization event page.
  * 
@@ -386,9 +387,11 @@ export default function Organize(props) {
     
 
  
-  return (
+  return (<div style={{display:'flex'}}>
+
+    <Sidebar hide={true} ></Sidebar>
    <PageContainer>
-    <StyledNav>
+      <StyledNav>
           {email && email !== 'undefined' ? (
             <NavbarLoggedIn creator={true} email={email} />
           ) : (
@@ -553,5 +556,6 @@ export default function Organize(props) {
 
     </div>
    </PageContainer>
+   </div>
   )
 }
