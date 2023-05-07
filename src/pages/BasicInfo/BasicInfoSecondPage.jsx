@@ -5,7 +5,6 @@ import { useRef, useEffect, useState } from 'react';
 import { WholePage } from './Styles/BasicInfoSecondPage.styled';
 export default function Details(){
   const [value, setValue] = React.useState("");
-  const [inputerror, setinputerror] = React.useState("")
   const [focused,setFocused] = React.useState(false)
   const [inputError, setInputError] = useState('');
   const handleChange = (event) => {
@@ -388,7 +387,7 @@ export default function Details(){
                     </div>
                   </div>
                   <div className='undersummarybox'>
-                   {inputError && (
+                  {inputError && (
                           <div className='error'>{inputError}</div>
                         )}
                     <div className='characterslimitdiv'>

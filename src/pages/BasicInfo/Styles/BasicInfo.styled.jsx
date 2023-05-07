@@ -174,6 +174,7 @@ export const WholePage = styled.div`
   }
 }
 .explanationdiv{
+  color: #1e0a3c;
   font-size: 1.4rem;
   width: 100%;
   margin-bottom: 1rem;
@@ -319,10 +320,30 @@ eventtitleinputdiv{
     background-color: red;
   }
 }
+.blue-border:focus {
+  border-color: blue;
+}
+
+.red-border {
+  border-color: red;
+}
+.red-text {
+  color: red;
+}
+
+.blue-text {
+  color: blue;
+}
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
 .tagstitlediv{
   @media (min-width: 960px) {
     line-height: 1.5rem;
   }
+  color: #1e0a3c;
   font-size: 1.7rem;
   letter-spacing: .25px;
   margin-right: -0.25px;
@@ -363,6 +384,7 @@ eventtitleinputdiv{
   }
 }
 .aside{
+  color: #1e0a3c;
   @media (min-width: 960px){
     font-size: 1.2rem;
     line-height: 1rem;
@@ -413,6 +435,7 @@ eventtitleinputdiv{
   font-size: .875rem;
   line-height: 1.25rem;
   padding-top: 0.5rem;
+  color: #1e0a3c;
 }
 .organizerinfolink{
   text-decoration: none;
@@ -650,6 +673,7 @@ inputtagsdata{
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+ 
 }
 .dropdownarrowspan{
   margin-top: 0;
@@ -750,7 +774,7 @@ inputtagsdata{
   font-weight: 400;
   letter-spacing: 0.03rem;
   @media (min-width: 960px){
-    min-width: 9.7rem; 
+    max-width: 15.4rem; 
   }
 }
 .buttonslabels{
@@ -835,6 +859,24 @@ inputtagsdata{
   :checked{
     border-color: #3d64ff;
   }
+  :hover{
+    border-color: #a9a8b3;
+  }
+  text-align: center;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #dbdae3;
+  border-radius: 2px;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  line-height: 0;
+  transition: border-color .16s ease-in;
+  -webkit-box-flex: 0;
+  flex: none;
+  display: inline-block;
+  cursor: pointer;
+  color: #39364f;
 }
 .checktextlabel{
   margin-left: 16px;
@@ -850,8 +892,10 @@ inputtagsdata{
 color: #4b4d63;
 }
 .timedropdowndiv{
+  width:100%;
   @media (min-width: 660px){
     width: 50%;
+    max-width: 32rem;
 }
 font-size: 14px;
 line-height: 22px;
@@ -878,6 +922,75 @@ vertical-align: top;
   font-weight: 400;
   :active{
     color: #3659e3;
+  }
+}
+.dateandtimeboxes{
+  overflow: visible;
+  padding-right: 8px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  @media (min-width: 480px){
+    width: 50%;
+    max-width: 32rem;
+}
+}
+.boxesborders{
+  border-radius: 2px;
+  background: #dbdae3;
+  padding: 1px;
+  position: relative;
+  transition: background .24s cubic-bezier(.4,0,.3,1);
+}
+.divflex{
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  position: relative;
+  background: #fff;
+  border-radius: 1px;
+  border: 1px solid #fff;
+}
+.divflex2{
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  position: relative;
+  -webkit-box-flex: 1;
+  flex: 1;
+  min-width: 0;
+  height:4.6rem;
+}
+.dateandtimecalendarspan{
+  margin-top: -8px;
+  font-size: 12px;
+}
+.calendarinput{
+  padding: 18px 12px 6px;
+  background: none;
+  border: none;
+  color: #39364f;
+  white-space: nowrap;
+  outline: none;
+  transition: padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1);
+  -webkit-box-flex: 1;
+  flex: 1;
+  min-width: 0;
+  @media (min-width: 660px){
+    font-size: 14px;
+    line-height: 22px;
+    min-height: 22px;
+  }
+}
+.noborder{
+  &:focus{
+    outline: none;
   }
 }
 `
