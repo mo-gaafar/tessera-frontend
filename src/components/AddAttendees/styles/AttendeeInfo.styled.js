@@ -24,6 +24,24 @@ export const Container = styled.div`
       width: 100%;
     }
   }
+  .TimeOut {
+    margin: 0 150px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    width: 100%;
+    h1 {
+      height: 10%;
+      font-size: 40px;
+      font-weight: 700;
+    }
+    .poweredT {
+      margin-top: 500px;
+    }
+  }
 `;
 
 export const Header = styled.div`

@@ -17,6 +17,7 @@ import Button from "@mui/material/Button";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import LaunchIcon from "@mui/icons-material/Launch";
 import InputAdornment from "@mui/material/InputAdornment";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AddAttendee() {
   const [inputValue, setInputValue] = useState(["", ""]);
@@ -51,9 +52,11 @@ export default function AddAttendee() {
   function showAlert() {
     alert("Please enter a quantity");
   }
+  function getData() {}
 
   return (
     <Container id="129758shf3272">
+      {console.log(localStorage.getItem("token") + " habebby")}
       <Header id="12975374hdd272">
         <h1>Add Attendees</h1>
         <p>

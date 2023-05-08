@@ -130,29 +130,34 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                       <Order>
                         <OrderTitle>Order Summary</OrderTitle>
 
-                        {checkoutInfo.forEach((orderSummary) => {
-                          sum += orderSummary.sumTicketPrice;
-                          console.log("sum 2ooly bkam", sum);
-                        })}
-
                         {checkoutInfo.map((orderSummary, index) => {
-                          console.log("wareena el array", checkoutInfo);
                           return (
-                            <OrderTicket>
+                            <OrderTicket key={index}>
                               <div className="Tsummary">
                                 <div className="Tcount">
                                   {orderSummary.sumTicketCount} x
                                   {orderSummary.sumTierName}
                                 </div>
-                                <div className="SinglePrice"></div>
+                                <div className="SinglePrice">
+                                  {" "}
+                                  {orderSummary.sumTicketCount *
+                                    orderSummary.sumTicketPrice}
+                                </div>
                               </div>
                             </OrderTicket>
                           );
                         })}
                         <OrderTitle>
+                          {checkoutInfo.forEach((orderSummary) => {
+                            sum += Number(orderSummary.sumTicketPrice.slice(1));
+                            console.log(
+                              "sum 2ooly bkam",
+                              orderSummary.sumTicketPrice.slice(1)
+                            );
+                          })}
                           <div className="Tsummary">
                             <div className="Tcount">Total</div>
-                            <div className="Singleprice">50</div>
+                            <div className="Singleprice">{sum}</div>
                           </div>
                         </OrderTitle>
                       </Order>

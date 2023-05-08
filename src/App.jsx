@@ -34,7 +34,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
@@ -44,10 +44,11 @@ function App() {
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} />
-      </Routes> */}
+        <Route path="manage" element={<AddAttendee />} />
+      </Routes>
       {/* <BookingPopUp /> */}
       {/* <AddAttendee></AddAttendee> */}
-      <AttendeeInfo></AttendeeInfo>
+      {/* <AttendeeInfo></AttendeeInfo> */}
     </>
   );
 }

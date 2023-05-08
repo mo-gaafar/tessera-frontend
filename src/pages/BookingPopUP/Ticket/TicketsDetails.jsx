@@ -17,7 +17,7 @@
 
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -63,7 +63,6 @@ export default function Reservation({
   total,
 }) {
   const eventID = useParams().eventID;
-
   const [tickets, setTickets] = useState(true);
   const [eventInfo, seEventInfo] = useState([]);
   const [promocode, setPromocode] = useState(false);
@@ -183,7 +182,9 @@ export default function Reservation({
       return true;
     });
   }
-
+  const updateLiftCheckoutInfo = (newLiftCheckoutInfo) => {
+    setliftCheckoutInfo(newLiftCheckoutInfo);
+  };
   return (
     <>
       {tickets != false && eventExist && (
@@ -214,6 +215,7 @@ export default function Reservation({
                 placeholder="Enter Code"
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
+                  style: { fontSize: "15px" },
                   endAdornment: (
                     <InputAdornment position="end">
                       {promocode && <CheckCircleIcon color="success" />}
@@ -243,18 +245,16 @@ export default function Reservation({
             {ticketsTierdetails.map((element, index) => {
               return (
                 <TierBox
+                  key={index}
                   element={element}
                   index={index}
                   setTicketTierdetails={setTicketTierdetails}
                   ticketsTierdetails={ticketsTierdetails}
                   summary={liftCheckoutInfo}
-                  setSummary={setliftCheckoutInfo}
+                  setSummary={updateLiftCheckoutInfo}
                   setEmpty={setEmpty}
                   total={total}
-                >
-                  {" "}
-                  {(liftCheckoutInfo = summaryInter)}
-                </TierBox>
+                ></TierBox>
               );
             })}
             <TicketEnd>
