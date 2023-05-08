@@ -126,7 +126,6 @@ export default function Landing() {
       setShowCategoryMenu(false);
     }
   };
-
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -191,11 +190,12 @@ export default function Landing() {
   });
 
   /**
-   * A custom React hook that fetches the city name from the latitude and longitude.
-   *
-   * @param {number} latitude - The latitude of the location.
-   * @param {number} longitude - The longitude of the location.
-   * @returns {string} The name of the city.
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that fetches the city name from the latitude and longitude
+   * @param {function} fetchData
+   * @param {function} navigator.geolocation.getCurrentPosition
+   * @returns {JSX.Element} A React component representing the event box
    */
 
   useEffect(() => {

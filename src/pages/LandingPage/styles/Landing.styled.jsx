@@ -5,12 +5,9 @@ export const StyledNav = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-inline: 3rem;
+    padding-inline: 5rem;
     position: relative;
     padding-right: 2rem;
-    @media (max-width: 40em) {
-      padding-inline: 1rem;
-    }
     .menu {
       width: 20rem;
       position: absolute;
@@ -97,9 +94,6 @@ export const StyledLandingEvents = styled.section`
     }
     ::placeholder {
       color: #3659e3;
-    }
-    @media (max-width: 40em) {
-      width: 20rem !important;
     }
   }
   .location__dropdown {

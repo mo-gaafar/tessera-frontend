@@ -67,6 +67,19 @@ import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
  */
 
 export default function SignUpOne(props) {
+  React.useEffect(() => {
+    const fetchData = async () => {
+      //  const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/'); //temp (the original one crashed)
+      const response = await fetch(
+        'https://www.tessera.social/api/attendee/event/6439c17df192628827184ef0'
+      );
+      //console.log(await response.json())
+      const event = await response.json();
+      setEventData(event);
+    };
+    fetchData();
+  }, []);
+
   let navigate;
   if (!props.test) {
     navigate = useNavigate();
@@ -109,10 +122,7 @@ export default function SignUpOne(props) {
       }
     );
 
-    const responseData = responseBackend.json();
-    console.log(responseData);
-    localStorage.setItem('authEmail', email);
-    navigate('/');
+    // console.log(await responseBackend.json());
   }
 
   function handleError(error) {
@@ -123,6 +133,18 @@ export default function SignUpOne(props) {
     onSuccess: codeResponse => setUser(codeResponse),
     onError: error => console.log('Login Failed:', error),
   });
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(
+        `https://www.tessera.social/api/event-management/retrieve/64395de28e50b131d0403ff8`
+      );
+
+      const data = await response.json();
+      console.log(data.event.description);
+    };
+    getData();
+  }, []);
 
   useEffect(() => {
     localStorage.removeItem('authEmail');
@@ -300,7 +322,7 @@ export default function SignUpOne(props) {
           <FacebookProvider appId="664174802386073">
             <LoginButton
               id="facebook"
-              scope="public_profile,email"
+              scope="public_profile,emaiemaill"
               onError={handleError}
               onSuccess={handleSuccess}
             ></LoginButton>

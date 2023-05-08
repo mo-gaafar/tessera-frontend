@@ -243,11 +243,23 @@ const SubmitButton = styled.button`
   }
 `;
 
+
+
+
 function CheckoutForm(props) {
   // const event = props.event;
   const event = '643aa09ecbfea68c24d93670';
+
+  function SessionEnded() {
+    return (
+      <div>
+        <h1>Session Ended</h1>
+        <p>Your session has ended. Please log in again to continue.</p>
+      </div>
+    );
+  }
   // const ticketTier = props.ticketTier;
-  const [remainingTime, setRemainingTime] = useState(10 * 60);
+  const [remainingTime, setRemainingTime] = useState(10*60);
   const [timeLeft, setTimeLeft] = useState('');
   useEffect(() => {
     const interval = setInterval(() => {
@@ -266,7 +278,7 @@ function CheckoutForm(props) {
     const seconds = remainingTime % 60;
     setTimeLeft(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
     if (remainingTime === 0) {
-      // handle timer completion
+      return <SessionEnded />;
     }
   }, [remainingTime]);
 
