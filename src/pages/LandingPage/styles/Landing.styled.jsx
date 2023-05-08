@@ -316,6 +316,8 @@ export const StyledEventsContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
+  .grid__2 {
+  }
   .error-img {
     display: flex;
     -webkit-box-pack: center;

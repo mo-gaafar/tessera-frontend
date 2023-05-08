@@ -50,9 +50,10 @@ import {
 import { render } from 'react-dom';
 
 import SignupTwo from './SignupTwo';
-import { Link, useNavigate } from 'react-router-dom';
-import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useGoogleLogin } from '@react-oauth/google';
 import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
 
 /**
@@ -228,7 +229,8 @@ export default function SignUpOne(props) {
         <UpperPage>
           <TopHeader>
             <DivLeft>
-              <EventLogo src="/images/logo.jpg" />
+              {/* <EventLogo src="/images/logo.jpg" /> */}
+              <h2>Eventneers</h2>
               <CreateAccount>Create an account</CreateAccount>
             </DivLeft>
             <LogInDiv>
