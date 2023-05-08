@@ -438,9 +438,34 @@ export default function Organize(props) {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+    
+  const [shouldHideSidebar, setShouldHideSidebar] = useState(false);
 
-  return (
-    <>
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 959px)');
+
+    const handleMediaQueryChange = (event) => {
+      setShouldHideSidebar(event.matches);
+    };
+
+    mediaQuery.addListener(handleMediaQueryChange);
+
+    // Set initial value
+    setShouldHideSidebar(mediaQuery.matches);
+
+    // Clean up the listener
+    return () => {
+      mediaQuery.removeListener(handleMediaQueryChange);
+    };
+  }, []);
+
+
+ 
+  return (<div style={{display:'flex'}}>
+    
+    {!shouldHideSidebar && <Sidebar hide={true} />}
+  
+   <PageContainer>
       <StyledNav>
         {email && email !== 'undefined' ? (
           <NavbarLoggedIn creator={true} email={email} />
