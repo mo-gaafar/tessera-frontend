@@ -102,18 +102,18 @@ export default function AttendeeInfo() {
   }
 
   return (
-    <Container>
-      <Header>
-        <a href="">
-          <ArrowBackIcon />
+    <Container id="129753272">
+      <Header id="129753274">
+        <a href="" id="129753572">
+          <ArrowBackIcon id="1297562" />
           Back to Attendees section
         </a>
         <h1>Registeration Information</h1>
         <hr />
       </Header>
-      <div className="flexcontainer">
-        <div className="flexleft">
-          <Checkout>
+      <div className="flexcontainer" id="129713272">
+        <div className="flexleft" id="16753272">
+          <Checkout id="1297532720">
             <h2>Checkout</h2>
             <p> Time left</p>
           </Checkout>
@@ -123,6 +123,7 @@ export default function AttendeeInfo() {
             <div className="TextCont">
               <div className="Names">
                 <TextField
+                  id="129872"
                   className="firstName"
                   required
                   label="First Name"
@@ -156,6 +157,7 @@ export default function AttendeeInfo() {
                   }}
                 ></TextField>
                 <TextField
+                  id="1297522"
                   className="lastName"
                   required
                   label="Last Name"
@@ -189,8 +191,9 @@ export default function AttendeeInfo() {
                   }
                 />
               </div>
-              <div className="Email">
+              <div className="Email" id="125672">
                 <TextField
+                  id="12975327244"
                   className="Ename"
                   required
                   label="Email Address"
@@ -230,6 +233,7 @@ export default function AttendeeInfo() {
             </div>
             <div className="check">
               <Checkbox
+                id="129753111"
                 size="large"
                 checked={checked}
                 onChange={(e) => setChecked(e.target.checked)}
@@ -247,6 +251,7 @@ export default function AttendeeInfo() {
               <div className="TextCont">
                 <div className="Names">
                   <TextField
+                    id="1297533"
                     className="firstName"
                     required
                     label="First Name"
@@ -271,6 +276,7 @@ export default function AttendeeInfo() {
                     }
                   ></TextField>
                   <TextField
+                    id="12934552"
                     className="lastName"
                     required
                     label="Last Name"
@@ -297,6 +303,7 @@ export default function AttendeeInfo() {
                 </div>
                 <div className="Email">
                   <TextField
+                    id="12973459"
                     className="Ename"
                     required
                     type="email"
@@ -326,8 +333,9 @@ export default function AttendeeInfo() {
             </div>
             <p className="powered">Powered by TESSERA</p>
           </Info>
-          <PlaceOrder>
+          <PlaceOrder id="12975eee32">
             <Button
+              id="129753fas72"
               variant="contained"
               color="primary"
               className="button"
@@ -337,21 +345,22 @@ export default function AttendeeInfo() {
             </Button>
           </PlaceOrder>
         </div>
-        <Information>
-          <div className="eventimage">
+        <Information id="129753272jdj">
+          <div className="eventimage" id="12kaald272">
             <img
+              id="1297dkoe272"
               src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F504832309%2F1479343247803%2F1%2Foriginal.20230501-180845?w=720&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C128%2C512%2C256&s=d1e65d2528b368ac6b683664754a0ec0"
               alt=""
             />
           </div>
-          <OrderTitle>
+          <OrderTitle id="1297532asdee72">
             <h2>Order Summary</h2>
           </OrderTitle>
           <OrderItem>
             <div className="name">eneral Admision</div>
             <div className="Price">1</div>
           </OrderItem>
-          <OrderItem>
+          <OrderItem id="129753llskf272">
             <div className="name">Total</div>
             <div className="Price">1</div>
           </OrderItem>

@@ -53,8 +53,8 @@ export default function AddAttendee() {
   }
 
   return (
-    <Container>
-      <Header>
+    <Container id="129758shf3272">
+      <Header id="12975374hdd272">
         <h1>Add Attendees</h1>
         <p>
           Manually add attendees info for complimentary tickets or offline
@@ -62,9 +62,9 @@ export default function AddAttendee() {
         </p>
         <hr />
       </Header>
-      <OrderType>
+      <OrderType id="12975jfug73272">
         <label>Order Type:</label>
-        <select>
+        <select id="1297ir8jds53272">
           <option value="Check">Paid with Check</option>
           <option value="Cash">Paid with cash </option>
           <option value="Paypal">Paid directly online with Paypal </option>
@@ -78,9 +78,9 @@ export default function AddAttendee() {
         </select>
         <p>* Eventbrite does not charge any fees for manual orders.</p>
       </OrderType>
-      <Tickets>
-        <thead className="Title">
-          <tr className="rowHead">
+      <Tickets id="1297kd98jdf53272">
+        <thead className="Title" id="129759jjef3272">
+          <tr className="rowHead" id="12975is8jdf3272">
             <th className="type" align="left">
               Ticket Type
             </th>
@@ -91,7 +91,7 @@ export default function AddAttendee() {
           </tr>
         </thead>
 
-        <tbody>
+        <tbody id="12975327js8fh2">
           <tr>
             <td className="num">General Admission</td>
             <td align="center" className="num">
@@ -102,6 +102,7 @@ export default function AddAttendee() {
             </td>
             <td align="center" className="tQuantity">
               <TextField
+                id="1297s8fhf53272"
                 className="Quantity"
                 inputProps={{
                   style: {
@@ -123,6 +124,7 @@ export default function AddAttendee() {
             </td>
             <td align="center" width="30%">
               <TextField
+                id="12979jfff3353272"
                 className="Face"
                 size="Normal"
                 inputProps={{
@@ -139,13 +141,13 @@ export default function AddAttendee() {
               ></TextField>
             </td>
           </tr>
-          <tr>
+          <tr id="1297532sij9r372">
             <td>General Admission</td>
             <td align="center">0</td>
             <td align="center">$0.00</td>
             <td align="center" className="tQuantity">
               <TextField
-                name="x"
+                id="129753a9jfng272"
                 className="Quantity"
                 inputProps={{
                   style: {
@@ -167,6 +169,7 @@ export default function AddAttendee() {
             </td>
             <td align="center" width="30%">
               <TextField
+                id="1297532djf8he72"
                 className="Face"
                 size="Normal"
                 inputProps={{
@@ -184,7 +187,7 @@ export default function AddAttendee() {
             </td>
           </tr>
         </tbody>
-        <div className="Total">
+        <div className="Total" id="12975afja8fhg3272">
           <div className="text">Total Value</div>
           <TextField
             disabled
@@ -201,8 +204,9 @@ export default function AddAttendee() {
           ></TextField>
         </div>
       </Tickets>
-      <Continue>
+      <Continue id="12975a0gig3272">
         <Button
+          id="12975327afjaf2"
           variant="contained"
           color="primary"
           className="button"
@@ -211,12 +215,13 @@ export default function AddAttendee() {
           Continue
         </Button>
       </Continue>
-      <LearnMore>
+      <LearnMore id="1297a9jfng53272">
         <HelpOutlineOutlinedIcon className="icon" />
         Learn more about
         <a
           href="https://www.eventbrite.com/support/articles/en_US/How_To/how-to-add-attendees-manually?lg=en_US"
           target="_blank"
+          id="1aj9fg29753272"
         >
           adding attendees
         </a>
