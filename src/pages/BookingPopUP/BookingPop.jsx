@@ -9,27 +9,27 @@
  *
  *
  */
-import React from "react";
-import { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import classes from "./Styles/Bookingpopup.module.css";
-import { BookingContainer } from "./Styles/BookingMain.styled";
-import { BookingetTickets } from "./Styles/BookingMain.styled";
-import { BookModal } from "./Styles/BookingMain.styled";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import classes from './Styles/Bookingpopup.module.css';
+import { BookingContainer } from './Styles/BookingMain.styled';
+import { BookingetTickets } from './Styles/BookingMain.styled';
+import { BookModal } from './Styles/BookingMain.styled';
 import {
   BoxContainer,
   Order,
   OrderTicket,
   OrderTitle,
-} from "./Styles/BookingMain.styled";
+} from './Styles/BookingMain.styled';
 // import { Information } from "./Styles/BookingMain.styled";
-import { Ticket, Information } from "./Styles/BookingMain.styled";
-import Reservation from "./Ticket/TicketsDetails";
-import CheckoutForm from "./CheckoutForm";
+import { Ticket, Information } from './Styles/BookingMain.styled';
+import Reservation from './Ticket/TicketsDetails';
+import CheckoutForm from './CheckoutForm';
 // import {
 //   TicketEnd,
 //   TicketHead,
@@ -46,14 +46,15 @@ export default function BookingPopUp({ setShowPopUp, image }) {
   const [dataTicket, setdataticket] = useState({});
   const [showCheckout, setShowCheckout] = React.useState(false);
   const [checkoutInfo, setCheckoutInfo] = useState([]);
+  const [promoCode, setPromocode] = useState('');
   const [total, setTotal] = useState(0);
   let sum = 0;
   const FormClose = () => {
     setShowPopUp(false);
   };
 
-  const ReceiveData = (data) => {
-    console.log("data", data);
+  const ReceiveData = data => {
+    // console.log('data', data);
     setCheckoutInfo(data);
   };
 
@@ -79,7 +80,11 @@ export default function BookingPopUp({ setShowPopUp, image }) {
               </Button>
               {showCheckout && (
                 <BoxContainer>
-                  <CheckoutForm />
+                  <CheckoutForm
+                    total={sum}
+                    checkoutInfo={checkoutInfo}
+                    promoCode={promoCode}
+                  />
                 </BoxContainer>
               )}
 
@@ -87,6 +92,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                 <BoxContainer>
                   <Ticket>
                     <Reservation
+                      changePromo={setPromocode}
                       showCheckout={showCheckout}
                       setShowCheckout={setShowCheckout}
                       liftCheckoutInfo={checkoutInfo}
@@ -96,8 +102,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                     />
                   </Ticket>
                   <Information>
-                    {/* {console.log("tala3 el7aga yalal")}
-                    {console.log(checkoutInfo)} */}
+                    {console.log(checkoutInfo)}
 
                     <div className="eventimage">
                       <img src={image} />
@@ -139,7 +144,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                                   {orderSummary.sumTierName}
                                 </div>
                                 <div className="SinglePrice">
-                                  {" "}
+                                  {' '}
                                   {orderSummary.sumTicketCount *
                                     orderSummary.sumTicketPrice}
                                 </div>
@@ -148,14 +153,14 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                           );
                         })}
                         <OrderTitle>
-                          {checkoutInfo.forEach((orderSummary) => {
+                          {checkoutInfo.forEach(orderSummary => {
                             sum +=
                               Number(orderSummary.sumTicketPrice) *
                               Number(orderSummary.sumTicketCount);
-                            console.log(
-                              "sum 2ooly bkam",
-                              orderSummary.sumTicketPrice.slice(1)
-                            );
+                            // console.log(
+                            //   'sum 2ooly bkam',
+                            //   orderSummary.sumTicketPrice.slice(1)
+                            // );
                           })}
                           <div className="Tsummary">
                             <div className="Tcount">Total</div>

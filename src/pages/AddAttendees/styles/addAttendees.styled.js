@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100vw;
+  /* width: 100vw; */
 
   overflow-y: scroll;
   background-color: white;
@@ -9,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-  width: 100vw;
+  /* width: 100vw; */
   height: 150px;
   text-align: left;
   background-color: white;
@@ -33,8 +33,9 @@ export const Header = styled.div`
   }
   hr {
     position: absolute;
-    top: 150px;
+    top: 200px;
     width: 99%;
+    opacity: 0.3;
   }
 `;
 export const OrderType = styled.div`
@@ -74,7 +75,7 @@ export const OrderType = styled.div`
   }
 `;
 export const Tickets = styled.table`
-  width: 100vw;
+  width: 65vw;
   height: 300px;
   margin-left: 5%;
 
@@ -134,15 +135,14 @@ export const Tickets = styled.table`
 
     .text {
       position: absolute;
-      right: 370px;
-
+      right: 50rem;
       display: inline-block;
       padding-top: 7px;
       padding-right: 10px;
     }
     .TotalValue {
       position: absolute;
-      right: 100px;
+      right: 25rem;
       width: 250px;
     }
   }
@@ -160,12 +160,13 @@ export const Continue = styled.div`
     height: 50px;
     background-color: rgb(221, 73, 28);
     font-size: 19px;
-    font-family: "Neue Plak", -apple-system, BlinkMacSystemFont, Roboto,
-      "Helvetica Neue", Helvetica, Tahoma, Arial, sans-serif;
+    font-family: 'Neue Plak', -apple-system, BlinkMacSystemFont, Roboto,
+      'Helvetica Neue', Helvetica, Tahoma, Arial, sans-serif;
     line-height: 24px;
     letter-spacing: 0.2px;
     font-weight: 600;
     border-radius: 5px;
+    margin-right: 20rem;
   }
   .button:hover {
     opacity: 0.9;
