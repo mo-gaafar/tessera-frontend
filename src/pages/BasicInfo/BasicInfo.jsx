@@ -55,7 +55,34 @@ export default function BasicInfo(){
   const [url, setUrl] = useState('');
   const [showMap, setShowMap] = React.useState(false);
   const [mapStatus, setMapStatus] = useState('show map');
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [showInput, setShowInput] = useState(true);
 
+  function handleOptionSelect(event) {
+    setSelectedOption(event.target.textContent);
+    setShowInput(false);
+  }
+
+  if (!showInput) {
+    return (
+      <div className="selected-option">
+        You selected: {selectedOption}
+      </div>
+    );
+  }
+  function toggleDropdown() {
+    setIsOpen(!isOpen);
+  }
+  function getDayClassName(date) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set the time to midnight
+    // Check if the date has already passed
+    if (date < today) {
+      return 'past-date';
+    }
+    return null; // Return null if no class should be applied
+  }
   useEffect(() => {
     const fetchData = async (latitude, longitude) => {
       const data = await fetch(
@@ -1214,7 +1241,7 @@ export default function BasicInfo(){
                                   }
                                 }>  
                                 <div>
-                                  <div className='dateandtimeboxes'>
+                                  <div className='dateandtimeboxes' style={{marginTop:'-20px'}}>
                                     <div>
                                       <div style={{marginBottom:'8px'}}>
                                           <div className='divflex'>
@@ -1243,7 +1270,7 @@ export default function BasicInfo(){
                                       </div>
                                     </div>
                                   </div>
-                                  <div className='dateandtimeboxes'>
+                                  <div className='dateandtimeboxes' style={{marginTop:'-20px'}}>
                                     <div>
                                       <div style={{marginBottom:'8px'}}>
                                           <div className='divflex'>
@@ -1443,6 +1470,9 @@ export default function BasicInfo(){
                                                     {showCalendar && (
                                                       <DatePicker
                                                         selected={selectedDate}
+                                                        className="custom-datepicker"
+                                                        calendarClassName="custom-calendar"
+                                                        dayClassName= {getDayClassName}
                                                         onChange={date => {
                                                           setSelectedDate(date);
                                                           setShowCalendar(false);
@@ -1802,6 +1832,8 @@ export default function BasicInfo(){
                                                     />
                                                     {showCalendar && (
                                                       <DatePicker
+                                                        className="custom-datepicker"
+                                                        calendarClassName="custom-calendar"
                                                         selected={selectedEndDate}
                                                         onChange={date => {
                                                           setSelectedEndDate(date);
@@ -3508,6 +3540,51 @@ export default function BasicInfo(){
                                   </div>
                                 </div>
                               )} 
+                              <div className="dropdown">
+      <div className="dropdown-trigger">
+        <input 
+          type="text" 
+          placeholder="Select an option" 
+          readOnly 
+        />
+      </div>
+      <div className="dropdown-menu">
+        <ul>
+          <li 
+            className='dropdownoption' 
+            value 
+            data-spec="select-option" 
+            onClick={handleOptionSelect}
+          >
+            Option 1
+          </li>
+          <li 
+            className='dropdownoption' 
+            value="3" 
+            data-spec="select-option" 
+            onClick={handleOptionSelect}
+          >
+            Option 2
+          </li>
+          <li 
+            className='dropdownoption' 
+            value="13" 
+            data-spec="select-option" 
+            onClick={handleOptionSelect}
+          >
+            Option 3
+          </li>
+          <li 
+            className='dropdownoption' 
+            value="16" 
+            data-spec="select-option" 
+            onClick={handleOptionSelect}
+          >
+            Option 4
+          </li>
+        </ul>
+      </div>
+    </div>
                       </div>
                     </div>
                   </div>

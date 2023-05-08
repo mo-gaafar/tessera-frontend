@@ -1003,4 +1003,100 @@ vertical-align: top;
   padding-left: 2px;
   white-space: nowrap;
 }
+.custom-datepicker {
+  border: none;
+  height: 4.6rem;
+  overflow: visible;
+  padding-right: 8px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  @media (min-width: 480px){
+    max-width: 32rem;
+}
+}
+.custom-calendar {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 16px;
+  width: 33.9rem;
+  height: 31rem;
+  z-index: 999;
+  margin-left: 20px;
+}
+.react-datepicker__day--selected {
+  border: 1px solid blue;
+  color: black;
+  border-radius: 50%;
+  background-color: white;
+}
+.react-datepicker__month-container {
+  width: 310px; /* set the width of the calendar container */
+}
+.react-datepicker__day-name {
+  font-size: 14px; /* set the font size of the day names */
+  height: 25px; /* set the height of each day cell */
+  width: 25px;
+  line-height: 25px; /* set the line height to vertically center the day numbers */
+  text-align: center; /* center the day numbers horizontally */
+  border-radius: 50%;
+  margin-left: 20px;
+}
+.react-datepicker__header {
+  background-color: #fff; /* set the background color of the header */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 10px;
+}
+.react-datepicker__current-month{
+  color: #4B4D63;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+.react-datepicker__month {
+  font-size: 1.4rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 10px;
+  width: 339px; /* set the width of the calendar to 339px */
+  margin: 0 auto; /* center the calendar horizontally */
+}
+.react-datepicker__week {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.react-datepicker__day {
+  margin-left: 20px;
+  height: 25px; /* set the height of each day cell */
+  width: 25px;
+  font-size: 14px; /* set the font size of the day numbers */
+  line-height: 25px; /* set the line height to vertically center the day numbers */
+  text-align: center; /* center the day numbers horizontally */
+  border-radius: 50%; /* make the day cells circular */
+  cursor: pointer; /* change the cursor to a pointer when hovering over a day cell */
+}
+.react-datepicker__navigation {
+  background-color: #EFEFEF;
+  margin-top: 15px;
+  margin-right: 25px;
+  margin-left: 25px;
+}
+.react-datepicker__navigation--previous {
+  border-right-color: black !important; /* color of the left arrow */
+}
+
+.react-datepicker__navigation--next {
+  border-left-color: black !important; /* color of the right arrow */
+}
+.past-date{
+  color: #ccc;
+}
 `
