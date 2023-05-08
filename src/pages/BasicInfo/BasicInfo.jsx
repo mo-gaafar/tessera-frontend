@@ -1,12 +1,9 @@
-//DONE
-//design is almost done only a few things left 
-//functionalities are not done 
-
 //MISSING
-//Labels above the input boxes should change colors
-//venue in location
-//* beside event title
-//lesa hazabat el style sheet 3ashan ma3lmsh import ll hagat deh kolaha
+// restyling calendar boxes
+// autocomplete
+// maps
+// backend integration
+
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -24,11 +21,17 @@ export default function BasicInfo(){
   const [locationinputerror, setLocationInputError] = React.useState("")
   const [venueinputerror, setVenueInputError] = React.useState("")
   const [addressinputerror, setAddressInputError] = React.useState("")
+  const [postalcodeinputerror, setPostalCodeInputError] = React.useState("")
+  const [cityinputerror, setCityInputError] = React.useState("")
   const [value, setValue] = React.useState("")
   const [venuevalue, setVenueValue] = React.useState("")
   const [addressvalue, setAddressValue] = React.useState("")
+  const [address2value, setAddress2Value] = React.useState("")
+  const [cityvalue, setCityValue] = React.useState("")
+  const [postalcodevalue, setPostalCodeValue] = React.useState("")
   const [organizervalue, setOrganizerValue] = React.useState("")
   const [locationvalue, setLocationValue] = React.useState("")
+  const [statevalue, setStateValue] = React.useState("")
   const [count, setCount] = useState(0);
   const [displayValue, setDisplayValue] = useState([]);
   const [clicked, setClicked] = useState(false);
@@ -52,28 +55,38 @@ export default function BasicInfo(){
   const [cityData, setCity] = useState({});
   const [selected, setSelected] = useState(null);
   const [showLocationMenu, setShowLocationMenu] = useState(false);
-  const [url, setUrl] = useState('');
   const [showMap, setShowMap] = React.useState(false);
   const [mapStatus, setMapStatus] = useState('show map');
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
-  const [showInput, setShowInput] = useState(true);
+  const [showList, setShowList] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
 
-  function handleOptionSelect(event) {
-    setSelectedOption(event.target.textContent);
-    setShowInput(false);
-  }
+  async function clickNext(e) {
+    e.preventDefault();
+    console.log(props.data);
 
-  if (!showInput) {
-    return (
-      <div className="selected-option">
-        You selected: {selectedOption}
-      </div>
-    );
+    const response = await fetch('https://www.tessera.social/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(props.data),
+    });
+
+    const json = await response.json();
   }
-  function toggleDropdown() {
-    setIsOpen(!isOpen);
+  
+  function handleOptionSelect(option) {
+    setSelectedOption(option);
+    setShowList(true);
   }
+  const getValidationClassName = () => {
+    if (inputerror) {
+      return 'red-text';
+    } else if (focused) {
+      return 'blue-text';
+    }
+    return '';
+  };
   function getDayClassName(date) {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set the time to midnight
@@ -142,27 +155,43 @@ export default function BasicInfo(){
     }
   };
   const handleLocationChange = (event) => {
-    setLocationValue(event.target.locationvalue);
-    if (event.target.locationvalue.trim() === '') {
+    setLocationValue(event.target.value);
+    if (event.target.value.trim() === '') {
       setLocationInputError('Location is required');
     } else {
       setLocationInputError('');
     }
   };
   const handleVenueChange = (event) => {
-    setVenueValue(event.target.venuevalue);
-    if (event.target.venuevalue.trim() === '') {
+    setVenueValue(event.target.value);
+    if (event.target.value.trim() === '') {
       setVenueInputError('Venue name is required');
     } else {
       setVenueInputError('');
     }
   };
   const handleAddressChange = (event) => {
-    setAddressValue(event.target.addressvalue);
-    if (event.target.addressvalue.trim() === '') {
-      setVenueInputError('Address 1 is required');
+    setAddressValue(event.target.value);
+    if (event.target.value.trim() === '') {
+      setAddressInputError('Address 1 is required');
     } else {
       setAddressInputError('');
+    }
+  };
+  const handleCityChange = (event) => {
+    setCityValue(event.target.value);
+    if (event.target.value.trim() === '') {
+      setCityInputError('City is required');
+    } else {
+      setCityInputError('');
+    }
+  };
+  const handlePostalCodeChange = (event) => {
+    setPostalCodeValue(event.target.value);
+    if (event.target.value.trim() === '') {
+      setPostalCodeInputError('ZIP code is required');
+    } else {
+      setPostalCodeInputError('');
     }
   };
   const handleFocus = () => {
@@ -193,10 +222,10 @@ export default function BasicInfo(){
       }
     }
 
-    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
 
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, [dropdownRef]);
   useEffect(() => {
@@ -262,6 +291,12 @@ export default function BasicInfo(){
   function handleOrganizerChange(event){
     setOrganizerValue(event.target.value)
   }
+  function handleAddress2Change(event){
+    setAddress2Value(event.target.value)
+  }
+  function handleStateChange(event){
+    setStateValue(event.target.value)
+  }
   function handleValidation(event){
   if (value.trim() === '') {
     return; // Exit the function if input is empty or only contains whitespace
@@ -272,6 +307,7 @@ export default function BasicInfo(){
     fill: '#fff',
     color: 'white',
     borderColor: "#d1410c",
+    marginRight: '16px'
   };
   const getValidationTitleClassName = () => {
     if (inputerror) {
@@ -406,8 +442,8 @@ export default function BasicInfo(){
                                 </span>
                                 </label>
                                 <input
-                                  className={`inputdata ${focused ? 'blue-border' : ''} ${
-                                    inputerror ? 'red-border' : ''
+                                  className={`inputdata ${focused ? 'blue-border' : 'gray-border'} ${
+                                    inputerror ? 'red-border' : 'gray-border'
                                   }`}
                                   data-testid="title"
                                   type="text"
@@ -519,311 +555,138 @@ export default function BasicInfo(){
                                             </i>
                                           </span>
                                         </span>
-                                        <select className='dropdownselect'>
+                                        <select className='dropdownselect' style={{marginTop: '-36px'}}>
                                         <option
                                           className='dropdownoption' 
-                                          value
-                                          data-spec="select-option">
-                                            Type
-                                          </option>
-                                          <option
-                                          className='dropdownoption' 
-                                          value="3" 
-                                          data-spec="select-option">
-                                            Tradeshow, Consumer Show, or Expo
-                                          </option>
-                                          <option
-                                          className='dropdownoption' 
-                                          value="13" 
-                                          data-spec="select-option">
-                                            Tournament
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="16" 
-                                          data-spec="select-option">
-                                            Tour
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="2" 
-                                          data-spec="select-option">
-                                            Seminar or Talk
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="7" 
-                                          data-spec="select-option">
-                                            Screening
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="12" 
-                                          data-spec="select-option">
-                                            Rally
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="15" 
-                                          data-spec="select-option">
-                                            Race or Endurance Event
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="11" 
-                                          data-spec="select-option">
-                                            Party or Social Gathering
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="100" 
-                                          data-spec="select-option">
-                                            Other
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="10" 
-                                          data-spec="select-option">
-                                            Meeting or Networking Event
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="14" 
-                                          data-spec="select-option">
-                                            Game or Competition
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="5" 
-                                          data-spec="select-option">
-                                            Festival or Fair
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="8" 
-                                          data-spec="select-option">
-                                            Dinner or Gala
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="4" 
-                                          data-spec="select-option">
-                                            Convention
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="1" 
-                                          data-spec="select-option">
-                                            Conference
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="6" 
-                                          data-spec="select-option">
-                                            Concert or Performance
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="9" 
-                                          data-spec="select-option">
-                                            Class, Training, or Workshop
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="18" 
-                                          data-spec="select-option">
-                                            Camp, Trip, or Retreat
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="17" 
-                                          data-spec="select-option">
-                                            Attraction
-                                          </option>
-                                          <option
-                                          className='dropdownoption'  
-                                          value="19" 
-                                          data-spec="select-option">
-                                            Appearance or Signing
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className='typedropdown' ref={dropdownRef}>
-                              <div
-                                style={
-                                  {
-                                    marginBottom:'16px'
-                                  }
-                                }>
-                                <div
-                                className='typeborder'
-                                onClick={handleDropDownClick}
-                                style={clicked ? { border: '2px solid blue' } : {}}>
-                                  <div>
-                                    <div>
-                                      <div
-                                        style={
-                                          {
-                                            width: '100%',
-                                            height: '46px',
-                                            position: 'relative'
-                                          }
-                                      }>
-                                        <span className='dropdownspan'>
-                                          <span className='dropdowntitlespan'>Category</span>
-                                          <span className='dropdownarrowspan'>
-                                            <i className='smallI'>
-                                              <svg className='smallSvg'
-                                              x="0"
-                                              y="0" 
-                                              viewBox="0 0 24 24" 
-                                              xmlSpace="preserve">
-                                                <path
-                                                fillRule="evenodd"
-                                                clipRule="evenodd"
-                                                d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z">
-                                                </path>
-                                              </svg>
-                                            </i>
-                                          </span>
-                                        </span>
-                                        <select className='dropdownselect'>
-                                        <option
-                                          className='dropdownoption'  
                                           value
                                           data-spec="select-option">
                                             Category
                                           </option>
                                           <option
-                                          className='dropdownoption'  
-                                          value="118" 
+                                          className='dropdownoption' 
+                                          value="3" 
                                           data-spec="select-option">
                                             Auto, Boat & Air
                                           </option>
                                           <option
-                                          className='dropdownoption'  
-                                          value="101" 
+                                          className='dropdownoption' 
+                                          value="13" 
                                           data-spec="select-option">
                                             Business & Professional
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="111" 
+                                          value="16" 
                                           data-spec="select-option">
                                             Charity & Causes
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="113" 
+                                          value="2" 
                                           data-spec="select-option">
                                             Community & Culture
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="115" 
+                                          value="7" 
                                           data-spec="select-option">
                                             Family & Education
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="106" 
+                                          value="12" 
                                           data-spec="select-option">
                                             Fashion & Beauty
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="104" 
+                                          value="15" 
                                           data-spec="select-option">
                                             Film, Media & Entertainment
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="110" 
+                                          value="11" 
                                           data-spec="select-option">
                                             Food & Drink
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="112" 
+                                          value="100" 
                                           data-spec="select-option">
                                             Government & Politics
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="107" 
+                                          value="10" 
                                           data-spec="select-option">
                                             Health & Wellness
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="119" 
+                                          value="14" 
                                           data-spec="select-option">
                                             Hobbies & Special Interest
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="117" 
+                                          value="5" 
                                           data-spec="select-option">
                                             Home & Lifestyle
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="103" 
+                                          value="8" 
                                           data-spec="select-option">
                                             Music
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="199" 
+                                          value="4" 
                                           data-spec="select-option">
                                             Other
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="105" 
+                                          value="1" 
                                           data-spec="select-option">
                                             Performing & Visual Arts
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="114" 
+                                          value="6" 
                                           data-spec="select-option">
                                             Religion & Spirituality
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="120" 
+                                          value="9" 
                                           data-spec="select-option">
                                             School Activities
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="102" 
+                                          value="18" 
                                           data-spec="select-option">
                                             Science & Technology
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="116" 
+                                          value="17" 
                                           data-spec="select-option">
                                             Seasonal & Holiday
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="108" 
+                                          value="19" 
                                           data-spec="select-option">
-                                            Sports & Fitness
+                                           Sports & Fitness
                                           </option>
                                           <option
                                           className='dropdownoption'  
-                                          value="109" 
+                                          value="20" 
                                           data-spec="select-option">
-                                            Travel & Outdoor  
+                                           Travel & Outdoor
                                           </option>
                                         </select>
                                       </div>
@@ -954,8 +817,8 @@ export default function BasicInfo(){
                             />
                           )} */}
                           <form className='form' >
-                              <div>
-                                <label className='label'> 
+                          <div>
+                                <label className={`label ${getValidationLocationClassName()}`}> 
                                 <span className = 'searchcalendarspan'
                                   style={
                                     {
@@ -984,13 +847,15 @@ export default function BasicInfo(){
                                 </span>
                                 </label>
                                 <input
-                                  className={`inputdata ${focused ? 'blue-border' : ''} ${inputerror ? 'red-border' : ''}`}
+                                  className={`inputdata ${focused ? 'blue-border' : 'gray-border'} ${
+                                    locationinputerror ? 'red-border' : 'gray-border'
+                                  }`}
                                   data-testid="title"
-                                  type="text"
-                                  maxLength="75" 
+                                  type="text" 
+                                  role='textbox'
                                   name="titleinput" 
                                   id="title-input"
-                                  placeholder="Search for a venue or add"
+                                  placeholder="Search for a venue or add."
                                   value={locationvalue}
                                   onChange={handleLocationChange}
                                   onFocus={() => setFocused(true)}
@@ -1000,13 +865,15 @@ export default function BasicInfo(){
                                   }
                                   />
                                 {locationinputerror && (
-                                  <div className='error'>{locationinputerror}</div>
+                                  <div>
+                                    <div className='error'>{locationinputerror}</div>
+                                  </div>
                                 )}
                               </div>
                           </form>
-                          <div>
+                          {/* <div>
                             <button onClick={handleShowMap}> {mapStatus} </button>
-                          </div>
+                          </div> */}
                           {showMap && (
                                 <div
                                   style={{
@@ -1043,8 +910,8 @@ export default function BasicInfo(){
                               </span>
                               </label>
                               <input
-                                className={`inputdata ${focused ? 'blue-border' : ''} ${
-                                  inputerror ? 'red-border' : ''
+                                className={`inputdata ${focused ? 'blue-border' : 'gray-border'} ${
+                                  venueinputerror ? 'red-border' : 'gray-border'
                                 }`}
                                 data-testid="title"
                                 type="text"
@@ -1058,9 +925,9 @@ export default function BasicInfo(){
                                 onFocus={() => setFocused(true)}
                                 onBlur={() => setFocused(false)}
                                 />
-                              {inputerror && (
+                              {venueinputerror && (
                                 <div>
-                                  <div className='error'>{inputerror}</div>
+                                  <div className='error'>{venueinputerror}</div>
                                 </div>
                               )}
                             </div>
@@ -1119,8 +986,8 @@ export default function BasicInfo(){
                                               </span>
                                               </label>
                                               <input
-                                                className={`inputdata ${focused ? 'blue-border' : ''} ${
-                                                  addressinputerror ? 'red-border' : ''
+                                                className={`inputdata ${focused ? 'blue-border' : 'gray-border'} ${
+                                                  addressinputerror ? 'red-border' : 'gray-border'
                                                 }`}
                                                 data-testid="title"
                                                 type="text"
@@ -1155,7 +1022,7 @@ export default function BasicInfo(){
                                                   <span style={{WebkitBoxDirection: "normal"}}>Address 2</span>
                                                 </label>
                                                 <input
-                                                  className={`inputdata ${focused ? 'blue-border' : ''}`}
+                                                  className={`inputdata ${focused ? 'blue-border' : 'gray-border'}`}
                                                   data-testid="title"
                                                   type="text"
                                                   maxLength="500" 
@@ -1163,16 +1030,11 @@ export default function BasicInfo(){
                                                   name="titleinput" 
                                                   id="title-input"
                                                   placeholder="e.g.Apt,Suite,Bldg"
-                                                  value={addressvalue}
-                                                  onChange={handleAddressChange}
+                                                  value={address2value}
+                                                  onChange={handleAddress2Change}
                                                   onFocus={() => setFocused(true)}
                                                   onBlur={() => setFocused(false)}
                                                   />
-                                                {addressinputerror && (
-                                                  <div>
-                                                    <div className='error'>{addressinputerror}</div>
-                                                  </div>
-                                                )}
                                               </div>
                                           </form>
                                         </div>
@@ -1203,8 +1065,8 @@ export default function BasicInfo(){
                                                 </span>
                                                 </label>
                                                 <input
-                                                  className={`inputdata ${focused ? 'blue-border' : ''} ${
-                                                    addressinputerror ? 'red-border' : ''
+                                                  className={`inputdata ${focused ? 'blue-border' : 'gray-border'} ${
+                                                    cityinputerror ? 'red-border' : 'gray-border'
                                                   }`}
                                                   data-testid="title"
                                                   type="text"
@@ -1213,14 +1075,14 @@ export default function BasicInfo(){
                                                   name="titleinput" 
                                                   id="title-input"
                                                   placeholder="e.g.San Francisco"
-                                                  value={addressvalue}
-                                                  onChange={handleAddressChange}
+                                                  value={cityvalue}
+                                                  onChange={handleCityChange}
                                                   onFocus={() => setFocused(true)}
                                                   onBlur={() => setFocused(false)}
                                                   />
-                                                {addressinputerror && (
+                                                {cityinputerror && (
                                                   <div>
-                                                    <div className='error'>{addressinputerror}</div>
+                                                    <div className='error'>{cityinputerror}</div>
                                                   </div>
                                                 )}
                                               </div>
@@ -1251,16 +1113,15 @@ export default function BasicInfo(){
                                                   <span style={{WebkitBoxDirection: "normal"}}>State/Province</span>
                                                 </label>
                                                 <input
-                                                  className={`inputdata ${focused ? 'blue-border' : ''}`}
+                                                  className={`inputdata ${focused ? 'blue-border' : 'gray-border'}`}
                                                   data-testid="title"
                                                   type="text"
-                                                  maxLength="500" 
                                                   role='textbox'
                                                   name="titleinput" 
                                                   id="title-input"
                                                   placeholder="e.g.California"
-                                                  value={addressvalue}
-                                                  onChange={handleAddressChange}
+                                                  value={statevalue}
+                                                  onChange={handleStateChange}
                                                   onFocus={() => setFocused(true)}
                                                   onBlur={() => setFocused(false)}
                                                   />
@@ -1283,8 +1144,8 @@ export default function BasicInfo(){
                                                 </span>
                                                 </label>
                                                 <input
-                                                  className={`inputdata ${focused ? 'blue-border' : ''} ${
-                                                    addressinputerror ? 'red-border' : ''
+                                                  className={`inputdata ${focused ? 'blue-border' : 'gray-border'} ${
+                                                    postalcodeinputerror ? 'red-border' : 'gray-border'
                                                   }`}
                                                   data-testid="title"
                                                   type="text"
@@ -1293,14 +1154,14 @@ export default function BasicInfo(){
                                                   name="titleinput" 
                                                   id="title-input"
                                                   placeholder="e.g.94103"
-                                                  value={addressvalue}
-                                                  onChange={handleAddressChange}
+                                                  value={postalcodevalue}
+                                                  onChange={handlePostalCodeChange}
                                                   onFocus={() => setFocused(true)}
                                                   onBlur={() => setFocused(false)}
                                                   />
-                                                {addressinputerror && (
+                                                {postalcodeinputerror && (
                                                   <div>
-                                                    <div className='error'>{addressinputerror}</div>
+                                                    <div className='error'>{postalcodeinputerror}</div>
                                                   </div>
                                                 )}
                                               </div>
@@ -1460,6 +1321,7 @@ export default function BasicInfo(){
                                                         <span>Event Starts</span>
                                                       </label>
                                                     </div>
+                                                    <label htmlFor="date-select">Select a date:</label>
                                                     <input 
                                                     style={{height: '46px'}}
                                                     value={selectedDate ? selectedDate.toLocaleDateString() : ''}
@@ -1468,6 +1330,7 @@ export default function BasicInfo(){
                                                     role="textbox"
                                                     />
                                                     {showCalendar && (
+                                                      <div style={{position:'relative'}}>
                                                       <DatePicker
                                                         selected={selectedDate}
                                                         className="custom-datepicker"
@@ -1478,6 +1341,7 @@ export default function BasicInfo(){
                                                           setShowCalendar(false);
                                                         }}
                                                       />
+                                                      </div>
                                                     )}
                                                   </div>
                                                 </div>
@@ -1485,304 +1349,353 @@ export default function BasicInfo(){
                                             </div>
                                           </div>
                                         </div>
-                                        <div className='dateandtimeboxes'>
+                                        <div
+                                        ref={dropdownRef}
+                                        className='dateandtimeboxes'
+                                        style={
+                                          {
+                                            position: 'relative',
+                                            cursor: 'pointer'
+                                          }
+                                        }>
+                                          <div className ='placeholder2'
+                                            style={
+                                              {position:'absolute',
+                                                top: '-10px',
+                                                left:"-5px",
+                                                width:' 100%',
+                                                height: '70px',
+                                                zIndex: '2'                                              
+                                              }
+                                            }
+                                          >
+                                            <label className='label'>
+                                              <span className='spantext2' style={{marginLeft:'-5px'}}>
+                                                Start Time
+                                              </span>
+                                            </label>
+                                          </div>
                                           <div>
-                                            <div style={{marginBottom:'8px'}}>
-                                              <div className='boxesborders'>
-                                                <div className='divflex'>
-                                                  <div className='divflex2'>
-                                                    <span className='dropdownspan'>
-                                                      <span className='dateandtimecalendarspan'>Start Time</span>
-                                                    </span>
-                                                    <select className='dropdownselect'>
-                                                    <option
-                                                      className='dropdownoption' 
-                                                      value
-                                                      data-spec="select-option">
-                                                        12:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="3" 
-                                                      data-spec="select-option">
-                                                        12:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="13" 
-                                                      data-spec="select-option">
-                                                        1:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="16" 
-                                                      data-spec="select-option">
-                                                        1:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="2" 
-                                                      data-spec="select-option">
-                                                        2:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="7" 
-                                                      data-spec="select-option">
-                                                      2:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="12" 
-                                                      data-spec="select-option">
-                                                        3:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="15" 
-                                                      data-spec="select-option">
-                                                        3:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="11" 
-                                                      data-spec="select-option">
-                                                        4:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="100" 
-                                                      data-spec="select-option">
-                                                        4:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="10" 
-                                                      data-spec="select-option">
-                                                        5:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="14" 
-                                                      data-spec="select-option">
-                                                        5:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="5" 
-                                                      data-spec="select-option">
-                                                        6:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="8" 
-                                                      data-spec="select-option">
-                                                        6:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="4" 
-                                                      data-spec="select-option">
-                                                        7:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="1" 
-                                                      data-spec="select-option">
-                                                        7:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="6" 
-                                                      data-spec="select-option">
-                                                        8:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="9" 
-                                                      data-spec="select-option">
-                                                        8:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="18" 
-                                                      data-spec="select-option">
-                                                        9:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="17" 
-                                                      data-spec="select-option">
-                                                        9:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        10:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      data-spec="select-option">
-                                                        10:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        12:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="3" 
-                                                      data-spec="select-option">
-                                                        12:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="13" 
-                                                      data-spec="select-option">
-                                                        1:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="16" 
-                                                      data-spec="select-option">
-                                                        1:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="2" 
-                                                      data-spec="select-option">
-                                                        2:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="7" 
-                                                      data-spec="select-option">
-                                                      2:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="12" 
-                                                      data-spec="select-option">
-                                                        3:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="15" 
-                                                      data-spec="select-option">
-                                                        3:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="11" 
-                                                      data-spec="select-option">
-                                                        4:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="100" 
-                                                      data-spec="select-option">
-                                                        4:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="10" 
-                                                      data-spec="select-option">
-                                                        5:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="14" 
-                                                      data-spec="select-option">
-                                                        5:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="5" 
-                                                      data-spec="select-option">
-                                                        6:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="8" 
-                                                      data-spec="select-option">
-                                                        6:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="4" 
-                                                      data-spec="select-option">
-                                                        7:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="1" 
-                                                      data-spec="select-option">
-                                                        7:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="6" 
-                                                      data-spec="select-option">
-                                                        8:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="9" 
-                                                      data-spec="select-option">
-                                                        8:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="18" 
-                                                      data-spec="select-option">
-                                                        9:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="17" 
-                                                      data-spec="select-option">
-                                                        9:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        10:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      data-spec="select-option">
-                                                        10:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:30 PM
-                                                      </option>
-                                                    </select>
-                                                  </div>
+                                            <div className = 'timedropdowndiv' >
+                                              <div 
+                                              style={
+                                                {marginBottom: 8}
+                                              }>
+                                                <div className = 'searchvenuediv1'>
+                                                    <div className = 'typeborder'
+                                                    onClick={handleDropDownClick}
+                                                    style={clicked ? { border: '1px solid blue' } : {border: '0px solid #dbdae3'}}>
+                                                      
+                                                      <div className='dropdownLast'>
+                                                        <select
+                                                        style={
+                                                          {
+                                                            marginTop:'0px',
+                                                              padding: '18px 12px 6px',
+                                                              color: '#39364f',
+                                                              whiteSpace: 'nowrap',
+                                                              width: '100%',
+                                                              height: '100%',
+                                                              cursor: 'pointer',
+                                                              position: 'absolute',
+                                                              backgroundColor: 'white',
+                                                              border: 'none',
+                                                              WebkitAppearance: 'menulist-button',
+                                                              WebkitBoxFlex: '1',
+                                                              minWidth: '0',
+                                                              appearance:'none',
+                                                              paddingLeft: '15px'
+                                                          }
+                                                        }>
+                                                        <option
+                                                          className='dropdownoption' 
+                                                          value
+                                                          data-spec="select-option">
+                                                            12:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption' 
+                                                          value="3" 
+                                                          data-spec="select-option">
+                                                            12:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption' 
+                                                          value="13" 
+                                                          data-spec="select-option">
+                                                            1:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="16" 
+                                                          data-spec="select-option">
+                                                            1:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="2" 
+                                                          data-spec="select-option">
+                                                            2:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="7" 
+                                                          data-spec="select-option">
+                                                          2:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="12" 
+                                                          data-spec="select-option">
+                                                            3:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="15" 
+                                                          data-spec="select-option">
+                                                            3:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="11" 
+                                                          data-spec="select-option">
+                                                            4:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="100" 
+                                                          data-spec="select-option">
+                                                            4:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="10" 
+                                                          data-spec="select-option">
+                                                            5:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="14" 
+                                                          data-spec="select-option">
+                                                            5:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="5" 
+                                                          data-spec="select-option">
+                                                            6:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="8" 
+                                                          data-spec="select-option">
+                                                            6:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="4" 
+                                                          data-spec="select-option">
+                                                            7:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="1" 
+                                                          data-spec="select-option">
+                                                            7:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="6" 
+                                                          data-spec="select-option">
+                                                            8:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="9" 
+                                                          data-spec="select-option">
+                                                            8:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="18" 
+                                                          data-spec="select-option">
+                                                            9:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="17" 
+                                                          data-spec="select-option">
+                                                            9:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            10:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          data-spec="select-option">
+                                                            10:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            11:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            11:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            12:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption' 
+                                                          value="3" 
+                                                          data-spec="select-option">
+                                                            12:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption' 
+                                                          value="13" 
+                                                          data-spec="select-option">
+                                                            1:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="16" 
+                                                          data-spec="select-option">
+                                                            1:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="2" 
+                                                          data-spec="select-option">
+                                                            2:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="7" 
+                                                          data-spec="select-option">
+                                                          2:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="12" 
+                                                          data-spec="select-option">
+                                                            3:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="15" 
+                                                          data-spec="select-option">
+                                                            3:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="11" 
+                                                          data-spec="select-option">
+                                                            4:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="100" 
+                                                          data-spec="select-option">
+                                                            4:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="10" 
+                                                          data-spec="select-option">
+                                                            5:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="14" 
+                                                          data-spec="select-option">
+                                                            5:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="5" 
+                                                          data-spec="select-option">
+                                                            6:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="8" 
+                                                          data-spec="select-option">
+                                                            6:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="4" 
+                                                          data-spec="select-option">
+                                                            7:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="1" 
+                                                          data-spec="select-option">
+                                                            7:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="6" 
+                                                          data-spec="select-option">
+                                                            8:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="9" 
+                                                          data-spec="select-option">
+                                                            8:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="18" 
+                                                          data-spec="select-option">
+                                                            9:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="17" 
+                                                          data-spec="select-option">
+                                                            9:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            10:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          data-spec="select-option">
+                                                            10:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            11:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            11:30 PM
+                                                          </option>
+                                                        </select>
+                                                      </div>
+                                                    </div>
                                                 </div>
                                               </div>
                                             </div>
@@ -1831,6 +1744,8 @@ export default function BasicInfo(){
                                                     role="textbox"
                                                     />
                                                     {showCalendar && (
+                                                      <div style={{position:'relative'}}>
+                                                      
                                                       <DatePicker
                                                         className="custom-datepicker"
                                                         calendarClassName="custom-calendar"
@@ -1840,6 +1755,8 @@ export default function BasicInfo(){
                                                           setShowCalendar(false);
                                                         }}
                                                       />
+                                                      <label htmlFor="date-select" style={{paddingTop: '-10px'}}>Select a date:</label>
+                                                      </div>
                                                     )}
                                                   </div>
                                                 </div>
@@ -1847,304 +1764,354 @@ export default function BasicInfo(){
                                             </div>
                                           </div>
                                         </div>
-                                        <div className='dateandtimeboxes'>
+                                        <div
+                                        className='dateandtimeboxes'
+                                        ref={venueRef}
+                                        style={
+                                          {
+                                            position: 'relative',
+                                            cursor: 'pointer'
+                                          }
+                                        }>
+                                          <div className ='placeholder2'
+                                            style={
+                                              {position:'absolute',
+                                                top: '-10px',
+                                                left:"-5px",
+                                                width:' 100%',
+                                                height: '70px',
+                                                zIndex: '2'                                                  
+                                              }
+                                            }
+                                          >
+                                            <label className='label'>
+                                              <span className='spantext2' style={{marginLeft:'-5px'}}>
+                                                End Time
+                                              </span>
+                                            </label>
+                                          </div>
                                           <div>
-                                            <div style={{marginBottom:'8px'}}>
-                                              <div className='boxesborders'>
-                                                <div className='divflex'>
-                                                  <div className='divflex2'>
-                                                  <span className='dropdownspan'>
-                                                      <span className='dateandtimecalendarspan'>End Time</span>
-                                                    </span>
-                                                    <select className='dropdownselect'>
-                                                    <option
-                                                      className='dropdownoption' 
-                                                      value
-                                                      data-spec="select-option">
-                                                        12:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="3" 
-                                                      data-spec="select-option">
-                                                        12:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="13" 
-                                                      data-spec="select-option">
-                                                        1:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="16" 
-                                                      data-spec="select-option">
-                                                        1:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="2" 
-                                                      data-spec="select-option">
-                                                        2:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="7" 
-                                                      data-spec="select-option">
-                                                      2:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="12" 
-                                                      data-spec="select-option">
-                                                        3:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="15" 
-                                                      data-spec="select-option">
-                                                        3:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="11" 
-                                                      data-spec="select-option">
-                                                        4:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="100" 
-                                                      data-spec="select-option">
-                                                        4:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="10" 
-                                                      data-spec="select-option">
-                                                        5:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="14" 
-                                                      data-spec="select-option">
-                                                        5:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="5" 
-                                                      data-spec="select-option">
-                                                        6:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="8" 
-                                                      data-spec="select-option">
-                                                        6:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="4" 
-                                                      data-spec="select-option">
-                                                        7:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="1" 
-                                                      data-spec="select-option">
-                                                        7:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="6" 
-                                                      data-spec="select-option">
-                                                        8:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="9" 
-                                                      data-spec="select-option">
-                                                        8:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="18" 
-                                                      data-spec="select-option">
-                                                        9:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="17" 
-                                                      data-spec="select-option">
-                                                        9:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        10:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      data-spec="select-option">
-                                                        10:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        12:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="3" 
-                                                      data-spec="select-option">
-                                                        12:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="13" 
-                                                      data-spec="select-option">
-                                                        1:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="16" 
-                                                      data-spec="select-option">
-                                                        1:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="2" 
-                                                      data-spec="select-option">
-                                                        2:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="7" 
-                                                      data-spec="select-option">
-                                                      2:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="12" 
-                                                      data-spec="select-option">
-                                                        3:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="15" 
-                                                      data-spec="select-option">
-                                                        3:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="11" 
-                                                      data-spec="select-option">
-                                                        4:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="100" 
-                                                      data-spec="select-option">
-                                                        4:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="10" 
-                                                      data-spec="select-option">
-                                                        5:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="14" 
-                                                      data-spec="select-option">
-                                                        5:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="5" 
-                                                      data-spec="select-option">
-                                                        6:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="8" 
-                                                      data-spec="select-option">
-                                                        6:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="4" 
-                                                      data-spec="select-option">
-                                                        7:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="1" 
-                                                      data-spec="select-option">
-                                                        7:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="6" 
-                                                      data-spec="select-option">
-                                                        8:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="9" 
-                                                      data-spec="select-option">
-                                                        8:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="18" 
-                                                      data-spec="select-option">
-                                                        9:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="17" 
-                                                      data-spec="select-option">
-                                                        9:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        10:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      data-spec="select-option">
-                                                        10:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:30 PM
-                                                      </option>
-                                                    </select>
-                                                  </div>
+                                            <div className = 'timedropdowndiv' style={{width:'100%'}}>
+                                              <div 
+                                              style={
+                                                {marginBottom: 8}
+                                              }>
+                                                <div className = 'searchvenuediv1'>
+                                                  <div className = 'typeborder'
+                                                    onClick={handleBlueVenueClick}
+                                                    style={venueclicked ? { border: '1px solid blue' } : {border: '0px solid #dbdae3'}}>
+                                                      
+                                                      <div className='dropdownLast'>
+                                                        <select
+                                                        style={
+                                                          {
+                                                              marginTop:'0px',
+                                                              padding: '18px 12px 6px',
+                                                              paddingLeft: '15px',
+                                                              color: '#39364f',
+                                                              whiteSpace: 'nowrap',
+                                                              transition: 'padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1)',
+                                                              width: '100%',
+                                                              height: '100%',
+                                                              cursor: 'pointer',
+                                                              position: 'absolute',
+                                                              backgroundColor: 'white',
+                                                              border: 'none',
+                                                              WebkitAppearance: 'menulist-button',
+                                                              WebkitBoxFlex: '1',
+                                                              minWidth: '0',
+                                                              appearance:'none'
+                                                          }
+                                                        }>
+                                                        <option
+                                                          className='dropdownoption' 
+                                                          value
+                                                          data-spec="select-option">
+                                                            12:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption' 
+                                                          value="3" 
+                                                          data-spec="select-option">
+                                                            12:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption' 
+                                                          value="13" 
+                                                          data-spec="select-option">
+                                                            1:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="16" 
+                                                          data-spec="select-option">
+                                                            1:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="2" 
+                                                          data-spec="select-option">
+                                                            2:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="7" 
+                                                          data-spec="select-option">
+                                                          2:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="12" 
+                                                          data-spec="select-option">
+                                                            3:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="15" 
+                                                          data-spec="select-option">
+                                                            3:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="11" 
+                                                          data-spec="select-option">
+                                                            4:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="100" 
+                                                          data-spec="select-option">
+                                                            4:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="10" 
+                                                          data-spec="select-option">
+                                                            5:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="14" 
+                                                          data-spec="select-option">
+                                                            5:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="5" 
+                                                          data-spec="select-option">
+                                                            6:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="8" 
+                                                          data-spec="select-option">
+                                                            6:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="4" 
+                                                          data-spec="select-option">
+                                                            7:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="1" 
+                                                          data-spec="select-option">
+                                                            7:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="6" 
+                                                          data-spec="select-option">
+                                                            8:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="9" 
+                                                          data-spec="select-option">
+                                                            8:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="18" 
+                                                          data-spec="select-option">
+                                                            9:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="17" 
+                                                          data-spec="select-option">
+                                                            9:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            10:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          data-spec="select-option">
+                                                            10:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            11:00 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            11:30 AM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            12:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption' 
+                                                          value="3" 
+                                                          data-spec="select-option">
+                                                            12:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption' 
+                                                          value="13" 
+                                                          data-spec="select-option">
+                                                            1:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="16" 
+                                                          data-spec="select-option">
+                                                            1:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="2" 
+                                                          data-spec="select-option">
+                                                            2:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="7" 
+                                                          data-spec="select-option">
+                                                          2:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="12" 
+                                                          data-spec="select-option">
+                                                            3:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="15" 
+                                                          data-spec="select-option">
+                                                            3:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="11" 
+                                                          data-spec="select-option">
+                                                            4:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="100" 
+                                                          data-spec="select-option">
+                                                            4:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="10" 
+                                                          data-spec="select-option">
+                                                            5:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="14" 
+                                                          data-spec="select-option">
+                                                            5:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="5" 
+                                                          data-spec="select-option">
+                                                            6:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="8" 
+                                                          data-spec="select-option">
+                                                            6:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="4" 
+                                                          data-spec="select-option">
+                                                            7:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="1" 
+                                                          data-spec="select-option">
+                                                            7:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="6" 
+                                                          data-spec="select-option">
+                                                            8:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="9" 
+                                                          data-spec="select-option">
+                                                            8:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="18" 
+                                                          data-spec="select-option">
+                                                            9:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="17" 
+                                                          data-spec="select-option">
+                                                            9:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            10:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          data-spec="select-option">
+                                                            10:30 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            11:00 PM
+                                                          </option>
+                                                          <option
+                                                          className='dropdownoption'  
+                                                          value="19" 
+                                                          data-spec="select-option">
+                                                            11:30 PM
+                                                          </option>
+                                                        </select>
+                                                      </div>
+                                                    </div>
                                                 </div>
                                               </div>
                                             </div>
@@ -2222,6 +2189,7 @@ export default function BasicInfo(){
                                     </label>
                                   </div>
                                   <div
+                                  ref={onlineRef}
                                           style={
                                             {
                                               marginTop: '24px',
@@ -2247,13 +2215,15 @@ export default function BasicInfo(){
                                             </label>
                                           </div>
                                           <div>
-                                            <div style={{width: '318px'}} className = 'timedropdowndiv'>
+                                            <div  className = 'timedropdowndiv'>
                                               <div 
                                               style={
                                                 {marginBottom: '8px'}
                                               }>
                                                 <div className = 'searchvenuediv1'>
-                                                    <div className = 'searchvenuediv'>
+                                                <div className = 'typeborder'
+                                                    onClick={handleBlueOnlineClick}
+                                                    style={onlineclicked ? { border: '1px solid blue' } : {border: '0px solid #dbdae3'}}>
                                                       
                                                       <div className='dropdownLast'>
                                                         <span className = 'dropdownspan'>
@@ -2287,23 +2257,20 @@ export default function BasicInfo(){
                                                         <select
                                                         style={
                                                           {
-                                                            padding: '18px 12px 6px',
-                                                            background: 'none',
-                                                            border: 'none',
-                                                            color: '#39364f',
-                                                            whiteSpace: 'nowrap',
-                                                            outline: 'none',
-                                                            transition: 'padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1)',
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            cursor: 'pointer',
-                                                            position: 'absolute',
-                                                            top: '0',
-                                                            left: '0',
-                                                            opacity: '0',
-                                                            WebkitAppearance: 'menulist-button',
-                                                            WebkitBoxFlex: '1',
-                                                            minWidth: '0'
+                                                              marginTop:'-40px',
+                                                              padding: '18px 12px 6px',
+                                                              color: '#39364f',
+                                                              whiteSpace: 'nowrap',
+                                                              transition: 'padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1)',
+                                                              width: '100%',
+                                                              height: '100%',
+                                                              cursor: 'pointer',
+                                                              position: 'absolute',
+                                                              backgroundColor: 'white',
+                                                              border: 'none',
+                                                              WebkitAppearance: 'menulist-button',
+                                                              WebkitBoxFlex: '1',
+                                                              minWidth: '0'
                                                           }
                                                         }>
                                                           <option value="Pacific/Pago_Pago" data-spec="select-option">(GMT-1100) American Samoa Time</option>
@@ -2737,6 +2704,7 @@ export default function BasicInfo(){
                                           </div>
                                         </div>
                                         <div
+                                        ref={laterRef}
                                         style={
                                           {
                                             marginTop: '10px',
@@ -2762,13 +2730,16 @@ export default function BasicInfo(){
                                             </label>
                                           </div>
                                           <div>
-                                            <div style={{width: '318px'}} className = 'timedropdowndiv'>
+                                            <div className = 'timedropdowndiv'>
                                               <div 
                                               style={
                                                 {marginBottom: '8px'}
                                               }>
                                                 <div className = 'searchvenuediv1'>
-                                                    <div className = 'searchvenuediv'>
+                                                <div className = 'typeborder'
+                                                    onClick={handleBlueLaterClick}
+                                                    style={laterclicked ? { border: '1px solid blue' } : {border: '0px solid #dbdae3'}}>
+                                                      
                                                       
                                                       <div className='dropdownLast'>
                                                         <span className = 'dropdownspan'>
@@ -2803,20 +2774,17 @@ export default function BasicInfo(){
                                                         <select
                                                         style={
                                                           {
+                                                            marginTop:'-40px',
                                                             padding: '18px 12px 6px',
-                                                            background: 'none',
-                                                            border: 'none',
                                                             color: '#39364f',
                                                             whiteSpace: 'nowrap',
-                                                            outline: 'none',
                                                             transition: 'padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1)',
                                                             width: '100%',
                                                             height: '100%',
                                                             cursor: 'pointer',
                                                             position: 'absolute',
-                                                            top: '0',
-                                                            left: '0',
-                                                            opacity: '0',
+                                                            backgroundColor: 'white',
+                                                            border: 'none',
                                                             WebkitAppearance: 'menulist-button',
                                                             WebkitBoxFlex: '1',
                                                             minWidth: '0'
@@ -2908,6 +2876,7 @@ export default function BasicInfo(){
                                           </label>
                                         </div>
                                         <div
+                                        ref={onlineRef}
                                           style={
                                             {
                                               marginTop: '24px',
@@ -3540,51 +3509,6 @@ export default function BasicInfo(){
                                   </div>
                                 </div>
                               )} 
-                              <div className="dropdown">
-      <div className="dropdown-trigger">
-        <input 
-          type="text" 
-          placeholder="Select an option" 
-          readOnly 
-        />
-      </div>
-      <div className="dropdown-menu">
-        <ul>
-          <li 
-            className='dropdownoption' 
-            value 
-            data-spec="select-option" 
-            onClick={handleOptionSelect}
-          >
-            Option 1
-          </li>
-          <li 
-            className='dropdownoption' 
-            value="3" 
-            data-spec="select-option" 
-            onClick={handleOptionSelect}
-          >
-            Option 2
-          </li>
-          <li 
-            className='dropdownoption' 
-            value="13" 
-            data-spec="select-option" 
-            onClick={handleOptionSelect}
-          >
-            Option 3
-          </li>
-          <li 
-            className='dropdownoption' 
-            value="16" 
-            data-spec="select-option" 
-            onClick={handleOptionSelect}
-          >
-            Option 4
-          </li>
-        </ul>
-      </div>
-    </div>
                       </div>
                     </div>
                   </div>
@@ -3600,12 +3524,28 @@ export default function BasicInfo(){
         <div className='fixedbuttondiv'>
           <div>
             <button className='usedbutton' 
-              style={{marginRight: 16}}>
+              style={{marginRight: '16px'}}>
               Discard
             </button>
             <button className='usedbutton' 
               style={saveButtonStyle}>
               Save & Continue
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className='fixeddiv1'>
+      <div className='fixedinnerdiv1'>
+        <div className='fixedbuttondiv1'>
+          <div>
+            <button className='usedbutton' 
+              style={saveButtonStyle}>
+              Save & Continue
+            </button>
+            <button className='usedbutton' 
+              style={{marginRight: '16px'}}>
+              Discard
             </button>
           </div>
         </div>
