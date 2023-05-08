@@ -100,7 +100,9 @@ function ResetPassword() {
           },
         }
       );
+      console.log(response);
       const responseData = await response.json();
+      console.log(responseData);
       if (responseData.success) {
         const msg =
           responseData.message.charAt(0).toUpperCase() +

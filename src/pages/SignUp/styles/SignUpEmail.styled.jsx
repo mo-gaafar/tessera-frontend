@@ -210,6 +210,9 @@ export const TopHeader = styled.div`
 
 export const DivLeft = styled.div`
   width: 28.961rem;
+  h2 {
+    color: #f3551b;
+  }
 `;
 
 export const CreateAccount = styled.h1`
