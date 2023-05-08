@@ -15,10 +15,12 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { LearnMore } from "./styles/addAttendees.styled";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Continue } from "./styles/addAttendees.styled";
 import Button from "@mui/material/Button";
+import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
+import { KeyboardArrowLeft } from "@mui/icons-material";
 
 export default function AttendeeInfo() {
   const [remainingTime, setRemainingTime] = useState(1 * 60);
@@ -139,7 +141,7 @@ export default function AttendeeInfo() {
         <hr />
       </Header>
       <div className="flexcontainer" id="129713272">
-        {!timeOut ? (
+        {timeOut ? (
           <>
             <div className="flexleft" id="16753272">
               <Checkout id="1297532720">
@@ -386,6 +388,11 @@ export default function AttendeeInfo() {
                 </div>
                 <p className="powered">Powered by TESSERA</p>
               </Info>
+              <PlaceOrder id="12975eee32">
+                <IconButton>
+                  <KeyboardArrowLeftIcon></KeyboardArrowLeftIcon>
+                </IconButton>
+              </PlaceOrder>
               <PlaceOrder id="12975eee32">
                 <Button
                   id="129753fas72"

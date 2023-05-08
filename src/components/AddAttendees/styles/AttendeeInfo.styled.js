@@ -9,7 +9,7 @@ export const Container = styled.div`
     width: 1400px;
   }
   .flexcontainer {
-    width: 1500px;
+    width: 75%;
     height: 700px;
   }
   .flexleft {
@@ -20,7 +20,7 @@ export const Container = styled.div`
     margin-top: 0px;
 
     margin-left: 150px;
-    @media (max-width: 768px) {
+    @media (max-width: 1500px) {
       width: 100%;
     }
   }
@@ -45,7 +45,7 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-  width: 1400px;
+  width: 80%;
   height: 150px;
   text-align: left;
   margin: 0 150px;
@@ -164,7 +164,7 @@ export const PlaceOrder = styled.div`
   }
 `;
 export const Information = styled.div`
-  width: 28%;
+  width: 25%;
   height: 100%;
 
   background-color: #f8f7fa;
@@ -184,7 +184,7 @@ export const Information = styled.div`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1500px) {
     display: none;
   }
 `;

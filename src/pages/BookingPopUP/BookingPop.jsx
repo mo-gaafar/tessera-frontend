@@ -48,6 +48,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
   const [checkoutInfo, setCheckoutInfo] = useState([]);
   const [total, setTotal] = useState(0);
   let sum = 0;
+
   const FormClose = () => {
     setShowPopUp(false);
   };
