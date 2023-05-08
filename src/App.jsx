@@ -8,17 +8,18 @@ import SignupTwo from "./pages/SignUp/SignupTwo";
 import SignUpOne from "./pages/SignUp/SignupOne";
 
 import GlobalStyles from "./components/styles/Global";
+import AddAttendee from "./components/AddAttendees/addAttendees";
+import AttendeeInfo from "./components/AddAttendees/RegisterInfo";
 import Landing from "./pages/LandingPage/Landing";
 import Organize from "./pages/Organize/Organize";
 import { Route, Routes } from "react-router-dom";
 
-
-import { useEffect, useState } from 'react';
-import Maincontainer from './pages/LogIn/MainContainer';
-import ResetPassword from './pages/ResetPassword/ResetPassword';
-import Reset from './pages/ResetPassword/Reset';
-import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
-import Events from './pages/EventPage/EventPage';
+import { useEffect, useState } from "react";
+import Maincontainer from "./pages/LogIn/MainContainer";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import Reset from "./pages/ResetPassword/Reset";
+import CheckoutForm from "./pages/BookingPopUP/CheckoutForm";
+import Events from "./pages/EventPage/EventPage";
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -33,7 +34,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
@@ -43,8 +44,10 @@ function App() {
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} />
-      </Routes>
+      </Routes> */}
       {/* <BookingPopUp /> */}
+      {/* <AddAttendee></AddAttendee> */}
+      <AttendeeInfo></AttendeeInfo>
     </>
   );
 }
