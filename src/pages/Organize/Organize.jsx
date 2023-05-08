@@ -438,13 +438,13 @@ export default function Organize(props) {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
-    
+
   const [shouldHideSidebar, setShouldHideSidebar] = useState(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 959px)');
 
-    const handleMediaQueryChange = (event) => {
+    const handleMediaQueryChange = event => {
       setShouldHideSidebar(event.matches);
     };
 
@@ -459,200 +459,191 @@ export default function Organize(props) {
     };
   }, []);
 
+  return (
+    <div style={{ display: 'flex' }}>
+      {!shouldHideSidebar && <Sidebar hide={true} />}
 
- 
-  return (<div style={{display:'flex'}}>
-    
-    {!shouldHideSidebar && <Sidebar hide={true} />}
-  
-   <PageContainer>
-      <StyledNav>
-        {email && email !== 'undefined' ? (
-          <NavbarLoggedIn creator={true} email={email} />
-        ) : (
-          <Navbar />
-        )}
-      </StyledNav>
-      <div style={{ display: 'flex' }}>
-        <Sidebar hide={true}></Sidebar>
-        <PageContainer>
-          <div>
-            <p>Events</p>
-          </div>
-          <div>
-            <div className="cat-option">
-              <div>
-                <button>Events</button>
-              </div>
+      <PageContainer>
+        <StyledNav>
+          {email && email !== 'undefined' ? (
+            <NavbarLoggedIn creator={true} email={email} />
+          ) : (
+            <Navbar />
+          )}
+        </StyledNav>
+        <div>
+          <p>Events</p>
+        </div>
+        <div>
+          <div className="cat-option">
+            <div>
+              <button>Events</button>
             </div>
+          </div>
 
-            <div className="events-bar">
-              <div className="first-part-eventbar">
-                <div>
-                  <div className="search-field">
-                    <button onClick={handleSearch} className="search-button">
-                      <img src={search} data-testid="search-inp" />
-                    </button>
-                    <input
-                      onChange={handleChange}
-                      placeholder="Search events"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <button className="bullet-button">
-                    <img src={bullet} />
-                    <span>List</span>
+          <div className="events-bar">
+            <div className="first-part-eventbar">
+              <div>
+                <div className="search-field">
+                  <button onClick={handleSearch} className="search-button">
+                    <img src={search} data-testid="search-inp" />
                   </button>
-                </div>
-                <div className="vertical-divider"></div>
-                <div className="all-events" onClick={displayMenu}>
-                  <span>{select}</span>
-                  <img src={logoDown} />
-
-                  {showMenu && (
-                    <div
-                      id="myDropdown"
-                      className="dropdown-content"
-                      ref={reference}
-                    >
-                      <ul>
-                        <div>
-                          <button
-                            name="Upcoming events"
-                            className="drop-button"
-                            onClick={onClickMenu}
-                          >
-                            {select === 'Upcoming events' ? (
-                              <img src={checkmark} />
-                            ) : (
-                              <span />
-                            )}
-                            Upcoming events
-                          </button>
-                        </div>
-
-                        <div>
-                          <button
-                            name="Draft"
-                            className="drop-button"
-                            onClick={onClickMenu}
-                          >
-                            {select === 'Draft' ? (
-                              <img src={checkmark} />
-                            ) : (
-                              <span />
-                            )}
-                            Draft
-                          </button>
-                        </div>
-
-                        <div>
-                          <button
-                            name="Past events"
-                            className="drop-button"
-                            onClick={onClickMenu}
-                          >
-                            {select === 'Past events' ? (
-                              <img src={checkmark} />
-                            ) : (
-                              <span />
-                            )}
-                            Past events
-                          </button>
-                        </div>
-
-                        <div>
-                          <button
-                            name="All events"
-                            className="drop-button"
-                            onClick={onClickMenu}
-                          >
-                            {select === 'All events' ? (
-                              <img src={checkmark} />
-                            ) : (
-                              <span />
-                            )}
-                            All events
-                          </button>
-                        </div>
-                      </ul>
-                    </div>
-                  )}
+                  <input onChange={handleChange} placeholder="Search events" />
                 </div>
               </div>
-
               <div>
-                <button
-                  className="plus-button"
-                  onClick={() => {
-                    navigate('/');
-                  }}
-                >
-                  <img src={logoPlus} />
+                <button className="bullet-button">
+                  <img src={bullet} />
+                  <span>List</span>
                 </button>
-                <button
-                  className="create-button"
-                  onClick={() => {
-                    navigate('/');
-                  }}
-                >
-                  Create Event
-                </button>
+              </div>
+              <div className="vertical-divider"></div>
+              <div className="all-events" onClick={displayMenu}>
+                <span>{select}</span>
+                <img src={logoDown} />
+
+                {showMenu && (
+                  <div
+                    id="myDropdown"
+                    className="dropdown-content"
+                    ref={reference}
+                  >
+                    <ul>
+                      <div>
+                        <button
+                          name="Upcoming events"
+                          className="drop-button"
+                          onClick={onClickMenu}
+                        >
+                          {select === 'Upcoming events' ? (
+                            <img src={checkmark} />
+                          ) : (
+                            <span />
+                          )}
+                          Upcoming events
+                        </button>
+                      </div>
+
+                      <div>
+                        <button
+                          name="Draft"
+                          className="drop-button"
+                          onClick={onClickMenu}
+                        >
+                          {select === 'Draft' ? (
+                            <img src={checkmark} />
+                          ) : (
+                            <span />
+                          )}
+                          Draft
+                        </button>
+                      </div>
+
+                      <div>
+                        <button
+                          name="Past events"
+                          className="drop-button"
+                          onClick={onClickMenu}
+                        >
+                          {select === 'Past events' ? (
+                            <img src={checkmark} />
+                          ) : (
+                            <span />
+                          )}
+                          Past events
+                        </button>
+                      </div>
+
+                      <div>
+                        <button
+                          name="All events"
+                          className="drop-button"
+                          onClick={onClickMenu}
+                        >
+                          {select === 'All events' ? (
+                            <img src={checkmark} />
+                          ) : (
+                            <span />
+                          )}
+                          All events
+                        </button>
+                      </div>
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
 
-            {!isAvailable && (
-              <div className="event-body">
-                <div className="noEvents-center">
-                  <div>
-                    <div className="graphic-img-div">
-                      <img src={noEvent} />
-                    </div>
-                    <div className="status-description">No events to show</div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {isAvailable && (
-              <div>
-                <div>
-                  <div className="event-header">
-                    <div className="event-info">Event</div>
-                    <div className="event-sold">Sold</div>
-                    <div className="event-gross">Gross</div>
-                    <div className="event-status">Status</div>
-                  </div>
-                </div>
-                {eventsList}
-
-                <div className="export-div">
-                  <svg
-                    id="download_svg__eds-icon--download_svg"
-                    x="0"
-                    y="0"
-                    viewBox="0 0 24 24"
-                    xml:space="preserve"
-                  >
-                    <path
-                      id="download_svg__eds-icon--download_base"
-                      fill="#231F20"
-                      d="M16 16v1h5v4H3v-4h5v-1H2v6h20v-6z"
-                    ></path>
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      fill="#231F20"
-                      d="M17.3 11.4l-4.8 4.7V2h-1v14.1l-4.8-4.7-.7.7 6 5.9 6-5.8z"
-                    ></path>
-                  </svg>
-                  <a onClick={exportCsv}>CSV Export</a>
-                </div>
-              </div>
-            )}
+            <div>
+              <button
+                className="plus-button"
+                onClick={() => {
+                  navigate('/');
+                }}
+              >
+                <img src={logoPlus} />
+              </button>
+              <button
+                className="create-button"
+                onClick={() => {
+                  navigate('/');
+                }}
+              >
+                Create Event
+              </button>
+            </div>
           </div>
-        </PageContainer>
-      </div>
-    </>
+
+          {!isAvailable && (
+            <div className="event-body">
+              <div className="noEvents-center">
+                <div>
+                  <div className="graphic-img-div">
+                    <img src={noEvent} />
+                  </div>
+                  <div className="status-description">No events to show</div>
+                </div>
+              </div>
+            </div>
+          )}
+          {isAvailable && (
+            <div>
+              <div>
+                <div className="event-header">
+                  <div className="event-info">Event</div>
+                  <div className="event-sold">Sold</div>
+                  <div className="event-gross">Gross</div>
+                  <div className="event-status">Status</div>
+                </div>
+              </div>
+              {eventsList}
+
+              <div className="export-div">
+                <svg
+                  id="download_svg__eds-icon--download_svg"
+                  x="0"
+                  y="0"
+                  viewBox="0 0 24 24"
+                  xml:space="preserve"
+                >
+                  <path
+                    id="download_svg__eds-icon--download_base"
+                    fill="#231F20"
+                    d="M16 16v1h5v4H3v-4h5v-1H2v6h20v-6z"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    fill="#231F20"
+                    d="M17.3 11.4l-4.8 4.7V2h-1v14.1l-4.8-4.7-.7.7 6 5.9 6-5.8z"
+                  ></path>
+                </svg>
+                <a onClick={exportCsv}>CSV Export</a>
+              </div>
+            </div>
+          )}
+        </div>
+      </PageContainer>
+    </div>
   );
 }
