@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/BookingPopUP/Ticket/TicketsDetails.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/BookingPopUP/Ticket/TicketsDetails.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file TicketDetails.jsx
  * @name TicketDetails.jsx
  * @author @SeifAllah
@@ -17,7 +45,7 @@
 
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -63,6 +91,7 @@ export default function Reservation({
   total,
 }) {
   const eventID = useParams().eventID;
+
   const [tickets, setTickets] = useState(true);
   const [eventInfo, seEventInfo] = useState([]);
   const [promocode, setPromocode] = useState(false);
@@ -182,29 +211,27 @@ export default function Reservation({
       return true;
     });
   }
-  const updateLiftCheckoutInfo = (newLiftCheckoutInfo) => {
-    setliftCheckoutInfo(newLiftCheckoutInfo);
-  };
+
   return (
-    <>
-      {tickets != false && eventExist && (
-        <ContainerBox>
+    &lt;>
+      {tickets != false &amp;&amp; eventExist &amp;&amp; (
+        &lt;ContainerBox>
           {/* {ticketCredentials()} */}
 
-          <TicketHeader>
-            <div className="title">
+          &lt;TicketHeader>
+            &lt;div className="title">
               {eventData.filteredEvents[0].basicInfo.eventName}
-            </div>
-            <div className="Setting">
+            &lt;/div>
+            &lt;div className="Setting">
               {" "}
               {convertUtcToLocalTime(
                 eventData.filteredEvents[0].basicInfo.eventName
               )}
-            </div>
-          </TicketHeader>
-          <TicketBody>
-            <PromoCode>
-              <TextField
+            &lt;/div>
+          &lt;/TicketHeader>
+          &lt;TicketBody>
+            &lt;PromoCode>
+              &lt;TextField
                 className={"lol"}
                 value={inputValue}
                 onChange={(newValue) => setInputValue(newValue.target.value)}
@@ -215,75 +242,99 @@ export default function Reservation({
                 placeholder="Enter Code"
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
-                  style: { fontSize: "15px" },
                   endAdornment: (
-                    <InputAdornment position="end">
-                      {promocode && <CheckCircleIcon color="success" />}
+                    &lt;InputAdornment position="end">
+                      {promocode &amp;&amp; &lt;CheckCircleIcon color="success" />}
                       {!inputValue ? (
-                        <Apply
+                        &lt;Apply
                           onClick={() => sendPromo(inputValue)}
                           disabled={!promocode ? !inputValue : false}
                         >
                           {!promocode ? "Apply" : "Remove"}
-                        </Apply>
+                        &lt;/Apply>
                       ) : (
-                        <Applyfocus
+                        &lt;Applyfocus
                           onClick={() => sendPromo(inputValue)}
                           disabled={!promocode ? !inputValue : false}
                         >
                           {console.log(inputValue)}
                           {!promocode ? "Apply" : "Remove"}
-                        </Applyfocus>
+                        &lt;/Applyfocus>
                       )}
-                    </InputAdornment>
+                    &lt;/InputAdornment>
                   ),
                 }}
                 error={errorMsg}
                 helperText={helper}
               />
-            </PromoCode>
+            &lt;/PromoCode>
             {ticketsTierdetails.map((element, index) => {
               return (
-                <TierBox
-                  key={index}
+                &lt;TierBox
                   element={element}
                   index={index}
                   setTicketTierdetails={setTicketTierdetails}
                   ticketsTierdetails={ticketsTierdetails}
                   summary={liftCheckoutInfo}
-                  setSummary={updateLiftCheckoutInfo}
+                  setSummary={setliftCheckoutInfo}
                   setEmpty={setEmpty}
                   total={total}
-                ></TierBox>
+                >
+                  {" "}
+                  {(liftCheckoutInfo = summaryInter)}
+                &lt;/TierBox>
               );
             })}
-            <TicketEnd>
-              <div style={{ display: "flex", alignItems: "center" }}>
+            &lt;TicketEnd>
+              &lt;div style={{ display: "flex", alignItems: "center" }}>
                 Powered by
-                <Link to="/">
-                  <img
+                &lt;Link to="/">
+                  &lt;img
                     src="/images/LogoFullTextSmall.png"
                     style={{ width: "5rem" }}
                   />
-                </Link>
-              </div>
-            </TicketEnd>
-          </TicketBody>
-          <Checkout>
+                &lt;/Link>
+              &lt;/div>
+            &lt;/TicketEnd>
+          &lt;/TicketBody>
+          &lt;Checkout>
             {" "}
-            <div className="summarycontainer">50</div>
-            <div className="checkoutbtndiv">
-              <button
+            &lt;div className="summarycontainer">50&lt;/div>
+            &lt;div className="checkoutbtndiv">
+              &lt;button
                 onClick={handleOnclick}
                 className="buttoncheckout"
                 data-testid="CreateBtn"
               >
                 Check out
-              </button>
-            </div>
-          </Checkout>
-        </ContainerBox>
+              &lt;/button>
+            &lt;/div>
+          &lt;/Checkout>
+        &lt;/ContainerBox>
       )}
-    </>
+    &lt;/>
   );
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="BookingPop.module_jsx.html">BookingPop.jsx</a></li><li><a href="CheckoutForm.module_jsx.html">CheckoutForm.jsx</a></li><li><a href="Landing.html#.module:jsx">Landing.jsx</a></li><li><a href="Organize.html#.module:jsx">Organize.jsx</a></li><li><a href="PasswordChecker.module_jsx.html">PasswordChecker.jsx</a></li><li><a href="RightContainer.module_jsx.html">RightContainer.jsx</a></li><li><a href="SignupOne.module_jsx.html">SignupOne.jsx</a></li><li><a href="SignupTwo.html#.module:jsx">SignupTwo.jsx</a></li><li><a href="TermsAndConditions.module_jsx.html">TermsAndConditions.jsx</a></li><li><a href="TicketDetails.html#.module:jsx">TicketDetails.jsx</a></li><li><a href="TierBox.html#.module:jsx">TierBox.jsx</a></li><li><a href="module-GoogleLoginButton.html">GoogleLoginButton</a></li><li><a href="module-LeftContainer.html">LeftContainer</a></li><li><a href="module-MainContainer.html">MainContainer</a></li><li><a href="module-PasswordChecker.html">PasswordChecker</a></li><li><a href="module-RightContainer.html">RightContainer</a></li><li><a href="module-SignupOne.html">SignupOne</a></li><li><a href="pages_LogIn_MainContainer.module_jsx.html">pages/LogIn/MainContainer.jsx</a></li><li><a href="pages_LogIn_leftContainer.module_jsx.html">pages/LogIn/leftContainer.jsx</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#eventsListScroll">eventsListScroll</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 26 2023 11:47:00 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

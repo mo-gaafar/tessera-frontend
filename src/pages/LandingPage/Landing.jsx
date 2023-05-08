@@ -9,14 +9,14 @@
  * @exports Landing
  * @description This file contains the Landing page components and its logic
  */
-import DateRangePicker from 'tw-daterange';
+import DateRangePicker from "tw-daterange";
 
-import { useRef } from 'react';
+import { useRef } from "react";
 
-import { useEffect, useState } from 'react';
-import { StyledLandingEvents } from './styles/Landing.styled';
-import { StyledEventsContainer } from './styles/Landing.styled';
-import { StyledNav } from './styles/Landing.styled';
+import { useEffect, useState } from "react";
+import { StyledLandingEvents } from "./styles/Landing.styled";
+import { StyledEventsContainer } from "./styles/Landing.styled";
+import { StyledNav } from "./styles/Landing.styled";
 import {
   Link,
   Navigate,
@@ -24,19 +24,19 @@ import {
   Routes,
   useLocation,
   useNavigate,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import logo from '../../assets/icon-down.png';
-import cross from '../../assets/x-10327.png';
-import error from '../../assets/noevent-error.png';
-import EventBox from './EventBox';
-import NavbarLoggedIn from './NavbarLoggedIn';
-import Navbar from './NavBar';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import logo from "../../assets/icon-down.png";
+import cross from "../../assets/x-10327.png";
+import error from "../../assets/noevent-error.png";
+import EventBox from "./EventBox";
+import NavbarLoggedIn from "./NavbarLoggedIn";
+import Navbar from "./NavBar";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-} from 'use-places-autocomplete';
+} from "use-places-autocomplete";
 /**
  * A functional component that handles the landing page and event filtering.
  *
@@ -50,8 +50,8 @@ export default function Landing() {
    */
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI',
-    libraries: ['places'],
+    googleMapsApiKey: "AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI",
+    libraries: ["places"],
   });
 
   const [cityData, setCity] = useState({});
@@ -73,20 +73,20 @@ export default function Landing() {
     endDate: new Date(),
   });
 
-  const [select, setSelect] = useState('');
-  const [selectCategory, setSelectCategory] = useState('');
-  const [url, setUrl] = useState('');
+  const [select, setSelect] = useState("");
+  const [selectCategory, setSelectCategory] = useState("");
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     // add event listener to the document
-    document.addEventListener('mousedown', handleClickMenuOutside);
+    document.addEventListener("mousedown", handleClickMenuOutside);
     return () => {
       // remove event listener when component unmounts
-      document.removeEventListener('mousedown', handleClickMenuOutside);
+      document.removeEventListener("mousedown", handleClickMenuOutside);
     };
   }, []);
 
-  const handleClickMenuOutside = event => {
+  const handleClickMenuOutside = (event) => {
     if (refDrop.current && !refDrop.current.contains(event.target)) {
       // if clicked outside of the ref div, hide the element
       setShowMenu(false);
@@ -97,14 +97,14 @@ export default function Landing() {
 
   useEffect(() => {
     // add event listener to the document
-    document.addEventListener('mousedown', handleClickCalenderOutside);
+    document.addEventListener("mousedown", handleClickCalenderOutside);
     return () => {
       // remove event listener when component unmounts
-      document.removeEventListener('mousedown', handleClickCalenderOutside);
+      document.removeEventListener("mousedown", handleClickCalenderOutside);
     };
   }, []);
 
-  const handleClickCalenderOutside = event => {
+  const handleClickCalenderOutside = (event) => {
     if (refCal.current && !refCal.current.contains(event.target)) {
       setShowMenu(false);
       setShowCalender(false);
@@ -113,19 +113,20 @@ export default function Landing() {
 
   useEffect(() => {
     // add event listener to the document
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       // remove event listener when component unmounts
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
-  const handleClickOutside = event => {
+  const handleClickOutside = (event) => {
     if (reference.current && !reference.current.contains(event.target)) {
       // if clicked outside of the ref div, hide the element
       setShowCategoryMenu(false);
     }
   };
+
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -134,25 +135,25 @@ export default function Landing() {
 
   function onClickCalender(e) {
     const { name, value } = e.target;
-    if (name === 'calender') {
+    if (name === "calender") {
       setShowCalender(true);
       //setShowMenu(false);
     } else {
       setShowMenu(false);
       setSelect(name);
-      if (name === 'Today') {
+      if (name === "Today") {
         setUrl(
-          'startDate=' + range.startDate.toISOString() + '&futureDate=today'
+          "startDate=" + range.startDate.toISOString() + "&futureDate=today"
         );
       }
-      if (name === 'This weekend') {
+      if (name === "This weekend") {
         setUrl(
-          'startDate=' + range.startDate.toISOString() + '&futureDate=weekend'
+          "startDate=" + range.startDate.toISOString() + "&futureDate=weekend"
         );
       }
-      if (name === 'Tomorrow') {
+      if (name === "Tomorrow") {
         setUrl(
-          'startDate=' + range.startDate.toISOString() + '&futureDate=tomorrow'
+          "startDate=" + range.startDate.toISOString() + "&futureDate=tomorrow"
         );
       }
     }
@@ -161,8 +162,8 @@ export default function Landing() {
     const { name, value } = e.target;
     setShowCategoryMenu(false);
     setSelectCategory(name);
-    let new_name = name.replace(/&/g, '%26');
-    let queryName = 'category=' + new_name;
+    let new_name = name.replace(/&/g, "%26");
+    let queryName = "category=" + new_name;
     setUrl(queryName);
     //handleClick()
   }
@@ -190,12 +191,11 @@ export default function Landing() {
   });
 
   /**
-   * @function useEffect
-   * @name useEffect
-   * @description This function is a hook that fetches the city name from the latitude and longitude
-   * @param {function} fetchData
-   * @param {function} navigator.geolocation.getCurrentPosition
-   * @returns {JSX.Element} A React component representing the event box
+   * A custom React hook that fetches the city name from the latitude and longitude.
+   *
+   * @param {number} latitude - The latitude of the location.
+   * @param {number} longitude - The longitude of the location.
+   * @returns {string} The name of the city.
    */
 
   useEffect(() => {
@@ -207,23 +207,23 @@ export default function Landing() {
       const json = await data.json();
       let country, city;
 
-      json.results[0].address_components.forEach(component => {
-        if (component.types.includes('locality')) {
+      json.results[0].address_components.forEach((component) => {
+        if (component.types.includes("locality")) {
           city = component.long_name;
         }
-        if (component.types.includes('country')) {
+        if (component.types.includes("country")) {
           country = component.long_name;
         }
       });
       const cityName =
-        json.results[0].address_components[4].long_name.split(' ')[0];
+        json.results[0].address_components[4].long_name.split(" ")[0];
       setCity({
         city: cityName,
         country: country,
       });
       setUrl(`city=${cityName}&country=${country}`);
     };
-    navigator.geolocation?.getCurrentPosition(poistion => {
+    navigator.geolocation?.getCurrentPosition((poistion) => {
       const { latitude, longitude } = poistion.coords;
 
       fetchData(latitude, longitude);
@@ -233,7 +233,7 @@ export default function Landing() {
   function handleForYou() {
     setForYouElement(true);
     //setShowCategoryMenu(false);
-    setFocused(prevFocus => {
+    setFocused((prevFocus) => {
       return {
         forYou: true,
       };
@@ -246,7 +246,7 @@ export default function Landing() {
     handleClick();
     setForYouElement(false);
     const { name, value } = e.target;
-    setFocused(prevFocus => {
+    setFocused((prevFocus) => {
       return {
         [name]: true,
       };
@@ -255,44 +255,44 @@ export default function Landing() {
     if (!focused.All) {
       //setShowCategoryMenu(false);
     }
-    if (name === 'All') {
-      setUrl('');
+    if (name === "All") {
+      setUrl("");
     }
-    if (name === 'online') {
-      setUrl('eventHosted=online');
+    if (name === "online") {
+      setUrl("eventHosted=online");
     }
-    if (name === 'today') {
+    if (name === "today") {
       setUrl(
-        'startDate=' + range.startDate.toISOString() + '&futureDate=today'
+        "startDate=" + range.startDate.toISOString() + "&futureDate=today"
       );
     }
-    if (name === 'weekend') {
+    if (name === "weekend") {
       setUrl(
-        'startDate=' + range.startDate.toISOString() + '&futureDate=weekend'
+        "startDate=" + range.startDate.toISOString() + "&futureDate=weekend"
       );
     }
-    if (name === 'music') {
-      setUrl('category=Music');
+    if (name === "music") {
+      setUrl("category=Music");
     }
-    if (name === 'food') {
-      setUrl('category=Food %26 Drink');
+    if (name === "food") {
+      setUrl("category=Food %26 Drink");
     }
-    if (name === 'charity') {
-      setUrl('category=Charity %26 Causes');
+    if (name === "charity") {
+      setUrl("category=Charity %26 Causes");
     }
-    if (name === 'free') {
-      setUrl('freeEvent=Free');
+    if (name === "free") {
+      setUrl("freeEvent=Free");
     }
   }
 
   function removeDate() {
     setShowDate(false);
-    setSelect('');
+    setSelect("");
   }
 
   function removeCategory() {
-    setSelectCategory('');
-    setUrl('');
+    setSelectCategory("");
+    setUrl("");
   }
 
   useEffect(() => {
@@ -301,9 +301,9 @@ export default function Landing() {
       setShowMenu(false);
       setShowDate(true);
       setUrl(
-        'startDate=' +
+        "startDate=" +
           range.startDate.toISOString() +
-          '&endDate=' +
+          "&endDate=" +
           range.endDate.toISOString()
       );
     } else {
@@ -312,18 +312,18 @@ export default function Landing() {
   }, [range.startDate]);
 
   const monthNames = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
   const [allFilteredEvents, setAllFilteredEvents] = useState([]);
   const [allCatEvents, setAllCatEvents] = useState([]);
@@ -341,7 +341,7 @@ export default function Landing() {
     console.log(cityData);
     async function getData() {
       const res = await fetch(
-        'https://www.tessera.social/api/attendee/Eventsby/?' + url
+        "https://www.tessera.social/api/attendee/Eventsby/?" + url
       );
       const data = await res.json();
       setAllFilteredEvents(data.filteredEvents);
@@ -357,9 +357,9 @@ export default function Landing() {
    * @returns {String}
    */
 
-  const convertUtcToLocalTime = dateString => {
+  const convertUtcToLocalTime = (dateString) => {
     let date = new Date(dateString);
-    const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+    const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
     const milliseconds = Date.UTC(
       date.getFullYear(),
       date.getMonth(),
@@ -372,7 +372,7 @@ export default function Landing() {
     return `${dayName}, ${
       monthNames[localTime.getMonth()]
     } ${localTime.getDate()}, ${localTime.getHours()}:${
-      localTime.getMinutes() === 0 ? '00' : localTime.getMinutes()
+      localTime.getMinutes() === 0 ? "00" : localTime.getMinutes()
     }`;
   };
 
@@ -400,42 +400,43 @@ export default function Landing() {
       setNoEventsImg(false);
     }
 
-    const handleEventPage = id => {
-      console.log('first');
+    const handleEventPage = (id) => {
+      console.log("first");
     };
 
     setEventElement(
-      allFilteredEvents.map(event => (
+      allFilteredEvents.map((event) => (
         <EventBox
           id={event._id}
           key={event._id}
           image={
-            event.basicInfo.eventImage !== 'https://example.com/image.jpg'
+            event.basicInfo.eventImage !== "https://example.com/image.jpg"
               ? event.basicInfo.eventImage
-              : '/images/event__5.avif'
+              : "/images/event__5.avif"
           }
           eventTitle={event.basicInfo.eventName}
           date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
           description={
             event.basicInfo.location.venueName +
-            ' • ' +
+            " • " +
             event.basicInfo.location.city +
-            ' '
+            " "
           }
-          price={
-            event.ticketTiers[0].price !== 'Free'
-              ? `Starts at ${minPrice(
-                  event.ticketTiers[0].price,
-                  event.ticketTiers[1].price
-                )}`
-              : ''
-          }
-          isFree={event.ticketTiers[0].price === 'Free'}
-          organizer={
-            event.creatorId
-              ? event.creatorId.firstName + ' ' + event.creatorId.lastName
-              : ''
-          }
+          // price={
+          //   event.ticketTiers[0].price !== 'Free'
+          //     ? `Starts at ${minPrice(
+          //         event.ticketTiers[0].price,
+          //         event.ticketTiers[1].price
+          //       )}`
+          //     : ''
+          // }
+          //TODO: isFree is not working
+          // isFree={event.ticketTiers[0].price === 'Free'}
+          // organizer={
+          //   event.creatorId
+          //     ? event.creatorId.firstName + ' ' + event.creatorId.lastName
+          //     : ''
+          // }
           followers={event.ticketTiers.length}
         />
       ))
@@ -452,7 +453,7 @@ export default function Landing() {
 
   useEffect(() => {
     setCatElement(
-      allCatEvents.map(cat => (
+      allCatEvents.map((cat) => (
         <div>
           <button name={cat} className="drop-button" onClick={onClickCategory}>
             {cat}
@@ -463,23 +464,23 @@ export default function Landing() {
   }, [allCatEvents]);
 
   const handleClick = () => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    ref.current?.scrollIntoView({ behavior: "smooth" });
   };
-  const email = localStorage.getItem('email')
-    ? localStorage.getItem('email')
-    : localStorage.getItem('authEmail');
+  const email = localStorage.getItem("email")
+    ? localStorage.getItem("email")
+    : localStorage.getItem("authEmail");
   const [selected, setSelected] = useState(null);
 
   const [showLocationMenu, setShowLocationMenu] = useState(false);
-  const locationDropDownToggle = e => {
-    const h3 = e.target.closest('h3');
+  const locationDropDownToggle = (e) => {
+    const h3 = e.target.closest("h3");
 
     !h3 && setShowLocationMenu(false);
   };
   return (
     <>
       <StyledNav>
-        {email && email !== 'undefined' ? (
+        {email && email !== "undefined" ? (
           <NavbarLoggedIn show={true} email={email} />
         ) : (
           <Navbar onClick={locationDropDownToggle} show={true} />
@@ -508,11 +509,11 @@ export default function Landing() {
                   style={
                     focused.All
                       ? {
-                          color: 'blue',
-                          paddingBottom: '3px',
-                          borderBottom: '2px solid blue',
+                          color: "blue",
+                          paddingBottom: "3px",
+                          borderBottom: "2px solid blue",
                         }
-                      : { background: 'none' }
+                      : { background: "none" }
                   }
                 >
                   All
@@ -526,11 +527,11 @@ export default function Landing() {
                   style={
                     focused.forYou
                       ? {
-                          color: 'blue',
-                          paddingBottom: '3px',
-                          borderBottom: '2px solid blue',
+                          color: "blue",
+                          paddingBottom: "3px",
+                          borderBottom: "2px solid blue",
                         }
-                      : { background: 'none' }
+                      : { background: "none" }
                   }
                 >
                   <span>For you</span>
@@ -545,11 +546,11 @@ export default function Landing() {
                   style={
                     focused.online
                       ? {
-                          color: 'blue',
-                          paddingBottom: '3px',
-                          borderBottom: '2px solid blue',
+                          color: "blue",
+                          paddingBottom: "3px",
+                          borderBottom: "2px solid blue",
                         }
-                      : { background: 'none' }
+                      : { background: "none" }
                   }
                 >
                   Online
@@ -564,11 +565,11 @@ export default function Landing() {
                   style={
                     focused.today
                       ? {
-                          color: 'blue',
-                          paddingBottom: '3px',
-                          borderBottom: '2px solid blue',
+                          color: "blue",
+                          paddingBottom: "3px",
+                          borderBottom: "2px solid blue",
                         }
-                      : { background: 'none' }
+                      : { background: "none" }
                   }
                 >
                   Today
@@ -583,11 +584,11 @@ export default function Landing() {
                   style={
                     focused.weekend
                       ? {
-                          color: 'blue',
-                          paddingBottom: '3px',
-                          borderBottom: '2px solid blue',
+                          color: "blue",
+                          paddingBottom: "3px",
+                          borderBottom: "2px solid blue",
                         }
-                      : { background: 'none' }
+                      : { background: "none" }
                   }
                 >
                   This Weekend
@@ -602,11 +603,11 @@ export default function Landing() {
                   style={
                     focused.free
                       ? {
-                          color: 'blue',
-                          paddingBottom: '3px',
-                          borderBottom: '2px solid blue',
+                          color: "blue",
+                          paddingBottom: "3px",
+                          borderBottom: "2px solid blue",
                         }
-                      : { background: 'none' }
+                      : { background: "none" }
                   }
                 >
                   Free
@@ -621,11 +622,11 @@ export default function Landing() {
                   style={
                     focused.music
                       ? {
-                          color: 'blue',
-                          paddingBottom: '3px',
-                          borderBottom: '2px solid blue',
+                          color: "blue",
+                          paddingBottom: "3px",
+                          borderBottom: "2px solid blue",
                         }
-                      : { background: 'none' }
+                      : { background: "none" }
                   }
                 >
                   Music
@@ -640,11 +641,11 @@ export default function Landing() {
                   style={
                     focused.food
                       ? {
-                          color: 'blue',
-                          paddingBottom: '3px',
-                          borderBottom: '2px solid blue',
+                          color: "blue",
+                          paddingBottom: "3px",
+                          borderBottom: "2px solid blue",
                         }
-                      : { background: 'none' }
+                      : { background: "none" }
                   }
                 >
                   Food & Drink
@@ -659,11 +660,11 @@ export default function Landing() {
                   style={
                     focused.charity
                       ? {
-                          color: 'blue',
-                          paddingBottom: '3px',
-                          borderBottom: '2px solid blue',
+                          color: "blue",
+                          paddingBottom: "3px",
+                          borderBottom: "2px solid blue",
                         }
-                      : { background: 'none' }
+                      : { background: "none" }
                   }
                 >
                   Charity & causes
@@ -711,11 +712,11 @@ export default function Landing() {
                 {showDateRange ? (
                   <span>
                     {monthNames[range.startDate.getMonth()] +
-                      ' ' +
+                      " " +
                       range.startDate.getDate() +
-                      ' - ' +
+                      " - " +
                       monthNames[range.endDate.getMonth()] +
-                      ' ' +
+                      " " +
                       range.endDate.getDate()}
                     <button onClick={removeDate} className="remove-button">
                       <img src={cross} />
@@ -784,7 +785,7 @@ export default function Landing() {
                     <DateRangePicker
                       wrapperClassName="datePicker"
                       initialRange={range}
-                      onUpdate={dateRange => {
+                      onUpdate={(dateRange) => {
                         setRange(dateRange);
                       }}
                     />
@@ -827,7 +828,7 @@ const PlacesAutocomplete = ({
     clearSuggestions,
   } = usePlacesAutocomplete();
   const [hideDefault, setHideDefault] = useState(false);
-  const handleSelect = async e => {
+  const handleSelect = async (e) => {
     const address = e.target.innerText;
     setValue(address, false);
     clearSuggestions();
@@ -849,10 +850,10 @@ const PlacesAutocomplete = ({
       const addressComponents = cities[i].address_components;
       for (let j = 0; j < addressComponents.length; j++) {
         const types = addressComponents[j].types;
-        if (types.indexOf('locality') !== -1) {
+        if (types.indexOf("locality") !== -1) {
           city = addressComponents[j].long_name;
         }
-        if (types.indexOf('country') !== -1) {
+        if (types.indexOf("country") !== -1) {
           country = addressComponents[j].long_name;
         }
       }
@@ -893,7 +894,7 @@ const PlacesAutocomplete = ({
           type="text"
           value={value}
           placeholder={cityData.city}
-          onChange={e => {
+          onChange={(e) => {
             setHideDefault(true);
             setValue(e.target.value);
           }}
@@ -946,8 +947,8 @@ const PlacesAutocomplete = ({
               </div>
             )}
 
-            {status === 'OK' &&
-              data.map(data => {
+            {status === "OK" &&
+              data.map((data) => {
                 {
                   /* console.log(data); */
                 }

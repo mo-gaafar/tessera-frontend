@@ -8,6 +8,8 @@ import SignupTwo from "./pages/SignUp/SignupTwo";
 import SignUpOne from "./pages/SignUp/SignupOne";
 
 import GlobalStyles from "./components/styles/Global";
+import AddAttendee from "./components/AddAttendees/addAttendees";
+import AttendeeInfo from "./components/AddAttendees/RegisterInfo";
 import Landing from "./pages/LandingPage/Landing";
 import Organize from "./pages/Organize/Organize";
 import { Route, Routes } from "react-router-dom";
@@ -42,8 +44,11 @@ function App() {
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/:eventID" element={<Events />} />
+        <Route path="manage" element={<AddAttendee />} />
       </Routes>
       {/* <BookingPopUp /> */}
+      {/* <AddAttendee></AddAttendee> */}
+      {/* <AttendeeInfo></AttendeeInfo> */}
     </>
   );
 }

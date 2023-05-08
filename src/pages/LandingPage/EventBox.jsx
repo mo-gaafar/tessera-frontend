@@ -18,12 +18,14 @@ Renders a box containing information about an event
 */
 import { useNavigate } from 'react-router-dom';
 export default function EventBox(props) {
-  const navigate = useNavigate();
-
+  let navigate;
+  if (!props.test) {
+    navigate = useNavigate();
+  }
   return (
     <div
       onClick={() => {
-        navigate(`/${props.id}`);
+        if (!props.test) navigate(`/${props.id}`);
       }}
       className="event__box"
     >
