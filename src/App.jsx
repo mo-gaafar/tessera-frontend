@@ -19,7 +19,6 @@ import Reset from './pages/ResetPassword/Reset';
 import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
 import Events from './pages/EventPage/EventPage';
 import Dashboard from './pages/Dashboard/Dashboard';
-
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
  * Function component that renders the main application
