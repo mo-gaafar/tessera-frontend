@@ -17,8 +17,7 @@ import Reset from './pages/ResetPassword/Reset';
 import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
 import Events from './pages/EventPage/EventPage';
 import Dashboard from './pages/Dashboard/Dashboard';
-import AddAttendee from "./components/AddAttendees/addAttendees";
-import AttendeeInfo from "./components/AddAttendees/RegisterInfo";
+import AddAttendee from './pages/AddAttendees/addAttendees';
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -46,9 +45,6 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="manage" element={<AddAttendee />} />
       </Routes>
-      {/* <BookingPopUp /> */}
-      {/* <AddAttendee></AddAttendee> */}
-      {/* <AttendeeInfo></AttendeeInfo> */}
     </>
   );
 }
