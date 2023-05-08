@@ -149,7 +149,9 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                         })}
                         <OrderTitle>
                           {checkoutInfo.forEach((orderSummary) => {
-                            sum += Number(orderSummary.sumTicketPrice.slice(1));
+                            sum +=
+                              Number(orderSummary.sumTicketPrice) *
+                              Number(orderSummary.sumTicketCount);
                             console.log(
                               "sum 2ooly bkam",
                               orderSummary.sumTicketPrice.slice(1)
