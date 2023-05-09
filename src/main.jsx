@@ -9,6 +9,7 @@ import App from './App';
 
 import { BrowserRouter } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import PublishPage from './pages/PublishPage';
 
 /**
 

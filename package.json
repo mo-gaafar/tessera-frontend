@@ -30,7 +30,7 @@
     "react-router-dom": "^6.9.0",
     "react-transition-group": "^4.4.5",
     "styled": "^1.0.0",
-    "styled-components": "^5.3.9",
+    "styled-components": "^5.3.10",
     "tw-daterange": "^1.1.24",
     "use-places-autocomplete": "^4.0.0"
   },

@@ -7,12 +7,9 @@ export const StyledNav = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-inline: 3rem;
+    padding-inline: 5rem;
     position: relative;
     padding-right: 2rem;
-    @media (max-width: 40em) {
-      padding-inline: 1rem;
-    }
     .menu {
       width: 20rem;
       position: absolute;
@@ -99,9 +96,6 @@ export const StyledLandingEvents = styled.section`
     }
     ::placeholder {
       color: #3659e3;
-    }
-    @media (max-width: 40em) {
-      width: 20rem !important;
     }
   }
   .location__dropdown {
@@ -288,6 +282,7 @@ export const StyledLandingEvents = styled.section`
       background: none;
       border: none;
       text-align: left;
+      align-items: center;
       color: #6f7287;
       text-decoration: none;
       padding-top: 1.2rem;
@@ -376,3 +371,46 @@ export const StyledEventsContainer = styled.div`
     }
   }
 `;
+export const StyledCategoriesContainer = styled.div`
+  margin: 2rem 0px 2rem 0rem;
+  
+  
+svg{
+  width: 24px;
+  height: 24px;
+}
+p{
+  padding-left:2rem;
+}
+.tile-group{
+  display: grid;
+  grid-template-columns: repeat(4,1.2fr);
+  grid-column-gap: 12px;
+  grid-row-gap: 12px;
+  @media (max-width: 792px){
+    grid-template-columns: repeat(2,1.2fr);
+  }
+  
+}
+.tile{
+  cursor:pointer;
+  padding-left:2rem;
+  background-color:#f8f7fa;
+  display: inline-flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  color: #39364f;
+  text-decoration: none;
+  height: 54px;
+  padding:0px;
+  border: 1px solid #eeedf2;
+  border-radius: 2px;
+  text-align:center;
+  align-items: center;
+  width: 100%;
+  @media (max-width: 792px){
+    grid-template-columns: repeat(2,1.2fr);
+  }
+}
+`
