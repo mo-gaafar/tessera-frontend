@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const BookingContainer = styled.div`
   width: 36rem;
   display: flex;
@@ -220,5 +220,225 @@ export const OrderTicket = styled.div`
     }
     .Singleprice {
     }
+  }
+`;
+export const StyleDiv = styled.div`
+  .checkoutPage {
+    background: #fefefe;
+    display: flex;
+    height: 90vh;
+  }
+
+  .inputForm {
+    width: 70%;
+    overflow-y: scroll;
+    @media (max-width: 960px) {
+      width: 100%;
+    }
+  }
+
+  .contactInfo {
+    padding: 35px;
+    border-top: 1px solid #e6e6e6;
+    // background: red;
+    @media (max-width: 960px) {
+      padding: 20px;
+    }
+  }
+
+  .name {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .updates {
+    display: flex;
+    padding: 10px;
+    padding-left: 0px;
+    align-items: center;
+  }
+
+  .ticketForm {
+    margin-top: 20px;
+  }
+
+  .updates input {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .loggedIn {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+  }
+
+  .loggedIn span {
+    color: #ff0000;
+  }
+
+  .eventDetails {
+    width: 30%;
+    @media (max-width: 960px) {
+      display: none;
+    }
+    height: 90vh;
+  }
+
+  .totalPrice {
+    display: flex;
+    justify-content: space-between;
+  }
+  .ticket {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .ticketDetails {
+    padding: 20px;
+    background: #f7f6f9;
+  }
+
+  .paymentOptions {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+`;
+
+export const FormInput = styled.input`
+  width: 100%;
+  height: 30px;
+
+  /* padding: 10px; */
+  /* margin-bottom: 20px; */
+  font-size: 16px;
+  color: #000;
+  /* border: 1px solid #ebebeb; */
+  /* border-radius: 1px; */
+  outline: none;
+  border: none;
+  @media (max-width: 960px) {
+    width: 100%;
+  }
+  /* set active state */
+`;
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* margin-bottom: 20px; */
+  width: 100%;
+  border: 1.5px solid #d0cfd9;
+  border-radius: 3px;
+
+  margin: 10px;
+  margin-left: 0px;
+  padding-left: 12px;
+  padding-top: 5px;
+  @media (max-width: 960px) {
+    width: 100%;
+  }
+
+  /* hover animation */
+  &:hover {
+    border: 1.5px solid #a4a3aa;
+  }
+
+  &:focus-within {
+    border: 1.5px solid #1e4fff;
+  }
+
+  .inputLabel {
+    display: flex;
+    justify-content: left;
+    font-size: 12px;
+    color: #6f7287;
+    &:focus-within {
+      border: 1px solid #1e4fff;
+    }
+  }
+
+  .inputLabel span {
+    color: #ff0000;
+    margin-left: 5px;
+  }
+`;
+
+export const PaymentOption = styled.div`
+  display: flex;
+  justify-content: space-between;
+  /* margin: 10px 0px; */
+  border: 1.5px solid #d0cfd9;
+  padding: 25px 20px;
+
+  input {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: center;
+
+  padding: 20px;
+  @media (max-width: 960px) {
+    padding: 10px;
+  }
+  .timer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    h2 {
+      margin: 0px;
+    }
+    p {
+      margin: 0px;
+    }
+  }
+`;
+
+export const BackButton = styled.div`
+  display: flex;
+  position: absolute;
+  left: 30px;
+  padding: 7px;
+  align-items: center;
+  cursor: pointer;
+  svg {
+    width: 30px;
+    height: 30px;
+    /* margin-right: 10px; */
+  }
+  &:hover {
+    /* border: 1px solid #1e4fff; */
+    border-radius: 25px;
+    background: #f7f6f9;
+  }
+`;
+export const SubmitButton = styled.button`
+  /* width: 100%; */
+  float: right;
+  height: 50px;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  background: #d94618;
+  cursor: pointer;
+  &:hover {
+    background: #ef5436;
+  }
+  &:disabled {
+    background: #d0cfd9;
+    cursor: not-allowed;
   }
 `;

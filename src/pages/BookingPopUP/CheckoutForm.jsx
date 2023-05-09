@@ -18,234 +18,24 @@ import { Link, Route, Routes } from 'react-router-dom';
 //   InputEmail,
 //   Label,
 // } from '../../../../tessera-frontend/src/pages/SignUp/styles/SignUpEmail.styled';
-
+import {
+  StyleDiv,
+  InputGroup,
+  FormInput,
+  PaymentOption,
+  BackButton,
+  Header,
+  SubmitButton,
+} from './Styles/BookingMain.styled';
 import axios from 'axios';
-
-const StyleDiv = styled.div`
-  .checkoutPage {
-    background: #fefefe;
-    display: flex;
-    height: 90vh;
-  }
-
-  .inputForm {
-    width: 70%;
-    overflow-y: scroll;
-    @media (max-width: 960px) {
-      width: 100%;
-    }
-  }
-
-  .contactInfo {
-    padding: 35px;
-    border-top: 1px solid #e6e6e6;
-    // background: red;
-    @media (max-width: 960px) {
-      padding: 20px;
-    }
-  }
-
-  .name {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .updates {
-    display: flex;
-    padding: 10px;
-    padding-left: 0px;
-    align-items: center;
-  }
-
-  .ticketForm {
-    margin-top: 20px;
-  }
-
-  .updates input {
-    margin-right: 10px;
-    width: 20px;
-    height: 20px;
-  }
-
-  .loggedIn {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0px;
-  }
-
-  .loggedIn span {
-    color: #ff0000;
-  }
-
-  .eventDetails {
-    width: 30%;
-    @media (max-width: 960px) {
-      display: none;
-    }
-    height: 90vh;
-  }
-
-  .totalPrice {
-    display: flex;
-    justify-content: space-between;
-  }
-  .ticket {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .ticketDetails {
-    padding: 20px;
-    background: #f7f6f9;
-  }
-
-  .paymentOptions {
-    margin-top: 40px;
-    margin-bottom: 20px;
-    h2 {
-      margin-bottom: 20px;
-    }
-  }
-`;
-
-const FormInput = styled.input`
-  width: 100%;
-  height: 30px;
-
-  /* padding: 10px; */
-  /* margin-bottom: 20px; */
-  font-size: 16px;
-  color: #000;
-  /* border: 1px solid #ebebeb; */
-  /* border-radius: 1px; */
-  outline: none;
-  border: none;
-  @media (max-width: 960px) {
-    width: 100%;
-  }
-  /* set active state */
-`;
-
-const InputGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* margin-bottom: 20px; */
-  width: 100%;
-  border: 1.5px solid #d0cfd9;
-  border-radius: 3px;
-
-  margin: 10px;
-  margin-left: 0px;
-  padding-left: 12px;
-  padding-top: 5px;
-  @media (max-width: 960px) {
-    width: 100%;
-  }
-
-  /* hover animation */
-  &:hover {
-    border: 1.5px solid #a4a3aa;
-  }
-
-  &:focus-within {
-    border: 1.5px solid #1e4fff;
-  }
-
-  .inputLabel {
-    display: flex;
-    justify-content: left;
-    font-size: 12px;
-    color: #6f7287;
-    &:focus-within {
-      border: 1px solid #1e4fff;
-    }
-  }
-
-  .inputLabel span {
-    color: #ff0000;
-    margin-left: 5px;
-  }
-`;
-
-const PaymentOption = styled.div`
-  display: flex;
-  justify-content: space-between;
-  /* margin: 10px 0px; */
-  border: 1.5px solid #d0cfd9;
-  padding: 25px 20px;
-
-  input {
-    margin-right: 10px;
-    width: 20px;
-    height: 20px;
-  }
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-
-  padding: 20px;
-  @media (max-width: 960px) {
-    padding: 10px;
-  }
-  .timer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    h2 {
-      margin: 0px;
-    }
-    p {
-      margin: 0px;
-    }
-  }
-`;
-
-const BackButton = styled.div`
-  display: flex;
-  position: absolute;
-  left: 30px;
-  padding: 7px;
-  align-items: center;
-  cursor: pointer;
-  svg {
-    width: 30px;
-    height: 30px;
-    /* margin-right: 10px; */
-  }
-  &:hover {
-    /* border: 1px solid #1e4fff; */
-    border-radius: 25px;
-    background: #f7f6f9;
-  }
-`;
-
-const SubmitButton = styled.button`
-  /* width: 100%; */
-  float: right;
-  height: 50px;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  outline: none;
-  background: #d94618;
-  cursor: pointer;
-  &:hover {
-    background: #ef5436;
-  }
-  &:disabled {
-    background: #d0cfd9;
-    cursor: not-allowed;
-  }
-`;
 
 function CheckoutForm(props) {
   // const event = props.event;
-  const event = '643aa09ecbfea68c24d93670';
+
+  console.log(props);
+  // const event = '643aa09ecbfea68c24d93670';
+
+  //
 
   function SessionEnded() {
     return (
@@ -270,14 +60,14 @@ function CheckoutForm(props) {
     };
   }, []);
 
-  useEffect(() => {
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
-    setTimeLeft(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
-    if (remainingTime === 0) {
-      return <SessionEnded />;
-    }
-  }, [remainingTime]);
+  // useEffect(() => {
+  //   const minutes = Math.floor(remainingTime / 60);
+  //   const seconds = remainingTime % 60;
+  //   setTimeLeft(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
+  //   if (remainingTime === 0) {
+  //     return <SessionEnded />;
+  //   }
+  // }, [remainingTime]);
 
   const tiketTier = [
     {
@@ -520,13 +310,16 @@ function CheckoutForm(props) {
           />
           <div className="ticketDetails">
             <h3>Order Summary</h3>
-            {tiketTier.map((ticket, index) => (
+            {props.checkoutInfo.map((ticket, index) => (
               <>
-                <div className="ticket" key={index}>
+                <div className="ticket" key={ticket.sumId}>
                   <p className="ticketInfo">
-                    {ticket.quantity}x {ticket.tierName}
+                    {ticket.ticketCount} x {ticket.sumTierName}
                   </p>
-                  <p className="ticketInfo">${ticket.price}</p>
+                  <p className="ticketInfo">
+                    {ticket.sumtTicketPrice === 'Free' ? '$' : ''}
+                    {ticket.sumTicketPrice}
+                  </p>
                 </div>
                 <hr />
               </>
