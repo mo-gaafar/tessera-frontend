@@ -5,7 +5,8 @@ import {
   StyledMainSidebar,
   StyledCreateTicketSidebar,
 } from './styles/Sidebar.styled';
-const Sidebar = (props, { event, dashboard }) => {
+const Sidebar = ({ hide, event, dashboard }) => {
+  console.log(event);
   const [hovered, setHovered] = useState(false);
   const [reportHovered, setReportHovered] = useState(false);
 
@@ -52,7 +53,7 @@ const Sidebar = (props, { event, dashboard }) => {
           </Link>
         </div>
       </StyledMainSidebar>
-      {!props.hide && (
+      {!hide && (
         <StyledCreateTicketSidebar>
           <Link className="events__page">
             <svg viewBox="0 0 24 24" xml:space="preserve">
@@ -78,7 +79,7 @@ const Sidebar = (props, { event, dashboard }) => {
             </Link>
           </div>
           <div className="create__event">
-            <span>
+            <Link className="active">
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -101,8 +102,8 @@ const Sidebar = (props, { event, dashboard }) => {
                 ></polygon>
               </svg>
               Basic Info
-            </span>
-            <span>
+            </Link>
+            <Link>
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -125,8 +126,8 @@ const Sidebar = (props, { event, dashboard }) => {
                 ></polygon>
               </svg>
               Details
-            </span>
-            <span>
+            </Link>
+            <Link>
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -149,8 +150,8 @@ const Sidebar = (props, { event, dashboard }) => {
                 ></polygon>
               </svg>
               Tickets
-            </span>
-            <span>
+            </Link>
+            <Link to="/publish">
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +174,7 @@ const Sidebar = (props, { event, dashboard }) => {
                 ></polygon>
               </svg>
               Publish
-            </span>
+            </Link>
           </div>
           <div className="others">
             <span className={dashboard ? 'active' : ''}> Dashboard</span>

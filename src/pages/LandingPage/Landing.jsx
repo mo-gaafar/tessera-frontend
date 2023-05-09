@@ -14,7 +14,10 @@ import DateRangePicker from 'tw-daterange';
 import { useRef } from 'react';
 
 import { useEffect, useState } from 'react';
-import { StyledCategoriesContainer, StyledLandingEvents } from './styles/Landing.styled';
+import {
+  StyledCategoriesContainer,
+  StyledLandingEvents,
+} from './styles/Landing.styled';
 import { StyledEventsContainer } from './styles/Landing.styled';
 import { StyledNav } from './styles/Landing.styled';
 import {
@@ -110,7 +113,6 @@ export default function Landing() {
     }
   };
 
-  
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -144,7 +146,7 @@ export default function Landing() {
   }
   function handleClickCat(name) {
     //console.log("name")
-    console.log(name)
+    console.log(name);
     setShowCategoryMenu(false);
     setSelectCategory(name);
     let new_name = name.replace(/&/g, '%26');
@@ -153,12 +155,26 @@ export default function Landing() {
     //handleClick()
   }
 
+<<<<<<< HEAD
+=======
+  function onClickCategory(e) {
+    const { name, value } = e.target;
+    console.log('name');
+    console.log(name);
+    setShowCategoryMenu(false);
+    setSelectCategory(name);
+    let new_name = name.replace(/&/g, '%26');
+    let queryName = 'category=' + new_name;
+    setUrl(queryName);
+    //handleClick()
+  }
+>>>>>>> 8ee8b9b3dd26bd69f706b186901f4974f522121b
   function showDropdown() {
     if (!select) {
       setShowMenu(true);
     }
   }
-  
+
   const [focused, setFocused] = useState({
     All: true,
     forYou: false,
@@ -434,7 +450,6 @@ export default function Landing() {
    * @returns {JSX.Element} An object representing the dropdown elements
    */
 
-
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -648,21 +663,50 @@ export default function Landing() {
           <div>
             <h4>Check out our categories</h4>
             <StyledCategoriesContainer>
-            <div className='tile-group'>
-              <CategoriesTile title="Music"name="Cat"  handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Home & Lifestyle" name="Home & Lifestyle" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Food & Drink" name="Food & Drink" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Travel & Outdoor" name="Travel & Outdoor" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Seasonal Holiday" name="Seasonal Holiday" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Government & Politics" name="Government & Politics" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Charity & Causes" name="Charity & Causes" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Other" name="Other" handleClickCat={handleClickCat}></CategoriesTile>
-            </div>
+              <div className="tile-group">
+                <CategoriesTile
+                  title="Music"
+                  name="Cat"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Home & Lifestyle"
+                  name="Home & Lifestyle"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Food & Drink"
+                  name="Food & Drink"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Travel & Outdoor"
+                  name="Travel & Outdoor"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Seasonal Holiday"
+                  name="Seasonal Holiday"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Government & Politics"
+                  name="Government & Politics"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Charity & Causes"
+                  name="Charity & Causes"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Other"
+                  name="Other"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+              </div>
             </StyledCategoriesContainer>
-          
           </div>
-
-          
 
           {forYouElement && (
             <div className="date-dropdown">

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SignupTwo from '../SignUp/SignupTwo';
+
 export default function NavbarLoggedIn(props) {
   const [menu, setMenu] = useState(false);
 
@@ -30,24 +31,26 @@ export default function NavbarLoggedIn(props) {
         </Link>
         <ul className="logged__nav__list">
           {!props.creator && (
-            <li className="logged__nav__list__create">
-              <svg
-                id="plus-chunky_svg__eds-icon--plus-chunky_svg"
-                x="0"
-                y="0"
-                viewBox="0 0 24 24"
-                xml:space="preserve"
-              >
-                <path
-                  id="plus-chunky_svg__eds-icon--plus-chunky_base"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
-                  fill="blue"
-                ></path>
-              </svg>
-              Create an Event
-            </li>
+            <Link to="/Organize">
+              <li className="logged__nav__list__create">
+                <svg
+                  id="plus-chunky_svg__eds-icon--plus-chunky_svg"
+                  x="0"
+                  y="0"
+                  viewBox="0 0 24 24"
+                  xml:space="preserve"
+                >
+                  <path
+                    id="plus-chunky_svg__eds-icon--plus-chunky_base"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
+                    fill="blue"
+                  ></path>
+                </svg>
+                Create an Event
+              </li>
+            </Link>
           )}
           <li onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             <span>
@@ -99,7 +102,9 @@ export default function NavbarLoggedIn(props) {
                 (!props.creator ? (
                   <ul>
                     <li>Browse Events</li>
-                    <li>Manage my Events</li>
+                    <Link to="/Organize">
+                      <li>Manage my Events</li>
+                    </Link>
                     <li onClick={handleClick}>Log out</li>
                   </ul>
                 ) : (

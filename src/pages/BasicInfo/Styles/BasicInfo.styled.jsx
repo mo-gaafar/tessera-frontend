@@ -1,15 +1,20 @@
 import styled from 'styled-components';
 export const WholePage = styled.div`
+
   @media (max-width: 792px){
       padding: 0 16px;
   }
   .wholepage{
+    flex-grow: 1;
+    overflow-y: scroll;
+    max-height: 100vh;
+
     margin-top: 20px;
     padding-top: 20px;
     padding-bottom: 48px;
-    margin-left: auto;
+    margin-left: 20rem;
     margin-right: auto;
-    max-width: 960px;
+    display: flex;
     @media (max-width: 792px){
       max-width: 655px;
     }
@@ -765,6 +770,33 @@ inputtagsdata{
     min-height: 22px;
   }
 }
+.selecttime{
+  margin-top:0px;
+  padding: 18px 12px 6px;
+  color: #39364f;
+  white-space: nowrap;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+  background-color: white;
+  border: none;
+  webkit-appearance: menulist-button;
+  webkit-box-flex: 1;
+  minWidth: 0;
+  appearance: none;
+  paddingLeft: 15px;
+}
+.selecttime::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  border-top: 6px solid #666;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
 .dropdownselect:focus{
   border-color: red!important;
 }
@@ -785,7 +817,6 @@ inputtagsdata{
   @media(max-width:660px){
     display: none;
   }
-  
   position: fixed;
   transform: translateY(0);
   background-color: #fff;
@@ -982,6 +1013,18 @@ vertical-align: top;
   width: 100%;
   box-sizing: border-box;
 }
+.placeholder3{
+  padding: 2px 12px 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  z-index:2;
+  top: -10;
+  left:-5;
+  height:70px;
+}
 .spantext2{
   display: block;
   overflow: hidden;
@@ -1074,7 +1117,7 @@ vertical-align: top;
 }
 .custom-datepicker {
   border: none;
-  // margin-top: -22px;
+  //margin-left: -40px;
   height: 4.6rem;
   overflow: hidden;
   padding-right: 8px;
@@ -1085,6 +1128,8 @@ vertical-align: top;
   display: inline-block;
   vertical-align: top;
   width: 100%;
+  color: white;
+  background: transparent;
   @media (min-width: 480px){
     max-width: 32rem;
 }
@@ -1099,6 +1144,7 @@ vertical-align: top;
   z-index: 0;
   margin-left: 20px;
   overflow: hidden;
+  
 }
 .react-datepicker__day--selected {
   border: 1px solid blue;
@@ -1242,4 +1288,74 @@ vertical-align: top;
     padding: 0 48px;
 }
 }
-`
+.counterror{
+  display: flex;
+  webkit-box-pack: justify;
+  justify-content: space-between;
+}
+.letterlimit{
+  webkit-box-flex:1;
+  flex: 1 1 auto;
+  text-align: right;
+}
+.categorybox{
+  width: 100%;
+  position: relative;
+  height: 46px;
+}
+.legend{
+  font-size: 18px;
+  color:#39364f;
+  font-weight: 600;
+  margin-right: -0.25px;
+}
+.addressbox{
+  margin-bottom: 8px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+`;
+
+export const StyledPlaces = styled.div`
+  div {
+    position: relative;
+  }
+  svg {
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    width: 2rem;
+    height: 2rem;
+  }
+  input {
+    padding-left: 40px;
+    padding-top: 0.5rem;
+    border: 1px solid rgb(149, 147, 147);
+    width: 100%;
+    height: 47px;
+    margin-top: 1rem;
+    transition-duration: 0.5s;
+    display: block;
+    font-size: 1.3rem;
+    border-radius: 0.2rem;
+    outline: none;
+  }
+  ul {
+    padding: 0;
+    background-color: white;
+    color: #000;
+    box-shadow: rgba(40, 44, 53, 0.1) 0px 1px 17px 0px,
+      rgba(40, 44, 53, 0.1) 0px 2px 4px 0px;
+
+    li {
+      height: 5rem;
+      padding-left: 1rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      :hover {
+        background-color: rgb(248, 247, 250);
+      }
+    }
+  }
+`;

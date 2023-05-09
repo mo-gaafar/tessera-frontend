@@ -469,7 +469,9 @@ export default function Organize(props) {
         )}
       </StyledNav>
       <div style={{ display: 'flex' }}>
-        {!shouldHideSidebar && <Sidebar hide={true} />}
+        {!shouldHideSidebar && (
+          <Sidebar dashboard={true} event={true} hide={true} />
+        )}
 
         <PageContainer>
           <div>
@@ -590,7 +592,7 @@ export default function Organize(props) {
                 <button
                   className="create-button"
                   onClick={() => {
-                    navigate('/');
+                    navigate('/basicinfo');
                   }}
                 >
                   Create Event

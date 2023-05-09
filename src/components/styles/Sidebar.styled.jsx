@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledMainSidebar = styled.div`
-  padding-inline: 1rem;
+  padding-inline: 1.5rem;
   height: calc(100vh - 70px);
   background-color: #f8f7fa;
   display: flex;
@@ -12,9 +12,9 @@ export const StyledMainSidebar = styled.div`
   }
   .active {
     background-color: #3659e3;
-    padding: 0.65rem;
+    padding: 0.5rem;
     border-radius: 8px;
-    margin-left: -0.65rem;
+    /* margin-left: rem; */
   }
 `;
 
@@ -100,10 +100,10 @@ export const StyledCreateTicketSidebar = styled.div`
     color: #4b4d63;
     font-size: 1.4rem;
     font-weight: 500;
-    span:first-child {
+    a:first-child {
       padding-top: 1.5rem;
     }
-    span:last-child {
+    a:last-child {
       padding-bottom: 1.5rem;
     }
     > * {
@@ -142,8 +142,8 @@ export const StyledCreateTicketSidebar = styled.div`
         background-color: #eeedf2;
       }
     }
-    .active {
-      background-color: #fff;
-    }
+  }
+  .active {
+    background-color: #fff;
   }
 `;

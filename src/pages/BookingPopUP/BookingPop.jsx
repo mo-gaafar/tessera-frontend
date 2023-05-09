@@ -80,6 +80,7 @@ export default function BookingPopUp(props,{ setShowPopUp, image }) {
               </Button>
               {showCheckout && (
                 <BoxContainer>
+                  {/* {console.log(sum, checkoutInfo, promoCode)}{' '} */}
                   <CheckoutForm
                     total={sum}
                     checkoutInfo={checkoutInfo}
@@ -103,7 +104,7 @@ export default function BookingPopUp(props,{ setShowPopUp, image }) {
                     />
                   </Ticket>
                   <Information>
-                    {console.log(checkoutInfo)}
+                    {/* {console.log(checkoutInfo)} */}
 
                     <div className="eventimage">
                       <img src={image} />
