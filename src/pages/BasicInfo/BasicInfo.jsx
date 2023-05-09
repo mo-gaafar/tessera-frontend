@@ -1269,68 +1269,21 @@ export default function BasicInfo() {
                                   </p>
                                 </div>
                                 <div className="addressbox">
-                                  <div
-                                    className="dateandtimeboxes"
-                                    style={{ marginBottom: '8px' }}
-                                  >
-                                    <div className="boxesborders">
-                                      <div className="divflex">
-                                        <span className="searchcalendarspan">
-                                          <i className="smallI">
-                                            <svg
-                                              className="smallSvg"
-                                              x="0"
-                                              y="0"
-                                              viewBox="0 0 24 24"
-                                              xmlSpace="preserve"
-                                            >
-                                              <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
-                                            </svg>
-                                          </i>
-                                        </span>
-                                        <div className="divflex2">
-                                          <div
-                                            className="placeholder"
-                                            style={{ padding: '2px 12px 0' }}
-                                          >
-                                            <label className="label">
-                                              <span>Event Starts</span>
-                                            </label>
-                                          </div>
-                                          {/* <label htmlFor="date-select">Select a date:</label> */}
-                                          <input
-                                            style={{ height: '46px' }}
-                                            value={
-                                              selectedDate
-                                                ? selectedDate.toLocaleDateString()
-                                                : ''
-                                            }
-                                            onClick={() =>
-                                              setShowCalendar(!showCalendar)
-                                            }
-                                            className="calendarinput"
-                                            role="textbox"
-                                          />
-                                          {showCalendar && (
-                                            <div
-                                              style={{ position: 'relative' }}
-                                            >
-                                              <DatePicker
-                                                selected={selectedDate}
-                                                className="custom-datepicker"
-                                                calendarClassName="custom-calendar"
-                                                dayClassName={getDayClassName}
-                                                onChange={date => {
-                                                  setSelectedDate(date);
-                                                  setShowCalendar(false);
-                                                }}
-                                              />
-                                            </div>
-                                          )}
-                                        </div>
-                                      </div>
+                                  <div className = 'dateandtimeboxes' >
+                                    <div style={{position:'relative'}}>
+                                      <DatePicker
+                                        selected={selectedDate}
+                                        onChange={date => {
+                                          setSelectedDate(date);
+                                          setShowCalendar(false);
+                                        }}
+                                        className="custom-datepicker"
+                                        calendarClassName="custom-calendar"
+                                        placeholderText="Select a date"
+                                      />
+                                      <label htmlFor="datepicker" className="datepicker-label">Select Start date:</label>
                                     </div>
-                                  </div>
+                                </div>
                                   <div
                                     ref={dropdownRef}
                                     className="dateandtimeboxes"
@@ -1392,70 +1345,21 @@ export default function BasicInfo() {
                                   className="addressbox"
                                   style={{ marginTop: '0' }}
                                 >
-                                  <div className="dateandtimeboxes">
-                                    <div style={{ marginBottom: '8px' }}>
-                                      <div className="boxesborders">
-                                        <div className="divflex">
-                                          <span className="searchcalendarspan">
-                                            <i className="smallI">
-                                              <svg
-                                                className="smallSvg"
-                                                x="0"
-                                                y="0"
-                                                viewBox="0 0 24 24"
-                                                xmlSpace="preserve"
-                                              >
-                                                <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
-                                              </svg>
-                                            </i>
-                                          </span>
-                                          <div className="divflex2">
-                                            <div
-                                              className="placeholder"
-                                              style={{
-                                                padding: '2px 12px 0',
-                                              }}
-                                            >
-                                              <label className="label">
-                                                <span>Event Ends</span>
-                                              </label>
-                                            </div>
-                                            <input
-                                              style={{ height: '46px' }}
-                                              value={
-                                                selectedEndDate
-                                                  ? selectedEndDate.toLocaleDateString()
-                                                  : ''
-                                              }
-                                              onClick={() =>
-                                                setShowCalendar(!showCalendar)
-                                              }
-                                              className="calendarinput"
-                                              role="textbox"
-                                            />
-                                            {showCalendar && (
-                                              <div
-                                                style={{
-                                                  position: 'relative',
-                                                }}
-                                              >
-                                                <DatePicker
-                                                  className="custom-datepicker"
-                                                  calendarClassName="custom-calendar"
-                                                  selected={selectedEndDate}
-                                                  onChange={date => {
-                                                    setSelectedEndDate(date);
-                                                    setShowCalendar(false);
-                                                  }}
-                                                />
-                                                {/* <label htmlFor="date-select" style={{paddingTop: '-10px'}}>Select a date:</label> */}
-                                              </div>
-                                            )}
-                                          </div>
-                                        </div>
-                                      </div>
+                                  <div className = 'dateandtimeboxes' >
+                                    <div style={{position:'relative'}}>
+                                      <DatePicker
+                                        selected={selectedEndDate}
+                                        onChange={date => {
+                                          setSelectedEndDate(date);
+                                          setShowCalendar(false);
+                                        }}
+                                        className="custom-datepicker"
+                                        calendarClassName="custom-calendar"
+                                        placeholderText="Select a date"
+                                      />
+                                      <label htmlFor="datepicker" className="datepicker-label">Select End date:</label>
                                     </div>
-                                  </div>
+                                </div>
                                   <div
                                     className="dateandtimeboxes"
                                     ref={venueRef}
