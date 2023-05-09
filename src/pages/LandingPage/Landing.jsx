@@ -155,17 +155,6 @@ export default function Landing() {
     //handleClick()
   }
 
-  function onClickCategory(e) {
-    const { name, value } = e.target;
-    console.log('name');
-    console.log(name);
-    setShowCategoryMenu(false);
-    setSelectCategory(name);
-    let new_name = name.replace(/&/g, '%26');
-    let queryName = 'category=' + new_name;
-    setUrl(queryName);
-    //handleClick()
-  }
   function showDropdown() {
     if (!select) {
       setShowMenu(true);

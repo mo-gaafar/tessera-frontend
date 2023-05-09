@@ -9,6 +9,7 @@ import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
 import PlacesAutocompleteCreators from './PlacesAutocompleteCreators';
+import Details from './BasicInfoSecondPage';
 
 export default function BasicInfo() {
   const email = localStorage.getItem('email')
@@ -16,21 +17,24 @@ export default function BasicInfo() {
     : localStorage.getItem('authEmail');
 
   const [focused, setFocused] = React.useState(false, { flag: false });
-  const [inputerror, setInputError] = React.useState(''); //Title error
-  const [locationinputerror, setLocationInputError] = React.useState(''); //Location Error
-  const [venueinputerror, setVenueInputError] = React.useState(''); //Venue Error
-  const [addressinputerror, setAddressInputError] = React.useState(''); //Address 1 Error
-  const [postalcodeinputerror, setPostalCodeInputError] = React.useState(''); //ZIP code error
-  const [cityinputerror, setCityInputError] = React.useState(''); //city error
-  const [value, setValue] = React.useState(''); //Event Title
-  const [venuevalue, setVenueValue] = React.useState(''); //venue name
-  const [addressvalue, setAddressValue] = React.useState(''); //Address 1 input
-  const [address2value, setAddress2Value] = React.useState(''); //Address 2 input
-  const [cityvalue, setCityValue] = React.useState(''); //City Input
-  const [postalcodevalue, setPostalCodeValue] = React.useState(''); //ZIP input
-  const [organizervalue, setOrganizerValue] = React.useState(''); //Organizer input
-  const [locationvalue, setLocationValue] = React.useState(''); //venue location (auto-complete)
-  const [statevalue, setStateValue] = React.useState(''); //State/Province input
+  const [inputerror, setInputError] = React.useState('');
+  const [responseBody,setResponseBody] = React.useState();
+  const [ showdetails, setShowDetails] = React.useState(false);
+  const [locationinputerror, setLocationInputError] = React.useState('');
+  const [venueinputerror, setVenueInputError] = React.useState('');
+  const [addressinputerror, setAddressInputError] = React.useState('');
+  const [postalcodeinputerror, setPostalCodeInputError] = React.useState('');
+  const [cityinputerror, setCityInputError] = React.useState('');
+  const [value, setValue] = React.useState('');
+  const [venuevalue, setVenueValue] = React.useState('');
+  const [addressvalue, setAddressValue] = React.useState('');
+  const [address2value, setAddress2Value] = React.useState('');
+  const [cityvalue, setCityValue] = React.useState('');
+  const [postalcodevalue, setPostalCodeValue] = React.useState('');
+  const [organizervalue, setOrganizerValue] = React.useState('');
+  const [locationvalue, setLocationValue] = React.useState('');
+  const [statevalue, setStateValue] = React.useState('');
+  const [displayValue, setDisplayValue] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [venueclicked, setVenueClicked] = useState(false);
   const [onlineclicked, setOnlineClicked] = useState(false);
@@ -74,30 +78,40 @@ export default function BasicInfo() {
       );
     }
   }
-
-  //  setResponseBody(
-  //    basicInfo: {
-  //      eventName: value,
-  //      startDateTime: selectedDate,
-  //      endDateTime: selectedEndDate,
-  //      categories: "Music",
-  //      "location": {
+  // setResponseBody({
+  //   basicInfo: {
+  //     eventName: value,
+  //     startDateTime: selectedDate,
+  //     endDateTime: selectedEndDate,
+  //     categories: "Music",
+  //     location: {
+  //      venueName: venuevalue,
+  //      streetNumber: addressvalue,
+  //      city: cityvalue
+  //    }}})
+  // setResponseBody(
+  //   basicInfo: {
+  //     eventName: value,
+  //     startDateTime: selectedDate,
+  //     endDateTime: selectedEndDate,
+  //     "categories": "Music",
+  //     "location": {
   //       "longitude": 45.523064,
   //       "latitude": -122.676483,
   //       "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
-  //       venueName: venuevalue,
-  //       streetNumber: addressvalue,
+  //       "venueName": "My Venue",
+  //       "streetNumber": 123,
   //       "route": "Main St",
   //       "administrativeAreaLevel1": "OR",
   //       "country": "US",
-  //       city: cityvalue
+  //       "city": "Portland"
   //     }
   //   },
-  //   summary: summaryvalue,
-  //   description: descriptionva;lue,
-  //   eventStatus: live,
-  //   isOnline: false,
-  //   onlineEventUrl: null
+  //   "summary": "Join us for an evening of live music!",
+  //   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, purus sed tempus luctus, nunc sapien lacinia metus, eu finibus velit odio vel nulla",
+  //   "eventStatus": "live",
+  //   "isOnline": false,
+  //   "onlineEventUrl": null
   // );
 
   // function handleValidation(){
@@ -107,6 +121,23 @@ export default function BasicInfo() {
   //     )
   //   }
   // }
+  function clickNext(){
+    if (!inputerror && !locationinputerror && !addressinputerror && !postalcodeinputerror &&!cityinputerror){
+      setResponseBody({
+      basicInfo: {
+      eventName: value,
+      startDateTime: selectedDate,
+      endDateTime: selectedEndDate,
+      categories: "Music",
+      location: {
+       venueName: venuevalue,
+       streetNumber: addressvalue,
+       city: cityvalue
+     }}})
+     setShowDetails(true);
+
+    }
+  }
   // async function clickNext(e) {
   //   e.preventDefault();
   //   console.log(props.data);
@@ -375,8 +406,10 @@ export default function BasicInfo() {
         )}
       </StyledNav>
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar className="sidebar" event={true} basicInfo={true} />
-        <div className="wholepage">
+        <Sidebar className="sidebar" event={false} dashboard={true} />
+        
+        {showdetails? <Details responseBody></Details>:
+         <div className="wholepage">
           <main className="main">
             <section>
               <div>
@@ -477,14 +510,7 @@ export default function BasicInfo() {
                                 onBlur={() => setFocused(false)}
                               />
                               {inputerror && (
-                                <div data-testid="titleerrormessage">
-                                  <div
-                                    data-testid="titleerrormessage"
-                                    className="error"
-                                  >
-                                    {inputerror}
-                                  </div>
-                                </div>
+                                <div className="error">{inputerror}</div>
                               )}
                             </form>
                             <div className="counterror">
@@ -526,7 +552,6 @@ export default function BasicInfo() {
                               >
                                 <div
                                   className="typeborder"
-                                  data-testid="timedropdownoptions"
                                   onClick={handleSecondDropDownClick}
                                   style={
                                     secondclicked
@@ -535,13 +560,10 @@ export default function BasicInfo() {
                                   }
                                 >
                                   <div className="categorybox">
-                                    <select
-                                      className="dropdownselect"
-                                      data-testid="timedropdownselect"
-                                    >
+                                    <select className="dropdownselect">
                                       <option
                                         className="dropdownoption"
-                                        value=""
+                                        value
                                         data-spec="select-option"
                                       >
                                         Category
@@ -1206,24 +1228,66 @@ export default function BasicInfo() {
                                   </p>
                                 </div>
                                 <div className="addressbox">
-                                  <div className="dateandtimeboxes">
-                                    <div style={{ position: 'relative' }}>
-                                      <DatePicker
-                                        selected={selectedDate}
-                                        onChange={date => {
-                                          setSelectedDate(date);
-                                          setShowCalendar(false);
-                                        }}
-                                        className="custom-datepicker"
-                                        calendarClassName="custom-calendar"
-                                        placeholderText="Select a date"
-                                      />
-                                      <label
-                                        htmlFor="datepicker"
-                                        className="datepicker-label"
-                                      >
-                                        Start date
-                                      </label>
+                                  <div
+                                    className="dateandtimeboxes"
+                                    style={{ marginBottom: '8px' }}
+                                  >
+                                    <div className="boxesborders">
+                                      <div className="divflex">
+                                        <span className="searchcalendarspan">
+                                          <i className="smallI">
+                                            <svg
+                                              className="smallSvg"
+                                              x="0"
+                                              y="0"
+                                              viewBox="0 0 24 24"
+                                              xmlSpace="preserve"
+                                            >
+                                              <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
+                                            </svg>
+                                          </i>
+                                        </span>
+                                        <div className="divflex2">
+                                          <div
+                                            className="placeholder"
+                                            style={{ padding: '2px 12px 0' }}
+                                          >
+                                            <label className="label">
+                                              <span>Event Starts</span>
+                                            </label>
+                                          </div>
+                                          {/* <label htmlFor="date-select">Select a date:</label> */}
+                                          <input
+                                            style={{ height: '46px' }}
+                                            value={
+                                              selectedDate
+                                                ? selectedDate.toLocaleDateString()
+                                                : ''
+                                            }
+                                            onClick={() =>
+                                              setShowCalendar(!showCalendar)
+                                            }
+                                            className="calendarinput"
+                                            role="textbox"
+                                          />
+                                          {showCalendar && (
+                                            <div
+                                              style={{ position: 'relative' }}
+                                            >
+                                              <DatePicker
+                                                selected={selectedDate}
+                                                className="custom-datepicker"
+                                                calendarClassName="custom-calendar"
+                                                dayClassName={getDayClassName}
+                                                onChange={date => {
+                                                  setSelectedDate(date);
+                                                  setShowCalendar(false);
+                                                }}
+                                              />
+                                            </div>
+                                          )}
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                   <div
@@ -1269,18 +1333,12 @@ export default function BasicInfo() {
                                             clicked
                                               ? { border: '1px solid blue' }
                                               : {
-                                                  border: '1px solid #dbdae3',
+                                                  border: '0px solid #dbdae3',
                                                 }
                                           }
                                         >
-                                          <div
-                                            data-testid="dynamicdropdown"
-                                            className="dropdownLast"
-                                          >
-                                            <select
-                                              data-testid="selectdynamicdropdown"
-                                              className="selecttime"
-                                            >
+                                          <div className="dropdownLast">
+                                            <select className="selecttime">
                                               {options}
                                             </select>
                                           </div>
@@ -1294,24 +1352,67 @@ export default function BasicInfo() {
                                   style={{ marginTop: '0' }}
                                 >
                                   <div className="dateandtimeboxes">
-                                    <div style={{ position: 'relative' }}>
-                                      <DatePicker
-                                        data-testid="datepicker-container"
-                                        selected={selectedEndDate}
-                                        onChange={date => {
-                                          setSelectedEndDate(date);
-                                          setShowCalendar(false);
-                                        }}
-                                        className="custom-datepicker"
-                                        calendarClassName="custom-calendar"
-                                        placeholderText="Select a date"
-                                      />
-                                      <label
-                                        htmlFor="datepicker"
-                                        className="datepicker-label"
-                                      >
-                                        Select End date:
-                                      </label>
+                                    <div style={{ marginBottom: '8px' }}>
+                                      <div className="boxesborders">
+                                        <div className="divflex">
+                                          <span className="searchcalendarspan">
+                                            <i className="smallI">
+                                              <svg
+                                                className="smallSvg"
+                                                x="0"
+                                                y="0"
+                                                viewBox="0 0 24 24"
+                                                xmlSpace="preserve"
+                                              >
+                                                <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
+                                              </svg>
+                                            </i>
+                                          </span>
+                                          <div className="divflex2">
+                                            <div
+                                              className="placeholder"
+                                              style={{
+                                                padding: '2px 12px 0',
+                                              }}
+                                            >
+                                              <label className="label">
+                                                <span>Event Ends</span>
+                                              </label>
+                                            </div>
+                                            <input
+                                              style={{ height: '46px' }}
+                                              value={
+                                                selectedEndDate
+                                                  ? selectedEndDate.toLocaleDateString()
+                                                  : ''
+                                              }
+                                              onClick={() =>
+                                                setShowCalendar(!showCalendar)
+                                              }
+                                              className="calendarinput"
+                                              role="textbox"
+                                            />
+                                            {showCalendar && (
+                                              <div
+                                                style={{
+                                                  position: 'relative',
+                                                }}
+                                              >
+                                                <DatePicker
+                                                  className="custom-datepicker"
+                                                  calendarClassName="custom-calendar"
+                                                  selected={selectedEndDate}
+                                                  onChange={date => {
+                                                    setSelectedEndDate(date);
+                                                    setShowCalendar(false);
+                                                  }}
+                                                />
+                                                {/* <label htmlFor="date-select" style={{paddingTop: '-10px'}}>Select a date:</label> */}
+                                              </div>
+                                            )}
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                   <div
@@ -1454,10 +1555,7 @@ export default function BasicInfo() {
                                           }
                                         >
                                           <div className="dropdownLast">
-                                            <select
-                                              className="selecttime"
-                                              data-testid="timezoneselect"
-                                            >
+                                            <select className="selecttime">
                                               {timezones.map(zone => (
                                                 <option
                                                   key={zone.zoneName}
@@ -1595,14 +1693,14 @@ export default function BasicInfo() {
               </div>
             </section>
           </main>
-        </div>
+        </div>}
         <div className="fixeddiv">
           <div className="fixedinnerdiv">
             <div className="fixedbuttondiv">
               <button className="usedbutton" style={{ marginRight: '16px' }}>
                 Discard
               </button>
-              <button className="usedbutton" style={saveButtonStyle}>
+              <button className="usedbutton" style={saveButtonStyle} onClick={clickNext}>
                 Save & Continue
               </button>
             </div>
@@ -1611,7 +1709,7 @@ export default function BasicInfo() {
         <div className="fixeddiv1">
           <div className="fixedinnerdiv1">
             <div className="fixedbuttondiv1">
-              <button className="usedbutton" style={saveButtonStyle}>
+              <button className="usedbutton" style={saveButtonStyle} onClick={clickNext}>
                 Save & Continue
               </button>
               <button className="usedbutton" style={{ marginRight: '16px' }}>

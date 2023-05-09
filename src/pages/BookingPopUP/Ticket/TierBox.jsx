@@ -34,7 +34,8 @@ import { useState } from "react";
  *
  * @returns {JSX.Element} - the JSX of the TierBox
  */
-export default function TierBox(props,{
+export default function TierBox({
+  number,
   element,
   setTicketTierdetails,
   index,
@@ -61,6 +62,15 @@ export default function TierBox(props,{
       if (elementS.sumId == element.id) {
         flag = true;
         elementS.sumTicketCount = element.ticketCount;
+        // elementS.sumTicketCount = number;
+        elementS.sumTicketPrice = newPrice;
+
+        elementS.ticketCount === 0 && newState.splice(i, 1);
+      }
+      if (i == 0) {
+        flag = true;
+        //elementS.sumTicketCount = element.ticketCount;
+        elementS.sumTicketCount = number;
         elementS.sumTicketPrice = newPrice;
 
         elementS.ticketCount === 0 && newState.splice(i, 1);
@@ -165,8 +175,12 @@ export default function TierBox(props,{
             </svg>
           </div>
           <div className="Quantity">
-            {props.number}
-            {/* {element.ticketCount} */}
+            {index ===0 ?
+            number
+            :element.ticketCount
+            }
+            
+            {/* {} */}
             </div>
           <div
             className={element.ticketCount == 0 ? "incdec" : "incdecactive"}
