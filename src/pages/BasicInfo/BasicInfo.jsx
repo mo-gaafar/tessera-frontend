@@ -1,20 +1,11 @@
-//MISSING
-// restyling calendar boxes
-// autocomplete
-// maps
-// backend integration
-
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-//import PlacesAutocomplete from '../LandingPage/Landing'
-import usePlacesAutocomplete from 'use-places-autocomplete';
 import { WholePage } from './Styles/BasicInfo.styled';
 export default function BasicInfo() {
   const [focused, setFocused] = React.useState(false, { flag: false });
-  const [title, setTitle] = React.useState('');
   const [inputerror, setInputError] = React.useState('');
   const [locationinputerror, setLocationInputError] = React.useState('');
   const [venueinputerror, setVenueInputError] = React.useState('');
@@ -30,7 +21,6 @@ export default function BasicInfo() {
   const [organizervalue, setOrganizerValue] = React.useState('');
   const [locationvalue, setLocationValue] = React.useState('');
   const [statevalue, setStateValue] = React.useState('');
-  const [count, setCount] = useState(0);
   const [displayValue, setDisplayValue] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [venueclicked, setVenueClicked] = useState(false);
@@ -51,40 +41,77 @@ export default function BasicInfo() {
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [cityData, setCity] = useState({});
-  const [selected, setSelected] = useState(null);
   const [showLocationMenu, setShowLocationMenu] = useState(false);
   const [showMap, setShowMap] = React.useState(false);
   const [mapStatus, setMapStatus] = useState('show map');
-  const [showList, setShowList] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [timezones, setTimezones] = useState([]);
+  const API_KEY = '2MJLSMGOES8V';
+  const options = [];
+  // Generate time options from 12am to 12pm with 30-minute intervals
+  for (let hour = 0; hour <= 12; hour++) {
+    for (let minute = 0; minute < 60; minute += 30) {
+      const time = `${hour.toString().padStart(2, '0')}:${minute
+        .toString()
+        .padStart(2, '0')}`;
+      const label = `${hour === 0 ? 12 : hour}${
+        minute === 0 ? ':00' : `:${minute}`
+      }${hour < 12 ? 'am' : 'pm'}`;
 
-  async function clickNext(e) {
-    e.preventDefault();
-    console.log(props.data);
-
-    const response = await fetch('https://www.tessera.social/api/auth/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(props.data),
-    });
-
-    const json = await response.json();
-  }
-
-  function handleOptionSelect(option) {
-    setSelectedOption(option);
-    setShowList(true);
-  }
-  const getValidationClassName = () => {
-    if (inputerror) {
-      return 'red-text';
-    } else if (focused) {
-      return 'blue-text';
+      options.push(
+        <option key={time} value={time}>
+          {label}
+        </option>
+      );
     }
-    return '';
-  };
+  }
+
+  // setResponseBody(
+  //   basicInfo: {
+  //     eventName: value,
+  //     startDateTime: selectedDate,
+  //     endDateTime: selectedEndDate,
+  //     "categories": "Music",
+  //     "location": {
+  //       "longitude": 45.523064,
+  //       "latitude": -122.676483,
+  //       "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+  //       "venueName": "My Venue",
+  //       "streetNumber": 123,
+  //       "route": "Main St",
+  //       "administrativeAreaLevel1": "OR",
+  //       "country": "US",
+  //       "city": "Portland"
+  //     }
+  //   },
+  //   "summary": "Join us for an evening of live music!",
+  //   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, purus sed tempus luctus, nunc sapien lacinia metus, eu finibus velit odio vel nulla",
+  //   "eventStatus": "live",
+  //   "isOnline": false,
+  //   "onlineEventUrl": null
+  // );
+
+  // function handleValidation(){
+  //   if(no error){
+  //     setResponseBody(
+
+  //     )
+  //   }
+  // }
+  // async function clickNext(e) {
+  //   e.preventDefault();
+  //   console.log(props.data);
+
+  //   const response = await fetch('https://www.tessera.social/api/event-management/creator', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(props.data),
+  //   });
+
+  //   const json = await response.json();
+  // }
+
   function getDayClassName(date) {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set the time to midnight
@@ -99,7 +126,6 @@ export default function BasicInfo() {
       const data = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
       );
-
       const json = await data.json();
       const cityName =
         json.results[0].address_components[4].long_name.split(' ')[0];
@@ -112,6 +138,15 @@ export default function BasicInfo() {
       fetchData(latitude, longitude);
     });
   }, []);
+
+  useEffect(() => {
+    fetch(
+      `https://api.timezonedb.com/v2.1/list-time-zone?key=${API_KEY}&format=json`
+    )
+      .then(response => response.json())
+      .then(data => setTimezones(data.zones));
+  }, []);
+
   React.useEffect(() => {
     setShowMap(false);
   }, []);
@@ -135,14 +170,6 @@ export default function BasicInfo() {
   function handleRecurringClick() {
     setShowRecurring(true);
     setShowSingle(false);
-  }
-  //This function doesn't allow the user to enter anything other than letters, numbers and underscores
-  function handleKeyPress(event) {
-    const format = /^[a-zA-Z0-9_]+$/;
-    const key = event.key;
-    if (!format.test(key)) {
-      event.preventDefault();
-    }
   }
   const handleChange = event => {
     setValue(event.target.value);
@@ -191,12 +218,6 @@ export default function BasicInfo() {
     } else {
       setPostalCodeInputError('');
     }
-  };
-  const handleFocus = () => {
-    setFocused(true);
-  };
-  const handleBlur = () => {
-    setFocused(false);
   };
   function handleDropDownClick() {
     setClicked(true);
@@ -281,14 +302,6 @@ export default function BasicInfo() {
       document.removeEventListener('click', handleOutsideClick);
     };
   }, [laterRef]);
-
-  //this function allows the user to delete a tag they entered
-  function handleTagDelete(index, event) {
-    const newDisplayValue = [...displayValue];
-    newDisplayValue.splice(index, 1);
-    setDisplayValue(newDisplayValue);
-    event.preventDefault();
-  }
   function handleOrganizerChange(event) {
     setOrganizerValue(event.target.value);
   }
@@ -297,11 +310,6 @@ export default function BasicInfo() {
   }
   function handleStateChange(event) {
     setStateValue(event.target.value);
-  }
-  function handleValidation(event) {
-    if (value.trim() === '') {
-      return; // Exit the function if input is empty or only contains whitespace
-    }
   }
   const saveButtonStyle = {
     backgroundColor: '#d1410c',
@@ -404,18 +412,8 @@ export default function BasicInfo() {
                       </div>
                       <div className="infodiv">
                         <div>
-                          <h1
-                            style={{
-                              color: '#1e0a3c',
-                            }}
-                          >
-                            Basic Info
-                          </h1>
-                          <div
-                            style={{
-                              width: '75%',
-                            }}
-                          >
+                          <h1 style={{ color: '#1e0a3c' }}>Basic Info</h1>
+                          <div style={{ width: '75%' }}>
                             <p className="explanationp">
                               <span className="explanationspan">
                                 Name your event and tell event-goers why they
@@ -431,82 +429,58 @@ export default function BasicInfo() {
                           }}
                         >
                           <form className="form">
-                            <div>
-                              <label
-                                className={`label ${getValidationTitleClassName()}`}
-                              >
-                                <span style={{ WebkitBoxDirection: 'normal' }}>
-                                  Event Title
-                                </span>
-                                <span className="starspan">
-                                  <span className="starspan">*</span>
-                                </span>
-                              </label>
-                              <input
-                                className={`inputdata ${
-                                  focused ? 'blue-border' : 'gray-border'
-                                } ${inputerror ? 'red-border' : 'gray-border'}`}
-                                data-testid="title"
-                                type="text"
-                                maxLength="75"
-                                role="textbox"
-                                name="titleinput"
-                                id="title-input"
-                                placeholder="Be clear and descriptive."
-                                value={value}
-                                onChange={handleChange}
-                                onFocus={() => setFocused(true)}
-                                onBlur={() => setFocused(false)}
-                              />
-                              {inputerror && (
-                                <div>
-                                  <div className="error">{inputerror}</div>
-                                </div>
-                              )}
-                            </div>
-                          </form>
-                          <div
-                            style={{
-                              display: 'flex',
-                              WebkitBoxPack: 'justify',
-                              justifyContent: 'space-between',
-                            }}
-                          >
-                            <div
-                              style={{
-                                WebkitBoxFlex: '1',
-                                flex: '1 1 auto',
-                              }}
-                            ></div>
-                            <div
-                              style={{
-                                WebkitBoxFlex: '1',
-                                flex: '1 1 auto',
-                                textAlign: 'right',
-                              }}
+                            <label
+                              className={`label ${getValidationTitleClassName()}`}
                             >
+                              <span style={{ WebkitBoxDirection: 'normal' }}>
+                                Event Title
+                              </span>
+                              <span className="starspan">
+                                <span className="starspan">*</span>
+                              </span>
+                            </label>
+                            <input
+                              className={`inputdata ${
+                                focused ? 'blue-border' : 'gray-border'
+                              } ${inputerror ? 'red-border' : 'gray-border'}`}
+                              data-testid="title"
+                              type="text"
+                              maxLength="75"
+                              role="textbox"
+                              name="titleinput"
+                              id="title-input"
+                              placeholder="Be clear and descriptive."
+                              value={value}
+                              onChange={handleChange}
+                              onFocus={() => setFocused(true)}
+                              onBlur={() => setFocused(false)}
+                            />
+                            {inputerror && (
+                              <div className="error">{inputerror}</div>
+                            )}
+                          </form>
+                          <div className="counterror">
+                            <div className="letterlimit">
                               <aside className="aside">{value.length}/75</aside>
                             </div>
                           </div>
                           <form className="form">
-                            <div>
-                              <label className="label">
-                                <span style={{ WebkitBoxDirection: 'normal' }}>
-                                  Organizer
-                                </span>
-                              </label>
-                              <input
-                                className="inputdata2"
-                                data-testid="input"
-                                type="input"
-                                name="enter-organizer"
-                                id="organizer-input"
-                                placeholder="Tell attendees who is organizing this event."
-                                value={organizervalue}
-                                onChange={handleOrganizerChange}
-                                onFocus={() => setFocused(true)}
-                              />
-                            </div>
+                            <label className="label">
+                              <span style={{ WebkitBoxDirection: 'normal' }}>
+                                Organizer
+                              </span>
+                            </label>
+                            <input
+                              className="inputdata2"
+                              data-testid="input"
+                              type="input"
+                              name="enter-organizer"
+                              id="organizer-input"
+                              placeholder="Tell attendees who is organizing this event."
+                              value={organizervalue}
+                              onChange={handleOrganizerChange}
+                              onFocus={() => setFocused(true)}
+                            />
                           </form>
                           <p className="inputdescription">
                             This profile describes a unique organizer and shows
@@ -521,212 +495,171 @@ export default function BasicInfo() {
                               ref={dropdownsecondRef}
                             >
                               <div
-                                style={{
-                                  marginBottom: '16px',
-                                }}
+                                className="typeborder"
+                                onClick={handleSecondDropDownClick}
+                                style={
+                                  secondclicked
+                                    ? { border: '2px solid blue' }
+                                    : {}
+                                }
                               >
-                                <div
-                                  className="typeborder"
-                                  onClick={handleSecondDropDownClick}
-                                  style={
-                                    secondclicked
-                                      ? { border: '2px solid blue' }
-                                      : {}
-                                  }
-                                >
-                                  <div>
-                                    <div>
-                                      <div
-                                        style={{
-                                          width: '100%',
-                                          height: '46px',
-                                          position: 'relative',
-                                        }}
-                                      >
-                                        <span className="dropdownspan">
-                                          <span className="dropdowntitlespan">
-                                            Type
-                                          </span>
-                                          <span className="dropdownarrowspan">
-                                            <i className='"smallI'>
-                                              <svg
-                                                className="smallSvg"
-                                                x="0"
-                                                y="0"
-                                                viewBox="0 0 24 24"
-                                                xmlSpace="preserve"
-                                              >
-                                                <path
-                                                  fillRule="evenodd"
-                                                  clipRule="evenodd"
-                                                  d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z"
-                                                ></path>
-                                              </svg>
-                                            </i>
-                                          </span>
-                                        </span>
-                                        <select
-                                          className="dropdownselect"
-                                          style={{ marginTop: '-36px' }}
-                                        >
-                                          <option
-                                            className="dropdownoption"
-                                            value
-                                            data-spec="select-option"
-                                          >
-                                            Category
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="3"
-                                            data-spec="select-option"
-                                          >
-                                            Auto, Boat & Air
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="13"
-                                            data-spec="select-option"
-                                          >
-                                            Business & Professional
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="16"
-                                            data-spec="select-option"
-                                          >
-                                            Charity & Causes
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="2"
-                                            data-spec="select-option"
-                                          >
-                                            Community & Culture
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="7"
-                                            data-spec="select-option"
-                                          >
-                                            Family & Education
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="12"
-                                            data-spec="select-option"
-                                          >
-                                            Fashion & Beauty
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="15"
-                                            data-spec="select-option"
-                                          >
-                                            Film, Media & Entertainment
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="11"
-                                            data-spec="select-option"
-                                          >
-                                            Food & Drink
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="100"
-                                            data-spec="select-option"
-                                          >
-                                            Government & Politics
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="10"
-                                            data-spec="select-option"
-                                          >
-                                            Health & Wellness
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="14"
-                                            data-spec="select-option"
-                                          >
-                                            Hobbies & Special Interest
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="5"
-                                            data-spec="select-option"
-                                          >
-                                            Home & Lifestyle
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="8"
-                                            data-spec="select-option"
-                                          >
-                                            Music
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="4"
-                                            data-spec="select-option"
-                                          >
-                                            Other
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="1"
-                                            data-spec="select-option"
-                                          >
-                                            Performing & Visual Arts
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="6"
-                                            data-spec="select-option"
-                                          >
-                                            Religion & Spirituality
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="9"
-                                            data-spec="select-option"
-                                          >
-                                            School Activities
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="18"
-                                            data-spec="select-option"
-                                          >
-                                            Science & Technology
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="17"
-                                            data-spec="select-option"
-                                          >
-                                            Seasonal & Holiday
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="19"
-                                            data-spec="select-option"
-                                          >
-                                            Sports & Fitness
-                                          </option>
-                                          <option
-                                            className="dropdownoption"
-                                            value="20"
-                                            data-spec="select-option"
-                                          >
-                                            Travel & Outdoor
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
+                                <div className="categorybox">
+                                  <select className="dropdownselect">
+                                    <option
+                                      className="dropdownoption"
+                                      value
+                                      data-spec="select-option"
+                                    >
+                                      Category
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="3"
+                                      data-spec="select-option"
+                                    >
+                                      Auto, Boat & Air
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="13"
+                                      data-spec="select-option"
+                                    >
+                                      Business & Professional
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="16"
+                                      data-spec="select-option"
+                                    >
+                                      Charity & Causes
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="2"
+                                      data-spec="select-option"
+                                    >
+                                      Community & Culture
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="7"
+                                      data-spec="select-option"
+                                    >
+                                      Family & Education
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="12"
+                                      data-spec="select-option"
+                                    >
+                                      Fashion & Beauty
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="15"
+                                      data-spec="select-option"
+                                    >
+                                      Film, Media & Entertainment
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="11"
+                                      data-spec="select-option"
+                                    >
+                                      Food & Drink
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="100"
+                                      data-spec="select-option"
+                                    >
+                                      Government & Politics
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="10"
+                                      data-spec="select-option"
+                                    >
+                                      Health & Wellness
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="14"
+                                      data-spec="select-option"
+                                    >
+                                      Hobbies & Special Interest
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="5"
+                                      data-spec="select-option"
+                                    >
+                                      Home & Lifestyle
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="8"
+                                      data-spec="select-option"
+                                    >
+                                      Music
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="4"
+                                      data-spec="select-option"
+                                    >
+                                      Other
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="1"
+                                      data-spec="select-option"
+                                    >
+                                      Performing & Visual Arts
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="6"
+                                      data-spec="select-option"
+                                    >
+                                      Religion & Spirituality
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="9"
+                                      data-spec="select-option"
+                                    >
+                                      School Activities
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="18"
+                                      data-spec="select-option"
+                                    >
+                                      Science & Technology
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="17"
+                                      data-spec="select-option"
+                                    >
+                                      Seasonal & Holiday
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="19"
+                                      data-spec="select-option"
+                                    >
+                                      Sports & Fitness
+                                    </option>
+                                    <option
+                                      className="dropdownoption"
+                                      value="20"
+                                      data-spec="select-option"
+                                    >
+                                      Travel & Outdoor
+                                    </option>
+                                  </select>
                                 </div>
                               </div>
                             </div>
@@ -786,13 +719,7 @@ export default function BasicInfo() {
                       </div>
                       <div style={{ display: 'block' }}>
                         <div>
-                          <h1
-                            style={{
-                              color: '#1e0a3c',
-                            }}
-                          >
-                            Location
-                          </h1>
+                          <h1 style={{ color: '#1e0a3c' }}>Location</h1>
                           <div style={{ width: '75%' }}>
                             <p className="explanationp">
                               <span className="explanationspan">
@@ -805,10 +732,7 @@ export default function BasicInfo() {
                         <div style={{ marginTop: 20 }}>
                           <div className="locationsbuttonsdiv">
                             <div
-                              style={{
-                                display: 'flex',
-                                marginBottom: '20px',
-                              }}
+                              style={{ display: 'flex', marginBottom: '20px' }}
                             >
                               <div className="buttonsdiv">
                                 <label
@@ -854,502 +778,339 @@ export default function BasicInfo() {
                                 Venue location
                               </p>
                             </div>
-                            {/* {isLoaded && (
-                            <PlacesAutocomplete
-                              setCity={setCity}
-                              cityData={cityData}
-                              setSelected={setSelected}
-                              showLocationMenu={showLocationMenu}
-                              setShowLocationMenu={setShowLocationMenu}
-                              setURL={setUrl}
-                            />
-                          )} */}
                             <form className="form">
-                              <div>
-                                <label
-                                  className={`label ${getValidationLocationClassName()}`}
-                                >
-                                  <span
-                                    className="searchcalendarspan"
-                                    style={{
-                                      paddingLeft: '9px',
-                                      maxHeight: '49px',
-                                    }}
-                                  >
-                                    <i>
-                                      <svg
-                                        className="smallSvg"
-                                        x="0"
-                                        y="0"
-                                        viewBox="0 0 24 24"
-                                        xmlSpace="preserve"
-                                        style={{
-                                          marginTop: '9px',
-                                          marginLeft: '-13px',
-                                        }}
-                                      >
-                                        <path
-                                          style={{ fill: '#6f7287' }}
-                                          fillRule="evenodd"
-                                          clipRule="evenodd"
-                                          d="M10 14c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm3.5.9c-1 .7-2.2 1.1-3.5 1.1-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6c0 1.3-.4 2.5-1.1 3.4l5.1 5.1-1.5 1.5-5-5.1z"
-                                        ></path>
-                                      </svg>
-                                    </i>
-                                  </span>
-                                </label>
-                                <input
-                                  className={`inputdata ${
-                                    focused ? 'blue-border' : 'gray-border'
-                                  } ${
-                                    locationinputerror
-                                      ? 'red-border'
-                                      : 'gray-border'
-                                  }`}
-                                  data-testid="title"
-                                  type="text"
-                                  role="textbox"
-                                  name="titleinput"
-                                  id="title-input"
-                                  placeholder="Search for a venue or add."
-                                  value={locationvalue}
-                                  onChange={handleLocationChange}
-                                  onFocus={() => setFocused(true)}
-                                  onBlur={() => setFocused(false)}
+                              <label
+                                className={`label ${getValidationLocationClassName()}`}
+                              >
+                                <span
+                                  className="searchcalendarspan"
                                   style={{
-                                    paddingLeft: '40px',
-                                    paddingTop: '0px',
+                                    paddingLeft: '9px',
+                                    maxHeight: '49px',
                                   }}
-                                />
-                                {locationinputerror && (
-                                  <div>
-                                    <div className="error">
-                                      {locationinputerror}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            </form>
-                            {/* <div>
-                            <button onClick={handleShowMap}> {mapStatus} </button>
-                          </div> */}
-                            {showMap && (
-                              <div
-                                style={{
-                                  marginBottom: '3rem',
-                                  display: 'flex',
-                                  flexDirection: 'column',
-                                }}
-                              >
-                                {isLoaded && (
-                                  <GoogleMap
-                                    zoom={10}
-                                    center={{
-                                      lat: 43.835140893792065,
-                                      lng: -102.39237003211397,
-                                    }}
-                                    mapContainerClassName="map__container"
-                                  >
-                                    <Marker
-                                      position={{
-                                        lat: 43.835140893792065,
-                                        lng: -102.39237003211397,
-                                      }}
-                                    />
-                                  </GoogleMap>
-                                )}
-                              </div>
-                            )}
-                            <form className="form">
-                              <div>
-                                <label
-                                  className={`label ${getValidationTitleClassName()}`}
                                 >
-                                  <span
-                                    style={{ WebkitBoxDirection: 'normal' }}
-                                  >
-                                    Venue Name
-                                  </span>
-                                  <span className="starspan">
-                                    <span className="starspan">*</span>
-                                  </span>
-                                </label>
-                                <input
-                                  className={`inputdata ${
-                                    focused ? 'blue-border' : 'gray-border'
-                                  } ${
-                                    venueinputerror
-                                      ? 'red-border'
-                                      : 'gray-border'
-                                  }`}
-                                  data-testid="title"
-                                  type="text"
-                                  maxLength="500"
-                                  role="textbox"
-                                  name="titleinput"
-                                  id="title-input"
-                                  placeholder="e.g.Madison Square Garden"
-                                  value={venuevalue}
-                                  onChange={handleVenueChange}
-                                  onFocus={() => setFocused(true)}
-                                  onBlur={() => setFocused(false)}
-                                />
-                                {venueinputerror && (
-                                  <div>
-                                    <div className="error">
-                                      {venueinputerror}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
+                                  <i>
+                                    <svg
+                                      className="smallSvg"
+                                      x="0"
+                                      y="0"
+                                      viewBox="0 0 24 24"
+                                      xmlSpace="preserve"
+                                      style={{
+                                        marginTop: '9px',
+                                        marginLeft: '-13px',
+                                      }}
+                                    >
+                                      <path
+                                        style={{ fill: '#6f7287' }}
+                                        fillRule="evenodd"
+                                        clipRule="evenodd"
+                                        d="M10 14c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm3.5.9c-1 .7-2.2 1.1-3.5 1.1-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6c0 1.3-.4 2.5-1.1 3.4l5.1 5.1-1.5 1.5-5-5.1z"
+                                      ></path>
+                                    </svg>
+                                  </i>
+                                </span>
+                              </label>
+                              <input
+                                className={`inputdata ${
+                                  focused ? 'blue-border' : 'gray-border'
+                                } ${
+                                  locationinputerror
+                                    ? 'red-border'
+                                    : 'gray-border'
+                                }`}
+                                data-testid="title"
+                                type="text"
+                                role="textbox"
+                                name="titleinput"
+                                id="title-input"
+                                placeholder="Search for a venue or add."
+                                value={locationvalue}
+                                onChange={handleLocationChange}
+                                onFocus={() => setFocused(true)}
+                                onBlur={() => setFocused(false)}
+                                style={{
+                                  paddingLeft: '40px',
+                                  paddingTop: '0px',
+                                }}
+                              />
+                              {locationinputerror && (
+                                <div className="error">
+                                  {locationinputerror}
+                                </div>
+                              )}
                             </form>
-                            <div
-                              style={{
-                                display: 'flex',
-                                WebkitBoxPack: 'justify',
-                                justifyContent: 'space-between',
-                              }}
-                            >
-                              <div
-                                style={{
-                                  WebkitBoxFlex: '1',
-                                  flex: '1 1 auto',
-                                }}
-                              ></div>
-                              <div
-                                style={{
-                                  WebkitBoxFlex: '1',
-                                  flex: '1 1 auto',
-                                  textAlign: 'right',
-                                }}
+                            <form className="form">
+                              <label
+                                className={`label ${getValidationTitleClassName()}`}
                               >
+                                <span style={{ WebkitBoxDirection: 'normal' }}>
+                                  Venue Name
+                                </span>
+                                <span className="starspan">
+                                  <span className="starspan">*</span>
+                                </span>
+                              </label>
+                              <input
+                                className={`inputdata ${
+                                  focused ? 'blue-border' : 'gray-border'
+                                } ${
+                                  venueinputerror ? 'red-border' : 'gray-border'
+                                }`}
+                                data-testid="title"
+                                type="text"
+                                maxLength="500"
+                                role="textbox"
+                                name="titleinput"
+                                id="title-input"
+                                placeholder="e.g.Madison Square Garden"
+                                value={venuevalue}
+                                onChange={handleVenueChange}
+                                onFocus={() => setFocused(true)}
+                                onBlur={() => setFocused(false)}
+                              />
+                              {venueinputerror && (
+                                <div className="error">{venueinputerror}</div>
+                              )}
+                            </form>
+                            <div className="counterror">
+                              <div className="letterlimit">
                                 <aside className="aside">
                                   {venuevalue.length}/500
                                 </aside>
                               </div>
                             </div>
                             <div style={{ marginBottom: '8px', width: '100%' }}>
-                              <legend
-                                style={{
-                                  fontSize: '18px',
-                                  color: '#39364f',
-                                  fontWeight: '600',
-                                  marginRight: '-0.25px',
-                                }}
-                              >
-                                Street Address
-                              </legend>
+                              <legend className="legend">Street Address</legend>
                             </div>
-                            <div>
+                            <div className=".addressbox">
                               <div
-                                style={{
-                                  marginBottom: '8px',
-                                  marginTop: '20px',
-                                  marginLeft: 'auto',
-                                  marginRight: 'auto',
-                                }}
+                                className="dateandtimeboxes"
+                                style={{ marginBottom: '8px' }}
                               >
-                                <div>
-                                  <div className="dateandtimeboxes">
-                                    <div>
-                                      <div style={{ marginBottom: '8px' }}>
-                                        <div className="divflex">
-                                          <form className="form">
-                                            <div>
-                                              <label
-                                                className={`label ${getValidationTitleClassName()}`}
-                                              >
-                                                <span
-                                                  style={{
-                                                    WebkitBoxDirection:
-                                                      'normal',
-                                                  }}
-                                                >
-                                                  Address 1
-                                                </span>
-                                                <span className="starspan">
-                                                  <span className="starspan">
-                                                    *
-                                                  </span>
-                                                </span>
-                                              </label>
-                                              <input
-                                                className={`inputdata ${
-                                                  focused
-                                                    ? 'blue-border'
-                                                    : 'gray-border'
-                                                } ${
-                                                  addressinputerror
-                                                    ? 'red-border'
-                                                    : 'gray-border'
-                                                }`}
-                                                data-testid="title"
-                                                type="text"
-                                                maxLength="500"
-                                                role="textbox"
-                                                name="titleinput"
-                                                id="title-input"
-                                                placeholder="e.g.155 5th Street"
-                                                value={addressvalue}
-                                                onChange={handleAddressChange}
-                                                onFocus={() => setFocused(true)}
-                                                onBlur={() => setFocused(false)}
-                                              />
-                                              {addressinputerror && (
-                                                <div>
-                                                  <div className="error">
-                                                    {addressinputerror}
-                                                  </div>
-                                                </div>
-                                              )}
-                                            </div>
-                                          </form>
-                                        </div>
+                                <div className="divflex">
+                                  <form className="form">
+                                    <label
+                                      className={`label ${getValidationTitleClassName()}`}
+                                    >
+                                      <span
+                                        style={{ WebkitBoxDirection: 'normal' }}
+                                      >
+                                        Address 1
+                                      </span>
+                                      <span className="starspan">
+                                        <span className="starspan">*</span>
+                                      </span>
+                                    </label>
+                                    <input
+                                      className={`inputdata ${
+                                        focused ? 'blue-border' : 'gray-border'
+                                      } ${
+                                        addressinputerror
+                                          ? 'red-border'
+                                          : 'gray-border'
+                                      }`}
+                                      data-testid="title"
+                                      type="text"
+                                      maxLength="500"
+                                      role="textbox"
+                                      name="titleinput"
+                                      id="title-input"
+                                      placeholder="e.g.155 5th Street"
+                                      value={addressvalue}
+                                      onChange={handleAddressChange}
+                                      onFocus={() => setFocused(true)}
+                                      onBlur={() => setFocused(false)}
+                                    />
+                                    {addressinputerror && (
+                                      <div className="error">
+                                        {addressinputerror}
                                       </div>
-                                    </div>
-                                  </div>
-                                  <div className="dateandtimeboxes">
-                                    <div>
-                                      <div style={{ marginBottom: '8px' }}>
-                                        <div className="divflex">
-                                          <form className="form">
-                                            <div>
-                                              <label className="label">
-                                                <span
-                                                  style={{
-                                                    WebkitBoxDirection:
-                                                      'normal',
-                                                  }}
-                                                >
-                                                  Address 2
-                                                </span>
-                                              </label>
-                                              <input
-                                                className={`inputdata ${
-                                                  focused
-                                                    ? 'blue-border'
-                                                    : 'gray-border'
-                                                }`}
-                                                data-testid="title"
-                                                type="text"
-                                                maxLength="500"
-                                                role="textbox"
-                                                name="titleinput"
-                                                id="title-input"
-                                                placeholder="e.g.Apt,Suite,Bldg"
-                                                value={address2value}
-                                                onChange={handleAddress2Change}
-                                                onFocus={() => setFocused(true)}
-                                                onBlur={() => setFocused(false)}
-                                              />
-                                            </div>
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+                                    )}
+                                  </form>
                                 </div>
                               </div>
                               <div
-                                style={{
-                                  marginBottom: '8px',
-                                  marginLeft: 'auto',
-                                  marginRight: 'auto',
-                                }}
+                                className="dateandtimeboxes"
+                                style={{ marginBottom: '8px' }}
                               >
-                                <div>
-                                  <div className="dateandtimeboxes">
-                                    <div>
-                                      <div style={{ marginBottom: '8px' }}>
-                                        <div className="divflex">
-                                          <form className="form">
-                                            <div>
-                                              <label
-                                                className={`label ${getValidationTitleClassName()}`}
-                                              >
-                                                <span
-                                                  style={{
-                                                    WebkitBoxDirection:
-                                                      'normal',
-                                                  }}
-                                                >
-                                                  City
-                                                </span>
-                                                <span className="starspan">
-                                                  <span className="starspan">
-                                                    *
-                                                  </span>
-                                                </span>
-                                              </label>
-                                              <input
-                                                className={`inputdata ${
-                                                  focused
-                                                    ? 'blue-border'
-                                                    : 'gray-border'
-                                                } ${
-                                                  cityinputerror
-                                                    ? 'red-border'
-                                                    : 'gray-border'
-                                                }`}
-                                                data-testid="title"
-                                                type="text"
-                                                maxLength="500"
-                                                role="textbox"
-                                                name="titleinput"
-                                                id="title-input"
-                                                placeholder="e.g.San Francisco"
-                                                value={cityvalue}
-                                                onChange={handleCityChange}
-                                                onFocus={() => setFocused(true)}
-                                                onBlur={() => setFocused(false)}
-                                              />
-                                              {cityinputerror && (
-                                                <div>
-                                                  <div className="error">
-                                                    {cityinputerror}
-                                                  </div>
-                                                </div>
-                                              )}
-                                            </div>
-                                          </form>
-                                        </div>
+                                <div className="divflex">
+                                  <form className="form">
+                                    <label className="label">
+                                      <span
+                                        style={{ WebkitBoxDirection: 'normal' }}
+                                      >
+                                        Address 2
+                                      </span>
+                                    </label>
+                                    <input
+                                      className={`inputdata ${
+                                        focused ? 'blue-border' : 'gray-border'
+                                      }`}
+                                      data-testid="title"
+                                      type="text"
+                                      maxLength="500"
+                                      role="textbox"
+                                      name="titleinput"
+                                      id="title-input"
+                                      placeholder="e.g.Apt,Suite,Bldg"
+                                      value={address2value}
+                                      onChange={handleAddress2Change}
+                                      onFocus={() => setFocused(true)}
+                                      onBlur={() => setFocused(false)}
+                                    />
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="addressbox"
+                              style={{ marginTop: '0px' }}
+                            >
+                              <div
+                                className="dateandtimeboxes"
+                                style={{ marginBottom: '8px' }}
+                              >
+                                <div className="divflex">
+                                  <form className="form">
+                                    <label
+                                      className={`label ${getValidationTitleClassName()}`}
+                                    >
+                                      <span
+                                        style={{ WebkitBoxDirection: 'normal' }}
+                                      >
+                                        City
+                                      </span>
+                                      <span className="starspan">
+                                        <span className="starspan">*</span>
+                                      </span>
+                                    </label>
+                                    <input
+                                      className={`inputdata ${
+                                        focused ? 'blue-border' : 'gray-border'
+                                      } ${
+                                        cityinputerror
+                                          ? 'red-border'
+                                          : 'gray-border'
+                                      }`}
+                                      data-testid="title"
+                                      type="text"
+                                      maxLength="500"
+                                      role="textbox"
+                                      name="titleinput"
+                                      id="title-input"
+                                      placeholder="e.g.San Francisco"
+                                      value={cityvalue}
+                                      onChange={handleCityChange}
+                                      onFocus={() => setFocused(true)}
+                                      onBlur={() => setFocused(false)}
+                                    />
+                                    {cityinputerror && (
+                                      <div className="error">
+                                        {cityinputerror}
                                       </div>
+                                    )}
+                                  </form>
+                                </div>
+                              </div>
+                              <div className="dateandtimeboxes">
+                                <div
+                                  style={{
+                                    marginBottom: '8px',
+                                    marginTop: '20px',
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto',
+                                  }}
+                                >
+                                  <div
+                                    className="dateandtimeboxes"
+                                    style={{
+                                      marginTop: '-20px',
+                                      marginBottom: '8px',
+                                    }}
+                                  >
+                                    <div className="divflex">
+                                      <form className="form">
+                                        <label className="label">
+                                          <span
+                                            style={{
+                                              WebkitBoxDirection: 'normal',
+                                            }}
+                                          >
+                                            State/Province
+                                          </span>
+                                        </label>
+                                        <input
+                                          className={`inputdata ${
+                                            focused
+                                              ? 'blue-border'
+                                              : 'gray-border'
+                                          }`}
+                                          data-testid="title"
+                                          type="text"
+                                          role="textbox"
+                                          name="titleinput"
+                                          id="title-input"
+                                          placeholder="e.g.California"
+                                          value={statevalue}
+                                          onChange={handleStateChange}
+                                          onFocus={() => setFocused(true)}
+                                          onBlur={() => setFocused(false)}
+                                        />
+                                      </form>
                                     </div>
                                   </div>
-                                  <div className="dateandtimeboxes">
-                                    <div>
-                                      <div
-                                        style={{
-                                          marginBottom: '8px',
-                                          marginTop: '20px',
-                                          marginLeft: 'auto',
-                                          marginRight: 'auto',
-                                        }}
-                                      >
-                                        <div>
-                                          <div
-                                            className="dateandtimeboxes"
-                                            style={{ marginTop: '-20px' }}
+                                  <div
+                                    className="dateandtimeboxes"
+                                    style={{
+                                      marginTop: '-20px',
+                                      marginBottom: '8px',
+                                    }}
+                                  >
+                                    <div className="divflex">
+                                      <form className="form">
+                                        <label
+                                          className={`label ${getValidationTitleClassName()}`}
+                                        >
+                                          <span
+                                            style={{
+                                              WebkitBoxDirection: 'normal',
+                                            }}
                                           >
-                                            <div>
-                                              <div
-                                                style={{ marginBottom: '8px' }}
-                                              >
-                                                <div className="divflex">
-                                                  <form className="form">
-                                                    <div>
-                                                      <label className="label">
-                                                        <span
-                                                          style={{
-                                                            WebkitBoxDirection:
-                                                              'normal',
-                                                          }}
-                                                        >
-                                                          State/Province
-                                                        </span>
-                                                      </label>
-                                                      <input
-                                                        className={`inputdata ${
-                                                          focused
-                                                            ? 'blue-border'
-                                                            : 'gray-border'
-                                                        }`}
-                                                        data-testid="title"
-                                                        type="text"
-                                                        role="textbox"
-                                                        name="titleinput"
-                                                        id="title-input"
-                                                        placeholder="e.g.California"
-                                                        value={statevalue}
-                                                        onChange={
-                                                          handleStateChange
-                                                        }
-                                                        onFocus={() =>
-                                                          setFocused(true)
-                                                        }
-                                                        onBlur={() =>
-                                                          setFocused(false)
-                                                        }
-                                                      />
-                                                    </div>
-                                                  </form>
-                                                </div>
-                                              </div>
-                                            </div>
+                                            Postal Code
+                                          </span>
+                                          <span className="starspan">
+                                            <span className="starspan">*</span>
+                                          </span>
+                                        </label>
+                                        <input
+                                          className={`inputdata ${
+                                            focused
+                                              ? 'blue-border'
+                                              : 'gray-border'
+                                          } ${
+                                            postalcodeinputerror
+                                              ? 'red-border'
+                                              : 'gray-border'
+                                          }`}
+                                          data-testid="title"
+                                          type="text"
+                                          maxLength="500"
+                                          role="textbox"
+                                          name="titleinput"
+                                          id="title-input"
+                                          placeholder="e.g.94103"
+                                          value={postalcodevalue}
+                                          onChange={handlePostalCodeChange}
+                                          onFocus={() => setFocused(true)}
+                                          onBlur={() => setFocused(false)}
+                                        />
+                                        {postalcodeinputerror && (
+                                          <div className="error">
+                                            {postalcodeinputerror}
                                           </div>
-                                          <div
-                                            className="dateandtimeboxes"
-                                            style={{ marginTop: '-20px' }}
-                                          >
-                                            <div>
-                                              <div
-                                                style={{ marginBottom: '8px' }}
-                                              >
-                                                <div className="divflex">
-                                                  <form className="form">
-                                                    <div>
-                                                      <label
-                                                        className={`label ${getValidationTitleClassName()}`}
-                                                      >
-                                                        <span
-                                                          style={{
-                                                            WebkitBoxDirection:
-                                                              'normal',
-                                                          }}
-                                                        >
-                                                          Postal Code
-                                                        </span>
-                                                        <span className="starspan">
-                                                          <span className="starspan">
-                                                            *
-                                                          </span>
-                                                        </span>
-                                                      </label>
-                                                      <input
-                                                        className={`inputdata ${
-                                                          focused
-                                                            ? 'blue-border'
-                                                            : 'gray-border'
-                                                        } ${
-                                                          postalcodeinputerror
-                                                            ? 'red-border'
-                                                            : 'gray-border'
-                                                        }`}
-                                                        data-testid="title"
-                                                        type="text"
-                                                        maxLength="500"
-                                                        role="textbox"
-                                                        name="titleinput"
-                                                        id="title-input"
-                                                        placeholder="e.g.94103"
-                                                        value={postalcodevalue}
-                                                        onChange={
-                                                          handlePostalCodeChange
-                                                        }
-                                                        onFocus={() =>
-                                                          setFocused(true)
-                                                        }
-                                                        onBlur={() =>
-                                                          setFocused(false)
-                                                        }
-                                                      />
-                                                      {postalcodeinputerror && (
-                                                        <div>
-                                                          <div className="error">
-                                                            {
-                                                              postalcodeinputerror
-                                                            }
-                                                          </div>
-                                                        </div>
-                                                      )}
-                                                    </div>
-                                                  </form>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
+                                        )}
+                                      </form>
                                     </div>
                                   </div>
                                 </div>
@@ -1366,20 +1127,18 @@ export default function BasicInfo() {
                               </span>
                             </p>
                             <form className="form">
-                              <div>
-                                <input
-                                  style={{ paddingTop: '0px' }}
-                                  className="inputdata2"
-                                  data-testid="input"
-                                  type="input"
-                                  name="enter-organizer"
-                                  id="organizer-input"
-                                  placeholder="Place the URL of your event"
-                                  value={organizervalue}
-                                  onChange={handleOrganizerChange}
-                                  onFocus={() => setFocused(true)}
-                                />
-                              </div>
+                              <input
+                                style={{ paddingTop: '0px' }}
+                                className="inputdata2"
+                                data-testid="input"
+                                type="input"
+                                name="enter-organizer"
+                                id="organizer-input"
+                                placeholder="Place the URL of your event"
+                                value={organizervalue}
+                                onChange={handleOrganizerChange}
+                                onFocus={() => setFocused(true)}
+                              />
                             </form>
                           </div>
                         )}
@@ -1413,13 +1172,7 @@ export default function BasicInfo() {
                       </div>
                       <div style={{ display: 'block' }}>
                         <div>
-                          <h1
-                            style={{
-                              color: '#1e0a3c',
-                            }}
-                          >
-                            Date and time
-                          </h1>
+                          <h1 style={{ color: '#1e0a3c' }}>Date and time</h1>
                           <div style={{ width: '75%' }}>
                             <p className="explanationp">
                               <span className="explanationspan">
@@ -1430,37 +1183,474 @@ export default function BasicInfo() {
                           </div>
                         </div>
                         <div style={{ marginTop: 20 }}>
-                          <div className="locationsbuttonsdiv">
-                            <div
-                              style={{
-                                display: 'flex',
-                                marginBottom: '20px',
-                              }}
-                            >
-                              <div className="buttonsdiv">
-                                <label
-                                  className="buttonslabels"
-                                  name="single"
-                                  onClick={handleSingleClick}
-                                >
-                                  Single Event
-                                </label>
-                              </div>
-                              <div className="buttonsdiv">
-                                <label
-                                  className="buttonslabels"
-                                  name="recurring"
-                                  onClick={handleRecurringClick}
-                                >
-                                  Recurring Event
-                                </label>
-                              </div>
+                          <div
+                            className="locationsbuttonsdiv"
+                            style={{ display: 'flex', marginBottom: '20px' }}
+                          >
+                            <div className="buttonsdiv">
+                              <label
+                                className="buttonslabels"
+                                name="single"
+                                onClick={handleSingleClick}
+                              >
+                                Single Event
+                              </label>
+                            </div>
+                            <div className="buttonsdiv">
+                              <label
+                                className="buttonslabels"
+                                name="recurring"
+                                onClick={handleRecurringClick}
+                              >
+                                Recurring Event
+                              </label>
                             </div>
                           </div>
-                          {showsingle && <div className=""></div>}
-                          {/* {showrecurring && (
-               
-                          )} */}
+                          {showsingle && (
+                            <div>
+                              <div
+                                style={{ width: '75%', marginBottom: '16px' }}
+                              >
+                                <p className="explanationp">
+                                  Single event happens once and can last
+                                  multiple days
+                                </p>
+                              </div>
+                              <div className="addressbox">
+                                <div
+                                  className="dateandtimeboxes"
+                                  style={{ marginBottom: '8px' }}
+                                >
+                                  <div className="boxesborders">
+                                    <div className="divflex">
+                                      <span className="searchcalendarspan">
+                                        <i className="smallI">
+                                          <svg
+                                            className="smallSvg"
+                                            x="0"
+                                            y="0"
+                                            viewBox="0 0 24 24"
+                                            xmlSpace="preserve"
+                                          >
+                                            <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
+                                          </svg>
+                                        </i>
+                                      </span>
+                                      <div className="divflex2">
+                                        <div
+                                          className="placeholder"
+                                          style={{ padding: '2px 12px 0' }}
+                                        >
+                                          <label className="label">
+                                            <span>Event Starts</span>
+                                          </label>
+                                        </div>
+                                        {/* <label htmlFor="date-select">Select a date:</label> */}
+                                        <input
+                                          style={{ height: '46px' }}
+                                          value={
+                                            selectedDate
+                                              ? selectedDate.toLocaleDateString()
+                                              : ''
+                                          }
+                                          onClick={() =>
+                                            setShowCalendar(!showCalendar)
+                                          }
+                                          className="calendarinput"
+                                          role="textbox"
+                                        />
+                                        {showCalendar && (
+                                          <div style={{ position: 'relative' }}>
+                                            <DatePicker
+                                              selected={selectedDate}
+                                              className="custom-datepicker"
+                                              calendarClassName="custom-calendar"
+                                              dayClassName={getDayClassName}
+                                              onChange={date => {
+                                                setSelectedDate(date);
+                                                setShowCalendar(false);
+                                              }}
+                                            />
+                                          </div>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  ref={dropdownRef}
+                                  className="dateandtimeboxes"
+                                  style={{
+                                    position: 'relative',
+                                    cursor: 'pointer',
+                                  }}
+                                >
+                                  <div
+                                    className="placeholder3"
+                                    style={{
+                                      position: 'absolute',
+                                      top: '-10px',
+                                      left: '-5px',
+                                      width: ' 100%',
+                                      height: '70px',
+                                      zIndex: '2',
+                                    }}
+                                  >
+                                    <label className="label">
+                                      <span
+                                        className="spantext2"
+                                        style={{ marginLeft: '-5px' }}
+                                      >
+                                        Start Time
+                                      </span>
+                                    </label>
+                                  </div>
+                                  <div
+                                    className="timedropdowndiv"
+                                    style={{
+                                      width: '100%',
+                                      marginBottom: '8px',
+                                    }}
+                                  >
+                                    <div className="searchvenuediv1">
+                                      <div
+                                        className="typeborder"
+                                        onClick={handleDropDownClick}
+                                        style={
+                                          clicked
+                                            ? { border: '1px solid blue' }
+                                            : { border: '0px solid #dbdae3' }
+                                        }
+                                      >
+                                        <div className="dropdownLast">
+                                          <select className="selecttime">
+                                            {options}
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                className="addressbox"
+                                style={{ marginTop: '0' }}
+                              >
+                                <div className="dateandtimeboxes">
+                                  <div style={{ marginBottom: '8px' }}>
+                                    <div className="boxesborders">
+                                      <div className="divflex">
+                                        <span className="searchcalendarspan">
+                                          <i className="smallI">
+                                            <svg
+                                              className="smallSvg"
+                                              x="0"
+                                              y="0"
+                                              viewBox="0 0 24 24"
+                                              xmlSpace="preserve"
+                                            >
+                                              <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
+                                            </svg>
+                                          </i>
+                                        </span>
+                                        <div className="divflex2">
+                                          <div
+                                            className="placeholder"
+                                            style={{ padding: '2px 12px 0' }}
+                                          >
+                                            <label className="label">
+                                              <span>Event Ends</span>
+                                            </label>
+                                          </div>
+                                          <input
+                                            style={{ height: '46px' }}
+                                            value={
+                                              selectedEndDate
+                                                ? selectedEndDate.toLocaleDateString()
+                                                : ''
+                                            }
+                                            onClick={() =>
+                                              setShowCalendar(!showCalendar)
+                                            }
+                                            className="calendarinput"
+                                            role="textbox"
+                                          />
+                                          {showCalendar && (
+                                            <div
+                                              style={{ position: 'relative' }}
+                                            >
+                                              <DatePicker
+                                                className="custom-datepicker"
+                                                calendarClassName="custom-calendar"
+                                                selected={selectedEndDate}
+                                                onChange={date => {
+                                                  setSelectedEndDate(date);
+                                                  setShowCalendar(false);
+                                                }}
+                                              />
+                                              {/* <label htmlFor="date-select" style={{paddingTop: '-10px'}}>Select a date:</label> */}
+                                            </div>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="dateandtimeboxes"
+                                  ref={venueRef}
+                                  style={{
+                                    position: 'relative',
+                                    cursor: 'pointer',
+                                  }}
+                                >
+                                  <div
+                                    className="placeholder2"
+                                    style={{
+                                      position: 'absolute',
+                                      top: '-10px',
+                                      left: '-5px',
+                                      width: ' 100%',
+                                      height: '70px',
+                                      zIndex: '2',
+                                    }}
+                                  >
+                                    <label className="label">
+                                      <span
+                                        className="spantext2"
+                                        style={{ marginLeft: '-5px' }}
+                                      >
+                                        End Time
+                                      </span>
+                                    </label>
+                                  </div>
+                                  <div
+                                    className="timedropdowndiv"
+                                    style={{
+                                      width: '100%',
+                                      marginBottom: '8px',
+                                    }}
+                                  >
+                                    <div className="searchvenuediv1">
+                                      <div
+                                        className="typeborder"
+                                        onClick={handleBlueVenueClick}
+                                        style={
+                                          venueclicked
+                                            ? { border: '1px solid blue' }
+                                            : { border: '0px solid #dbdae3' }
+                                        }
+                                      >
+                                        <div className="dropdownLast">
+                                          <select className="selecttime">
+                                            {options}
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                className="displayendtime"
+                                style={{ marginTop: '20px' }}
+                              >
+                                <input className="checkbox" type="checkbox" />
+                                <label className="checktextlabel">
+                                  <span className="spantext2">
+                                    <p style={{ color: '#39364f' }}>
+                                      Display start time.
+                                    </p>
+                                    <p
+                                      className="textp"
+                                      style={{ marginTop: '7px' }}
+                                    >
+                                      The start time of your event will be
+                                      displayed to attendees.
+                                    </p>
+                                  </span>
+                                </label>
+                              </div>
+                              <div
+                                className="displayendtime"
+                                style={{ marginTop: '20px' }}
+                              >
+                                <input className="checkbox" type="checkbox" />
+                                <label className="checktextlabel">
+                                  <span className="spantext2">
+                                    <p style={{ color: '#39364f' }}>
+                                      Display end time.
+                                    </p>
+                                    <p
+                                      className="textp"
+                                      style={{ marginTop: '7px' }}
+                                    >
+                                      The end time of your event will be
+                                      displayed to attendees.
+                                    </p>
+                                  </span>
+                                </label>
+                              </div>
+                              <div
+                                ref={onlineRef}
+                                style={{
+                                  marginTop: '24px',
+                                  position: 'relative',
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                <div
+                                  className="placeholder2"
+                                  style={{
+                                    position: 'absolute',
+                                    top: '-10px',
+                                    left: '-5px',
+                                    width: ' 100%',
+                                    height: '70px',
+                                    zIndex: '2',
+                                  }}
+                                >
+                                  <label className="label">
+                                    <span className="spantext2">Time Zone</span>
+                                  </label>
+                                </div>
+                                <div>
+                                  <div
+                                    className="timedropdowndiv"
+                                    style={{ marginBottom: '8px' }}
+                                  >
+                                    <div className="searchvenuediv1">
+                                      <div
+                                        className="typeborder"
+                                        onClick={handleBlueOnlineClick}
+                                        style={
+                                          onlineclicked
+                                            ? { border: '1px solid blue' }
+                                            : { border: '0px solid #dbdae3' }
+                                        }
+                                      >
+                                        <div className="dropdownLast">
+                                          <select className="selecttime">
+                                            {timezones.map(zone => (
+                                              <option
+                                                key={zone.zoneName}
+                                                value={zone.zoneName}
+                                              >
+                                                (GMT{zone.gmtOffset}){' '}
+                                                {zone.countryName} (
+                                                {zone.zoneName})
+                                              </option>
+                                            ))}
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          {showrecurring && (
+                            <div>
+                              <div
+                                style={{ width: '75%', marginBottom: '16px' }}
+                              >
+                                <p className="explanationp">
+                                  You’ll be able to set a schedule for your
+                                  recurring event in the next step. Event
+                                  details and ticket types will apply to all
+                                  instances.
+                                </p>
+                              </div>
+                              <div
+                                style={{
+                                  marginTop: '16px',
+                                  marginBottom: '20px',
+                                }}
+                              >
+                                <div
+                                  className="displayendtime"
+                                  style={{
+                                    marginTop: '36px',
+                                    marginBottom: '20px',
+                                  }}
+                                >
+                                  <input className="checkbox" type="checkbox" />
+                                  <label className="checktextlabel">
+                                    <span className="spantext2">
+                                      <p style={{ color: '#39364f' }}>
+                                        Display end time.
+                                      </p>
+                                      <p
+                                        className="textp"
+                                        style={{ marginTop: '7px' }}
+                                      >
+                                        The end time of your event will be
+                                        displayed to attendees.
+                                      </p>
+                                    </span>
+                                  </label>
+                                </div>
+                                <div
+                                  ref={onlineRef}
+                                  style={{
+                                    marginTop: '24px',
+                                    position: 'relative',
+                                    cursor: 'pointer',
+                                  }}
+                                >
+                                  <div
+                                    className="placeholder2"
+                                    style={{
+                                      position: 'absolute',
+                                      top: '-10px',
+                                      left: '-5px',
+                                      width: ' 100%',
+                                      height: '70px',
+                                      zIndex: '2',
+                                    }}
+                                  >
+                                    <label className="label">
+                                      <span className="spantext2">
+                                        Time Zone
+                                      </span>
+                                    </label>
+                                  </div>
+                                  <div
+                                    className="timedropdowndiv"
+                                    style={{ marginBottom: '8px' }}
+                                  >
+                                    <div className="searchvenuediv1">
+                                      <div
+                                        className="typeborder"
+                                        onClick={handleBlueOnlineClick}
+                                        style={
+                                          onlineclicked
+                                            ? { border: '1px solid blue' }
+                                            : { border: '0px solid #dbdae3' }
+                                        }
+                                      >
+                                        <div className="dropdownLast">
+                                          <select className="selecttime">
+                                            {timezones.map(zone => (
+                                              <option
+                                                key={zone.zoneName}
+                                                value={zone.zoneName}
+                                              >
+                                                (GMT{zone.gmtOffset}){' '}
+                                                {zone.countryName} (
+                                                {zone.zoneName})
+                                              </option>
+                                            ))}
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -1474,28 +1664,24 @@ export default function BasicInfo() {
       <div className="fixeddiv">
         <div className="fixedinnerdiv">
           <div className="fixedbuttondiv">
-            <div>
-              <button className="usedbutton" style={{ marginRight: '16px' }}>
-                Discard
-              </button>
-              <button className="usedbutton" style={saveButtonStyle}>
-                Save & Continue
-              </button>
-            </div>
+            <button className="usedbutton" style={{ marginRight: '16px' }}>
+              Discard
+            </button>
+            <button className="usedbutton" style={saveButtonStyle}>
+              Save & Continue
+            </button>
           </div>
         </div>
       </div>
       <div className="fixeddiv1">
         <div className="fixedinnerdiv1">
           <div className="fixedbuttondiv1">
-            <div>
-              <button className="usedbutton" style={saveButtonStyle}>
-                Save & Continue
-              </button>
-              <button className="usedbutton" style={{ marginRight: '16px' }}>
-                Discard
-              </button>
-            </div>
+            <button className="usedbutton" style={saveButtonStyle}>
+              Save & Continue
+            </button>
+            <button className="usedbutton" style={{ marginRight: '16px' }}>
+              Discard
+            </button>
           </div>
         </div>
       </div>
