@@ -63,6 +63,8 @@ export default function Login() {
       const data = await postData.json();
 
       if (data.success) {
+        localStorage.setItem('token', data.token);
+
         navigate('/');
       }
     };

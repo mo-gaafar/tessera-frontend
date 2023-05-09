@@ -101,6 +101,7 @@ export default function Form() {
         message: '',
       });
       localStorage.setItem('email', responsebody.email);
+      localStorage.setItem('token', json.accessToken);
       navigate('/');
     } else {
       // email not found
