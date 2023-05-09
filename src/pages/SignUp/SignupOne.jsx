@@ -50,9 +50,10 @@ import {
 import { render } from 'react-dom';
 
 import SignupTwo from './SignupTwo';
-import { Link, useNavigate } from 'react-router-dom';
-import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useGoogleLogin } from '@react-oauth/google';
 import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
 
 /**
@@ -67,19 +68,6 @@ import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
  */
 
 export default function SignUpOne(props) {
-  React.useEffect(() => {
-    const fetchData = async () => {
-      //  const response = await fetch('https://www.tessera.social/api/attendee/Eventsby/'); //temp (the original one crashed)
-      const response = await fetch(
-        'https://www.tessera.social/api/attendee/event/6439c17df192628827184ef0'
-      );
-      //console.log(await response.json())
-      const event = await response.json();
-      setEventData(event);
-    };
-    fetchData();
-  }, []);
-
   let navigate;
   if (!props.test) {
     navigate = useNavigate();
@@ -92,8 +80,9 @@ export default function SignUpOne(props) {
 
   useEffect(() => {
     localStorage.removeItem('authEmail');
+    localStorage.removeItem('token');
 
-    localStorage.setItem('email', email);
+    localStorage.setItem('emails', email);
   }, [email]);
 
   async function handleSuccess(response) {
@@ -122,7 +111,12 @@ export default function SignUpOne(props) {
       }
     );
 
-    // console.log(await responseBackend.json());
+    const responseData = responseBackend.json();
+    console.log(responseData);
+    localStorage.setItem('authEmail', email);
+    localStorage.setItem('token', responseData.token);
+
+    navigate('/');
   }
 
   function handleError(error) {
@@ -135,20 +129,10 @@ export default function SignUpOne(props) {
   });
 
   useEffect(() => {
-    const getData = async () => {
-      const response = await fetch(
-        `https://www.tessera.social/api/event-management/retrieve/64395de28e50b131d0403ff8`
-      );
-
-      const data = await response.json();
-      console.log(data.event.description);
-    };
-    getData();
-  }, []);
-
-  useEffect(() => {
     localStorage.removeItem('authEmail');
     localStorage.removeItem('email');
+    localStorage.removeItem('token  ');
+
     const setUser = async () => {
       const response = await fetch(
         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
@@ -180,7 +164,9 @@ export default function SignUpOne(props) {
         }
       );
       localStorage.setItem('authEmail', email);
+
       const data = await postData.json();
+      console.log(data);
       if (data.success) {
         navigate('/');
       }
@@ -243,7 +229,8 @@ export default function SignUpOne(props) {
         <UpperPage>
           <TopHeader>
             <DivLeft>
-              <EventLogo src="/images/logo.jpg" />
+              {/* <EventLogo src="/images/logo.jpg" /> */}
+              <h2>Eventneers</h2>
               <CreateAccount>Create an account</CreateAccount>
             </DivLeft>
             <LogInDiv>
@@ -322,7 +309,7 @@ export default function SignUpOne(props) {
           <FacebookProvider appId="664174802386073">
             <LoginButton
               id="facebook"
-              scope="public_profile,emaiemaill"
+              scope="public_profile,email"
               onError={handleError}
               onSuccess={handleSuccess}
             ></LoginButton>

@@ -23,7 +23,8 @@ export default function EventBox(props) {
   return (
     <div
       onClick={() => {
-        navigate(`/${props.id}`);
+        if (!props.test) navigate(`/event/${props.id}`);
+
       }}
       className="event__box"
     >
