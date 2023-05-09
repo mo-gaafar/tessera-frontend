@@ -461,7 +461,6 @@ export default function Organize(props) {
 
   return (
     <>
-      {' '}
       <StyledNav>
         {email && email !== 'undefined' ? (
           <NavbarLoggedIn creator={true} email={email} />
