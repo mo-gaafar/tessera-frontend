@@ -19,6 +19,7 @@ import Events from './pages/EventPage/EventPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import AddAttendee from './pages/AddAttendees/addAttendees';
 import PublishPage from "./pages/PublishPage";
+import BasicInfo from './pages/BasicInfo/BasicInfo';
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -34,7 +35,7 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Landing />} />
+        {/* <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
         <Route path="login" element={<Maincontainer />} />
@@ -45,8 +46,8 @@ function App() {
         <Route path="/event/:eventID" element={<Events />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="manage" element={<AddAttendee />} />
-        <Route path="publish" element={<PublishPage />} />
-        
+        <Route path="publish" element={<PublishPage />} /> */}
+        <Route path="/" element={<BasicInfo />}/>
       </Routes>
     </>
   );

@@ -48,22 +48,71 @@ export default function BasicInfo(){
   const [mapStatus, setMapStatus] = useState('show map');
   const [timezones, setTimezones] = useState([]);
   const API_KEY = '2MJLSMGOES8V';
+  const options = [];
+  // Generate time options from 12am to 12pm with 30-minute intervals
+  for (let hour = 0; hour <= 12; hour++) {
+    for (let minute = 0; minute < 60; minute += 30) {
+      const time = `${hour.toString().padStart(2, '0')}:${minute
+        .toString()
+        .padStart(2, '0')}`;
+      const label = `${hour === 0 ? 12 : hour}${minute === 0 ? ':00' : `:${minute}`}${
+        hour < 12 ? 'am' : 'pm'
+      }`;
 
-
-  async function clickNext(e) {
-    e.preventDefault();
-    console.log(props.data);
-
-    const response = await fetch('https://www.tessera.social/api/event-management/creator', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(props.data),
-    });
-
-    const json = await response.json();
+      options.push(
+        <option key={time} value={time}>
+          {label}
+        </option>
+      );
+    }
   }
+
+  // setResponseBody(
+  //   basicInfo: {
+  //     eventName: value,
+  //     startDateTime: selectedDate,
+  //     endDateTime: selectedEndDate,
+  //     "categories": "Music",
+  //     "location": {
+  //       "longitude": 45.523064,
+  //       "latitude": -122.676483,
+  //       "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+  //       "venueName": "My Venue",
+  //       "streetNumber": 123,
+  //       "route": "Main St",
+  //       "administrativeAreaLevel1": "OR",
+  //       "country": "US",
+  //       "city": "Portland"
+  //     }
+  //   },
+  //   "summary": "Join us for an evening of live music!",
+  //   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, purus sed tempus luctus, nunc sapien lacinia metus, eu finibus velit odio vel nulla",
+  //   "eventStatus": "live",
+  //   "isOnline": false,
+  //   "onlineEventUrl": null
+  // );
+  
+  // function handleValidation(){
+  //   if(no error){
+  //     setResponseBody(
+
+  //     )
+  //   }
+  // }
+  // async function clickNext(e) {
+  //   e.preventDefault();
+  //   console.log(props.data);
+
+  //   const response = await fetch('https://www.tessera.social/api/event-management/creator', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(props.data),
+  //   });
+
+  //   const json = await response.json();
+  // }
 
   function getDayClassName(date) {
     const today = new Date();
@@ -1085,292 +1134,7 @@ export default function BasicInfo(){
                                                     style={clicked ? { border: '1px solid blue' } : {border: '0px solid #dbdae3'}}>
                                                       <div className='dropdownLast'>
                                                         <select className='selecttime'>
-                                                        <option
-                                                          className='dropdownoption' 
-                                                          value
-                                                          data-spec="select-option">
-                                                            12:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption' 
-                                                          value="3" 
-                                                          data-spec="select-option">
-                                                            12:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption' 
-                                                          value="13" 
-                                                          data-spec="select-option">
-                                                            1:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="16" 
-                                                          data-spec="select-option">
-                                                            1:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="2" 
-                                                          data-spec="select-option">
-                                                            2:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="7" 
-                                                          data-spec="select-option">
-                                                          2:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="12" 
-                                                          data-spec="select-option">
-                                                            3:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="15" 
-                                                          data-spec="select-option">
-                                                            3:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="11" 
-                                                          data-spec="select-option">
-                                                            4:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="100" 
-                                                          data-spec="select-option">
-                                                            4:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="10" 
-                                                          data-spec="select-option">
-                                                            5:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="14" 
-                                                          data-spec="select-option">
-                                                            5:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="5" 
-                                                          data-spec="select-option">
-                                                            6:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="8" 
-                                                          data-spec="select-option">
-                                                            6:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="4" 
-                                                          data-spec="select-option">
-                                                            7:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="1" 
-                                                          data-spec="select-option">
-                                                            7:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="6" 
-                                                          data-spec="select-option">
-                                                            8:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="9" 
-                                                          data-spec="select-option">
-                                                            8:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="18" 
-                                                          data-spec="select-option">
-                                                            9:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="17" 
-                                                          data-spec="select-option">
-                                                            9:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="19" 
-                                                          data-spec="select-option">
-                                                            10:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          data-spec="select-option">
-                                                            10:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="19" 
-                                                          data-spec="select-option">
-                                                            11:00 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="19" 
-                                                          data-spec="select-option">
-                                                            11:30 AM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="19" 
-                                                          data-spec="select-option">
-                                                            12:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption' 
-                                                          value="3" 
-                                                          data-spec="select-option">
-                                                            12:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption' 
-                                                          value="13" 
-                                                          data-spec="select-option">
-                                                            1:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="16" 
-                                                          data-spec="select-option">
-                                                            1:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="2" 
-                                                          data-spec="select-option">
-                                                            2:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="7" 
-                                                          data-spec="select-option">
-                                                          2:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="12" 
-                                                          data-spec="select-option">
-                                                            3:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="15" 
-                                                          data-spec="select-option">
-                                                            3:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="11" 
-                                                          data-spec="select-option">
-                                                            4:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="100" 
-                                                          data-spec="select-option">
-                                                            4:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="10" 
-                                                          data-spec="select-option">
-                                                            5:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="14" 
-                                                          data-spec="select-option">
-                                                            5:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="5" 
-                                                          data-spec="select-option">
-                                                            6:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="8" 
-                                                          data-spec="select-option">
-                                                            6:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="4" 
-                                                          data-spec="select-option">
-                                                            7:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="1" 
-                                                          data-spec="select-option">
-                                                            7:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="6" 
-                                                          data-spec="select-option">
-                                                            8:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="9" 
-                                                          data-spec="select-option">
-                                                            8:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="18" 
-                                                          data-spec="select-option">
-                                                            9:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="17" 
-                                                          data-spec="select-option">
-                                                            9:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="19" 
-                                                          data-spec="select-option">
-                                                            10:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          data-spec="select-option">
-                                                            10:30 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="19" 
-                                                          data-spec="select-option">
-                                                            11:00 PM
-                                                          </option>
-                                                          <option
-                                                          className='dropdownoption'  
-                                                          value="19" 
-                                                          data-spec="select-option">
-                                                            11:30 PM
-                                                          </option>
+                                                          {options}
                                                         </select>
                                                       </div>
                                                     </div>
@@ -1458,292 +1222,7 @@ export default function BasicInfo(){
                                                   
                                                   <div className='dropdownLast'>
                                                     <select className='selecttime'>
-                                                    <option
-                                                      className='dropdownoption' 
-                                                      value
-                                                      data-spec="select-option">
-                                                        12:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="3" 
-                                                      data-spec="select-option">
-                                                        12:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="13" 
-                                                      data-spec="select-option">
-                                                        1:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="16" 
-                                                      data-spec="select-option">
-                                                        1:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="2" 
-                                                      data-spec="select-option">
-                                                        2:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="7" 
-                                                      data-spec="select-option">
-                                                      2:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="12" 
-                                                      data-spec="select-option">
-                                                        3:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="15" 
-                                                      data-spec="select-option">
-                                                        3:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="11" 
-                                                      data-spec="select-option">
-                                                        4:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="100" 
-                                                      data-spec="select-option">
-                                                        4:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="10" 
-                                                      data-spec="select-option">
-                                                        5:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="14" 
-                                                      data-spec="select-option">
-                                                        5:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="5" 
-                                                      data-spec="select-option">
-                                                        6:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="8" 
-                                                      data-spec="select-option">
-                                                        6:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="4" 
-                                                      data-spec="select-option">
-                                                        7:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="1" 
-                                                      data-spec="select-option">
-                                                        7:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="6" 
-                                                      data-spec="select-option">
-                                                        8:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="9" 
-                                                      data-spec="select-option">
-                                                        8:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="18" 
-                                                      data-spec="select-option">
-                                                        9:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="17" 
-                                                      data-spec="select-option">
-                                                        9:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        10:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      data-spec="select-option">
-                                                        10:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:00 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:30 AM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        12:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="3" 
-                                                      data-spec="select-option">
-                                                        12:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption' 
-                                                      value="13" 
-                                                      data-spec="select-option">
-                                                        1:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="16" 
-                                                      data-spec="select-option">
-                                                        1:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="2" 
-                                                      data-spec="select-option">
-                                                        2:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="7" 
-                                                      data-spec="select-option">
-                                                      2:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="12" 
-                                                      data-spec="select-option">
-                                                        3:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="15" 
-                                                      data-spec="select-option">
-                                                        3:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="11" 
-                                                      data-spec="select-option">
-                                                        4:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="100" 
-                                                      data-spec="select-option">
-                                                        4:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="10" 
-                                                      data-spec="select-option">
-                                                        5:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="14" 
-                                                      data-spec="select-option">
-                                                        5:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="5" 
-                                                      data-spec="select-option">
-                                                        6:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="8" 
-                                                      data-spec="select-option">
-                                                        6:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="4" 
-                                                      data-spec="select-option">
-                                                        7:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="1" 
-                                                      data-spec="select-option">
-                                                        7:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="6" 
-                                                      data-spec="select-option">
-                                                        8:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="9" 
-                                                      data-spec="select-option">
-                                                        8:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="18" 
-                                                      data-spec="select-option">
-                                                        9:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="17" 
-                                                      data-spec="select-option">
-                                                        9:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        10:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      data-spec="select-option">
-                                                        10:30 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:00 PM
-                                                      </option>
-                                                      <option
-                                                      className='dropdownoption'  
-                                                      value="19" 
-                                                      data-spec="select-option">
-                                                        11:30 PM
-                                                      </option>
+                                                    {options}
                                                     </select>
                                                   </div>
                                                 </div>
@@ -1924,7 +1403,7 @@ export default function BasicInfo(){
             </button>
             <button className='usedbutton' 
               style={saveButtonStyle}
-              onClick={clickNext}>
+              >
               Save & Continue
             </button>
         </div>
@@ -1935,7 +1414,7 @@ export default function BasicInfo(){
         <div className='fixedbuttondiv1'>
             <button className='usedbutton' 
               style={saveButtonStyle}
-              onClick={clickNext}>
+              >
               Save & Continue
             </button>
             <button className='usedbutton' 
