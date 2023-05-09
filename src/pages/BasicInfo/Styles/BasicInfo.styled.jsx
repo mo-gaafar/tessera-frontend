@@ -1312,3 +1312,46 @@ vertical-align: top;
   margin-right: auto;
 }
 `;
+
+export const StyledPlaces = styled.div`
+  div {
+    position: relative;
+  }
+  svg {
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    width: 2rem;
+    height: 2rem;
+  }
+  input {
+    padding-left: 40px;
+    padding-top: 0.5rem;
+    border: 1px solid rgb(149, 147, 147);
+    width: 100%;
+    height: 47px;
+    margin-top: 1rem;
+    transition-duration: 0.5s;
+    display: block;
+    font-size: 1.3rem;
+    border-radius: 0.2rem;
+    outline: none;
+  }
+  ul {
+    padding: 0;
+    background-color: white;
+    color: #000;
+    box-shadow: rgba(40, 44, 53, 0.1) 0px 1px 17px 0px,
+      rgba(40, 44, 53, 0.1) 0px 2px 4px 0px;
+
+    li {
+      height: 5rem;
+      padding-left: 1rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      :hover {
+        background-color: rgb(248, 247, 250);
+      }
+    }
+  }
+`;
