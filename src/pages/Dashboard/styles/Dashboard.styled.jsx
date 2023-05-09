@@ -101,9 +101,97 @@ export const StyledDashboard = styled.div`
     }
   }
   hr {
-    width: 100%;
+    width: 93%;
     height: 1px;
     margin-top: 5rem;
+    margin-bottom: 3rem;
     opacity: 0.3;
+    margin-right: 15rem;
+  }
+  .ticket__types {
+    padding-right: 15rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+  .manage__tickets {
+    flex-grow: 1;
+  }
+  .other__action {
+    max-width: 20rem;
+  }
+  .table {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    > * {
+      display: flex;
+      justify-content: space-between;
+      color: #39364f;
+      font-size: 1.3rem;
+      font-weight: 400;
+      div {
+        display: flex;
+        gap: 10rem;
+        span {
+          min-width: 4.5rem;
+        }
+      }
+    }
+    &__header {
+    }
+    &__row {
+      border-bottom: 1px solid #eeedf2;
+      padding-bottom: 1rem;
+    }
+  }
+  .other__action {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: #3659e3;
+    }
+    a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: #3659e3;
+      :hover {
+        text-decoration: underline;
+      }
+    }
+  }
+`;
+
+export const StyledAttendeeSummary = styled.div`
+  display: flex;
+  .attendee {
+    padding-inline: 20rem;
+    margin-top: 2rem;
+    flex-grow: 1;
+  }
+  .search {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    button {
+      background: none;
+      border: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
   }
 `;
