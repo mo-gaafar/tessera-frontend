@@ -372,11 +372,11 @@ eventtitleinputdiv{
     background-color: red;
   }
   :hover{
-    border: 2px solid #a9a9a9;
+    border: 1px solid #a9a9a9;
     transition: 0.25s ease-out;
   }
   :active{
-    border: 2px solid blue;
+    border: 1px solid blue;
   }
   :focus{
     border-color: blue;
@@ -1150,6 +1150,9 @@ vertical-align: top;
   position: relative;
   border: 1px solid #DBDAE3;
   width: 100%;
+}
+.custom-datepicker:focus {
+  border-color: blue;
 }
 .datepicker-label {
   position: absolute;
