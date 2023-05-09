@@ -18,6 +18,7 @@ import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
 import Events from './pages/EventPage/EventPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import AddAttendee from './pages/AddAttendees/addAttendees';
+import PublishPage from "./pages/PublishPage";
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -44,6 +45,8 @@ function App() {
         <Route path="/event/:eventID" element={<Events />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="manage" element={<AddAttendee />} />
+        <Route path="publish" element={<PublishPage />} />
+        
       </Routes>
     </>
   );
