@@ -9,6 +9,7 @@ import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
 import PlacesAutocompleteCreators from './PlacesAutocompleteCreators';
+import Details from './BasicInfoSecondPage';
 
 export default function BasicInfo() {
   const email = localStorage.getItem('email')
@@ -17,6 +18,8 @@ export default function BasicInfo() {
 
   const [focused, setFocused] = React.useState(false, { flag: false });
   const [inputerror, setInputError] = React.useState('');
+  const [responseBody,setResponseBody] = React.useState();
+  const [ showdetails, setShowDetails] = React.useState(false);
   const [locationinputerror, setLocationInputError] = React.useState('');
   const [venueinputerror, setVenueInputError] = React.useState('');
   const [addressinputerror, setAddressInputError] = React.useState('');
@@ -75,7 +78,17 @@ export default function BasicInfo() {
       );
     }
   }
-
+  // setResponseBody({
+  //   basicInfo: {
+  //     eventName: value,
+  //     startDateTime: selectedDate,
+  //     endDateTime: selectedEndDate,
+  //     categories: "Music",
+  //     location: {
+  //      venueName: venuevalue,
+  //      streetNumber: addressvalue,
+  //      city: cityvalue
+  //    }}})
   // setResponseBody(
   //   basicInfo: {
   //     eventName: value,
@@ -108,6 +121,23 @@ export default function BasicInfo() {
   //     )
   //   }
   // }
+  function clickNext(){
+    if (!inputerror && !locationinputerror && !addressinputerror && !postalcodeinputerror &&!cityinputerror){
+      setResponseBody({
+      basicInfo: {
+      eventName: value,
+      startDateTime: selectedDate,
+      endDateTime: selectedEndDate,
+      categories: "Music",
+      location: {
+       venueName: venuevalue,
+       streetNumber: addressvalue,
+       city: cityvalue
+     }}})
+     setShowDetails(true);
+
+    }
+  }
   // async function clickNext(e) {
   //   e.preventDefault();
   //   console.log(props.data);
@@ -377,8 +407,9 @@ export default function BasicInfo() {
       </StyledNav>
       <WholePage style={{ display: 'flex' }}>
         <Sidebar className="sidebar" event={false} dashboard={true} />
-
-        <div className="wholepage">
+        
+        {showdetails? <Details responseBody></Details>:
+         <div className="wholepage">
           <main className="main">
             <section>
               <div>
@@ -1662,14 +1693,14 @@ export default function BasicInfo() {
               </div>
             </section>
           </main>
-        </div>
+        </div>}
         <div className="fixeddiv">
           <div className="fixedinnerdiv">
             <div className="fixedbuttondiv">
               <button className="usedbutton" style={{ marginRight: '16px' }}>
                 Discard
               </button>
-              <button className="usedbutton" style={saveButtonStyle}>
+              <button className="usedbutton" style={saveButtonStyle} onClick={clickNext}>
                 Save & Continue
               </button>
             </div>
@@ -1678,7 +1709,7 @@ export default function BasicInfo() {
         <div className="fixeddiv1">
           <div className="fixedinnerdiv1">
             <div className="fixedbuttondiv1">
-              <button className="usedbutton" style={saveButtonStyle}>
+              <button className="usedbutton" style={saveButtonStyle} onClick={clickNext}>
                 Save & Continue
               </button>
               <button className="usedbutton" style={{ marginRight: '16px' }}>

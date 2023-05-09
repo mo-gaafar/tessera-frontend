@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { WholePage } from './Styles/BasicInfoSecondPage.styled';
-export default function Details({ onPhotoSelected }) {
+export default function Details({ onPhotoSelected, responseBody }) {
   const [summaryvalue, setSummaryValue] = React.useState('');
   const [focused, setFocused] = React.useState(false);
   const [inputError, setInputError] = useState('');
@@ -576,7 +576,7 @@ export default function Details({ onPhotoSelected }) {
                                         overflow: 'visible',
                                         WebkitAppearance: 'none',
                                       }}
-                                      value={descriptionvalue}
+                                      // value={descriptionvalue}
                                       onChange={handleChange}
                                       onFocus={handleFocus}
                                       onBlur={() => setFocused(false)}
