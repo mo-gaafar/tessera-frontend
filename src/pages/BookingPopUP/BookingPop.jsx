@@ -38,7 +38,7 @@ import CheckoutForm from './CheckoutForm';
 // } from "./Styles/BookingMain.styled";
 // import { StyledEmail } from "../LogIn/Login/email/Email.styled";
 
-export default function BookingPopUp({ setShowPopUp, image }) {
+export default function BookingPopUp(props,{ setShowPopUp, image }) {
   const [MStart, setMStart] = useState(true);
   //const handleStart = () => setMStart(true);
   const [Terminate, setTerminate] = useState(true);
@@ -80,7 +80,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
               </Button>
               {showCheckout && (
                 <BoxContainer>
-                  {console.log(sum, checkoutInfo, promoCode)}{' '}
+                  {/* {console.log(sum, checkoutInfo, promoCode)}{' '} */}
                   <CheckoutForm
                     total={sum}
                     checkoutInfo={checkoutInfo}
@@ -93,6 +93,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                 <BoxContainer>
                   <Ticket>
                     <Reservation
+                      number={props.number}
                       changePromo={setPromocode}
                       showCheckout={showCheckout}
                       setShowCheckout={setShowCheckout}
@@ -103,7 +104,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                     />
                   </Ticket>
                   <Information>
-                    {console.log(checkoutInfo)}
+                    {/* {console.log(checkoutInfo)} */}
 
                     <div className="eventimage">
                       <img src={image} />
@@ -141,12 +142,12 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                             <OrderTicket key={index}>
                               <div className="Tsummary">
                                 <div className="Tcount">
-                                  {orderSummary.sumTicketCount} x
+                                  {props.number} x
                                   {orderSummary.sumTierName}
                                 </div>
                                 <div className="SinglePrice">
                                   {' '}
-                                  {orderSummary.sumTicketCount *
+                                  {props.number *
                                     orderSummary.sumTicketPrice}
                                 </div>
                               </div>
@@ -157,7 +158,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                           {checkoutInfo.forEach(orderSummary => {
                             sum +=
                               Number(orderSummary.sumTicketPrice) *
-                              Number(orderSummary.sumTicketCount);
+                              Number(props.number);
                             // console.log(
                             //   'sum 2ooly bkam',
                             //   orderSummary.sumTicketPrice.slice(1)

@@ -100,10 +100,10 @@ export const StyledCreateTicketSidebar = styled.div`
     color: #4b4d63;
     font-size: 1.4rem;
     font-weight: 500;
-    span:first-child {
+    a:first-child {
       padding-top: 1.5rem;
     }
-    span:last-child {
+    a:last-child {
       padding-bottom: 1.5rem;
     }
     > * {
@@ -142,8 +142,8 @@ export const StyledCreateTicketSidebar = styled.div`
         background-color: #eeedf2;
       }
     }
-    .active {
-      background-color: #fff;
-    }
+  }
+  .active {
+    background-color: #fff;
   }
 `;

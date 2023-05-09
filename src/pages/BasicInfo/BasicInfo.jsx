@@ -8,11 +8,13 @@ import Sidebar from '../../components/Sidebar';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
+import PlacesAutocompleteCreators from './PlacesAutocompleteCreators';
 
 export default function BasicInfo() {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+
   const [focused, setFocused] = React.useState(false, { flag: false });
   const [inputerror, setInputError] = React.useState(''); //Title error
   const [locationinputerror, setLocationInputError] = React.useState(''); //Location Error
@@ -342,10 +344,12 @@ export default function BasicInfo() {
     }
     return '';
   };
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI',
     libraries: ['places'],
   });
+
   const handleShowMap = e => {
     setShowMap(prevValue => !prevValue);
     if (showMap === false) {
@@ -371,7 +375,7 @@ export default function BasicInfo() {
         )}
       </StyledNav>
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar event={false} dashboard={true} />
+        <Sidebar className="sidebar" event={false} dashboard={true} />
 
         <div className="wholepage">
           <main className="main">
@@ -807,102 +811,26 @@ export default function BasicInfo() {
                               <form className="form">
                                 <label
                                   className={`label ${getValidationLocationClassName()}`}
-                                >
-                                  <span
-                                    className="searchcalendarspan"
-                                    style={{
-                                      paddingLeft: '9px',
-                                      maxHeight: '49px',
-                                    }}
-                                  >
-                                    <i>
-                                      <svg
-                                        className="smallSvg"
-                                        x="0"
-                                        y="0"
-                                        viewBox="0 0 24 24"
-                                        xmlSpace="preserve"
-                                        style={{
-                                          marginTop: '9px',
-                                          marginLeft: '-13px',
-                                        }}
-                                      >
-                                        <path
-                                          style={{ fill: '#6f7287' }}
-                                          fillRule="evenodd"
-                                          clipRule="evenodd"
-                                          d="M10 14c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm3.5.9c-1 .7-2.2 1.1-3.5 1.1-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6c0 1.3-.4 2.5-1.1 3.4l5.1 5.1-1.5 1.5-5-5.1z"
-                                        ></path>
-                                      </svg>
-                                    </i>
-                                  </span>
-                                </label>
-                                <input
-                                  className={`inputdata ${
-                                    focused ? 'blue-border' : 'gray-border'
-                                  } ${
-                                    locationinputerror
-                                      ? 'red-border'
-                                      : 'gray-border'
-                                  }`}
-                                  data-testid="title"
-                                  type="text"
-                                  role="textbox"
-                                  name="titleinput"
-                                  id="title-input"
-                                  placeholder="Search for a venue or add."
-                                  value={locationvalue}
-                                  onChange={handleLocationChange}
-                                  onFocus={() => setFocused(true)}
-                                  onBlur={() => setFocused(false)}
-                                  style={{
-                                    paddingLeft: '40px',
-                                    paddingTop: '0px',
-                                  }}
-                                />
+                                ></label>
+
+                                {isLoaded && (
+                                  <PlacesAutocompleteCreators
+                                    className={`inputdata ${
+                                      focused ? 'blue-border' : 'gray-border'
+                                    } ${
+                                      locationinputerror
+                                        ? 'red-border'
+                                        : 'gray-border'
+                                    }`}
+                                  />
+                                )}
                                 {locationinputerror && (
                                   <div className="error">
                                     {locationinputerror}
                                   </div>
                                 )}
                               </form>
-                              <form className="form">
-                                <label
-                                  className={`label ${getValidationTitleClassName()}`}
-                                >
-                                  <span
-                                    style={{ WebkitBoxDirection: 'normal' }}
-                                  >
-                                    Venue Name
-                                  </span>
-                                  <span className="starspan">
-                                    <span className="starspan">*</span>
-                                  </span>
-                                </label>
-                                <input
-                                  className={`inputdata ${
-                                    focused ? 'blue-border' : 'gray-border'
-                                  } ${
-                                    venueinputerror
-                                      ? 'red-border'
-                                      : 'gray-border'
-                                  }`}
-                                  data-testid="title"
-                                  type="text"
-                                  maxLength="500"
-                                  role="textbox"
-                                  name="titleinput"
-                                  id="title-input"
-                                  placeholder="e.g.Madison Square Garden"
-                                  value={venuevalue}
-                                  onChange={handleVenueChange}
-                                  onFocus={() => setFocused(true)}
-                                  onBlur={() => setFocused(false)}
-                                />
-                                {venueinputerror && (
-                                  <div className="error">{venueinputerror}</div>
-                                )}
-                              </form>
+
                               <div className="counterror">
                                 <div className="letterlimit">
                                   <aside className="aside">
