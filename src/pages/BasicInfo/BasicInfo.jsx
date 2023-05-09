@@ -376,8 +376,7 @@ export default function BasicInfo() {
         )}
       </StyledNav>
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar className="sidebar" event={false} dashboard={true} />
-
+        <Sidebar className="sidebar" event={true} basicInfo={true} />
         <div className="wholepage">
           <main className="main">
             <section>
@@ -1197,8 +1196,8 @@ export default function BasicInfo() {
                                   </p>
                                 </div>
                                 <div className="addressbox">
-                                  <div className = 'dateandtimeboxes' >
-                                    <div style={{position:'relative'}}>
+                                  <div className="dateandtimeboxes">
+                                    <div style={{ position: 'relative' }}>
                                       <DatePicker
                                         selected={selectedDate}
                                         onChange={date => {
@@ -1209,9 +1208,14 @@ export default function BasicInfo() {
                                         calendarClassName="custom-calendar"
                                         placeholderText="Select a date"
                                       />
-                                      <label htmlFor="datepicker" className="datepicker-label">Select Start date:</label>
+                                      <label
+                                        htmlFor="datepicker"
+                                        className="datepicker-label"
+                                      >
+                                        Select Start date:
+                                      </label>
                                     </div>
-                                </div>
+                                  </div>
                                   <div
                                     ref={dropdownRef}
                                     className="dateandtimeboxes"
@@ -1273,8 +1277,8 @@ export default function BasicInfo() {
                                   className="addressbox"
                                   style={{ marginTop: '0' }}
                                 >
-                                  <div className = 'dateandtimeboxes' >
-                                    <div style={{position:'relative'}}>
+                                  <div className="dateandtimeboxes">
+                                    <div style={{ position: 'relative' }}>
                                       <DatePicker
                                         selected={selectedEndDate}
                                         onChange={date => {
@@ -1285,9 +1289,14 @@ export default function BasicInfo() {
                                         calendarClassName="custom-calendar"
                                         placeholderText="Select a date"
                                       />
-                                      <label htmlFor="datepicker" className="datepicker-label">Select End date:</label>
+                                      <label
+                                        htmlFor="datepicker"
+                                        className="datepicker-label"
+                                      >
+                                        Select End date:
+                                      </label>
                                     </div>
-                                </div>
+                                  </div>
                                   <div
                                     className="dateandtimeboxes"
                                     ref={venueRef}

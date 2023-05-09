@@ -1,12 +1,15 @@
+import styled from 'styled-components';
+
 export const StyleDiv = styled.div`
   display: flex;
 
   .publish {
+    margin-top: 2rem;
     height: 100%;
     overflow: hidden;
     position: relative;
     width: 100%;
-    padding-left: 20px;
+    padding-inline: 15rem;
     margin-right: 20px;
   }
 
