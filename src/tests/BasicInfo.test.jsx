@@ -7,15 +7,15 @@ import { Details } from '../pages/BasicInfo/BasicInfoSecondPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 describe ('basicinfo', () => {
-  it('when pressing the save button with empty title error will appear ', () => {
-    const { getAllByRole, getByText } = render(
+  it('displays an error when leaving the title input empty', () => {
+    const { getByLabelText, getByText } = render(
       <BrowserRouter>
         <BasicInfo test={true} email="anytitle" />
       </BrowserRouter>
     );
-    const submitBtn = getAllByRole('button', { name: 'Save & Continue' })[0];
-    fireEvent.click(submitBtn);
-    const labels = getByText('Title is required').textContent;
-    expect(labels).toEqual(' Title required');
+    const titleInput = getByLabelText('Title');
+    fireEvent.blur(titleInput);
+    const errorText = getByText('Title is required').textContent;
+    expect(errorText).toEqual('Title is required');
   });
 })

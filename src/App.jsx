@@ -20,6 +20,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import AddAttendee from './pages/AddAttendees/addAttendees';
 import PublishPage from "./pages/PublishPage";
 import BasicInfo from './pages/BasicInfo/BasicInfo';
+import Details from './pages/BasicInfo/BasicInfoSecondPage';
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -47,7 +48,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="manage" element={<AddAttendee />} />
         <Route path="publish" element={<PublishPage />} /> */}
-        <Route path="/" element={<BasicInfo />}/>
+        {/* <Route path="/" element={<BasicInfo />}/> */}
+        <Route path="/" element={<Details />}/>
       </Routes>
     </>
   );
