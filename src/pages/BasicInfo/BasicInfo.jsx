@@ -16,22 +16,21 @@ export default function BasicInfo() {
     : localStorage.getItem('authEmail');
 
   const [focused, setFocused] = React.useState(false, { flag: false });
-  const [inputerror, setInputError] = React.useState('');
-  const [locationinputerror, setLocationInputError] = React.useState('');
-  const [venueinputerror, setVenueInputError] = React.useState('');
-  const [addressinputerror, setAddressInputError] = React.useState('');
-  const [postalcodeinputerror, setPostalCodeInputError] = React.useState('');
-  const [cityinputerror, setCityInputError] = React.useState('');
-  const [value, setValue] = React.useState('');
-  const [venuevalue, setVenueValue] = React.useState('');
-  const [addressvalue, setAddressValue] = React.useState('');
-  const [address2value, setAddress2Value] = React.useState('');
-  const [cityvalue, setCityValue] = React.useState('');
-  const [postalcodevalue, setPostalCodeValue] = React.useState('');
-  const [organizervalue, setOrganizerValue] = React.useState('');
-  const [locationvalue, setLocationValue] = React.useState('');
-  const [statevalue, setStateValue] = React.useState('');
-  const [displayValue, setDisplayValue] = useState([]);
+  const [inputerror, setInputError] = React.useState(''); //Title error
+  const [locationinputerror, setLocationInputError] = React.useState(''); //Location Error
+  const [venueinputerror, setVenueInputError] = React.useState(''); //Venue Error
+  const [addressinputerror, setAddressInputError] = React.useState(''); //Address 1 Error
+  const [postalcodeinputerror, setPostalCodeInputError] = React.useState(''); //ZIP code error
+  const [cityinputerror, setCityInputError] = React.useState(''); //city error
+  const [value, setValue] = React.useState(''); //Event Title
+  const [venuevalue, setVenueValue] = React.useState(''); //venue name
+  const [addressvalue, setAddressValue] = React.useState(''); //Address 1 input
+  const [address2value, setAddress2Value] = React.useState(''); //Address 2 input
+  const [cityvalue, setCityValue] = React.useState(''); //City Input
+  const [postalcodevalue, setPostalCodeValue] = React.useState(''); //ZIP input
+  const [organizervalue, setOrganizerValue] = React.useState(''); //Organizer input
+  const [locationvalue, setLocationValue] = React.useState(''); //venue location (auto-complete)
+  const [statevalue, setStateValue] = React.useState(''); //State/Province input
   const [clicked, setClicked] = useState(false);
   const [venueclicked, setVenueClicked] = useState(false);
   const [onlineclicked, setOnlineClicked] = useState(false);
@@ -76,29 +75,29 @@ export default function BasicInfo() {
     }
   }
 
-  // setResponseBody(
-  //   basicInfo: {
-  //     eventName: value,
-  //     startDateTime: selectedDate,
-  //     endDateTime: selectedEndDate,
-  //     "categories": "Music",
-  //     "location": {
+  //  setResponseBody(
+  //    basicInfo: {
+  //      eventName: value,
+  //      startDateTime: selectedDate,
+  //      endDateTime: selectedEndDate,
+  //      categories: "Music",
+  //      "location": {
   //       "longitude": 45.523064,
   //       "latitude": -122.676483,
   //       "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
-  //       "venueName": "My Venue",
-  //       "streetNumber": 123,
+  //       venueName: venuevalue,
+  //       streetNumber: addressvalue,
   //       "route": "Main St",
   //       "administrativeAreaLevel1": "OR",
   //       "country": "US",
-  //       "city": "Portland"
+  //       city: cityvalue
   //     }
   //   },
-  //   "summary": "Join us for an evening of live music!",
-  //   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, purus sed tempus luctus, nunc sapien lacinia metus, eu finibus velit odio vel nulla",
-  //   "eventStatus": "live",
-  //   "isOnline": false,
-  //   "onlineEventUrl": null
+  //   summary: summaryvalue,
+  //   description: descriptionva;lue,
+  //   eventStatus: live,
+  //   isOnline: false,
+  //   onlineEventUrl: null
   // );
 
   // function handleValidation(){
@@ -478,7 +477,14 @@ export default function BasicInfo() {
                                 onBlur={() => setFocused(false)}
                               />
                               {inputerror && (
-                                <div className="error">{inputerror}</div>
+                                <div data-testid="titleerrormessage">
+                                  <div
+                                    data-testid="titleerrormessage"
+                                    className="error"
+                                  >
+                                    {inputerror}
+                                  </div>
+                                </div>
                               )}
                             </form>
                             <div className="counterror">
@@ -520,6 +526,7 @@ export default function BasicInfo() {
                               >
                                 <div
                                   className="typeborder"
+                                  data-testid="timedropdownoptions"
                                   onClick={handleSecondDropDownClick}
                                   style={
                                     secondclicked
@@ -528,10 +535,13 @@ export default function BasicInfo() {
                                   }
                                 >
                                   <div className="categorybox">
-                                    <select className="dropdownselect">
+                                    <select
+                                      className="dropdownselect"
+                                      data-testid="timedropdownselect"
+                                    >
                                       <option
                                         className="dropdownoption"
-                                        value
+                                        value=""
                                         data-spec="select-option"
                                       >
                                         Category
@@ -1212,7 +1222,7 @@ export default function BasicInfo() {
                                         htmlFor="datepicker"
                                         className="datepicker-label"
                                       >
-                                        Select Start date:
+                                        Start date
                                       </label>
                                     </div>
                                   </div>
@@ -1259,12 +1269,18 @@ export default function BasicInfo() {
                                             clicked
                                               ? { border: '1px solid blue' }
                                               : {
-                                                  border: '0px solid #dbdae3',
+                                                  border: '1px solid #dbdae3',
                                                 }
                                           }
                                         >
-                                          <div className="dropdownLast">
-                                            <select className="selecttime">
+                                          <div
+                                            data-testid="dynamicdropdown"
+                                            className="dropdownLast"
+                                          >
+                                            <select
+                                              data-testid="selectdynamicdropdown"
+                                              className="selecttime"
+                                            >
                                               {options}
                                             </select>
                                           </div>
@@ -1280,6 +1296,7 @@ export default function BasicInfo() {
                                   <div className="dateandtimeboxes">
                                     <div style={{ position: 'relative' }}>
                                       <DatePicker
+                                        data-testid="datepicker-container"
                                         selected={selectedEndDate}
                                         onChange={date => {
                                           setSelectedEndDate(date);
@@ -1437,7 +1454,10 @@ export default function BasicInfo() {
                                           }
                                         >
                                           <div className="dropdownLast">
-                                            <select className="selecttime">
+                                            <select
+                                              className="selecttime"
+                                              data-testid="timezoneselect"
+                                            >
                                               {timezones.map(zone => (
                                                 <option
                                                   key={zone.zoneName}
