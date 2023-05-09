@@ -341,20 +341,17 @@ export default function Events(props) {
   let maxPrice;
   let minPrice;
   if (eventData.filteredEvents){ 
-    let ticketTiers=[eventData.filteredEvents[0].ticketTiers[0].price].replace(new RegExp("$", "g"), "")
-    maxPrice = parseFloat(ticketTiers);
-    minPrice = parseFloat(eventData.filteredEvents[0].ticketTiers[0].price);
+    let ticketPrice = eventData.filteredEvents[0].ticketTiers[0].price;
+    ticketPrice = ticketPrice.replace(/\$/g, "");
+    maxPrice = parseFloat(ticketPrice);
+    minPrice = parseFloat(ticketPrice);
 
     // Iterate through the array to find the max and min prices
     [eventData.filteredEvents[0].ticketTiers].forEach((ticket, index)  => {
+      let ticketp = ticket[index].price.replace(/\$/g, "");
+      console.log("price")
       console.log(ticket[index].price)
-      // if (ticket[index].price==="Free"){
-      //   console.log("hiiiii")
-      //   minPrice = 0;
-      // }
-      const price = parseFloat(ticket[index].price);
-      // console.log("ticket")
-      // console.log(ticket[index].price)
+      const price = parseFloat(ticketp);
       if (price > maxPrice) {
         maxPrice = price;
       }
@@ -362,7 +359,7 @@ export default function Events(props) {
       if (price < minPrice) {
         minPrice = price;
       }
-      console.log(minPrice)
+      console.log(maxPrice)
     });
     
   }
@@ -375,7 +372,7 @@ export default function Events(props) {
     <>
       {showPopup && (
         <BookingPopUp
-          number={count}
+          number={1}
           setShowPopUp={setShowPopUp}
           image={
             eventData.filteredEvents[0].basicInfo.eventImage !==
@@ -938,11 +935,11 @@ export default function Events(props) {
                                 Reserve a spot
                               </TicketsButton>
                             </TicketsSection>)}
-                            {eventData.isEventFree &&
+                            {!eventData.isEventFree &&
                             <PricedTickets>
                             <PricedTicketsPriceDiv>
                             <PricedTicketsPrice>
-                              From ${minPrice} - $
+                              From $0 - $
                               {maxPrice}
                             </PricedTicketsPrice>
                           </PricedTicketsPriceDiv>

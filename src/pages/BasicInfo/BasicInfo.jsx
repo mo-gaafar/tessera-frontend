@@ -16,6 +16,7 @@ export default function BasicInfo() {
     : localStorage.getItem('authEmail');
 
   const [focused, setFocused] = React.useState(false, { flag: false });
+  const [responseBody,setResponseBody] =  React.useState();
   const [inputerror, setInputError] = React.useState('');
   const [locationinputerror, setLocationInputError] = React.useState('');
   const [venueinputerror, setVenueInputError] = React.useState('');
@@ -77,12 +78,13 @@ export default function BasicInfo() {
   }
 
   // setResponseBody(
+  //   {
   //   basicInfo: {
-  //     eventName: value,
-  //     startDateTime: selectedDate,
-  //     endDateTime: selectedEndDate,
-  //     "categories": "Music",
-  //     "location": {
+  //       eventName: value,
+  //       startDateTime: selectedDate,
+  //       endDateTime: selectedEndDate,
+  //       "categories": "Music",
+  //       "location": {
   //       "longitude": 45.523064,
   //       "latitude": -122.676483,
   //       "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
@@ -92,7 +94,8 @@ export default function BasicInfo() {
   //       "administrativeAreaLevel1": "OR",
   //       "country": "US",
   //       "city": "Portland"
-  //     }
+  //     }}
+  //     })
   //   },
   //   "summary": "Join us for an evening of live music!",
   //   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, purus sed tempus luctus, nunc sapien lacinia metus, eu finibus velit odio vel nulla",

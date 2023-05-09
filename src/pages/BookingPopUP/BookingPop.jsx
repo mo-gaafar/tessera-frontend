@@ -38,7 +38,7 @@ import CheckoutForm from './CheckoutForm';
 // } from "./Styles/BookingMain.styled";
 // import { StyledEmail } from "../LogIn/Login/email/Email.styled";
 
-export default function BookingPopUp(props,{ setShowPopUp, image }) {
+export default function BookingPopUp({number, setShowPopUp, image }) {
   const [MStart, setMStart] = useState(true);
   //const handleStart = () => setMStart(true);
   const [Terminate, setTerminate] = useState(true);
@@ -93,7 +93,7 @@ export default function BookingPopUp(props,{ setShowPopUp, image }) {
                 <BoxContainer>
                   <Ticket>
                     <Reservation
-                      number={props.number}
+                      number = {number}
                       changePromo={setPromocode}
                       showCheckout={showCheckout}
                       setShowCheckout={setShowCheckout}
@@ -142,12 +142,12 @@ export default function BookingPopUp(props,{ setShowPopUp, image }) {
                             <OrderTicket key={index}>
                               <div className="Tsummary">
                                 <div className="Tcount">
-                                  {props.number} x
+                                  {orderSummary.sumTicketCount} x
                                   {orderSummary.sumTierName}
                                 </div>
                                 <div className="SinglePrice">
                                   {' '}
-                                  {props.number *
+                                  {orderSummary.sumTicketCount *
                                     orderSummary.sumTicketPrice}
                                 </div>
                               </div>
@@ -158,7 +158,7 @@ export default function BookingPopUp(props,{ setShowPopUp, image }) {
                           {checkoutInfo.forEach(orderSummary => {
                             sum +=
                               Number(orderSummary.sumTicketPrice) *
-                              Number(props.number);
+                              Number(orderSummary.sumTicketCount);
                             // console.log(
                             //   'sum 2ooly bkam',
                             //   orderSummary.sumTicketPrice.slice(1)
