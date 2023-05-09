@@ -4,12 +4,14 @@ export const WholePage = styled.div`
     padding: 0 16px;
   }
   
-.wholepage{    overflow-y: scroll;
+.wholepage{    
+  flex-grow: 1;
+  overflow-y: scroll;
     max-height: 100vh;
   margin-bottom: 48px;
   padding-top: 40px;
+  padding-left: 10rem;
   padding-bottom: 40px;
-  margin-left: auto;  /* max-width: 960px; */
   @media (max-width: 792px){
     max-width: 655px;
   }
