@@ -186,6 +186,8 @@ const StyleDiv = styled.div`
       border: 1px solid #ccc;
       cursor: not-allowed;
    }
+
+   
    
 }
 
@@ -423,6 +425,18 @@ const InputGroup = styled.div`
     color: #ff0000;
     margin-left: 5px;
   }
+
+  .startTime{
+      font-size: 14px;
+    line-height: 22px;
+    min-height: 22px;
+  }
+
+  .startTime label{
+      border: none;
+      background: #f8f7fa;
+
+  }
 `;
 
 const FormInput = styled.input`
@@ -469,9 +483,13 @@ function PublishPage(props) {
   const [audienceType, setAudienceType] = useState('anyone');
   const [publishType, setPublishType] = useState('now');
   const [publishDate, setPublishDate] = useState(new Date());
-  const [publishButton, setPublishButton] = useState('Schedule');
+  const [publishButton, setPublishButton] = useState('Publish');
   const [password, setPassword] = useState('');
-  
+  const [selectedTime, setSelectedTime] = useState('');
+  const handleTimeChange = (event) => {
+   setSelectedTime(event.target.value);
+ };
+
    async function publishData()
    {
       const data = {   
@@ -593,7 +611,21 @@ function PublishPage(props) {
                            <div className="time">
                               <div className="startTime">
                                  <p>Start Time</p>
-                                 <p>05:00 PM</p>
+                              <label>
+                           <select value={selectedTime} onChange={handleTimeChange}>
+                              <option value="">{selectedTime}</option>
+                              <option value="9:00 AM">9:00 AM</option>
+                              <option value="10:00 AM">10:00 AM</option>
+                              <option value="11:00 AM">11:00 AM</option>
+                              <option value="12:00 PM">12:00 PM</option>
+                              <option value="1:00 PM">1:00 PM</option>
+                              <option value="2:00 PM">2:00 PM</option>
+                              <option value="3:00 PM">3:00 PM</option>
+                              <option value="4:00 PM">4:00 PM</option>
+                              <option value="5:00 PM">5:00 PM</option>
+                              <option value="6:00 PM">6:00 PM</option>
+                           </select>
+                           </label>
                               </div>
                            </div>
                         </div>
@@ -618,14 +650,28 @@ function PublishPage(props) {
                                  <svg id="calendar-chunky_svg__eds-icon--calendar-chunky_svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve"><path id="calendar-chunky_svg__eds-icon--calendar-chunky_base" d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path></svg>
                                  <div className="startDate">
                                     <p>Start Date</p>
-                                    <p>05/04/2023</p>
+                                    <DatePicker selected={publishDate} disabled={(publishType === "now" ? "disabled" : "")} onChange={(date) => setPublishDate(date)} />
                                  </div>
                               </div>
                               <div className="time">
-                                 <div className="startTime">
-                                    <p>Start Time</p>
-                                    <p>05:00 PM</p>
-                                 </div>
+                              <div className="startTime">
+                                 <p>Start Time</p>
+                              <label>
+                           <select value={selectedTime} onChange={handleTimeChange}>
+                              <option value="">{selectedTime}</option>
+                              <option value="9:00 AM">9:00 AM</option>
+                              <option value="10:00 AM">10:00 AM</option>
+                              <option value="11:00 AM">11:00 AM</option>
+                              <option value="12:00 PM">12:00 PM</option>
+                              <option value="1:00 PM">1:00 PM</option>
+                              <option value="2:00 PM">2:00 PM</option>
+                              <option value="3:00 PM">3:00 PM</option>
+                              <option value="4:00 PM">4:00 PM</option>
+                              <option value="5:00 PM">5:00 PM</option>
+                              <option value="6:00 PM">6:00 PM</option>
+                           </select>
+                           </label>
+                              </div>
                               </div>
                            </div>
                            <p>Time zone is the same as your event's</p>

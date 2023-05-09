@@ -14,6 +14,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, Route, Routes } from 'react-router-dom';
+
 // import {
 //   InputEmail,
 //   Label,
@@ -243,20 +244,25 @@ const SubmitButton = styled.button`
   }
 `;
 
+
+function TimeLimitReachedComponent() {
+  return (
+    <div>
+      <h1>Time Limit Reached</h1>
+      <p>You have run out of time!</p>
+    </div>
+  );
+}
+
+
 function CheckoutForm(props) {
   // const event = props.event;
   const event = '643aa09ecbfea68c24d93670';
 
-  function SessionEnded() {
-    return (
-      <div>
-        <h1>Session Ended</h1>
-        <p>Your session has ended. Please log in again to continue.</p>
-      </div>
-    );
-  }
+  
+  
   // const ticketTier = props.ticketTier;
-  const [remainingTime, setRemainingTime] = useState(10 * 60);
+  const [remainingTime, setRemainingTime] = useState(10*60);
   const [timeLeft, setTimeLeft] = useState('');
   useEffect(() => {
     const interval = setInterval(() => {
@@ -275,7 +281,13 @@ function CheckoutForm(props) {
     const seconds = remainingTime % 60;
     setTimeLeft(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
     if (remainingTime === 0) {
-      return <SessionEnded />;
+      return(
+        <StyleDiv>
+        <div>
+          <TimeLimitReachedComponent />
+        </div>
+        </StyleDiv>
+      );
     }
   }, [remainingTime]);
 
@@ -296,6 +308,10 @@ function CheckoutForm(props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  
+
+
+  
 
   async function bookTickets() {
     const body = {
@@ -318,6 +334,9 @@ function CheckoutForm(props) {
     } catch (error) {
       console.log(error);
     }
+    
+
+
   }
 
   return (
