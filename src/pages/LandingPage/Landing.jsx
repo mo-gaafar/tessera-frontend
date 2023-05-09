@@ -155,8 +155,6 @@ export default function Landing() {
     //handleClick()
   }
 
-<<<<<<< HEAD
-=======
   function onClickCategory(e) {
     const { name, value } = e.target;
     console.log('name');
@@ -168,7 +166,6 @@ export default function Landing() {
     setUrl(queryName);
     //handleClick()
   }
->>>>>>> 8ee8b9b3dd26bd69f706b186901f4974f522121b
   function showDropdown() {
     if (!select) {
       setShowMenu(true);
@@ -464,7 +461,7 @@ export default function Landing() {
 
     !h3 && setShowLocationMenu(false);
   };
-  console.log(allFilteredEvents)
+  console.log(allFilteredEvents);
   return (
     <>
       <StyledNav>

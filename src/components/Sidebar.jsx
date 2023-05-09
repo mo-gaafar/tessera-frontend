@@ -79,7 +79,7 @@ const Sidebar = ({ hide, event, dashboard }) => {
             </Link>
           </div>
           <div className="create__event">
-            <Link className="active">
+            <Link to="/basicinfo" className="active">
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ const Sidebar = ({ hide, event, dashboard }) => {
               </svg>
               Basic Info
             </Link>
-            <Link>
+            <Link to="/details">
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
