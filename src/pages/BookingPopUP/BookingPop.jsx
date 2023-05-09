@@ -9,27 +9,27 @@
  *
  *
  */
-import React from 'react';
-import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import classes from './Styles/Bookingpopup.module.css';
-import { BookingContainer } from './Styles/BookingMain.styled';
-import { BookingetTickets } from './Styles/BookingMain.styled';
-import { BookModal } from './Styles/BookingMain.styled';
+import React from "react";
+import { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import classes from "./Styles/Bookingpopup.module.css";
+import { BookingContainer } from "./Styles/BookingMain.styled";
+import { BookingetTickets } from "./Styles/BookingMain.styled";
+import { BookModal } from "./Styles/BookingMain.styled";
 import {
   BoxContainer,
   Order,
   OrderTicket,
   OrderTitle,
-} from './Styles/BookingMain.styled';
+} from "./Styles/BookingMain.styled";
 // import { Information } from "./Styles/BookingMain.styled";
-import { Ticket, Information } from './Styles/BookingMain.styled';
-import Reservation from './Ticket/TicketsDetails';
-import CheckoutForm from './CheckoutForm';
+import { Ticket, Information } from "./Styles/BookingMain.styled";
+import Reservation from "./Ticket/TicketsDetails";
+import CheckoutForm from "./CheckoutForm";
 // import {
 //   TicketEnd,
 //   TicketHead,
@@ -46,14 +46,15 @@ export default function BookingPopUp({ setShowPopUp, image }) {
   const [dataTicket, setdataticket] = useState({});
   const [showCheckout, setShowCheckout] = React.useState(false);
   const [checkoutInfo, setCheckoutInfo] = useState([]);
-  const [promoCode, setPromocode] = useState('');
+  const [promoCode, setPromocode] = useState("");
   const [total, setTotal] = useState(0);
+  const [discount, setDiscount] = useState(1);
   let sum = 0;
   const FormClose = () => {
     setShowPopUp(false);
   };
 
-  const ReceiveData = data => {
+  const ReceiveData = (data) => {
     // console.log('data', data);
     setCheckoutInfo(data);
   };
@@ -93,7 +94,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                   <Ticket>
                     <Reservation
                       changePromo={setPromocode}
-                      showCheckout={showCheckout}
+                      setDiscount={setDiscount}
                       setShowCheckout={setShowCheckout}
                       liftCheckoutInfo={checkoutInfo}
                       setliftCheckoutInfo={setCheckoutInfo}
@@ -133,7 +134,16 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                     )}
                     {!empty && (
                       <Order>
-                        <OrderTitle>Order Summary</OrderTitle>
+                        <OrderTitle>
+                          Order Summary
+                          {discount !== 1 && (
+                            <p className="discount">
+                              {" "}
+                              {discount * 100}% Discount is Applied on every
+                              ticket
+                            </p>
+                          )}
+                        </OrderTitle>
 
                         {checkoutInfo.map((orderSummary, index) => {
                           return (
@@ -144,23 +154,30 @@ export default function BookingPopUp({ setShowPopUp, image }) {
                                   {orderSummary.sumTierName}
                                 </div>
                                 <div className="SinglePrice">
-                                  {' '}
-                                  {orderSummary.sumTicketCount *
-                                    orderSummary.sumTicketPrice}
+                                  {" "}
+                                  {discount === 1
+                                    ? orderSummary.sumTicketCount *
+                                      orderSummary.sumTicketPrice
+                                    : orderSummary.sumTicketCount *
+                                      orderSummary.sumTicketPrice *
+                                      discount}
                                 </div>
                               </div>
                             </OrderTicket>
                           );
                         })}
                         <OrderTitle>
-                          {checkoutInfo.forEach(orderSummary => {
-                            sum +=
-                              Number(orderSummary.sumTicketPrice) *
-                              Number(orderSummary.sumTicketCount);
-                            // console.log(
-                            //   'sum 2ooly bkam',
-                            //   orderSummary.sumTicketPrice.slice(1)
-                            // );
+                          {checkoutInfo.forEach((orderSummary) => {
+                            if (discount === 1) {
+                              sum +=
+                                Number(orderSummary.sumTicketPrice) *
+                                Number(orderSummary.sumTicketCount);
+                            } else {
+                              sum +=
+                                Number(orderSummary.sumTicketPrice) *
+                                Number(orderSummary.sumTicketCount) *
+                                discount;
+                            }
                           })}
                           <div className="Tsummary">
                             <div className="Tcount">Total</div>

@@ -43,6 +43,7 @@ export default function TierBox({
   setSummary,
   setEmpty,
   total,
+  discount,
 }) {
   const [count, setCount] = useState(0);
   const [countactual, setCountActual] = useState(0);
