@@ -50,7 +50,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/attendeeSummary" element={<AttendeeSummary />} />
         <Route path="/manage" element={<AddAttendee />} />
-        <Route path="/basicInfo" element={<BasicInfo />} />
+        {/* <Route path="/basicInfo" element={<BasicInfo />} /> */}
         <Route path="/details" element={<Details />} />
         <Route path="/publish" element={<PublishPage />} />
 

@@ -4,7 +4,7 @@ import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { WholePage } from './Styles/BasicInfoSecondPage.styled';
 export default function Details({ onPhotoSelected }){
-  const [value, setValue] = React.useState("");
+  const [summaryvalue, setSummaryValue] = React.useState("");
   const [focused,setFocused] = React.useState(false)
   const [inputError, setInputError] = useState('');
   const [photo, setPhoto] = useState(null);
@@ -14,6 +14,7 @@ export default function Details({ onPhotoSelected }){
     inputRef.current.click();
     e.preventDefault();
   };
+  //to upload the photo
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
     setPhoto(selectedPhoto);
@@ -26,7 +27,7 @@ export default function Details({ onPhotoSelected }){
     e.preventDefault();
   };
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setSummaryValue(event.target.value);
     if (event.target.value.trim() === '') {
       setInputError('Summary is required');
     } else {
@@ -35,9 +36,6 @@ export default function Details({ onPhotoSelected }){
   };
   const handleFocus = () => {
     setFocused(true);
-  };
-  const handleBlur = () => {
-    setFocused(false);
   };
   const getValidationClassName = () => {
     if (inputError) {
@@ -57,13 +55,7 @@ export default function Details({ onPhotoSelected }){
     <WholePage>
       <div className='wholepage'>
       <form>
-        <div 
-        style={
-          {
-            marginBottom:'32px'
-          }
-        }>
-          <div className='iconsdiv'>
+          <div className='iconsdiv' style={{marginBottom:'32px'}}>
             <i className='largeI'>
               <svg 
               className='largeSvg'
@@ -344,7 +336,6 @@ export default function Details({ onPhotoSelected }){
               </div>
             </div>
           </div>
-        </div>
         <div 
         style={
           {
@@ -403,7 +394,7 @@ export default function Details({ onPhotoSelected }){
                           role="textbox"
                           maxLength="140"
                           placeholder="Write a short event summary to get attendees excited."
-                          value={value}
+                          value={summaryvalue}
                           onChange={handleChange}
                           onFocus={() => setFocused(true)}
                           onBlur={() => setFocused(false)}
@@ -417,7 +408,7 @@ export default function Details({ onPhotoSelected }){
                         )}
                     <div className='characterslimitdiv'>
                       <aside className='aside'>
-                        {value.length}/140
+                        {summaryvalue.length}/140
                       </aside>
                     </div>
                   </div>  
@@ -664,7 +655,7 @@ export default function Details({ onPhotoSelected }){
                                       WebkitAppearance: 'none'
                                     }
                                   }
-                                    value ={value}
+                                    value ={descriptionvalue}
                                     onChange={handleChange}
                                     onFocus={handleFocus}
                                     onBlur={() => setFocused(false)}
