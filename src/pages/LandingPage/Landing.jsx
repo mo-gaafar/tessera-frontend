@@ -110,21 +110,7 @@ export default function Landing() {
     }
   };
 
-  useEffect(() => {
-    // add event listener to the document
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      // remove event listener when component unmounts
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleClickOutside = event => {
-    if (reference.current && !reference.current.contains(event.target)) {
-      // if clicked outside of the ref div, hide the element
-      setShowCategoryMenu(false);
-    }
-  };
+  
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -183,11 +169,7 @@ export default function Landing() {
       setShowMenu(true);
     }
   }
-  function showDropdownCategory() {
-    if (!selectCategory) {
-      setShowCategoryMenu(true);
-    }
-  }
+  
   const [focused, setFocused] = useState({
     All: true,
     forYou: false,
@@ -463,17 +445,6 @@ export default function Landing() {
    * @returns {JSX.Element} An object representing the dropdown elements
    */
 
-  // useEffect(() => {
-  //   setCatElement(
-  //     allCatEvents.map(cat => (
-  //       <div>
-  //         <button name={cat} className="drop-button" handleClick={onClickCategory}>
-  //           {cat}
-  //         </button>
-  //       </div>
-  //     ))
-  //   );
-  // }, [allCatEvents]);
 
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -701,34 +672,7 @@ export default function Landing() {
           
           </div>
 
-          {focused.All && (
-            <div className="date-dropdown">
-              <div className="you--options" onClick={showDropdownCategory}>
-                {selectCategory ? (
-                  <span>
-                    {selectCategory}
-                    <button onClick={removeCategory} className="remove-button">
-                      <img src={cross} />
-                    </button>
-                  </span>
-                ) : (
-                  <span>
-                    Category
-                    <img src={logo} />
-                  </span>
-                )}
-              </div>
-              {/* {showCategoryMenu && (
-                <div
-                  id="myDropdown"
-                  ref={reference}
-                  className="dropdown-content"
-                >
-                  <ul>{catElements}</ul>
-                </div>
-              )} */}
-            </div>
-          )}
+          
 
           {forYouElement && (
             <div className="date-dropdown">
