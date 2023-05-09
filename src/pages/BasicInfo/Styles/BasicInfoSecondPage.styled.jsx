@@ -4,13 +4,12 @@ export const WholePage = styled.div`
     padding: 0 16px;
   }
   
-.wholepage{
+.wholepage{    overflow-y: scroll;
+    max-height: 100vh;
   margin-bottom: 48px;
   padding-top: 40px;
   padding-bottom: 40px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 960px;
+  margin-left: auto;  /* max-width: 960px; */
   @media (max-width: 792px){
     max-width: 655px;
   }
@@ -634,4 +633,4 @@ export const WholePage = styled.div`
       background-color: #f3eeee;
     }
   }
-`
+`;
