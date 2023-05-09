@@ -5,7 +5,8 @@ import {
   StyledMainSidebar,
   StyledCreateTicketSidebar,
 } from './styles/Sidebar.styled';
-const Sidebar = (props, { event, dashboard }) => {
+const Sidebar = ({ hide, event, dashboard }) => {
+  console.log(event);
   const [hovered, setHovered] = useState(false);
   const [reportHovered, setReportHovered] = useState(false);
 
@@ -52,7 +53,7 @@ const Sidebar = (props, { event, dashboard }) => {
           </Link>
         </div>
       </StyledMainSidebar>
-      {!props.hide && (
+      {!hide && (
         <StyledCreateTicketSidebar>
           <Link className="events__page">
             <svg viewBox="0 0 24 24" xml:space="preserve">

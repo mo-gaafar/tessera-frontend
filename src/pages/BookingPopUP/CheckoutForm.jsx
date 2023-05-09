@@ -243,9 +243,6 @@ const SubmitButton = styled.button`
   }
 `;
 
-
-
-
 function CheckoutForm(props) {
   // const event = props.event;
   const event = '643aa09ecbfea68c24d93670';
@@ -259,7 +256,7 @@ function CheckoutForm(props) {
     );
   }
   // const ticketTier = props.ticketTier;
-  const [remainingTime, setRemainingTime] = useState(10*60);
+  const [remainingTime, setRemainingTime] = useState(10 * 60);
   const [timeLeft, setTimeLeft] = useState('');
   useEffect(() => {
     const interval = setInterval(() => {

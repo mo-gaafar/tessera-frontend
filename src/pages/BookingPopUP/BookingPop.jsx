@@ -80,6 +80,7 @@ export default function BookingPopUp({ setShowPopUp, image }) {
               </Button>
               {showCheckout && (
                 <BoxContainer>
+                  {console.log(sum, checkoutInfo, promoCode)}{' '}
                   <CheckoutForm
                     total={sum}
                     checkoutInfo={checkoutInfo}
