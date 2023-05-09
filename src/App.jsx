@@ -22,7 +22,7 @@ import PublishPage from './pages/Publish/PublishPage';
 import AttendeeSummary from './pages/Dashboard/AttendeeSummary';
 import BasicInfo from './pages/BasicInfo/BasicInfo';
 import Details from './pages/BasicInfo/BasicInfoSecondPage';
-
+import { Ticket } from './pages/BookingPopUP/Styles/BookingMain.styled';
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
  * Function component that renders the main application
@@ -49,9 +49,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/attendeeSummary" element={<AttendeeSummary />} />
         <Route path="/manage" element={<AddAttendee />} />
-        {/* <Route path="/basicInfo" element={<BasicInfo />} /> */}
+        <Route path="/basicInfo" element={<BasicInfo />} />
         <Route path="/details" element={<Details />} />
         <Route path="/publish" element={<PublishPage />} />
+        <Route path="/ticket" element={<PublishPage />} />
       </Routes>
     </>
   );
