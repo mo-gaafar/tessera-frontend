@@ -54,34 +54,33 @@ export default function TierBox({
    * @returns {Array} - the new summary
    */
   const summaryappend = (newPrice) => {
-    setSummary((prevValue) => {
-      let flag = false;
+    const newState = [...summary];
+    let flag = false;
 
-      prevValue.forEach((element, i) => {
-        if (element.sumId == element.id) {
-          flag = false;
-          element.sumTicketCount = element.ticketCount;
-          element.sumTicketPrice = newPrice;
+    newState.forEach((elementS, i) => {
+      if (elementS.sumId == element.id) {
+        flag = true;
+        elementS.sumTicketCount = element.ticketCount;
+        elementS.sumTicketPrice = newPrice;
 
-          element.ticketCount === 0 && prevValue.splice(i, 1);
-        }
-      });
-
-      if (!flag) {
-        const newValue = [
-          ...prevValue,
-          {
-            sumId: element.id,
-            sumTicketCount: element.ticketCount,
-            sumTicketPrice: newPrice,
-            sumTierName: element.tierName,
-          },
-        ];
-        return newValue;
+        elementS.ticketCount === 0 && newState.splice(i, 1);
       }
-
-      return prevValue;
     });
+
+    if (!flag) {
+      const newValue = [
+        ...newState,
+        {
+          sumId: element.id,
+          sumTicketCount: element.ticketCount,
+          sumTicketPrice: newPrice,
+          sumTierName: element.tierName,
+        },
+      ];
+      setSummary(newValue);
+      return;
+    }
+    setSummary(newState);
   };
   /**
    * description: this function is to increment the order
@@ -95,22 +94,20 @@ export default function TierBox({
       return prevCount == currentCapacity ? prevCount : prevCount + 1;
     });
 
-    setTicketTierdetails((prevState) => {
-      const newState = [...prevState];
-      newState.forEach((item, index) => {
-        if (index === i) {
-          item.ticketCount = count;
-          setCountDecrement(count);
-        }
-      });
-      summaryappend(
-        count * element.price.slice(0, 1) === "$"
-          ? element.price.slice(1)
-          : element.price
-      );
-
-      return newState;
+    const newState = [...ticketsTierdetails];
+    newState.forEach((item, index) => {
+      if (index === i) {
+        item.ticketCount = count;
+        setCountDecrement(count);
+      }
     });
+    summaryappend(
+      count * element.price.slice(0, 1) === "$"
+        ? element.price.slice(1)
+        : element.price
+    );
+    setTicketTierdetails(newState);
+    console.log(summary + " WZHAAR YA KALB");
     summary.length === 0 ? setEmpty(true) : setEmpty(false);
   };
   /**
@@ -123,23 +120,20 @@ export default function TierBox({
       prevCount === 0 ? prevCount : prevCount - 1
     );
 
-    setTicketTierdetails((prevState) => {
-      const newState = [...prevState];
-      newState.forEach((item, index) => {
-        if (index === i) {
-          item.ticketCount = countDecrement;
-          setCount(countDecrement);
-        }
-      });
-
-      summaryappend(
-        countDecrement * element.price.slice(0, 1) === "$"
-          ? element.price.slice(1)
-          : element.price
-      );
-
-      return newState;
+    const newState = [...ticketsTierdetails];
+    newState.forEach((item, index) => {
+      if (index === i) {
+        item.ticketCount = countDecrement;
+        setCount(countDecrement);
+      }
     });
+
+    summaryappend(
+      countDecrement * element.price.slice(0, 1) === "$"
+        ? element.price.slice(1)
+        : element.price
+    );
+
     summary.length === 0 ? setEmpty(true) : setEmpty(false);
   };
 

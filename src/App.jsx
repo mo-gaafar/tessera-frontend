@@ -4,23 +4,21 @@
  * @exports App
  */
 
-import SignupTwo from "./pages/SignUp/SignupTwo";
-import SignUpOne from "./pages/SignUp/SignupOne";
-
-import GlobalStyles from "./components/styles/Global";
-import Landing from "./pages/LandingPage/Landing";
-import Organize from "./pages/Organize/Organize";
-import { Route, Routes } from "react-router-dom";
-
-
+import SignupTwo from './pages/SignUp/SignupTwo';
+import SignUpOne from './pages/SignUp/SignupOne';
+import GlobalStyles from './components/styles/Global';
+import Landing from './pages/LandingPage/Landing';
+import Organize from './pages/Organize/Organize';
+import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Reset from './pages/ResetPassword/Reset';
 import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
 import Events from './pages/EventPage/EventPage';
-import BasicInfo from './pages/BasicInfo/BasicInfo';
-import Details from "./pages/BasicInfo/BasicInfoSecondPage";
+import Dashboard from './pages/Dashboard/Dashboard';
+import AddAttendee from './pages/AddAttendees/addAttendees';
+import PublishPage from "./pages/PublishPage";
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -30,13 +28,13 @@ import Details from "./pages/BasicInfo/BasicInfoSecondPage";
  */
 
 function App() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   return (
     <>
       <GlobalStyles />
       <Routes>
-        {/* <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
         <Route path="login" element={<Maincontainer />} />
@@ -44,11 +42,12 @@ function App() {
         <Route path="forgetPassword" element={<Reset />} />
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
-        <Route path="/:eventID" element={<Events />} /> */}
-        <Route path="/" element={<BasicInfo />} />
-        {/* <Route path="/" element={<Details />} /> */}
+        <Route path="/event/:eventID" element={<Events />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="manage" element={<AddAttendee />} />
+        <Route path="publish" element={<PublishPage />} />
+        
       </Routes>
-      {/* <BookingPopUp /> */}
     </>
   );
 }
