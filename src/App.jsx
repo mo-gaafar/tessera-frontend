@@ -4,6 +4,7 @@
  * @exports App
  */
 
+
 import SignupTwo from './pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
 import GlobalStyles from './components/styles/Global';
@@ -22,6 +23,8 @@ import PublishPage from './pages/Publish/PublishPage';
 import AttendeeSummary from './pages/Dashboard/AttendeeSummary';
 import BasicInfo from './pages/BasicInfo/BasicInfo';
 import Details from './pages/BasicInfo/BasicInfoSecondPage';
+import CreateTickets from "./Pages/Tickets/Tickets";
+
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -37,6 +40,7 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
+        <Route path="/ticket" element={<CreateTickets />} />
         <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
@@ -49,7 +53,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/attendeeSummary" element={<AttendeeSummary />} />
         <Route path="/manage" element={<AddAttendee />} />
-        {/* <Route path="/basicInfo" element={<BasicInfo />} /> */}
+        <Route path="/basicInfo" element={<BasicInfo />} /> 
         <Route path="/details" element={<Details />} />
         <Route path="/publish" element={<PublishPage />} />
       </Routes>
