@@ -765,6 +765,33 @@ inputtagsdata{
     min-height: 22px;
   }
 }
+.selecttime{
+  margin-top:0px;
+  padding: 18px 12px 6px;
+  color: #39364f;
+  white-space: nowrap;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+  background-color: white;
+  border: none;
+  webkit-appearance: menulist-button;
+  webkit-box-flex: 1;
+  minWidth: 0;
+  appearance: none;
+  paddingLeft: 15px;
+}
+.selecttime::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  border-top: 6px solid #666;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
 .dropdownselect:focus{
   border-color: red!important;
 }
@@ -785,7 +812,6 @@ inputtagsdata{
   @media(max-width:660px){
     display: none;
   }
-  
   position: fixed;
   transform: translateY(0);
   background-color: #fff;
@@ -982,6 +1008,18 @@ vertical-align: top;
   width: 100%;
   box-sizing: border-box;
 }
+.placeholder3{
+  padding: 2px 12px 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  z-index:2;
+  top: -10;
+  left:-5;
+  height:70px;
+}
 .spantext2{
   display: block;
   overflow: hidden;
@@ -1074,7 +1112,7 @@ vertical-align: top;
 }
 .custom-datepicker {
   border: none;
-  // margin-top: -22px;
+  //margin-left: -40px;
   height: 4.6rem;
   overflow: hidden;
   padding-right: 8px;
@@ -1085,6 +1123,8 @@ vertical-align: top;
   display: inline-block;
   vertical-align: top;
   width: 100%;
+  color: white;
+  background: transparent;
   @media (min-width: 480px){
     max-width: 32rem;
 }
@@ -1099,6 +1139,7 @@ vertical-align: top;
   z-index: 0;
   margin-left: 20px;
   overflow: hidden;
+  
 }
 .react-datepicker__day--selected {
   border: 1px solid blue;
@@ -1241,5 +1282,32 @@ vertical-align: top;
   @media (min-width: 1152px){
     padding: 0 48px;
 }
+}
+.counterror{
+  display: flex;
+  webkit-box-pack: justify;
+  justify-content: space-between;
+}
+.letterlimit{
+  webkit-box-flex:1;
+  flex: 1 1 auto;
+  text-align: right;
+}
+.categorybox{
+  width: 100%;
+  position: relative;
+  height: 46px;
+}
+.legend{
+  font-size: 18px;
+  color:#39364f;
+  font-weight: 600;
+  margin-right: -0.25px;
+}
+.addressbox{
+  margin-bottom: 8px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 `
