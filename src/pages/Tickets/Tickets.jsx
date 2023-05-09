@@ -131,7 +131,7 @@ export default function CreateTickets() {
         )}
       </StyledNav>
       <div style={{ display: 'flex' }}>
-        <Sidebar event={false} dashboard={true} />
+        <Sidebar event={false} />
         <MainTicketsDiv>
           {replaceContentAfterSave && (
             <TicketCreatedDiv>
