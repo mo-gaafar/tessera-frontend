@@ -245,6 +245,64 @@ eventtitleinputdiv{
   cursor: pointer;
   font-weight: 400;
 }
+.summaryboxflex{
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  position: relative;
+  background: #fff;
+  border-radius: 1px;
+  border: 1px solid #fff;
+}
+.summaryboxflex2{
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  position: relative;
+  -webkit-box-flex: 1;
+  flex: 1;
+  min-width: 0;
+  ::before{
+    background: #fff;
+    content: "";
+    height: 22px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-box-direction: normal;
+  }
+}
+.summaryplaceholder{
+  padding: 2px 12px 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+}
+.summarylabel{
+  color: #6f7287;
+  font-size: 12px;
+  line-height: 22px;
+  display: flex;
+  position: relative;
+  transition: all .16s cubic-bezier(.4,0,.3,1);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.summaryspan{
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  font-weight: 400;
+  color: #6f7287;
+  font-size: 12px;
+  line-height: 22px;
+}
 .starspan{
   @media (min-width: 960px){}
     font-size: .75rem;
@@ -300,7 +358,7 @@ eventtitleinputdiv{
 .typeborder{
   border-radius: 2px;
   //background: #dbdae3;
-  border: 2px solid #dbdae3;
+  border: 1px solid #dbdae3;
   padding: 1px;
   position: relative;
   transition: background .24s cubic-bezier(.4,0,.3,1);
@@ -320,12 +378,15 @@ eventtitleinputdiv{
     background-color: red;
   }
 }
+.gray-border{
+  border: 1px solid #5a595d6f;
+}
 .blue-border:focus {
-  border-color: blue;
+  border: 1px solid blue;
 }
 
 .red-border {
-  border-color: red;
+  border: 1px solid red;
 }
 .red-text {
   color: red;
@@ -381,6 +442,9 @@ eventtitleinputdiv{
   }
   :active{
     background-color: #f3eeee;
+  }
+  @media(max-width: 660px){
+    width:96%;
   }
 }
 .aside{
@@ -562,7 +626,6 @@ eventtitleinputdiv{
 .inputdata{
   width: 100%;
   height: 47px;
-  border: 1px solid ${({ invalid }) => invalid ? 'red' : '#5a595d6f'};
   margin-top: 1rem;
   transition-duration: 0.5s;
   display: block;
@@ -668,6 +731,7 @@ inputtagsdata{
   padding: 12px 12px 0px 14px;
 }
 .dropdowntitlespan{
+  color: #39364f;
   -webkit-box-flex: 1;
   flex-grow: 1;
   text-overflow: ellipsis;
@@ -676,7 +740,6 @@ inputtagsdata{
  
 }
 .dropdownarrowspan{
-  margin-top: 0;
   fill: #4b4d63;
   -webkit-box-align: center;
   align-items: center;
@@ -686,25 +749,24 @@ inputtagsdata{
 .dropdownselect{
   line-height: 22px;
   padding: 12px 14px;
-  background: none;
-  border: none;
   color: #39364f;
   white-space: nowrap;
-  outline: none;
-  transition: padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1);
+  //transition: padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1);
   width: 100%;
   height: 100%;
   cursor: pointer;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
+  position: absolute; 
+  background-color: white;
+  border: none;
   -webkit-appearance: menulist-button;
   overflow: visible;
   @media (min-width: 660px){
     font-size: 14px;
     min-height: 22px;
   }
+}
+.dropdownselect:focus{
+  border-color: red!important;
 }
 .dropdownoption{
   font-weight: normal;
@@ -720,6 +782,10 @@ inputtagsdata{
   padding-top: 4px;
 }
 .fixeddiv{
+  @media(max-width:660px){
+    display: none;
+  }
+  
   position: fixed;
   transform: translateY(0);
   background-color: #fff;
@@ -897,6 +963,9 @@ color: #4b4d63;
     width: 50%;
     max-width: 32rem;
 }
+@media(max-width:480px){
+  display:block;
+}
 font-size: 14px;
 line-height: 22px;
 font-weight: 400;
@@ -931,13 +1000,13 @@ vertical-align: top;
   line-height: 22px;
   font-weight: 400;
   box-sizing: border-box;
-  display: inline-block;
   vertical-align: top;
   width: 100%;
   @media (min-width: 480px){
     width: 50%;
     max-width: 32rem;
-}
+    display: inline-block;
+  } 
 }
 .boxesborders{
   border-radius: 2px;
@@ -1005,8 +1074,9 @@ vertical-align: top;
 }
 .custom-datepicker {
   border: none;
+  // margin-top: -22px;
   height: 4.6rem;
-  overflow: visible;
+  overflow: hidden;
   padding-right: 8px;
   font-size: 14px;
   line-height: 22px;
@@ -1026,8 +1096,9 @@ vertical-align: top;
   padding: 16px;
   width: 33.9rem;
   height: 31rem;
-  z-index: 999;
+  z-index: 0;
   margin-left: 20px;
+  overflow: hidden;
 }
 .react-datepicker__day--selected {
   border: 1px solid blue;
@@ -1045,7 +1116,7 @@ vertical-align: top;
   line-height: 25px; /* set the line height to vertically center the day numbers */
   text-align: center; /* center the day numbers horizontally */
   border-radius: 50%;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .react-datepicker__header {
   background-color: #fff; /* set the background color of the header */
@@ -1074,7 +1145,7 @@ vertical-align: top;
   justify-content: space-between;
 }
 .react-datepicker__day {
-  margin-left: 20px;
+  margin-left: 25px;
   height: 25px; /* set the height of each day cell */
   width: 25px;
   font-size: 14px; /* set the font size of the day numbers */
@@ -1098,5 +1169,77 @@ vertical-align: top;
 }
 .past-date{
   color: #ccc;
+}
+.date-select-wrapper label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: #fff;
+  padding: 0 4px;
+  margin-top: -20px;
+}
+.dropdownprofile{
+  position: absolute;
+  top: 4.5rem;
+  right: 1.5rem;
+  width: 120px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: white;
+  border: 1px solid gray;
+}
+.dropdownprofile::before{
+  content: '';
+  position: absolute;
+  top: -0.7rem;
+  right: 1.1rem;
+  width: 20px;
+  height: 20px;
+  transform:rotate(45deg);
+  background-color: white;
+  border-left: 1px solid gray;
+  border-top: 1px solid gray;
+}
+.dropdown{
+  cursor: pointer;
+  background-color: gray;
+}
+.fixeddiv1{
+  @media(min-width:660px){
+    display: none;
+  }
+  
+  position: fixed;
+  transform: translateY(0);
+  background-color: #fff;
+  border-top: 1px solid #eeedf2;
+  bottom: 0;
+  left: 0;
+  min-height: 64px;
+  overflow: hidden;
+  transition: transform .32s cubic-bezier(.4,0,.3,1),-webkit-transform .32s cubic-bezier(.4,0,.3,1);
+  width: 100%;
+  will-change: transform;
+}
+.fixedinnerdiv1{
+  @media (min-width: 792px){
+    margin-left: 30%;
+  }
+  max-width: 960px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin-right: auto;
+}
+.fixedbuttondiv1{
+  text-align: right;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  @media (min-width: 1152px){
+    padding: 0 48px;
+}
 }
 `
