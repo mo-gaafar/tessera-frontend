@@ -1051,6 +1051,26 @@ vertical-align: top;
     display: inline-block;
   } 
 }
+.calendarboxes{
+  overflow: visible;
+  padding-right: 8px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  box-sizing: border-box;
+  vertical-align: top;
+  width: 100%;
+  border-radius: 2px;
+  background: #dbdae3;
+  padding: 1px;
+  position: relative;
+  transition: background .24s cubic-bezier(.4,0,.3,1);
+  @media (min-width: 480px){
+    width: 50%;
+    max-width: 32rem;
+    display: inline-block;
+  } 
+}
 .boxesborders{
   border-radius: 2px;
   background: #dbdae3;
@@ -1090,7 +1110,6 @@ vertical-align: top;
   color: #39364f;
   white-space: nowrap;
   outline: none;
-  transition: padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1);
   -webkit-box-flex: 1;
   flex: 1;
   min-width: 0;
@@ -1116,23 +1135,32 @@ vertical-align: top;
   white-space: nowrap;
 }
 .custom-datepicker {
-  border: none;
-  //margin-left: -40px;
   height: 4.6rem;
   overflow: hidden;
-  padding-right: 8px;
   font-size: 14px;
   line-height: 22px;
   font-weight: 400;
   box-sizing: border-box;
-  display: inline-block;
   vertical-align: top;
+  color: black;
+  border-radius: 2px;
+  padding: 1px;
+  padding-left: 10px;
+  padding-top: 16px;
+  position: relative;
+  border: 1px solid #DBDAE3;
   width: 100%;
-  color: white;
-  background: transparent;
-  @media (min-width: 480px){
-    max-width: 32rem;
 }
+.datepicker-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(10px, 50%);
+  background: none;
+  margin-top: -10px;
+  z-index: 3;
+  font-size: 13px;
+  color: #6f7287;
 }
 .custom-calendar {
   background-color: #fff;
@@ -1223,7 +1251,7 @@ vertical-align: top;
   z-index: 999;
   background-color: #fff;
   padding: 0 4px;
-  margin-top: -20px;
+  margin-top: -20px;  
 }
 .dropdownprofile{
   position: absolute;
