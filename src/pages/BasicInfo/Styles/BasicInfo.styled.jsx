@@ -7,9 +7,10 @@ export const WholePage = styled.div`
     margin-top: 20px;
     padding-top: 20px;
     padding-bottom: 48px;
-    margin-left: auto;
+    margin-left: 20rem;
     margin-right: auto;
     max-width: 960px;
+    display: flex;
     @media (max-width: 792px){
       max-width: 655px;
     }
@@ -1310,4 +1311,4 @@ vertical-align: top;
   margin-left: auto;
   margin-right: auto;
 }
-`
+`;

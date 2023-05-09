@@ -19,7 +19,7 @@ const Dashboard = () => {
         )}
       </StyledNav>
       <div style={{ display: 'flex' }}>
-        <Sidebar event={true} dashboard={true} />
+        <Sidebar event={false} dashboard={true} />
         <StyledDashboard>
           <h1>Dashboard</h1>
           <div className="cards">
