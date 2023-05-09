@@ -20,7 +20,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import AddAttendee from './pages/AddAttendees/addAttendees';
 import PublishPage from './pages/PublishPage';
 import AttendeeSummary from './pages/Dashboard/AttendeeSummary';
-
+import BasicInfo from './pages/BasicInfo/BasicInfo';
+import Details from './pages/BasicInfo/BasicInfoSecondPage';
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
  * Function component that renders the main application
@@ -46,8 +47,10 @@ function App() {
         <Route path="/event/:eventID" element={<Events />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/attendeeSummary" element={<AttendeeSummary />} />
-        <Route path="manage" element={<AddAttendee />} />
-        <Route path="publish" element={<PublishPage />} />
+        <Route path="/manage" element={<AddAttendee />} />{' '}
+        <Route path="/basicInfo" element={<BasicInfo />} />
+        <Route path="/details" element={<Details />} />
+        <Route path="/publish" element={<PublishPage />} />
       </Routes>
     </>
   );
