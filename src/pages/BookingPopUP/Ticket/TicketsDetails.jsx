@@ -54,7 +54,8 @@ import TierBox from './TierBox';
  *
  *
  */
-export default function Reservation(props,{
+export default function Reservation({
+  number,
   setShowCheckout,
   showCheckout,
   changePromo,
@@ -249,7 +250,7 @@ export default function Reservation(props,{
             {ticketsTierdetails.map((element, index) => {
               return (
                 <TierBox
-                  number={props.number}
+                  number={number}
                   key={index}
                   element={element}
                   index={index}

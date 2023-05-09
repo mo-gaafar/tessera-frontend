@@ -155,6 +155,8 @@ export default function Landing() {
     //handleClick()
   }
 
+<<<<<<< HEAD
+=======
   function onClickCategory(e) {
     const { name, value } = e.target;
     console.log('name');
@@ -166,6 +168,7 @@ export default function Landing() {
     setUrl(queryName);
     //handleClick()
   }
+>>>>>>> 40a9deed204daa9c778dbf7fab3e3d4b040c2016
   function showDropdown() {
     if (!select) {
       setShowMenu(true);
