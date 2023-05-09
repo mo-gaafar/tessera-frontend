@@ -155,6 +155,20 @@ export default function Landing() {
     //handleClick()
   }
 
+<<<<<<< HEAD
+=======
+  function onClickCategory(e) {
+    const { name, value } = e.target;
+    console.log('name');
+    console.log(name);
+    setShowCategoryMenu(false);
+    setSelectCategory(name);
+    let new_name = name.replace(/&/g, '%26');
+    let queryName = 'category=' + new_name;
+    setUrl(queryName);
+    //handleClick()
+  }
+>>>>>>> 40a9deed204daa9c778dbf7fab3e3d4b040c2016
   function showDropdown() {
     if (!select) {
       setShowMenu(true);
@@ -450,7 +464,7 @@ export default function Landing() {
 
     !h3 && setShowLocationMenu(false);
   };
-  console.log(allFilteredEvents)
+  console.log(allFilteredEvents);
   return (
     <>
       <StyledNav>
