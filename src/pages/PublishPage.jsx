@@ -44,6 +44,40 @@ const StyleDiv = styled.div`
     letter-spacing: .5px;
     margin-right: -0.5px;
 }
+
+.date, .time{
+   display: flex;
+   border: 1px solid #ccc;
+   background: #f8f7fa;
+   font-size: 14px;
+   line-height: 22px;
+   font-weight: 400;
+   border-radius: 2px;
+   padding: 1px;
+   width: 50%;
+   align-items: center;
+   color: #333;
+   /* text-align: center; */
+   input{
+      border: none;
+      background: #f8f7fa;
+   }
+   svg{
+      margin-left: 10px;
+      margin-right: 10px;
+   }
+   p{
+      font-size: 12px;
+      line-height: 22px;
+   }
+
+   &.disabled{
+      background: #f8f7fa;
+      color: #333;
+      border: 1px solid #ccc;
+      cursor: not-allowed;
+   }
+}
 .previewBox{
    border: 1px solid #eeedf2;
    margin-top: 24px;
@@ -154,42 +188,10 @@ const StyleDiv = styled.div`
       width: 100%;
  }
 
- .date, .time{
-   display: flex;
-   border: 1px solid #ccc;
-   background: #f8f7fa;
-   font-size: 14px;
-   line-height: 22px;
-   font-weight: 400;
-   border-radius: 2px;
-   padding: 1px;
-   width: 50%;
-   align-items: center;
-   color: #333;
-   /* text-align: center; */
-   input{
-      border: none;
-      background: #f8f7fa;
-   }
-   svg{
-      margin-left: 10px;
-      margin-right: 10px;
-   }
-   p{
-      font-size: 12px;
-      line-height: 22px;
-   }
-
-   &.disabled{
-      background: #f8f7fa;
-      color: #333;
-      border: 1px solid #ccc;
-      cursor: not-allowed;
-   }
-
+ 
    
    
-}
+
 
 
 
@@ -384,6 +386,10 @@ const StyleDiv = styled.div`
    left: 0;
  }
 
+
+ 
+
+
 `;
 
 const InputGroup = styled.div`
@@ -432,12 +438,14 @@ const InputGroup = styled.div`
     min-height: 22px;
   }
 
-  .startTime label{
+  .startTime input{
       border: none;
       background: #f8f7fa;
 
   }
 `;
+
+
 
 const FormInput = styled.input`
   width: 100%;
@@ -475,11 +483,16 @@ const SelectBox = styled.select`
   /* set active state */
 `;
 
+
+
+ 
+
 function PublishPage(props) {
   // const event = props.event;
   const event = '643aa09ecbfea68c24d93670';
   const url = "https://www.tessera.social/api/event-management/publish/"
   const [eventType, setEventType] = useState('public');
+  const [privateType, setPrivateType] = useState('private');
   const [audienceType, setAudienceType] = useState('anyone');
   const [publishType, setPublishType] = useState('now');
   const [publishDate, setPublishDate] = useState(new Date());
@@ -488,17 +501,21 @@ function PublishPage(props) {
   const [selectedTime, setSelectedTime] = useState('');
   const handleTimeChange = (event) => {
    setSelectedTime(event.target.value);
- };
+
+
+   
+
+  };
 
    async function publishData()
    {
       const data = {   
          "isPublic": (eventType === 'public') ? true : false,
-         "publishNow": (publishType === 'now') ? true : false,
+         "publishNow": (publishType === 'private') ? true : false,
          "publicDate": publishDate,
          "link": (audienceType === 'anyone') ? true : false,
          "password": (audienceType === 'password') ? true : false,
-         "alwaysPrivate":(eventType === 'public') ? true : false,
+         "alwaysPrivate":(privateType === 'public') ? true : false,
          "privateToPublicDate":publishDate   
       }
       const res = await axios.put(url+event, data, {
@@ -580,6 +597,7 @@ function PublishPage(props) {
                                  id="password"
                                  placeholder='Password'
                                  onChange={e => setPassword(e.target.value)}
+                           
                               />
                            </InputGroup>
                            <p>0/50</p>
@@ -602,7 +620,7 @@ function PublishPage(props) {
                         <div className="publishDate">
                            <div className={(publishType === "now" ? "date disabled" : "date")}>
                               <svg id="calendar-chunky_svg__eds-icon--calendar-chunky_svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve"><path id="calendar-chunky_svg__eds-icon--calendar-chunky_base" d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path></svg>
-                              <div className="dateContainer">
+                              <div className="startDate">
                                  <p>Start Date</p>
                                  <DatePicker selected={publishDate} disabled={(publishType === "now" ? "disabled" : "")} onChange={(date) => setPublishDate(date)} />
                               </div>
@@ -613,7 +631,16 @@ function PublishPage(props) {
                                  <p>Start Time</p>
                               <label>
                            <select value={selectedTime} onChange={handleTimeChange}>
-                              <option value="">{selectedTime}</option>
+                           <option value="">{"12:00 AM"}</option>
+                              <option value="12:00 AM">12:00 AM</option>
+                              <option value="1:00 AM">1:00 AM</option>
+                              <option value="2:00 AM">2:00 AM</option>
+                              <option value="3:00 AM">3:00 AM</option>
+                              <option value="4:00 AM">4:00 AM</option>
+                              <option value="5:00 AM">5:00 AM</option>
+                              <option value="6:00 AM">6:00 AM</option>
+                              <option value="7:00 AM">7:00 AM</option>
+                              <option value="8:00 AM">8:00 AM</option>
                               <option value="9:00 AM">9:00 AM</option>
                               <option value="10:00 AM">10:00 AM</option>
                               <option value="11:00 AM">11:00 AM</option>
@@ -624,6 +651,11 @@ function PublishPage(props) {
                               <option value="4:00 PM">4:00 PM</option>
                               <option value="5:00 PM">5:00 PM</option>
                               <option value="6:00 PM">6:00 PM</option>
+                              <option value="7:00 PM">7:00 PM</option>
+                              <option value="8:00 PM">8:00 PM</option>
+                              <option value="9:00 PM">9:00 PM</option>
+                              <option value="10:00 PM">10:00 PM</option>
+                              <option value="11:00 PM">11:00 PM</option>
                            </select>
                            </label>
                               </div>
@@ -636,29 +668,40 @@ function PublishPage(props) {
                      <h2>Will this event ever be public?</h2>
                         <div className="PublishTimeRadio">
                            <div>
-                              <input type="radio" id="keepprivate" name="keepprivate" value="private"/>
+                              <input type="radio" id="keepprivate" name="keepprivate" value="private" onChange={(e) => {setPrivateType(e.target.value);}}/>
                               <label for="keepprivate">No, keep it private</label>
                            </div>
                            <div>
-                              <input type="radio" id="changepublic" name="keepprivate" value="public"/>
+                              <input type="radio" id="changepublic" name="keepprivate" value="public" onChange={(e) => {setPrivateType(e.target.value);}}/>
                               <label for="changepublic">Yes, schedule to share publicly</label>
                            </div>
                         </div>
                         <div className="dateAndZone">
                            <div className="publishDate">
-                              <div className="date">
+                              
+                              <div className={(privateType === "private" ? "date disabled" : "date")}>
                                  <svg id="calendar-chunky_svg__eds-icon--calendar-chunky_svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve"><path id="calendar-chunky_svg__eds-icon--calendar-chunky_base" d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path></svg>
                                  <div className="startDate">
                                     <p>Start Date</p>
-                                    <DatePicker selected={publishDate} disabled={(publishType === "now" ? "disabled" : "")} onChange={(date) => setPublishDate(date)} />
+                                    <DatePicker selected={publishDate} disabled={(privateType === "private" ? "disabled" : "")} onChange={(date) => setPublishDate(date)} />
                                  </div>
                               </div>
+                              
                               <div className="time">
                               <div className="startTime">
                                  <p>Start Time</p>
                               <label>
                            <select value={selectedTime} onChange={handleTimeChange}>
-                              <option value="">{selectedTime}</option>
+                              <option value="">{"12:00 AM"}</option>
+                              <option value="12:00 AM">12:00 AM</option>
+                              <option value="1:00 AM">1:00 AM</option>
+                              <option value="2:00 AM">2:00 AM</option>
+                              <option value="3:00 AM">3:00 AM</option>
+                              <option value="4:00 AM">4:00 AM</option>
+                              <option value="5:00 AM">5:00 AM</option>
+                              <option value="6:00 AM">6:00 AM</option>
+                              <option value="7:00 AM">7:00 AM</option>
+                              <option value="8:00 AM">8:00 AM</option>
                               <option value="9:00 AM">9:00 AM</option>
                               <option value="10:00 AM">10:00 AM</option>
                               <option value="11:00 AM">11:00 AM</option>
@@ -669,6 +712,11 @@ function PublishPage(props) {
                               <option value="4:00 PM">4:00 PM</option>
                               <option value="5:00 PM">5:00 PM</option>
                               <option value="6:00 PM">6:00 PM</option>
+                              <option value="7:00 PM">7:00 PM</option>
+                              <option value="8:00 PM">8:00 PM</option>
+                              <option value="9:00 PM">9:00 PM</option>
+                              <option value="10:00 PM">10:00 PM</option>
+                              <option value="11:00 PM">11:00 PM</option>
                            </select>
                            </label>
                               </div>
