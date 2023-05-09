@@ -38,7 +38,6 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
-        <Route path="/ticket" element={<CreateTickets />} />
         <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
@@ -52,10 +51,9 @@ function App() {
         <Route path="/attendeeSummary" element={<AttendeeSummary />} />
         <Route path="/manage" element={<AddAttendee />} />
         <Route path="/basicInfo" element={<BasicInfo />} />
-        <Route path="/basicInfo" element={<BasicInfo />} />
         <Route path="/details" element={<Details />} />
-        <Route path="/publish" element={<PublishPage />} />
-        <Route path="/ticket" element={<PublishPage />} />
+        <Route path="/publish" element={<PublishPage />} />{' '}
+        <Route path="/ticket" element={<CreateTickets />} />
       </Routes>
     </>
   );
