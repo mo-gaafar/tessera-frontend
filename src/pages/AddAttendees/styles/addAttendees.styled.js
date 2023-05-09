@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   /* width: 100vw; */
@@ -134,34 +134,39 @@ export const Tickets = styled.table`
     margin-top: 20px;
 
     .text {
+      margin-top: 60px;
+
       position: absolute;
-      right: 50rem;
+      left: 71%;
       display: inline-block;
       padding-top: 7px;
       padding-right: 10px;
+      font-weight: 600;
     }
     .TotalValue {
       position: absolute;
-      right: 25rem;
+      left: 71%;
       width: 250px;
+      background-color: yellow;
     }
   }
 `;
 export const Continue = styled.div`
   height: 40px;
-  background-color: magenta;
-  position: absolute;
-  right: 100px;
+  width: 65vw;
+  margin-left: 5%;
 
+  margin-top: 60px;
   .button {
     position: absolute;
-    right: 0px;
+
     width: 150px;
     height: 50px;
+    margin-top: 20px;
     background-color: rgb(221, 73, 28);
     font-size: 19px;
-    font-family: 'Neue Plak', -apple-system, BlinkMacSystemFont, Roboto,
-      'Helvetica Neue', Helvetica, Tahoma, Arial, sans-serif;
+    font-family: "Neue Plak", -apple-system, BlinkMacSystemFont, Roboto,
+      "Helvetica Neue", Helvetica, Tahoma, Arial, sans-serif;
     line-height: 24px;
     letter-spacing: 0.2px;
     font-weight: 600;
@@ -180,6 +185,7 @@ export const LearnMore = styled.div`
   background-color: #f8f7fa;
   width: 300px;
   border-radius: 10px;
+  margin-right: 20px;
 
   a {
     color: blue;

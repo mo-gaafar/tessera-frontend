@@ -19,11 +19,39 @@ import { TextField } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Continue } from "./styles/addAttendees.styled";
 import Button from "@mui/material/Button";
+import TicketInfo from "./ticketInfo";
 
-export default function AttendeeInfo() {
-  const [remainingTime, setRemainingTime] = useState(1 * 60);
+export default function AttendeeInfo({ ticketSelected, total }) {
+  const [remainingTime, setRemainingTime] = useState(40 * 60);
   const [timeLeft, setTimeLeft] = useState("");
   const [timeOut, setTimeOut] = useState(false);
+  const [showInfo, setShowInfo] = useState(ticketSelected);
+  const [allTickets, setAllTickets] = useState([]);
+  const [ticketInfoError, setticketInfoError] = useState([]);
+
+  useEffect(() => {
+    const newTickets = [];
+    const newTicketsErrors = [];
+    for (let i = 0; i < ticketSelected.length; i++) {
+      for (let j = 0; j < ticketSelected[i].quantity; j++) {
+        newTickets.push({
+          fName: "",
+          lName: "",
+          email: "",
+          id: i,
+        });
+        newTicketsErrors.push({
+          fName: false,
+          lName: false,
+          email: false,
+        });
+      }
+    }
+
+    setAllTickets(newTickets);
+    setticketInfoError(newTicketsErrors);
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setRemainingTime((prevTime) => prevTime - 1);
@@ -67,18 +95,7 @@ export default function AttendeeInfo() {
       email: "",
     },
   ]);
-  const [ticketInfoError, setticketInfoError] = useState([
-    {
-      fName: false,
-      lName: false,
-      email: false,
-    },
-    {
-      fName: false,
-      lName: false,
-      email: false,
-    },
-  ]);
+
   const [checked, setChecked] = useState(false);
 
   function handleTicketInfo(event, index, key) {
@@ -293,97 +310,21 @@ export default function AttendeeInfo() {
                     communications
                   </p>
                 </div>
-                <div className="ticketinfo">
-                  <h2>Ticket Information</h2>
-                  <div className="TextCont">
-                    <div className="Names">
-                      <TextField
-                        id="1297533"
-                        className="firstName"
-                        required
-                        label="First Name"
-                        variant="filled"
-                        InputLabelProps={{
-                          style: {
-                            fontSize: 20,
-                          },
-                        }}
-                        inputProps={{
-                          style: {
-                            fontSize: 20,
-                          },
-                        }}
-                        value={ticketInfo[0].fName}
-                        onChange={(event) =>
-                          handleTicketInfo(event, 0, "fName")
-                        }
-                        error={ticketInfoError[0].fName}
-                        helperText={
-                          ticketInfoError[0].fName
-                            ? "Please enter valid name"
-                            : null
-                        }
-                      ></TextField>
-                      <TextField
-                        id="12934552"
-                        className="lastName"
-                        required
-                        label="Last Name"
-                        variant="filled"
-                        InputLabelProps={{
-                          style: {
-                            fontSize: 20,
-                          },
-                        }}
-                        inputProps={{
-                          style: {
-                            fontSize: 20,
-                          },
-                        }}
-                        value={ticketInfo[0].lName}
-                        onChange={(event) =>
-                          handleTicketInfo(event, 0, "lName")
-                        }
-                        error={ticketInfoError[0].lName}
-                        helperText={
-                          ticketInfoError[0].lName
-                            ? "Please enter valid name"
-                            : null
-                        }
-                      />
-                    </div>
-                    <div className="Email">
-                      <TextField
-                        id="12973459"
-                        className="Ename"
-                        required
-                        type="email"
-                        label="Email Address"
-                        variant="filled"
-                        InputLabelProps={{
-                          style: {
-                            fontSize: 20,
-                          },
-                        }}
-                        inputProps={{
-                          style: {
-                            fontSize: 20,
-                          },
-                        }}
-                        value={ticketInfo[0].email}
-                        onChange={(event) =>
-                          handleTicketInfo(event, 0, "email")
-                        }
-                        error={ticketInfoError[0].email}
-                        helperText={
-                          ticketInfoError[0].email
-                            ? "Please enter valid name"
-                            : null
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
+
+                {allTickets.map((ticketInfo, index) => {
+                  return (
+                    <TicketInfo
+                      ticketTier={showInfo[ticketInfo.id]}
+                      index={index}
+                      ticketInfo={allTickets}
+                      setticketInfo={setticketInfo}
+                      ticketsLength={allTickets.length}
+                      ticketInfoError={ticketInfoError}
+                      setTicketInfoError={setticketInfoError}
+                    />
+                  );
+                })}
+
                 <p className="powered">Powered by TESSERA</p>
               </Info>
               <PlaceOrder id="12975eee32">
@@ -409,13 +350,21 @@ export default function AttendeeInfo() {
               <OrderTitle id="1297532asdee72">
                 <h2>Order Summary</h2>
               </OrderTitle>
-              <OrderItem>
-                <div className="name">eneral Admision</div>
-                <div className="Price">1</div>
-              </OrderItem>
+              {showInfo.map((ticketTier, indexTier) => {
+                return (
+                  <OrderItem>
+                    <div className="name">
+                      {ticketTier.quantity}x{ticketTier.tierName}
+                    </div>
+                    <div className="Price">
+                      ${ticketTier.price * ticketTier.quantity}
+                    </div>
+                  </OrderItem>
+                );
+              })}
               <OrderItem id="129753llskf272">
                 <div className="name">Total</div>
-                <div className="Price">1</div>
+                <div className="Price">${total}</div>
               </OrderItem>
             </Information>
           </>
