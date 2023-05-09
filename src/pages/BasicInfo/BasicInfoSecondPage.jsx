@@ -3,10 +3,28 @@
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { WholePage } from './Styles/BasicInfoSecondPage.styled';
-export default function Details(){
+export default function Details({ onPhotoSelected }){
   const [value, setValue] = React.useState("");
   const [focused,setFocused] = React.useState(false)
   const [inputError, setInputError] = useState('');
+  const [photo, setPhoto] = useState(null);
+  const inputRef = useRef(null);
+
+  const handleButtonClick = (e) => {
+    inputRef.current.click();
+    e.preventDefault();
+  };
+  const handlePhotoChange = (event) => {
+    const selectedPhoto = event.target.files[0];
+    setPhoto(selectedPhoto);
+    onPhotoSelected(selectedPhoto);
+    event.preventDefault();
+  };
+  const handleDeleteClick = (e) => {
+    setPhoto(null);
+    onPhotoSelected(null);
+    e.preventDefault();
+  };
   const handleChange = (event) => {
     setValue(event.target.value);
     if (event.target.value.trim() === '') {
@@ -112,6 +130,11 @@ export default function Details(){
                           {position: 'relative'}}>
                             <div>
                               <div className='imagediv'>
+                              {photo && (
+                                  <>
+                                    <img src={URL.createObjectURL(photo)} alt="Selected photo" />
+                                  </>
+                                )}
                                 <i className='middleI'>
                                 <svg 
                                   className='largeSvg'
@@ -150,7 +173,8 @@ export default function Details(){
                                 </div>
                                 <div className='picturebuttons'>
                                   <div className='buttonsflex'>
-                                    <button className='buttons'>
+                                    <input type="file" onChange={handlePhotoChange} accept="image/*" ref={inputRef} style={{ display: 'none' }} />
+                                    <button className='buttons' onClick={handleButtonClick}>
                                       <i className='smallI'>
                                         <svg 
                                         className='smallSvg'
@@ -298,6 +322,7 @@ export default function Details(){
                                   </div>
                                 </div>
                               </div>
+                              <button className='deletebutton' style={{border:'none',outline: 'none' , backgroundColor: 'white', color: 'black', width: '40px', height: '20px'}} onClick={handleDeleteClick}>X</button>
                             </div>
                             <label></label>
                         </div>

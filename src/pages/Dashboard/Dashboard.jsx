@@ -3,7 +3,7 @@ import { StyledDashboard } from './styles/Dashboard.styled';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
-
+import { Link } from 'react-router-dom';
 const Dashboard = () => {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
@@ -19,7 +19,7 @@ const Dashboard = () => {
         )}
       </StyledNav>
       <div style={{ display: 'flex' }}>
-        <Sidebar event={true} dashboard={true} />
+        <Sidebar event={false} dashboard={true} />
         <StyledDashboard>
           <h1>Dashboard</h1>
           <div className="cards">
@@ -67,23 +67,48 @@ const Dashboard = () => {
           </div>
           <hr />
           <div className="ticket__types">
-            <h2>Sales by ticket type</h2>
-            <div className="table">
-              <div className="table__header">
-                <span>Ticket Type</span>
-                <span>Price</span>
-                <span>Sold</span>
+            <div className="manage__tickets">
+              <h2>Sales by ticket type</h2>
+              <div className="table">
+                <div className="table__header">
+                  <span>Ticket Type</span>
+                  <div className="">
+                    <span>Price</span>
+                    <span>Sold</span>
+                  </div>
+                </div>
+                <div className="table__row">
+                  <span>General Admission</span>
+                  <div className="">
+                    <span>$20.00</span>
+                    <span>0/20</span>
+                  </div>
+                </div>
+                <div className="table__row">
+                  <span>General Admission</span>
+                  <div className="">
+                    <span>free</span>
+                    <span>2/20</span>
+                  </div>
+                </div>
               </div>
-              <div className="table__row">
-                <span>General Admission</span>
-                <span>$20</span>
-                <span>0/20</span>
-              </div>
-              <div className="table__row">
-                <span>General Admission</span>
-                <span>free</span>
-                <span>2/20</span>
-              </div>
+            </div>
+            <div className="other__action">
+              <h4>Other Attendee Actions</h4>
+              <Link to="/attendeeSummary">
+                <svg
+                  class="line-chart_svg__eds-icon--line-chart__svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    class="line-chart_svg__eds-icon--line-chart__base"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3 21v-5.9l2.8-2.4c.4.3.8.4 1.2.4.6 0 1.1-.3 1.5-.7l2.5 1.3v.4c0 1.1.9 2 2 2s2-.9 2-2c0-.3-.1-.6-.2-.9l3-2.5c.3.2.7.4 1.2.4 1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2c0 .3.1.6.2.9l-3 2.5c-.3-.2-.7-.4-1.2-.4-.6 0-1.1.3-1.5.7L9 11.5v-.4c0-1.1-.9-2-2-2s-2 .9-2 2c0 .3.1.6.2.9L3 13.8V2H2v20h20v-1H3zM19 8.1c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1c0-.5.4-1 1-1zm-6 5c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1c0-.5.4-1 1-1zm-6-3c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1c0-.5.4-1 1-1z"
+                  ></path>
+                </svg>
+                Attendee summary report
+              </Link>
             </div>
           </div>
         </StyledDashboard>

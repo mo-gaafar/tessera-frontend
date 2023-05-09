@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledMainSidebar = styled.div`
-  padding-inline: 1rem;
+  padding-inline: 1.5rem;
   height: calc(100vh - 70px);
   background-color: #f8f7fa;
   display: flex;
@@ -12,9 +12,9 @@ export const StyledMainSidebar = styled.div`
   }
   .active {
     background-color: #3659e3;
-    padding: 0.65rem;
+    padding: 0.5rem;
     border-radius: 8px;
-    margin-left: -0.65rem;
+    /* margin-left: rem; */
   }
 `;
 

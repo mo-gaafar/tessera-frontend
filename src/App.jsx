@@ -18,7 +18,11 @@ import CheckoutForm from './pages/BookingPopUP/CheckoutForm';
 import Events from './pages/EventPage/EventPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import AddAttendee from './pages/AddAttendees/addAttendees';
-import PublishPage from "./pages/PublishPage";
+import PublishPage from './pages/PublishPage';
+import AttendeeSummary from './pages/Dashboard/AttendeeSummary';
+import BasicInfo from './pages/BasicInfo/BasicInfo';
+import Details from './pages/BasicInfo/BasicInfoSecondPage';
+
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
@@ -34,7 +38,7 @@ function App() {
     <>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Landing />} />
+         <Route path="/" element={<Landing />} />
         <Route path="signup" element={<SignUpOne setEmail={setEmail} />} />
         <Route path="Signuptwo" element={<SignupTwo email={email} />} />
         <Route path="login" element={<Maincontainer />} />
@@ -44,9 +48,12 @@ function App() {
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/event/:eventID" element={<Events />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="manage" element={<AddAttendee />} />
-        <Route path="publish" element={<PublishPage />} />
-        
+        <Route path="/attendeeSummary" element={<AttendeeSummary />} />
+        <Route path="/manage" element={<AddAttendee />} />
+        <Route path="/basicInfo" element={<BasicInfo />} />
+        <Route path="/details" element={<Details />} />
+        <Route path="/publish" element={<PublishPage />} />
+
       </Routes>
     </>
   );

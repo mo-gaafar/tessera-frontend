@@ -333,10 +333,14 @@ export const PageContainer = styled.div`
       min-width: 200px;
       transition: 0.3s;
       margin-right: 2rem;
+      display: flex;
+      align-items: center;
       &:hover {
         border: 1px solid #b9b8bd;
       }
       .search-button {
+        width: 4rem;
+        height: 4rem;
         border: none;
         background: none;
         cursor: pointer;
