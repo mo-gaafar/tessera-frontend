@@ -18,7 +18,7 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Reset from "./pages/ResetPassword/Reset";
 import CheckoutForm from "./pages/BookingPopUP/CheckoutForm";
 import Events from "./pages/EventPage/EventPage";
-import CreateTickets from "./Pages/Tickets/AddTickets";
+import CreateTickets from "./Pages/Tickets/Tickets";
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
