@@ -10,11 +10,16 @@ import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
 import PlacesAutocompleteCreators from './PlacesAutocompleteCreators';
 import Details from './BasicInfoSecondPage';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function BasicInfo() {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+    let navigate;
+   
+    navigate = useNavigate();
+    
 
   const [focused, setFocused] = React.useState(false, { flag: false });
   const [inputerror, setInputError] = React.useState('');
@@ -40,6 +45,7 @@ export default function BasicInfo() {
   const [onlineclicked, setOnlineClicked] = useState(false);
   const [laterclicked, setLaterClicked] = useState(false);
   const [secondclicked, setSecondClicked] = useState(false);
+  const [err, setErr] = useState(false);
   const dropdownRef = useRef(null);
   const dropdownsecondRef = useRef(null);
   const venueRef = useRef(null);
@@ -113,15 +119,34 @@ export default function BasicInfo() {
   //   "isOnline": false,
   //   "onlineEventUrl": null
   // );
+  function handleValidation(){
+    if(!value){
+      setInputError('Title is required');
+    }
+    // if(!locationvalue){
+    //   setLocationInputError('Location is required');
+    // }
+    if (!venuevalue){
+      setVenueInputError('Venue name is required');
+    }
+    if(!addressvalue){
+      setAddressInputError('Address 1 is required');
+    }
+    if (!cityvalue){
+      setCityInputError('City is required');
+    }
+    if(!postalcodevalue){
+      setPostalCodeInputError('ZIP code is required');
+    }
+    if (!inputerror && !locationinputerror && !addressinputerror && !postalcodeinputerror &&!cityinputerror){
+      setErr(true)
+    }
+  }
 
-  // function handleValidation(){
-  //   if(no error){
-  //     setResponseBody(
-
-  //     )
-  //   }
-  // }
   function clickNext(){
+    
+    handleValidation();
+    console.log(inputerror)
     if (!inputerror && !locationinputerror && !addressinputerror && !postalcodeinputerror &&!cityinputerror){
       setResponseBody({
       basicInfo: {
@@ -134,7 +159,10 @@ export default function BasicInfo() {
        streetNumber: addressvalue,
        city: cityvalue
      }}})
-     setShowDetails(true);
+     if (err){
+        navigate('/details');
+     }
+    
 
     }
   }
@@ -408,7 +436,7 @@ export default function BasicInfo() {
       <WholePage style={{ display: 'flex' }}>
         <Sidebar className="sidebar" event={false} dashboard={true} />
         
-        {showdetails? <Details responseBody></Details>:
+
          <div className="wholepage">
           <main className="main">
             <section>
@@ -1693,7 +1721,7 @@ export default function BasicInfo() {
               </div>
             </section>
           </main>
-        </div>}
+        </div>
         <div className="fixeddiv">
           <div className="fixedinnerdiv">
             <div className="fixedbuttondiv">

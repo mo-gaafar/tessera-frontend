@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 export const WholePage = styled.div`
-
   @media (max-width: 792px){
       padding: 0 16px;
   }
   .wholepage{
     flex-grow: 1;
     overflow-y: scroll;
-    max-height: 100vh;
 
     margin-top: 20px;
     padding-top: 20px;
