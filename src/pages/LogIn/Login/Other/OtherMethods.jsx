@@ -39,8 +39,7 @@ export default function Other() {
     const responseData = responseBackend.json();
 
     localStorage.setItem('authEmail', email);
-
-    console.log(responseData);
+    localStorage.setItem('token', responseData.token);
 
     navigate('/');
   }
