@@ -19,7 +19,7 @@ import {
   StyledLandingEvents,
 } from './styles/Landing.styled';
 import { StyledEventsContainer } from './styles/Landing.styled';
-import { StyledNav } from './const { name, value } = e.target;styles/Landing.styled';
+import { StyledNav } from './styles/Landing.styled';
 import {
   Link,
   Navigate,
