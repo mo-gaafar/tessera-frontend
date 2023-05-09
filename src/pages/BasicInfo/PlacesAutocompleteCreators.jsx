@@ -5,14 +5,7 @@ import usePlacesAutocomplete, {
 
 import { useState } from 'react';
 import { StyledPlaces } from './Styles/BasicInfo.styled';
-export default function PlacesAutocomplete({
-  setSelected,
-  cityData,
-  setCity,
-  showLocationMenu,
-  setShowLocationMenu,
-  setURL,
-}) {
+export default function PlacesAutocomplete({ setLocationValue }) {
   const {
     ready,
     value,
@@ -20,7 +13,6 @@ export default function PlacesAutocomplete({
     suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete();
-  const [locationvalue, setLocationValue] = useState('');
   const [focused, setFocused] = useState(false);
 
   const [hideDefault, setHideDefault] = useState(false);

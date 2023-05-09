@@ -376,7 +376,7 @@ export default function BasicInfo() {
         )}
       </StyledNav>
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar event={false} dashboard={true} />
+        <Sidebar className="sidebar" event={false} dashboard={true} />
 
         <div className="wholepage">
           <main className="main">
