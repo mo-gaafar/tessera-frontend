@@ -5,8 +5,7 @@ import {
   StyledMainSidebar,
   StyledCreateTicketSidebar,
 } from './styles/Sidebar.styled';
-const Sidebar = ({ hide, event, dashboard }) => {
-  console.log(event);
+const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
   const [hovered, setHovered] = useState(false);
   const [reportHovered, setReportHovered] = useState(false);
 
@@ -79,7 +78,7 @@ const Sidebar = ({ hide, event, dashboard }) => {
             </Link>
           </div>
           <div className="create__event">
-            <Link to="/basicinfo" className="active">
+            <Link to="/basicinfo" className={basicInfo && 'active'}>
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +102,7 @@ const Sidebar = ({ hide, event, dashboard }) => {
               </svg>
               Basic Info
             </Link>
-            <Link to="/details">
+            <Link to="/details" className={details && 'active'}>
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
