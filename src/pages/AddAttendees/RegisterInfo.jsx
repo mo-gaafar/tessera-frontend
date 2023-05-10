@@ -25,10 +25,40 @@ export default function AttendeeInfo({ ticketSelected, total }) {
   const [remainingTime, setRemainingTime] = useState(40 * 60);
   const [timeLeft, setTimeLeft] = useState("");
   const [timeOut, setTimeOut] = useState(false);
+  const [placeOrder, setPlaceOrder] = useState(false);
   const [showInfo, setShowInfo] = useState(ticketSelected);
   const [allTickets, setAllTickets] = useState([]);
   const [ticketInfoError, setticketInfoError] = useState([]);
+  const [checked, setChecked] = useState(false);
+  const [finale, setFinale] = useState({});
+  function checkPlaceOrder(currentValue, index) {
+    console.log(currentValue);
+    console.log(index);
 
+    console.log(ticketInfoError[index]);
+    let error =
+      currentValue.fName === "" ||
+      currentValue.lName === "" ||
+      currentValue.email === "" ||
+      ticketInfoError[index].fName ||
+      ticketInfoError[index].lName ||
+      ticketInfoError[index].email;
+
+    if (
+      currentValue.fName === "" ||
+      currentValue.lName === "" ||
+      currentValue.email === "" ||
+      ticketInfoError[index].fName ||
+      ticketInfoError[index].lName ||
+      ticketInfoError[index].email
+    ) {
+      console.log("ana false ");
+      return false;
+    } else {
+      console.log("ana true ");
+      return true;
+    }
+  }
   useEffect(() => {
     const newTickets = [];
     const newTicketsErrors = [];
@@ -83,68 +113,46 @@ export default function AttendeeInfo({ ticketSelected, total }) {
     lName: false,
     email: false,
   });
-  const [ticketInfo, setticketInfo] = useState([
-    {
-      fName: "",
-      lName: "",
-      email: "",
-    },
-    {
-      fName: "",
-      lName: "",
-      email: "",
-    },
-  ]);
 
-  const [checked, setChecked] = useState(false);
+  useEffect(() => {
+    const newShowInfo = [...showInfo];
+    let index = 0;
+    if (allTickets.length > 0) {
+      for (let i = 0; i < newShowInfo.length; i++) {
+        for (let j = 0; j < newShowInfo[i].quantity; j++) {
+          newShowInfo[i].tickets[j].firstname = allTickets[index].fName;
+          newShowInfo[i].tickets[j].lastname = allTickets[index].lName;
+          newShowInfo[i].tickets[j].email = allTickets[index].email;
 
-  function handleTicketInfo(event, index, key) {
-    const newArray = [...ticketInfo];
-    const errorArray = [...ticketInfoError];
-    if (key === "fName") {
-      newArray[index].fName = event.target.value;
-      setticketInfo(newArray);
-      // check if the input is valid
-      if (!/^[a-zA-Z]*$/.test(event.target.value)) {
-        errorArray[index].fName = true;
-        setticketInfoError(errorArray);
-
-        setticketInfo(newArray);
-      } else {
-        errorArray[index].fName = false;
-        setticketInfoError(errorArray);
-      }
-    } else if (key === "lName") {
-      newArray[index].lName = event.target.value;
-      setticketInfo(newArray);
-      // check if the input is valid
-      if (!/^[a-zA-Z]*$/.test(event.target.value)) {
-        errorArray[index].lName = true;
-        setticketInfoError(errorArray);
-
-        setticketInfo(newArray);
-      } else {
-        errorArray[index].lName = false;
-        setticketInfoError(errorArray);
-      }
-    } else if (key === "email") {
-      newArray[index].email = event.target.value;
-      setticketInfo(newArray);
-      // check if the input is valid
-      if (!/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(event.target.value)) {
-        errorArray[index].email = true;
-        setticketInfoError(errorArray);
-
-        setticketInfo(newArray);
-      }
-      // check if the input is valid
-      else {
-        errorArray[index].email = false;
-        setticketInfoError(errorArray);
+          index++;
+        }
       }
     }
-  }
+    setShowInfo(() => newShowInfo);
+  }, [allTickets]);
+  useEffect(() => {
+    let flag = false;
+    if (
+      contactInfo.fName === "" ||
+      contactInfo.lName === "" ||
+      contactInfo.email === "" ||
+      contactInfoError.fName ||
+      contactInfoError.lName ||
+      contactInfoError.email
+    ) {
+      flag = false;
+    } else {
+      flag = true;
+    }
 
+    console.log(allTickets);
+    allTickets.map((item, index) => {
+      flag = flag && checkPlaceOrder(item, index);
+      console.log("ya flaag");
+      console.log(flag);
+    });
+    setPlaceOrder(flag);
+  }, [allTickets, contactInfo]);
   return (
     <Container id="129753272">
       <Header id="129753274">
@@ -317,7 +325,7 @@ export default function AttendeeInfo({ ticketSelected, total }) {
                       ticketTier={showInfo[ticketInfo.id]}
                       index={index}
                       ticketInfo={allTickets}
-                      setticketInfo={setticketInfo}
+                      setticketInfo={setAllTickets}
                       ticketsLength={allTickets.length}
                       ticketInfoError={ticketInfoError}
                       setTicketInfoError={setticketInfoError}
@@ -328,15 +336,38 @@ export default function AttendeeInfo({ ticketSelected, total }) {
                 <p className="powered">Powered by TESSERA</p>
               </Info>
               <PlaceOrder id="12975eee32">
-                <Button
-                  id="129753fas72"
-                  variant="contained"
-                  color="primary"
-                  className="button"
-                  disabled
-                >
-                  Place Order
-                </Button>
+                {!placeOrder && (
+                  <Button
+                    id="129753fas72"
+                    variant="contained"
+                    color="primary"
+                    className="button"
+                    disabled
+                  >
+                    Place Order
+                  </Button>
+                )}
+                {placeOrder && (
+                  <Button
+                    id="129753fas72"
+                    variant="contained"
+                    color="primary"
+                    className="button"
+                    onClick={() => {
+                      let temp = [];
+                      temp = [...showInfo];
+                      let obj = { promocode: "null" };
+                      temp.unshift(obj);
+                      let obj2 = { SendEmail: checked };
+                      temp.unshift(obj2);
+                      let obj3 = { contactInfo: contactInfo };
+                      temp.unshift(obj3);
+                      setFinale(temp);
+                    }}
+                  >
+                    Place Order
+                  </Button>
+                )}
               </PlaceOrder>
             </div>
             <Information id="129753272jdj">

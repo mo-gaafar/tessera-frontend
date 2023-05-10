@@ -151,6 +151,7 @@ export const PlaceOrder = styled.div`
   margin-left: 30px;
 
   .button {
+    cursor: pointer;
     width: 150px;
     height: 50px;
     background-color: rgb(221, 73, 28);
@@ -161,6 +162,10 @@ export const PlaceOrder = styled.div`
     letter-spacing: 0.2px;
     font-weight: 600;
     border-radius: 5px;
+  }
+  .button:hover {
+    background-color: rgb(221, 73, 28);
+    opacity: 0.8;
   }
 `;
 export const Information = styled.div`

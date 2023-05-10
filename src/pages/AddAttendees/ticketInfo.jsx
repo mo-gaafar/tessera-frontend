@@ -29,7 +29,6 @@ export default function TicketInfo({
   ticketInfoError,
   setticketInfoError,
 }) {
-  console.log(ticketInfoError);
   function handleTicketInfo(event, index, key) {
     const newArray = [...ticketInfo];
     const errorArray = [...ticketInfoError];
@@ -155,7 +154,7 @@ export default function TicketInfo({
             onChange={(event) => handleTicketInfo(event, index, "email")}
             error={ticketInfoError[index].email}
             helperText={
-              ticketInfoError[index].email ? "Please enter valid name" : null
+              ticketInfoError[index].email ? "Please enter valid email" : null
             }
           />
         </div>
