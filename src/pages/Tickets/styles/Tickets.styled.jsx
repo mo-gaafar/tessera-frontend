@@ -10,6 +10,7 @@ export const MainTicketsDiv = styled.div`
   /* margin: 6rem 0 0 34.1rem; */
   /* background-color: lightblue; */
   height: 100%;
+  flex-grow: 1;
   /* width: 100%;    */
 `;
 export const LetsCreateTicketsDiv = styled.div`
@@ -451,7 +452,7 @@ export const TicketCreatedDiv = styled.div`
     // display:flex;
     // flex-direction: column;
     width: 96rem;
-    height: 100%;
+    /* height: 100%; */
   }
 
   h1 {
@@ -523,7 +524,7 @@ export const TicketCreatedDiv = styled.div`
   }
 
   .AllTicketsDiv {
-    display: flex;
+    /* display: flex; */
     flex-flow: column wrap;
     width: 100%;
     height: 100%;
@@ -756,10 +757,13 @@ export const CreatePromoSideMenu = styled.div`
     top: 0;
     right: 0;
     bottom: 0;
+    background-color: white;
     z-index: 1;
     // background: Thistle;
-    height: 60rem;
-    margin-top: 6rem;
+    height: auto;
+    overflow-y: scroll;
+    margin-top: 7.1rem;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
   }
 
   .closed {
@@ -780,7 +784,6 @@ export const CreatePromoSideMenu = styled.div`
 
   .PromocodeInfoDiv {
     height: 100%;
-
     padding: 2.4rem;
     display: flex;
     flex-flow: column wrap;
@@ -955,6 +958,10 @@ export const CreatePromoSideMenu = styled.div`
     margin-bottom: 1.6rem;
     // background:Lavender;
     border: 0.1rem solid #a9a8b3;
+  }
+
+  .DiscountAmountDiv:hover {
+    border-color: #6f7287;
   }
 
   .DollarSignDiv {
@@ -1132,6 +1139,9 @@ export const CsvPromocode = styled.div`
     height: 5.8rem;
     border: 1px solid hsl(250, 7%, 80%);
   }
+  .DropdownDiv:hover {
+    border-color: #6f7287;
+  }
 
   .LimitDropdownDiv {
     display: flex;
@@ -1263,6 +1273,10 @@ export const CsvPromocode = styled.div`
     margin-bottom: 1.6rem;
     // background:Lavender;
     border: 0.1rem solid #a9a8b3;
+  }
+
+  .DiscountAmountDiv:hover {
+    border-color: #6f7287;
   }
 
   .DollarSignDiv {
