@@ -94,8 +94,16 @@ function CheckoutForm(props) {
         last_name: lastName,
         email: email,
       },
-      promocode: '',
-      ticketTierSelected: tiketTier,
+      promocode: props.promocode,
+      
+      ticketTierSelected: props.checkoutInfo.map(info =>{return{
+            tierName:info.sumTierName,
+            quantity: info.sumTicketCount,
+            price:info.sumTicketPrice
+          }
+
+      })
+      
     };
     try {
       const response = await axios.post(
@@ -105,6 +113,7 @@ function CheckoutForm(props) {
         }
       );
       console.log(response);
+      console.log(await response.json())
     } catch (error) {
       console.log(error);
     }
