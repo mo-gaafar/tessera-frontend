@@ -339,7 +339,7 @@ function CheckoutForm(props) {
             ))}
             <div className="totalPrice">
               <h3>Total</h3>
-              <p>${props.checkoutInfo.reduce((current,acc)=> Number(acc.sumTicketPrice)*(acc.sumTicketCount)+current, 0)}</p>
+              <p>${Math.round(props.checkoutInfo.reduce((current,acc)=> Number(acc.sumTicketPrice)*(acc.sumTicketCount)+current, 0))}</p>
             </div>
           </div>
         </div>

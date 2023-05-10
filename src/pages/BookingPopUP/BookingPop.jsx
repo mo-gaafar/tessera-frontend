@@ -157,7 +157,7 @@ export default function BookingPopUp({number, setShowPopUp, image }) {
                                   {' '}
                                   {
                                   (orderSummary.sumTicketCount ) *
-                                  parseFloat(price.replace(/\$/g, ""))
+                                  (parseFloat(price.replace(/\$/g, "")))
                                     //(Number(price.replace(/\$/g, '')))
                                    
                                   }
@@ -183,7 +183,7 @@ export default function BookingPopUp({number, setShowPopUp, image }) {
                           })}
                           <div className="Tsummary">
                             <div className="Tcount">Total</div>
-                            <div className="Singleprice">{sum}</div>
+                            <div className="Singleprice">{Math.round(sum)}</div>
                           </div>
                         </OrderTitle>
                       </Order>
