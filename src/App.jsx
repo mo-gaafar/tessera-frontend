@@ -4,7 +4,6 @@
  * @exports App
  */
 
-import SignupTwo from './Pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
 import GlobalStyles from './components/styles/Global';
 import Landing from './pages/LandingPage/Landing';
@@ -23,6 +22,7 @@ import AttendeeSummary from './pages/Dashboard/AttendeeSummary';
 import BasicInfo from './pages/BasicInfo/BasicInfo';
 import Details from './pages/BasicInfo/BasicInfoSecondPage';
 import CreateTickets from './Pages/Tickets/Tickets';
+import SignupTwo from './Pages/SignUp/SignupTwo';
 
 // import FacebookLoginButton from './components/LoginFacebook';
 /**
