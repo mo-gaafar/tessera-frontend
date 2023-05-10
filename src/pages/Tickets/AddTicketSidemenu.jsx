@@ -15,7 +15,7 @@ import { CreatePromocode } from './CreatePromoSidemenu';
 import axios from 'axios';
 
 export default function AddTicketSidemenu(props) {
-  const event = props.event;
+  const event = localStorage.getItem('eventID');
 
   const [ticketType, setTicketType] = useState('paid');
   const [ticketName, setTicketName] = useState('');
@@ -53,7 +53,7 @@ export default function AddTicketSidemenu(props) {
   useEffect(() => {
     setIsMenuOpen(props.isMenuOpen);
   }, []);
-  
+
   useEffect(() => {
     const ticket = props.ticket;
     if (Object.keys(ticket).length !== 0) {
@@ -65,7 +65,6 @@ export default function AddTicketSidemenu(props) {
       setEndDate(new Date(ticket.endSelling));
     }
   }, [props.ticket]);
-
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -117,6 +116,7 @@ export default function AddTicketSidemenu(props) {
   const [ticketTiers, setTicketTiers] = useState([]);
 
   async function createTicket() {
+    const token = localStorage.getItem('token');
     const data = {
       tierName: ticketName,
       maxCapacity: parseFloat(quantity),
@@ -128,18 +128,16 @@ export default function AddTicketSidemenu(props) {
     const res = await axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
-        
-    }});
-    // console.log(res);
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(await res.json());
   }
 
-  async function editTicket(){
+  async function editTicket() {
     const data = {
       desiredTierName: ticketName,
-      ticketTiers:[
-        props.ticket
-      ]
+      ticketTiers: [props.ticket],
     };
     const url = `https://www.tessera.social/api/event-tickets/edit-ticket/${event}`;
     const res = await axios.put(url, data);
@@ -308,7 +306,8 @@ export default function AddTicketSidemenu(props) {
                         class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
                         data-spec="icon"
                         data-testid="icon"
-                        aria-hidden="true">
+                        aria-hidden="true"
+                      >
                         <svg className="CalendarSvg" xml:space="preserve">
                           <path
                             id="calendar-chunky_svg__eds-icon--calendar-chunky_base"
@@ -350,7 +349,8 @@ export default function AddTicketSidemenu(props) {
                         class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
                         data-spec="icon"
                         data-testid="icon"
-                        aria-hidden="true">
+                        aria-hidden="true"
+                      >
                         <svg className="CalendarSvg" xml:space="preserve">
                           <path
                             id="calendar-chunky_svg__eds-icon--calendar-chunky_base"

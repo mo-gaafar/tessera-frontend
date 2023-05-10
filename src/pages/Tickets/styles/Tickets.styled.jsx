@@ -12,10 +12,13 @@ export const MainTicketsDiv = styled.div`
   height: 100%;
   flex-grow: 1;
   /* width: 100%;    */
+  flex-grow: 1;
 `;
 export const LetsCreateTicketsDiv = styled.div`
   display: flex;
   margin: 0 0 9.2rem;
+  flex-grow: 1;
+
   /* margin-left: 35rem; */
   padding: 6.4rem 0 0;
   height: 42.6rem;
@@ -442,16 +445,15 @@ export const AddTicketsSideMenu = styled.div`
 `;
 export const TicketCreatedDiv = styled.div`
   display: flex;
+  flex-grow: 1;
   flex-flow: row wrap;
-  width: 96rem;
   height: 16.8rem;
-  // background-color:AntiqueWhite ;
+  padding-inline: 25rem;
 
+  // background-color:AntiqueWhite ;
   .AdmissionsDiv,
   .PromocodesDiv {
-    // display:flex;
-    // flex-direction: column;
-    width: 96rem;
+    flex-grow: 1;
     /* height: 100%; */
   }
 

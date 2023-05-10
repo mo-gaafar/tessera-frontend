@@ -5,6 +5,7 @@ export const StyledMainSidebar = styled.div`
   background-color: #f8f7fa;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   gap: 2rem;
   min-height: 100vh;
   div:first-child {

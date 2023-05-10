@@ -1575,20 +1575,12 @@ export default function BasicInfo() {
                             </div>
                           )}
                           {showrecurring && (
-                            <div>
-                              <div
-                                style={{
-                                  width: '75%',
-                                  marginBottom: '16px',
-                                }}
-                              >
-                                <p className="explanationp">
-                                  You’ll be able to set a schedule for your
-                                  recurring event in the next step. Event
-                                  details and ticket types will apply to all
-                                  instances.
-                                </p>
-                              </div>
+                            <div style={{ width: '75%', marginBottom: '16px' }}>
+                              <p className="explanationp">
+                                You’ll be able to set a schedule for your
+                                recurring event in the next step. Event details
+                                and ticket types will apply to all instances.
+                              </p>
                               <div
                                 style={{
                                   marginTop: '16px',
@@ -1654,9 +1646,7 @@ export default function BasicInfo() {
                                         style={
                                           onlineclicked
                                             ? { border: '1px solid blue' }
-                                            : {
-                                                border: '0px solid #dbdae3',
-                                              }
+                                            : { border: '0px solid #dbdae3' }
                                         }
                                       >
                                         <div className="dropdownLast">
