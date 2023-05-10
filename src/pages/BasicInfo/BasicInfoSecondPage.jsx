@@ -8,7 +8,7 @@ import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
 import { useLocation, useNavigate } from 'react-router-dom';
-export default function Details({ onPhotoSelected }) {
+export default function Details() {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
@@ -40,16 +40,14 @@ export default function Details({ onPhotoSelected }) {
     inputRef.current.click();
     e.preventDefault();
   };
-  const handlePhotoChange = event => {
-    const selectedPhoto = event.target.files[0];
-    console.log(selectedPhoto);
-    setPhoto(selectedPhoto);
-    onPhotoSelected(selectedPhoto);
+  const handlePhotoChange = async event => {
     event.preventDefault();
+
+    const selectedPhoto = event.target.files[0];
+    setPhoto(selectedPhoto);
   };
   const handleDeleteClick = e => {
     setPhoto(null);
-    onPhotoSelected(null);
     e.preventDefault();
   };
 
@@ -84,6 +82,7 @@ export default function Details({ onPhotoSelected }) {
     };
 
     const token = localStorage.getItem('token');
+
     const response = await fetch(
       'https://www.tessera.social/api/event-management/creator',
       {
@@ -96,12 +95,23 @@ export default function Details({ onPhotoSelected }) {
       }
     );
 
-    console.log(response);
     const data = await response.json();
-    console.log(data);
     localStorage.setItem('eventID', data.event_Id);
+    console.log(data);
 
     if (data.success) {
+      const formData = new FormData();
+      formData.append('image', photo);
+      const image = await fetch(
+        `https://www.tessera.social/api/event-management/upload-image/${data.event_Id}`,
+        {
+          method: 'POST',
+
+          body: formData,
+        }
+      );
+      console.log(await image.json());
+
       navigate('/ticket');
     }
   };

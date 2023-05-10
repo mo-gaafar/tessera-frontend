@@ -14,8 +14,8 @@ import {
 import { CreatePromocode } from './CreatePromoSidemenu';
 import axios from 'axios';
 
-export default function AddTicketSidemenu(props) {
-  const event = props.event;
+export default function AddTicketSidemenu() {
+  const event = localStorage.getItem('eventID');
 
   const [ticketType, setTicketType] = useState('paid');
   const [ticketName, setTicketName] = useState('');
@@ -27,8 +27,8 @@ export default function AddTicketSidemenu(props) {
   const [error, setError] = useState(false);
   const [isError, setIsError] = useState(false);
   const [priceError, setPriceError] = useState(false);
-  const times = [];
-  let timesArray = [];
+  // const times = [];
+  // let timesArray = [];
 
   // Loop through the hours from 0 to 23 (representing 12 AM to 11 PM)
   for (let hour = 0; hour < 24; hour++) {
@@ -111,8 +111,24 @@ export default function AddTicketSidemenu(props) {
       startSelling: startDate,
       endSelling: endDate,
     };
-    const url = `https://www.tessera.social/api/event-tickets/create-ticket/${event}`;
-    const res = await axios.put(url, data);
+
+    const token = localStorage.getItem('token');
+
+    const response = await fetch(
+      `https://www.tessera.social/api/event-tickets/create-ticket/${event}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    console.log(await response.json());
+
+    // const res = await axios.put(url, data);
     // console.log(res);
   }
 
