@@ -98,7 +98,7 @@ function CheckoutForm(props) {
       
       ticketTierSelected: props.checkoutInfo.map(info =>{return{
             tierName:info.sumTierName,
-            quantity: info.sumTicketCount+props.number,
+            quantity: info.sumTicketCount,
             price:info.sumTicketPrice
           }
 
@@ -317,7 +317,8 @@ function CheckoutForm(props) {
         </div>
         <div className="eventDetails">
           <img
-            src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F399778979%2F1288811134183%2F1%2Foriginal.20221125-142736?w=720&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C158%2C1080%2C540&s=16c699c9a114c13ad66a0bf72412ab25"
+            style={{width:"500px",height:"162px"}}
+            src={props.images}
             alt="event"
           />
           <div className="ticketDetails">
@@ -326,7 +327,7 @@ function CheckoutForm(props) {
               <>
                 <div className="ticket" key={ticket.sumId}>
                   <p className="ticketInfo">
-                    {ticket.sumTicketCount + props.number} x {ticket.sumTierName}
+                    {ticket.sumTicketCount } x {ticket.sumTierName}
                   </p>
                   <p className="ticketInfo">
                     {ticket.sumtTicketPrice === 'Free' ? '$' : ''}
@@ -338,7 +339,7 @@ function CheckoutForm(props) {
             ))}
             <div className="totalPrice">
               <h3>Total</h3>
-              <p>${props.checkoutInfo.reduce((current,acc)=> Number(acc.sumTicketPrice)*(acc.sumTicketCount+props.number+current), 0)}</p>
+              <p>${props.checkoutInfo.reduce((current,acc)=> Number(acc.sumTicketPrice)*(acc.sumTicketCount)+current, 0)}</p>
             </div>
           </div>
         </div>

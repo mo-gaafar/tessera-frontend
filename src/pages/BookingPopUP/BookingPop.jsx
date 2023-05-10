@@ -82,6 +82,7 @@ export default function BookingPopUp({number, setShowPopUp, image }) {
                 <BoxContainer>
                   {/* {console.log(sum, checkoutInfo, promoCode)}{' '} */}
                   <CheckoutForm
+                    images={image}
                     total={sum}
                     checkoutInfo={checkoutInfo}
                     promoCode={promoCode}
@@ -156,7 +157,8 @@ export default function BookingPopUp({number, setShowPopUp, image }) {
                                   {' '}
                                   {
                                   (orderSummary.sumTicketCount ) *
-                                    (Number(price.replace(/\$/g, '')))
+                                  parseFloat(price.replace(/\$/g, ""))
+                                    //(Number(price.replace(/\$/g, '')))
                                    
                                   }
                                 </div>
@@ -167,11 +169,15 @@ export default function BookingPopUp({number, setShowPopUp, image }) {
                         <OrderTitle>
                           {checkoutInfo.forEach(orderSummary => {
                             let price=orderSummary.sumTicketPrice;
+                            if (price==="Free") 
+                              {price="$0";}
                             console.log(orderSummary.sumTicketCount)
                             
                              sum +=
                               //Number(orderSummary.sumTicketPrice) *
-                              (price==="Free" ? Number(0): Number(price.replace(/\$/g, ''))) *
+                            //  Number(price.replace(/\$/g, ''))
+                            parseFloat(price.replace(/\$/g, ""))
+                              *
                              ( Number(orderSummary.sumTicketCount));
                     
                           })}
