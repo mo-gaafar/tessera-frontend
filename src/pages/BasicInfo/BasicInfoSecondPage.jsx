@@ -7,17 +7,30 @@ import Sidebar from '../../components/Sidebar';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
-
+import { useLocation } from 'react-router-dom';
 export default function Details({ onPhotoSelected }) {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
 
-  const [value, setValue] = React.useState('');
   const [focused, setFocused] = React.useState(false);
   const [inputError, setInputError] = useState('');
   const [photo, setPhoto] = useState(null);
   const inputRef = useRef(null);
+  const [summary, SetSummary] = useState('');
+  const [description, SetDescription] = useState('');
+
+  const handleChange = event => {
+    if (event.target.value.trim() === '') {
+      setInputError('Summary is required');
+    } else {
+      event.target.name === 'summary'
+        ? SetSummary(event.target.value)
+        : SetDescription(event.target.value);
+
+      setInputError('');
+    }
+  };
 
   const handleButtonClick = e => {
     inputRef.current.click();
@@ -34,14 +47,7 @@ export default function Details({ onPhotoSelected }) {
     onPhotoSelected(null);
     e.preventDefault();
   };
-  const handleChange = event => {
-    setValue(event.target.value);
-    if (event.target.value.trim() === '') {
-      setInputError('Summary is required');
-    } else {
-      setInputError('');
-    }
-  };
+
   const handleFocus = () => {
     setFocused(true);
   };
@@ -62,6 +68,18 @@ export default function Details({ onPhotoSelected }) {
     color: 'white',
     borderColor: '#d1410c',
   };
+
+  const location = useLocation();
+  const basicInfoData = location.state.responseBody;
+  const SubmitBasicInfo = async () => {
+    const detailsData = {
+      ...basicInfoData,
+      summary: summary,
+      description: description,
+    };
+    console.log(detailsData);
+  };
+
   return (
     <>
       <StyledNav>
@@ -71,6 +89,7 @@ export default function Details({ onPhotoSelected }) {
           <Navbar />
         )}
       </StyledNav>
+
       <WholePage style={{ display: 'flex' }}>
         <Sidebar event={true} />
         <div className="wholepage">
@@ -286,7 +305,8 @@ export default function Details({ onPhotoSelected }) {
                             role="textbox"
                             maxLength="140"
                             placeholder="Write a short event summary to get attendees excited."
-                            value={value}
+                            value={summary}
+                            name="summary"
                             onChange={handleChange}
                             onFocus={() => setFocused(true)}
                             onBlur={() => setFocused(false)}
@@ -297,7 +317,7 @@ export default function Details({ onPhotoSelected }) {
                     <div className="undersummarybox">
                       {inputError && <div className="error">{inputError}</div>}
                       <div className="characterslimitdiv">
-                        <aside className="aside">{value.length}/140</aside>
+                        <aside className="aside">{summary.length}/140</aside>
                       </div>
                     </div>
                   </div>
@@ -481,7 +501,7 @@ export default function Details({ onPhotoSelected }) {
                                       </div>
                                     </header>
                                     <main className="descriptionbox">
-                                      <div
+                                      <textarea
                                         style={{
                                           outline: 'none',
                                           whiteSpace: 'pre-wrap',
@@ -502,24 +522,21 @@ export default function Details({ onPhotoSelected }) {
                                           overflow: 'visible',
                                           WebkitAppearance: 'none',
                                         }}
-                                        value={value}
+                                        value={description}
                                         onChange={handleChange}
                                         onFocus={handleFocus}
+                                        name="description"
                                         onBlur={() => setFocused(false)}
-                                      >
-                                        <p
-                                          className="descriptionp"
-                                          data-key="1"
-                                        >
-                                          <span data-key="2">
-                                            <span data-offset-key="2:0">
-                                              <span data-slate-zero-width="n">
-                                                ﻿
-                                              </span>
+                                      />
+                                      <p className="descriptionp" data-key="1">
+                                        <span data-key="2">
+                                          <span data-offset-key="2:0">
+                                            <span data-slate-zero-width="n">
+                                              ﻿
                                             </span>
                                           </span>
-                                        </p>
-                                      </div>
+                                        </span>
+                                      </p>
                                     </main>
                                   </section>
                                 </div>
@@ -565,7 +582,11 @@ export default function Details({ onPhotoSelected }) {
                 <button className="usedbutton" style={{ marginRight: 16 }}>
                   Discard
                 </button>
-                <button className="usedbutton" style={saveButtonStyle}>
+                <button
+                  onClick={SubmitBasicInfo}
+                  className="usedbutton"
+                  style={saveButtonStyle}
+                >
                   Save & Continue
                 </button>
               </div>

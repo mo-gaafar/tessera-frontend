@@ -6,7 +6,6 @@ import {
   StyledCreateTicketSidebar,
 } from './styles/Sidebar.styled';
 const Sidebar = ({ hide, event, dashboard }) => {
-  console.log(event);
   const [hovered, setHovered] = useState(false);
   const [reportHovered, setReportHovered] = useState(false);
 
