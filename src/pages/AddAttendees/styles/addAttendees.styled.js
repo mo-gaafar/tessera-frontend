@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   /* width: 100vw; */
-
-  overflow-y: scroll;
   background-color: white;
   overflow-x: hidden;
 `;
@@ -13,6 +11,7 @@ export const Header = styled.div`
   height: 150px;
   text-align: left;
   background-color: white;
+  border-bottom: 6px solid #d9d9d9;
 
   h1 {
     position: absolute;
@@ -30,12 +29,6 @@ export const Header = styled.div`
     height: 20%;
     margin-left: 5%;
     margin-top: 90px;
-  }
-  hr {
-    position: absolute;
-    top: 200px;
-    width: 99%;
-    opacity: 0.3;
   }
 `;
 export const OrderType = styled.div`
@@ -75,10 +68,9 @@ export const OrderType = styled.div`
   }
 `;
 export const Tickets = styled.table`
-  width: 65vw;
-  height: 300px;
-  margin-left: 5%;
+  width: 88%;
 
+  margin-left: 5%;
   border-collapse: collapse;
 
   thead {
@@ -95,13 +87,17 @@ export const Tickets = styled.table`
   }
 
   tbody {
-    height: 100px;
+    height: 50px;
     border-bottom: 1px solid #d9d9d9;
 
     tr {
       border-bottom: 2px solid #d9d9d9;
+
       .num {
         font-size: 25px;
+      }
+      td {
+        padding: 10px;
       }
     }
     tr:hover {
@@ -137,7 +133,7 @@ export const Tickets = styled.table`
       margin-top: 60px;
 
       position: absolute;
-      left: 71%;
+      left: 66%;
       display: inline-block;
       padding-top: 7px;
       padding-right: 10px;
@@ -145,7 +141,7 @@ export const Tickets = styled.table`
     }
     .TotalValue {
       position: absolute;
-      left: 71%;
+      left: 66%;
       width: 250px;
       background-color: yellow;
     }

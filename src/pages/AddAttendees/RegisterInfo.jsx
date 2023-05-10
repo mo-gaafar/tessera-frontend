@@ -20,6 +20,10 @@ import Checkbox from "@mui/material/Checkbox";
 import { Continue } from "./styles/addAttendees.styled";
 import Button from "@mui/material/Button";
 import TicketInfo from "./ticketInfo";
+import IconButton from "@mui/material/IconButton";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowCircleDownSharpIcon from "@mui/icons-material/ArrowCircleDownSharp";
+import ArrowCircleUpSharpIcon from "@mui/icons-material/ArrowCircleUpSharp";
 
 export default function AttendeeInfo({ ticketSelected, total }) {
   const [remainingTime, setRemainingTime] = useState(40 * 60);
@@ -31,6 +35,8 @@ export default function AttendeeInfo({ ticketSelected, total }) {
   const [ticketInfoError, setticketInfoError] = useState([]);
   const [checked, setChecked] = useState(false);
   const [finale, setFinale] = useState({});
+  const [show, setShow] = useState(false);
+
   function checkPlaceOrder(currentValue, index) {
     console.log(currentValue);
     console.log(index);
@@ -335,6 +341,19 @@ export default function AttendeeInfo({ ticketSelected, total }) {
 
                 <p className="powered">Powered by TESSERA</p>
               </Info>
+              <div className="summaryPop">
+                <h3>Order Summary</h3>
+                <IconButton
+                  aria-label="delete"
+                  size="large"
+                  className="drop"
+                  onClick={() => {
+                    setShow(true);
+                  }}
+                >
+                  <ArrowCircleUpSharpIcon className="icon" />
+                </IconButton>
+              </div>
               <PlaceOrder id="12975eee32">
                 {!placeOrder && (
                   <Button

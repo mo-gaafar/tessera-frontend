@@ -37,6 +37,7 @@ export default function AddAttendee() {
   ];
   const [faceValue, setFaceValue] = useState(Array(ticketTiers.length).fill(0));
   const [ticketTierSelected, setTicketTierSelected] = useState([]);
+  const [orderType, setOrderType] = useState("");
   let flag = false;
   function createTierSelected() {
     let selected = [];
@@ -74,7 +75,7 @@ export default function AddAttendee() {
     const value = event.target.value;
     newArray[index] = value;
 
-    // check if the input is valid
+    // check if the input is validfaceValueconso
     if (/^[0-9]*$/.test(value)) {
       if (
         Number(value) <=
@@ -85,7 +86,10 @@ export default function AddAttendee() {
         setInputError(errorArray);
         setFaceValue(() => {
           let temp = faceValue;
-          temp[index] = ticketTiers[index].price * Number(value);
+          orderType !== "Complimentary"
+            ? (temp[index] = ticketTiers[index].price * Number(value))
+            : null;
+
           return temp;
         });
       } else {
@@ -115,6 +119,22 @@ export default function AddAttendee() {
     setInputQuantity(newArray);
     setTotalValue(() => faceValue.reduce((a, b) => a + b, 0));
   }
+  useEffect(() => {
+    let array = [];
+    array = faceValue;
+    array.map((element, index) => {
+      if (orderType === "Complimentary") {
+        array[index] = 0;
+      } else {
+        if (!isNaN(inputQuantity[index])) {
+          array[index] = ticketTiers[index].price * inputQuantity[index];
+        }
+      }
+    });
+    console.log(faceValue);
+    setFaceValue(array);
+    setTotalValue(() => array.reduce((a, b) => a + b, 0));
+  }, [orderType, inputQuantity]);
 
   function showAlert() {
     let array = createTierSelected();
@@ -152,11 +172,14 @@ export default function AddAttendee() {
                 Manually add attendees info for complimentary tickets or offline
                 payments
               </p>
-              <hr />
             </Header>
             <OrderType id="12975jfug73272">
               <label>Order Type:</label>
-              <select id="1297ir8jds53272">
+              <select
+                id="1297ir8jds53272"
+                onChange={(event) => setOrderType(event.target.value)}
+              >
+                {console.log(orderType)}
                 <option value="Check">Paid with Check</option>
                 <option value="Cash">Paid with cash </option>
                 <option value="Paypal">
@@ -190,7 +213,7 @@ export default function AddAttendee() {
               <tbody id="12975327js8fh2">
                 {ticketTiers.map((ticket, index) => {
                   return (
-                    <tr key={index}>
+                    <tr key={index} className="tRow">
                       <td className="num">{ticket.tierName}</td>
                       <td align="center" className="num">
                         {ticket.quantity}/{ticket.maxquantity}
@@ -205,7 +228,7 @@ export default function AddAttendee() {
                           inputProps={{
                             style: {
                               fontSize: 25,
-                              width: 100,
+                              width: 300,
                             },
                           }}
                           value={inputQuantity[index]}
@@ -222,13 +245,13 @@ export default function AddAttendee() {
                       </td>
                       <td align="center" width="30%">
                         <TextField
-                          id={`12979jfff3353272${index}`}
+                          id={`12979jfff33d53272${index}`}
                           className="Face"
                           size="Normal"
                           inputProps={{
                             style: {
                               fontSize: 25,
-                              width: 100,
+                              width: 300,
                             },
                             startAdornment: (
                               <InputAdornment position="start">
@@ -248,7 +271,6 @@ export default function AddAttendee() {
               </tbody>
               <div className="Total" id="12975afja8fhg3272">
                 <div className="text">Total Value</div>
-
                 <TextField
                   disabled
                   id="outlined-disabled"
