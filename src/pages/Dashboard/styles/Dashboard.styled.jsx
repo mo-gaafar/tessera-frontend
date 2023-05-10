@@ -177,6 +177,39 @@ export const StyledAttendeeSummary = styled.div`
     margin-top: 2rem;
     flex-grow: 1;
   }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    
+    text-align: center;
+  }
+
+  th {
+    background-color: #f2f2f2; /* Set your desired background color here */
+  }
+  .table-content{
+    font-size:16px;
+    color: rgb(111, 114, 135);
+    font-size: 14px;
+    font-weight:100;
+    text-align:center;
+    width: 100%;
+    
+    margin-top:3rem;
+    .table-header{
+      height:5rem;
+      background-color:#eaeced;
+      padding-bottom:1rem;
+    }
+    .head-data{
+      font-weight:100;
+      padding-left:0.5rem;
+      padding-right:0.5rem;
+    }
+  }
   .search {
     margin-top: 2rem;
     display: flex;
