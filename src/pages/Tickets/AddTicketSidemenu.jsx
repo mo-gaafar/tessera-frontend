@@ -14,7 +14,7 @@ import {
 import { CreatePromocode } from './CreatePromoSidemenu';
 import axios from 'axios';
 
-export default function AddTicketSidemenu() {
+export default function AddTicketSidemenu(props) {
   const event = localStorage.getItem('eventID');
 
   const [ticketType, setTicketType] = useState('paid');
@@ -27,8 +27,8 @@ export default function AddTicketSidemenu() {
   const [error, setError] = useState(false);
   const [isError, setIsError] = useState(false);
   const [priceError, setPriceError] = useState(false);
-  // const times = [];
-  // let timesArray = [];
+  const times = [];
+  let timesArray = [];
 
   // Loop through the hours from 0 to 23 (representing 12 AM to 11 PM)
   for (let hour = 0; hour < 24; hour++) {
@@ -116,6 +116,7 @@ export default function AddTicketSidemenu() {
   const [ticketTiers, setTicketTiers] = useState([]);
 
   async function createTicket() {
+    const token = localStorage.getItem('token');
     const data = {
       tierName: ticketName,
       maxCapacity: parseFloat(quantity),
@@ -127,10 +128,10 @@ export default function AddTicketSidemenu() {
     const res = await axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`,
+        Authorization: `Bearer ${token}`,
       },
     });
-    // console.log(res);
+    console.log(await res.json());
   }
 
   async function editTicket() {
