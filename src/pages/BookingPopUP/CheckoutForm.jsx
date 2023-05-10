@@ -69,6 +69,18 @@ function CheckoutForm(props) {
   //   }
   // }, [remainingTime]);
 
+  const tiketTier = [
+    {
+      tierName: 'vip',
+      quantity: 1,
+      price: 200,
+    },
+    {
+      tierName: 'regular',
+      quantity: 1,
+      price: 100,
+    },
+  ];
   const totalPrice = tiketTier.reduce((acc, tier) => acc + tier.price, 0);
   const [isPaid, setIsPaid] = useState(true);
   const [firstName, setFirstName] = useState('');
@@ -83,14 +95,15 @@ function CheckoutForm(props) {
         email: email,
       },
       promocode: props.promocode,
+      
+      ticketTierSelected: props.checkoutInfo.map(info =>{return{
+            tierName:info.sumTierName,
+            quantity: info.sumTicketCount,
+            price:info.sumTicketPrice
+          }
 
-      ticketTierSelected: props.checkoutInfo.map(info => {
-        return {
-          tierName: info.sumTierName,
-          quantity: info.sumTicketCount + props.number,
-          price: info.sumTicketPrice,
-        };
-      }),
+      })
+      
     };
     try {
       const response = await axios.post(
@@ -100,7 +113,7 @@ function CheckoutForm(props) {
         }
       );
       console.log(response);
-      console.log(await response.json());
+      console.log(await response.json())
     } catch (error) {
       console.log(error);
     }
@@ -314,7 +327,7 @@ function CheckoutForm(props) {
               <>
                 <div className="ticket" key={ticket.sumId}>
                   <p className="ticketInfo">
-                    {ticket.sumTicketCount } x {ticket.sumTierName}
+                    {ticket.sumTicketCount + props.number} x {ticket.sumTierName}
                   </p>
                   <p className="ticketInfo">
                     {ticket.sumtTicketPrice === 'Free' ? '$' : ''}
