@@ -44,7 +44,7 @@ export default function CreateTickets() {
       console.log(res['data']['ticketTiers']);
     }
     getTicketsTier();
-  }, [selectedTicket, ticketTiers]);
+  }, []);
 
   function closeAllMenus() {
     setIsCreatePromoMenuOpen(false);
