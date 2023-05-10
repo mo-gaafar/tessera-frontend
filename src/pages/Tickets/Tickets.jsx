@@ -20,6 +20,7 @@ import { ImportPromocode } from './ImportPromoSidemenu';
 import axios from 'axios';
 
 export default function CreateTickets() {
+  const event = '645663da66aa716630bdcc91';
   const [replaceContentAfterSave, setreplaceContentAfterSave] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [ShowAmissionsPage, setShowAmissionsPage] = useState(true);
@@ -29,11 +30,27 @@ export default function CreateTickets() {
   const [isImportPromoMenuOpen, setIsImportPromoMenuOpen] = useState(false);
   const [isPromoIntroOpen, setIsPromoIntroOpen] = useState(true);
 
+  const [isDataSubmitted, setIsDataSubmitted] = useState(0);
+  const [isPromoDataSubmitted, setIsPromoDataSubmitted] = useState(0);
+
   const [selectedTicket, setSelectedTicket] = useState({});
   const [ticketTiers, setTicketTiers] = useState([]);
+  const [promoCodes, setPromoCodes] = useState([]);
+
+  // useEffect(() => {
+  //   async function getTicketsTier() {
+  //     const url = `https://www.tessera.social/api/event-tickets/retrieve-event-ticket-tier/${event}`;
+  //     const res = await axios.get(url);
+  //     setTicketTiers(res['data']['ticketTiers']);
+  //     if (res['data']['ticketTiers'].length > 0) {
+  //       setreplaceContentAfterSave(true);
+  //     }
+  //     console.log(res['data']['ticketTiers']);
+  //   }
+  //   getTicketsTier();
+  // }, []);
 
   useEffect(() => {
-    const event = localStorage.getItem('eventID');
     async function getTicketsTier() {
       const url = `https://www.tessera.social/api/event-tickets/retrieve-event-ticket-tier/${event}`;
       const res = await axios.get(url);
@@ -44,24 +61,32 @@ export default function CreateTickets() {
       console.log(res['data']['ticketTiers']);
     }
     getTicketsTier();
-  }, []);
+  }, [isDataSubmitted]);
+
+  useEffect(() => {
+    async function getTicketsTier() {
+      const url = `https://www.tessera.social/api/event-management/retrieve/${event}`;
+      const res = await axios.get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
+          
+      }});
+      setPromoCodes(res['data']['event']['promocodes']);
+      if (res['data']['event']['promocodes'].length > 0) {
+        setIsPromoIntroOpen(false);
+      }
+      console.log(res['data']['event']['promocodes']);
+    }
+    getTicketsTier();
+  }, [isPromoDataSubmitted]);
 
   function closeAllMenus() {
     setIsCreatePromoMenuOpen(false);
     setIsImportPromoMenuOpen(false);
     setIsMenuOpen(false);
   }
-  /*
-      {
-      "tierName": "Regular",
-      "quantitySold": 1,
-      "maxCapacity": 100,
-      "price": "20",
-      "percentageSold": 1,
-      "startSelling": "2023-04-14T00:00:00.000Z",
-      "endSelling": "2023-05-01T14:30:00.000Z"
-    },
-  */
+
 
   const [data, setData] = useState([
     {
@@ -114,21 +139,7 @@ export default function CreateTickets() {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
-  const convertTime = Iso => {
-    const date = new Date(Iso);
-    const dateString = date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-    const timeString = date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
-    });
-    const formattedDate = `${dateString} at ${timeString}`;
-    return formattedDate;
-  };
+
   return (
     <>
       <StyledNav>
@@ -148,22 +159,10 @@ export default function CreateTickets() {
               <div className="TicketsTabsDiv">
                 <button
                   className="TicketsTabsButton"
-                  onClick={() => {
-                    setShowAmissionsPage(true);
-                    setShowPromocodesPage(false);
-                    closeAllMenus();
-                  }}
-                >
+                  onClick={() => {setShowAmissionsPage(true);setShowPromocodesPage(false);closeAllMenus();}}>
                   Admission
                 </button>
-                <button
-                  className="TicketsTabsButton"
-                  onClick={() => {
-                    setShowAmissionsPage(false);
-                    setShowPromocodesPage(true);
-                    closeAllMenus();
-                  }}
-                >
+                <button className="TicketsTabsButton" onClick={() => {setShowAmissionsPage(false);setShowPromocodesPage(true);closeAllMenus();}}>
                   Promo codes
                 </button>
               </div>
@@ -182,52 +181,40 @@ export default function CreateTickets() {
                   </div>
 
                   <div className="AllTicketsDiv">
-                    {ticketTiers != undefined &&
-                      ticketTiers.map(ticketTier => (
-                        <div
-                          className="TicketCreatedInfoDiv"
-                          onClick={() => {
-                            setIsMenuOpen(true);
-                            setSelectedTicket(ticketTier);
-                          }}
-                        >
-                          <svg
-                            className="TicketCreatedScrollSvg"
-                            xml:space="preserve"
-                          >
-                            <path
-                              fill="#45494E"
-                              d="M6 10V8h12v2H6zm0 6v-2h12v2H6z"
-                            ></path>
-                          </svg>
-                          <div className="TicketInfoDiv">
-                            <div className="TicketNameDateDiv">
-                              <div className="TicketName">
-                                {ticketTier.tierName}
+                    {ticketTiers != undefined && ticketTiers.map(ticketTier => (
+                      <div className="TicketCreatedInfoDiv"
+                        onClick={() => {
+                          setIsMenuOpen(true);
+                          setSelectedTicket(ticketTier);
+                        }}>
+                        <svg
+                          className="TicketCreatedScrollSvg"
+                          xml:space="preserve">
+                          <path
+                            fill="#45494E"
+                            d="M6 10V8h12v2H6zm0 6v-2h12v2H6z"
+                          ></path>
+                        </svg>
+                        <div className="TicketInfoDiv">
+                          <div className="TicketNameDateDiv">
+                            <div className="TicketName">{ticketTier.tierName}</div>
+
+                            <div className="TicketScheduledDiv">
+                              <div className="YellowDot">.</div>
+                              <div className="ScheduledStartsDiv">
+                                Scheduled . Starts at {ticketTier.startSelling}
                               </div>
-
-                              <div className="TicketScheduledDiv">
-                                <div className="YellowDot">.</div>
-                                <div className="ScheduledStartsDiv">
-                                  Scheduled . Starts at{' '}
-                                  {convertTime(ticketTier.startSelling)}
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="SoldTickets">
-                              {ticketTier.quantitySold
-                                ? ticketTier.quantitySold
-                                : 0}
-                              /{ticketTier.maxCapacity}
-                            </div>
-
-                            <div className="TicketTier">
-                              {ticketTier.price}$
                             </div>
                           </div>
+
+                          <div className="SoldTickets">
+                            {ticketTier.quantitySold} / {ticketTier.maxCapacity}
+                          </div>
+
+                          <div className="TicketTier">{ticketTier.price}$</div>
                         </div>
-                      ))}
+                      </div>
+                    ))}
                   </div>
 
                   <div className="EventCapacityDiv">
@@ -282,21 +269,11 @@ export default function CreateTickets() {
                         <div className="PromocodesButtonsDiv">
                           <button
                             className="CreatePromocodeButton"
-                            onClick={() => {
-                              setIsCreatePromoMenuOpen(true);
-                              setIsImportPromoMenuOpen(false);
-                            }}
-                          >
+                            onClick={() =>{setIsCreatePromoMenuOpen(true);setIsImportPromoMenuOpen(false);}}>
                             Create promo code
                           </button>
 
-                          <button
-                            className="UploadCsvButton"
-                            onClick={() => {
-                              setIsImportPromoMenuOpen(true);
-                              setIsCreatePromoMenuOpen(false);
-                            }}
-                          >
+                          <button className="UploadCsvButton" onClick={() => {setIsImportPromoMenuOpen(true);setIsCreatePromoMenuOpen(false)}}>
                             Upload CSV
                           </button>
                         </div>
@@ -314,24 +291,8 @@ export default function CreateTickets() {
                   {!isPromoIntroOpen && (
                     <PromocodesSavePageDiv>
                       <div className="ButtonsMenuDiv">
-                        <button
-                          className=" CancelButton"
-                          onClick={() => {
-                            setIsCreatePromoMenuOpen(true);
-                            setIsImportPromoMenuOpen(false);
-                          }}
-                        >
-                          Add a code
-                        </button>
-                        <button
-                          className="SaveButton"
-                          onClick={() => {
-                            setIsImportPromoMenuOpen(true);
-                            setIsCreatePromoMenuOpen(false);
-                          }}
-                        >
-                          Upload CSV{' '}
-                        </button>
+                        <button className=" CancelButton" onClick={() =>{setIsCreatePromoMenuOpen(true);setIsImportPromoMenuOpen(false);}}>Add a code</button>
+                        <button className="SaveButton" onClick={() => {setIsImportPromoMenuOpen(true);setIsCreatePromoMenuOpen(false);}}>Upload CSV </button>
                       </div>
 
                       <div className="Header"></div>
@@ -339,31 +300,31 @@ export default function CreateTickets() {
                         <table>
                           <thead>
                             <tr>
-                              <th className='NameColumn1'
+                              <th
                                 style={{ width: getColumnWidth('NameColumn1') }}
                               >
                                 Name
                               </th>
-                              <th className='CodeTypeColumn2'
+                              <th
                                 style={{
                                   width: getColumnWidth('CodeTypeColumn2'),
                                 }}
                               >
                                 Code type
                               </th>
-                              <th className='DiscountColumn3'
+                              <th
                                 style={{
                                   width: getColumnWidth('DiscountColumn3'),
                                 }}
                               >
                                 Discount
                               </th>
-                              <th className='UsesColumn4'
+                              <th
                                 style={{ width: getColumnWidth('UsesColumn4') }}
                               >
                                 Uses
                               </th>
-                              <th className='StatusColumn5'
+                              <th
                                 style={{
                                   width: getColumnWidth('StatusColumn5'),
                                 }}
@@ -476,6 +437,7 @@ export default function CreateTickets() {
             isMenuOpen={isMenuOpen}
             setIsMenuOpen={setIsMenuOpen}
             setreplaceContentAfterSave={setreplaceContentAfterSave}
+            dataSubmitted={() => setIsDataSubmitted(isDataSubmitted+1)}
           />
 
           <CreatePromocode
@@ -492,6 +454,7 @@ export default function CreateTickets() {
             setIsPromocodeMenuOpen={setIsCreatePromoMenuOpen}
             setIsPromoIntroOpen={setIsPromoIntroOpen}
           />
+          
         </MainTicketsDiv>
       </div>
     </>

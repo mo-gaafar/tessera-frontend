@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CSVReader from 'react-csv-reader';
 import { CreatePromoSideMenu, CsvPromocode } from './styles/Tickets.styled';
+import axios from 'axios';
 
 export function CreatePromocode(props) {
   
@@ -55,6 +56,30 @@ export function CreatePromocode(props) {
     }
   };
 
+  async function createPromocode() {
+    const event = props.event;
+    const data = {
+      code: name,
+      discount: parseInt(Discountquantity),
+      limitOfUses: (value == "unlimited") ? value : quantity,
+    };
+    const url = `https://www.tessera.social/api/manage/events/${event}/promocode/create`;
+    const res = await axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
+        
+    }});
+    // console.log(res);
+  }
+
+  async function savePromo()
+  {
+    await createPromocode();
+    props.setIsPromocodeMenuOpen(false);
+    props.setIsPromoIntroOpen(false);
+  }
+
   return (
     <CreatePromoSideMenu>
       {props.isPromocodeMenuOpen && (
@@ -74,7 +99,7 @@ export function CreatePromocode(props) {
                 type="text"
                 name="name"
                 value={name}
-                onChange={(event) => setValue(event.target.value)}
+                onChange={(event) => setName(event.target.value)}
                 onBlur={ () => setTouched(true)}
                 className={`CodeNameInput ${showError ? 'error' : ''}`}
               />
@@ -147,7 +172,7 @@ export function CreatePromocode(props) {
 
             <button className=' CancelButton' onClick={()=>props.setIsPromocodeMenuOpen(false)}>Cancel</button>
 
-            <button className='SaveButton' onClick={()=>{props.setIsPromoIntroOpen(false);props.setIsPromocodeMenuOpen(false);}} >Save </button>
+            <button className='SaveButton' onClick={savePromo} >Save </button>
 
         </div>
 

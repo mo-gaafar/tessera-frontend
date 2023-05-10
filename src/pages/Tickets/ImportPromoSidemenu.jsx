@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import CSVReader from 'react-csv-reader';
 import { CreatePromoSideMenu, CsvPromocode } from './styles/Tickets.styled';
+import axios from 'axios';
 
 export function ImportPromocode(props) {
   const [name, setName] = useState('');
   const [touched, setTouched] = useState(false);
-
+  const [file, setFile] = useState(null);
   const showError = touched && name.trim() === '';
 
   ///////////////////////
@@ -60,12 +61,39 @@ export function ImportPromocode(props) {
     }
   };
 
+  async function importPromocode() {
+    const event = props.event;
+    // Form data request with file
+    const data = new FormData();
+    data.append('csvFile', file);
+
+    const url = `https://www.tessera.social/api/event-management/import-promo/${event}`;
+    const res = await axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
+        
+    }});
+    // console.log(res);
+  }
+
+  async function importPromo()
+  {
+    await importPromocode();
+    props.setIsPromoIntroOpen(false);
+    props.setIsImportPromoMenuOpen(false);
+  }
+
   ///////////////////////////////////csv upload AND validation
-  const handleFileUpload = event => {
-    const selectedFile = event.target.files[0];
+  const [isFileValid, setIsFileValid] = useState(true);
+  const fileInputRef = useRef(null);
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
     const reader = new FileReader();
-    reader.onload = () => {
-      const fileContents = reader.result;
+
+    reader.onload = (e) => {
+      const fileContents = e.target.result;
       // Perform validation on the file contents
       const lines = fileContents.split(/\r\n|\n/);
       let promoCodeCount = 0;
@@ -77,13 +105,8 @@ export function ImportPromocode(props) {
         }
         const promoCodes = line.split(/[\s,]+/);
         for (let promoCode of promoCodes) {
-          if (promoCode.length > 30) {
-            // Promo code is too long
-            isValid = false;
-            break;
-          }
-          if (/[^a-zA-Z0-9-_@.,]/.test(promoCode)) {
-            // Promo code contains invalid characters
+          if (promoCode.length > 30 || /[^a-zA-Z0-9-_@.,]/.test(promoCode)) {
+            // Promo code is too long or contains invalid characters
             isValid = false;
             break;
           }
@@ -96,16 +119,24 @@ export function ImportPromocode(props) {
       }
       if (!isValid) {
         // File is not valid
-        alert('Invalid file format or contents');
-        return;
+        console.log('Invalid file format or contents');
+        setIsFileValid(false);
+      } else {
+        // File is valid
+        console.log(file);
+        console.log(fileContents);
+        setIsFileValid(true);
+        // Do something with the file
       }
-      // File is valid
-      // console.log(selectedFile);
-      // console.log(fileContents);
-      // Do something with the file
     };
-    reader.readAsText(selectedFile);
+
+    reader.readAsText(file);
   };
+
+  const handleDivClick = () => {
+    fileInputRef.current.click();
+  };
+
 
   return (
     <CsvPromocode>
@@ -126,7 +157,7 @@ export function ImportPromocode(props) {
 
           <div
             className="ImportCsvCardDiv"
-            onClick={() => document.getElementById('csvFileInput').click()}
+            onClick={handleDivClick}
           >
             <span class="CalendarIconSpan">
               <i
@@ -150,11 +181,11 @@ export function ImportPromocode(props) {
             </div>
 
             <input
-              id="csvFileInput"
-              type="file"
-              accept=".csv,.txt"
-              onChange={handleFileUpload}
-              style={{ display: 'none' }}
+             ref={fileInputRef}
+             type="file"
+             accept=".csv, .txt"
+             onChange={handleFileUpload}
+             style={{ display: 'none' }}
             />
           </div>
 
@@ -250,7 +281,7 @@ export function ImportPromocode(props) {
             Cancel
           </button>
 
-          <button className="SaveButton" onClick={()=>{props.setIsPromoIntroOpen(false);props.setIsImportPromoMenuOpen(false);}}>
+          <button className="SaveButton" onClick={importPromo}>
             Save{' '}
           </button>
         </div>

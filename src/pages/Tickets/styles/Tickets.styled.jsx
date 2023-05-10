@@ -1451,9 +1451,10 @@ export const PromocodesSavePageDiv = styled.div`
   }
 
   .Header {
-    background-color: Khaki;
+    background-color: #f8f7fa;;
     width: 96.6rem;
     height: 4.35rem;
+    border-bottom: 0.1rem solid #eeedf2;
   }
 
   th {
