@@ -5,7 +5,10 @@ import usePlacesAutocomplete, {
 
 import { useState } from 'react';
 import { StyledPlaces } from './Styles/BasicInfo.styled';
-export default function PlacesAutocomplete({ setLocationValue }) {
+export default function PlacesAutocomplete({
+  setLocationValue,
+  setLocationData,
+}) {
   const {
     ready,
     value,
@@ -24,15 +27,39 @@ export default function PlacesAutocomplete({ setLocationValue }) {
     const results = await getGeocode({ address });
     const { lat, lng } = getLatLng(results[0]);
 
+    const addressComponents = results[0].address_components;
+    let administrativeAreaLevel1,
+      country,
+      city = '';
+    addressComponents.forEach(component => {
+      if (component.types.includes('administrative_area_level_1')) {
+        administrativeAreaLevel1 = component.short_name;
+      }
+      if (component.types.includes('country')) {
+        country = component.short_name;
+      }
+      if (component.types.includes('locality')) {
+        city = component.short_name;
+      }
+    });
     const data = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
     );
-
+    console.log(administrativeAreaLevel1, country, city);
     const json = await data.json();
 
     setValue(address.split(',')[0], false);
+    setLocationData(() => {
+      return {
+        placeId: results[0].place_id,
+        lat: lat,
+        lng: lng,
+        administrativeAreaLevel: administrativeAreaLevel1,
+        country: country,
+        venueName: address.split(',')[0],
+      };
+    });
 
-    console.log(json);
     const cities = json.results;
   };
 

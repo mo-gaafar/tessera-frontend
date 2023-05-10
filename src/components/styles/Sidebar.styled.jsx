@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const StyledMainSidebar = styled.div`
   padding-inline: 1.5rem;
-  height: calc(100vh - 70px);
   background-color: #f8f7fa;
   display: flex;
   flex-direction: column;
