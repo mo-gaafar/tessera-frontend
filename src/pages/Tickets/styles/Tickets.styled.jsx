@@ -10,6 +10,7 @@ export const MainTicketsDiv = styled.div`
   /* margin: 6rem 0 0 34.1rem; */
   /* background-color: lightblue; */
   height: 100%;
+  flex-grow: 1;
   /* width: 100%;    */
 `;
 export const LetsCreateTicketsDiv = styled.div`
@@ -957,15 +958,9 @@ export const CreatePromoSideMenu = styled.div`
     border: 0.1rem solid #a9a8b3;
   }
 
-}   
-
-.DiscountAmountDiv:hover{
-
-    border-color:#6f7287;
-    
-
-}
-
+  .DiscountAmountDiv:hover {
+    border-color: #6f7287;
+  }
 
   .DollarSignDiv {
     width: 0.847rem;
@@ -1142,10 +1137,9 @@ export const CsvPromocode = styled.div`
     height: 5.8rem;
     border: 1px solid hsl(250, 7%, 80%);
   }
-  .DropdownDiv:hover{
-
-    border-color:#6f7287;
- }
+  .DropdownDiv:hover {
+    border-color: #6f7287;
+  }
 
   .LimitDropdownDiv {
     display: flex;
@@ -1279,14 +1273,9 @@ export const CsvPromocode = styled.div`
     border: 0.1rem solid #a9a8b3;
   }
 
-} 
-
-.DiscountAmountDiv:hover{
-
-    border-color:#6f7287;
-    
-
-} 
+  .DiscountAmountDiv:hover {
+    border-color: #6f7287;
+  }
 
   .DollarSignDiv {
     width: 0.847rem;
