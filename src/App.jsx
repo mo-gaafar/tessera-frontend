@@ -4,7 +4,7 @@
  * @exports App
  */
 
-import SignupTwo from './pages/SignUp/SignupTwo';
+import SignupTwo from './Pages/SignUp/SignupTwo';
 import SignUpOne from './pages/SignUp/SignupOne';
 import GlobalStyles from './components/styles/Global';
 import Landing from './pages/LandingPage/Landing';

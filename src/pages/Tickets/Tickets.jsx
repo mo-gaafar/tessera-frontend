@@ -339,31 +339,31 @@ export default function CreateTickets() {
                         <table>
                           <thead>
                             <tr>
-                              <th
+                              <th className='NameColumn1'
                                 style={{ width: getColumnWidth('NameColumn1') }}
                               >
                                 Name
                               </th>
-                              <th
+                              <th className='CodeTypeColumn2'
                                 style={{
                                   width: getColumnWidth('CodeTypeColumn2'),
                                 }}
                               >
                                 Code type
                               </th>
-                              <th
+                              <th className='DiscountColumn3'
                                 style={{
                                   width: getColumnWidth('DiscountColumn3'),
                                 }}
                               >
                                 Discount
                               </th>
-                              <th
+                              <th className='UsesColumn4'
                                 style={{ width: getColumnWidth('UsesColumn4') }}
                               >
                                 Uses
                               </th>
-                              <th
+                              <th className='StatusColumn5'
                                 style={{
                                   width: getColumnWidth('StatusColumn5'),
                                 }}
