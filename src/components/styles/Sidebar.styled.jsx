@@ -7,6 +7,7 @@ export const StyledMainSidebar = styled.div`
   flex-direction: column;
   min-height: 100vh;
   gap: 2rem;
+  min-height: 100vh;
   div:first-child {
     margin-top: 2rem;
   }

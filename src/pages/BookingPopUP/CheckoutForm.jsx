@@ -94,8 +94,16 @@ function CheckoutForm(props) {
         last_name: lastName,
         email: email,
       },
-      promocode: '',
-      ticketTierSelected: tiketTier,
+      promocode: props.promocode,
+      
+      ticketTierSelected: props.checkoutInfo.map(info =>{return{
+            tierName:info.sumTierName,
+            quantity: info.sumTicketCount+props.number,
+            price:info.sumTicketPrice
+          }
+
+      })
+      
     };
     try {
       const response = await axios.post(
@@ -105,10 +113,14 @@ function CheckoutForm(props) {
         }
       );
       console.log(response);
+      console.log(await response.json())
     } catch (error) {
       console.log(error);
     }
   }
+  const emailUser = localStorage.getItem('email')
+    ? localStorage.getItem('email')
+    : localStorage.getItem('authEmail');
 
   return (
     <StyleDiv>
@@ -137,7 +149,7 @@ function CheckoutForm(props) {
             <h2>Contact Information</h2>
             <div className="loggedIn">
               <p>
-                Logged In As <strong>clara@clara.com</strong>
+                Logged In As <strong>{emailUser}</strong>
               </p>
               <p>
                 Required <span>*</span>
@@ -314,7 +326,7 @@ function CheckoutForm(props) {
               <>
                 <div className="ticket" key={ticket.sumId}>
                   <p className="ticketInfo">
-                    {ticket.ticketCount} x {ticket.sumTierName}
+                    {ticket.sumTicketCount + props.number} x {ticket.sumTierName}
                   </p>
                   <p className="ticketInfo">
                     {ticket.sumtTicketPrice === 'Free' ? '$' : ''}
@@ -326,7 +338,7 @@ function CheckoutForm(props) {
             ))}
             <div className="totalPrice">
               <h3>Total</h3>
-              <p>${totalPrice}</p>
+              <p>${props.checkoutInfo.reduce((current,acc)=> Number(acc.sumTicketPrice)*(acc.sumTicketCount+props.number+current), 0)}</p>
             </div>
           </div>
         </div>
