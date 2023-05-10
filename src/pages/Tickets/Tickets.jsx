@@ -10,6 +10,7 @@ import {
   PromocodesPageDiv,
   PromocodesSavePageDiv,
 } from './styles/Tickets.styled';
+
 import { CreatePromocode } from './CreatePromoSidemenu';
 import AddTicketSidemenu from './AddTicketSidemenu';
 import Sidebar from '../../components/Sidebar';
@@ -139,7 +140,7 @@ export default function CreateTickets() {
         )}
       </StyledNav>
       <div style={{ display: 'flex' }}>
-        <Sidebar event={false} />
+        <Sidebar event={true} />
         <MainTicketsDiv>
           {replaceContentAfterSave && (
             <TicketCreatedDiv>
