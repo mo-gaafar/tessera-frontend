@@ -11,7 +11,7 @@ import Navbar from '../LandingPage/NavBar';
 import PlacesAutocompleteCreators from './PlacesAutocompleteCreators';
 import Details from './BasicInfoSecondPage';
 import { Link, useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 export default function BasicInfo() {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
@@ -59,6 +59,7 @@ export default function BasicInfo() {
   const [locationData, setLocationData] = useState({});
   const [selectedValue, setSelectedValue] = useState('');
   const [venueinputerror, setVenueInputError] = React.useState('');
+  const [countries, setCountries] = useState([]);
 
   const API_KEY = '2MJLSMGOES8V';
   const options = [];
@@ -79,6 +80,16 @@ export default function BasicInfo() {
       );
     }
   }
+  useEffect(() => {
+    // Fetch the list of countries from a REST API
+    axios.get('https://restcountries.com/v2/all')
+      .then(response => {
+        setCountries(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   function handleValidation() {
     if (!value) {
@@ -157,21 +168,7 @@ export default function BasicInfo() {
       }
     }
   }
-  // async function clickNext(e) {
-  //   e.preventDefault();
-  //   console.log(props.data);
-
-  //   const response = await fetch('https://www.tessera.social/api/event-management/creator', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(props.data),
-  //   });
-
-  //   const json = await response.json();
-  // }
-
+  //checks if the time in the calendar has already passed
   function getDayClassName(date) {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set the time to midnight
@@ -189,7 +186,7 @@ export default function BasicInfo() {
       .then(response => response.json())
       .then(data => setTimezones(data.zones));
   }, []);
-
+  //handling buttons and which div to show 
   function handleVenueClick() {
     setShowVenue(true);
     setShowOnline(false);
@@ -211,6 +208,7 @@ export default function BasicInfo() {
     setShowRecurring(true);
     setShowSingle(false);
   }
+  //handling errors 
   const handleChange = event => {
     setValue(event.target.value);
     if (event.target.value.trim() === '') {
@@ -515,18 +513,20 @@ export default function BasicInfo() {
                               ref={dropdownsecondRef}
                             >
                               <div
-                                className="typeborder"
-                                onClick={handleSecondDropDownClick}
-                                style={
-                                  secondclicked
-                                    ? { border: '2px solid blue' }
-                                    : {}
-                                }
-                              >
+                                  className="typeborder"
+                                  data-testid='timedropdownoptions'
+                                  onClick={handleSecondDropDownClick}
+                                  style={
+                                    secondclicked
+                                      ? { border: '2px solid blue' }
+                                      : {}
+                                  }
+                                >
                                 <div className="categorybox">
                                   <select
                                     onChange={handleCategoryChange}
-                                    className="dropdownselect"
+                                    className="dropdownselect" 
+                                    data-testid='timedropdownselect'
                                   >
                                     <option
                                       className="dropdownoption"
@@ -1077,6 +1077,50 @@ export default function BasicInfo() {
                                 </div>
                               </div>
                             </div>
+                            <div
+                                className="timedropdowndiv"
+                                style={{ marginBottom: '8px' }}
+                              >
+                                <div className="searchvenuediv1">
+                                  <div
+                                    className="typeborder"
+                                    onClick={handleBlueOnlineClick}
+                                    style={
+                                      onlineclicked
+                                        ? { border: '1px solid blue' }
+                                        : {
+                                            border: '0px solid #dbdae3',
+                                          }
+                                    }
+                                  >
+                                    <div
+                                    className="placeholder2"
+                                    style={{
+                                      position: 'absolute',
+                                      top: '-10px',
+                                      left: '-5px',
+                                      width: ' 100%',
+                                      height: '70px',
+                                      zIndex: '2'
+                                    }}
+                                  >
+                                    <label className="label">
+                                      <span className="spantext2" style={{marginLeft:'-10px'}}>
+                                        Country
+                                      </span>
+                                    </label>
+                                  </div>
+                                    <div className="dropdownLast" >
+                                      <select className="selecttime">
+                                      <option value="">Egypt</option>
+                                        {countries.map(country => (
+                                          <option  key={country.alpha2Code} value={country.alpha2Code}>{country.name}</option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                           </div>
                         )}
                         {showonline && (
@@ -1214,6 +1258,7 @@ export default function BasicInfo() {
                                         </div>
                                         {/* <label htmlFor="date-select">Select a date:</label> */}
                                         <input
+                                          data-testid='datepicker-container'
                                           style={{ height: '46px' }}
                                           value={
                                             selectedDate
@@ -1227,8 +1272,10 @@ export default function BasicInfo() {
                                           role="textbox"
                                         />
                                         {showCalendar && (
-                                          <div style={{ position: 'relative' }}>
+                                          <div style={{ position: 'relative' }}
+                                          data-testid='datepicker-container'>
                                             <DatePicker
+                                              data-testid='datepicker-container'
                                               selected={selectedDate}
                                               className="custom-datepicker"
                                               calendarClassName="custom-calendar"
@@ -1507,7 +1554,7 @@ export default function BasicInfo() {
                                         }
                                       >
                                         <div className="dropdownLast">
-                                          <select className="selecttime">
+                                          <select className="selecttime" data-testid="timezoneselect">
                                             {timezones.map(zone => (
                                               <option
                                                 key={zone.zoneName}

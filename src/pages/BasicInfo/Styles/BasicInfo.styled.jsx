@@ -1285,7 +1285,6 @@ export const WholePage = styled.div`
     @media (min-width: 660px) {
       display: none;
     }
-
     position: fixed;
     transform: translateY(0);
     background-color: #fff;

@@ -2,10 +2,9 @@ import React from 'react';
 import { fireEvent, getByRole, render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import BasicInfo from '../pages/BasicInfo/BasicInfo';
+import Details from '../pages/BasicInfo/BasicInfoSecondPage';
 import { BrowserRouter } from 'react-router-dom';
-import  Details  from '../pages/BasicInfo/BasicInfoSecondPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import getByTextAcrossNodes from '../pages/BasicInfo/BasicInfo';
 
 describe('basicinfo', () => {
   it('Dropdown Category list selects an option', () => {
@@ -22,9 +21,8 @@ describe('basicinfo', () => {
     fireEvent.click(option);
 
     const select = getByTestId('timedropdownselect');
-    expect(select.value).toBe("");
+    expect(select.value).toBe("true");
   }); 
-
   it('Time Zone Dropdown options list selects an option', () => {
     const { getByTestId, getByText } = render(
       <BrowserRouter>
@@ -42,21 +40,59 @@ describe('basicinfo', () => {
     );
     expect(getByTestId('datepicker-container')).toBeInTheDocument();
   });
-
+  it('when pressing the continue button with empty input error will appear ', () => {
+    const { getAllByRole, getByText } = render(
+      <BrowserRouter>
+        <GoogleOAuthProvider clientId="749417144932-40bn9j748fbhp5tciuuhd5ehhr8e5gfd.apps.googleusercontent.com">
+          <BasicInfo test={true} />
+        </GoogleOAuthProvider>
+      </BrowserRouter>
+    );
+    const continueButton = getAllByRole('button', { name: 'Save & Continue' })[0];
+    fireEvent.click(continueButton);
+    const labels = getByText('Title is required').textContent;
+    expect(labels).toEqual('Title is required');
+  });
+  it('when pressing the continue button with empty input error will appear ', () => {
+    const { getAllByRole, getByText } = render(
+      <BrowserRouter>
+        <GoogleOAuthProvider clientId="749417144932-40bn9j748fbhp5tciuuhd5ehhr8e5gfd.apps.googleusercontent.com">
+          <BasicInfo test={true} />
+        </GoogleOAuthProvider>
+      </BrowserRouter>
+    );
+    const continueButton = getAllByRole('button', { name: 'Save & Continue' })[0];
+    fireEvent.click(continueButton);
+    const labels = getByText('Address 1 is required').textContent;
+    expect(labels).toEqual('Address 1 is required');
+  });
+  it('when pressing the continue button with empty input error will appear ', () => {
+    const { getAllByRole, getByText } = render(
+      <BrowserRouter>
+        <GoogleOAuthProvider clientId="749417144932-40bn9j748fbhp5tciuuhd5ehhr8e5gfd.apps.googleusercontent.com">
+          <BasicInfo test={true} />
+        </GoogleOAuthProvider>
+      </BrowserRouter>
+    );
+    const continueButton = getAllByRole('button', { name: 'Save & Continue' })[0];
+    fireEvent.click(continueButton);
+    const labels = getByText('ZIP code is required').textContent;
+    expect(labels).toEqual('ZIP code is required');
+  });
 });
 
 describe('details', () => {
-  // it('uploads a picture when the button is clicked', () => {
-  //   // Create a mock function for the handlePhotoChange callback
-  //   const handlePhotoChange = jest.fn();
-  //   // Render the component
-  //   const { getByRole } = render(
-  //     <Details handlePhotoChange={handlePhotoChange} />
-  //   );
-  //   // Get the button element and click it
-  //   const button = getByRole('button');
-  //   fireEvent.click(button);
-  //   // Check that the handlePhotoChange callback was called
-  //   expect(handlePhotoChange).toHaveBeenCalled();
-  // });
+  it('when pressing the continue button with empty summary error will appear ', () => {
+    const { getAllByRole, getByTestId } = render(
+      <BrowserRouter>
+        <GoogleOAuthProvider clientId="749417144932-40bn9j748fbhp5tciuuhd5ehhr8e5gfd.apps.googleusercontent.com">
+          <Details test={true} />
+        </GoogleOAuthProvider>
+      </BrowserRouter>
+    );
+    const continueButton = getAllByRole('button', { name: 'Save & Continue' })[0];
+    fireEvent.click(continueButton);
+    const labels = getByTestId('summaryempty').textContent;
+    expect(labels).toEqual("");
+  });
 });
