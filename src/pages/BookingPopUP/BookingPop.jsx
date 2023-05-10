@@ -83,6 +83,7 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
               {showCheckout && (
                 <BoxContainer>
                   <CheckoutForm
+                    images={image}
                     total={sum}
                     event={event}
                     checkoutInfo={checkoutInfo}
@@ -157,8 +158,11 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                                 </div>
                                 <div className="SinglePrice">
                                   {' '}
-                                  {orderSummary.sumTicketCount *
-                                    Number(price.replace(/\$/g, ''))}
+                                  {
+                                    orderSummary.sumTicketCount *
+                                      parseFloat(price.replace(/\$/g, ''))
+                                    //(Number(price.replace(/\$/g, '')))
+                                  }
                                 </div>
                               </div>
                             </OrderTicket>
@@ -167,18 +171,20 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                         <OrderTitle>
                           {checkoutInfo.forEach(orderSummary => {
                             let price = orderSummary.sumTicketPrice;
+                            if (price === 'Free') {
+                              price = '$0';
+                            }
                             console.log(orderSummary.sumTicketCount);
 
                             sum +=
                               //Number(orderSummary.sumTicketPrice) *
-                              (price === 'Free'
-                                ? Number(0)
-                                : Number(price.replace(/\$/g, ''))) *
+                              //  Number(price.replace(/\$/g, ''))
+                              parseFloat(price.replace(/\$/g, '')) *
                               Number(orderSummary.sumTicketCount);
                           })}
                           <div className="Tsummary">
                             <div className="Tcount">Total</div>
-                            <div className="Singleprice">{sum}</div>
+                            <div className="Singleprice">{Math.round(sum)}</div>
                           </div>
                         </OrderTitle>
                       </Order>

@@ -60,6 +60,14 @@ export default function TierBox({
     let flag = false;
 
     newState.forEach((elementS, i) => {
+      if (i == 0) {
+        //flag = true;
+        //elementS.sumTicketCount = element.ticketCount;
+        // elementS.sumTicketCount = number;
+        //elementS.sumTicketPrice = newPrice;
+
+        elementS.ticketCount === 0 && newState.splice(i, 1);
+      }
       if (elementS.sumId == element.id) {
         flag = true;
         elementS.sumTicketCount = element.ticketCount;
@@ -68,14 +76,14 @@ export default function TierBox({
 
         elementS.ticketCount === 0 && newState.splice(i, 1);
       }
-      if (i == 0) {
-        //flag = true;
-        //elementS.sumTicketCount = element.ticketCount;
-        // elementS.sumTicketCount = number;
-        elementS.sumTicketPrice = newPrice;
+      // if (i == 0) {
+      //   //flag = true;
+      //   //elementS.sumTicketCount = element.ticketCount;
+      //   // elementS.sumTicketCount = number;
+      //   elementS.sumTicketPrice = newPrice;
 
-        elementS.ticketCount === 0 && newState.splice(i, 1);
-      }
+      //   elementS.ticketCount === 0 && newState.splice(i, 1);
+      // }
     });
 
     if (!flag) {
