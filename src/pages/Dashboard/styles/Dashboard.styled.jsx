@@ -188,7 +188,7 @@ export const StyledAttendeeSummary = styled.div`
   }
 
   th {
-    background-color: #f2f2f2; /* Set your desired background color here */
+    background-color: #fdfdfd; /* Set your desired background color here */
   }
   .table-content{
     font-size:16px;
@@ -201,7 +201,6 @@ export const StyledAttendeeSummary = styled.div`
     margin-top:3rem;
     .table-header{
       height:5rem;
-      background-color:#eaeced;
       padding-bottom:1rem;
     }
     .head-data{
