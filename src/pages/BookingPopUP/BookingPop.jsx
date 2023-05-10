@@ -139,19 +139,24 @@ export default function BookingPopUp({number, setShowPopUp, image }) {
                         <OrderTitle>Order Summary</OrderTitle>
 
                         {checkoutInfo.map((orderSummary, index) => {
+                          console.log("orderSummary")
                           console.log(orderSummary)
+                          let price=orderSummary.sumTicketPrice;
+                          if (price==="Free") 
+                          {price="$0";}
+                          console.log(price)
                           return (
                             <OrderTicket key={index}>
                               <div className="Tsummary">
                                 <div className="Tcount">
-                                  {orderSummary.sumTicketCount+number} x
+                                  {orderSummary.sumTicketCount} x
                                   {orderSummary.sumTierName}
                                 </div>
                                 <div className="SinglePrice">
                                   {' '}
                                   {
-                                  (orderSummary.sumTicketCount + number) *
-                                    orderSummary.sumTicketPrice
+                                  (orderSummary.sumTicketCount ) *
+                                    (Number(price.replace(/\$/g, '')))
                                    
                                   }
                                 </div>
@@ -161,12 +166,13 @@ export default function BookingPopUp({number, setShowPopUp, image }) {
                         })}
                         <OrderTitle>
                           {checkoutInfo.forEach(orderSummary => {
-
-                            console.log(orderSummary.sumTicketPrice)
+                            let price=orderSummary.sumTicketPrice;
+                            console.log(orderSummary.sumTicketCount)
                             
                              sum +=
-                              Number(orderSummary.sumTicketPrice) *
-                             ( Number(orderSummary.sumTicketCount)+number);
+                              //Number(orderSummary.sumTicketPrice) *
+                              (price==="Free" ? Number(0): Number(price.replace(/\$/g, ''))) *
+                             ( Number(orderSummary.sumTicketCount));
                     
                           })}
                           <div className="Tsummary">

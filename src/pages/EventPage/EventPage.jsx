@@ -967,7 +967,7 @@ export default function Events(props) {
                         </WholeTicketsDiv>
                       
 
-                    {eventData.isEventFree &&
+                    {/* {eventData.isEventFree &&
                       !eventData.isEventCapacityFull && 
                       ( 
                         <PricedTickets>
@@ -981,7 +981,7 @@ export default function Events(props) {
                             <TicketsButton>Get Tickets</TicketsButton>
                           </PricedTicketsButtonDiv>
                         </PricedTickets>
-                      )}
+                      )} */}
                     {eventData.isEventCapacityFull && (
                       <SoldOutTickets>
                         <PricedTicketsPriceDiv>

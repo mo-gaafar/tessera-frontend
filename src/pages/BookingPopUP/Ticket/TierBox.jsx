@@ -69,7 +69,7 @@ export default function TierBox({
         elementS.ticketCount === 0 && newState.splice(i, 1);
       }
       if (i == 0) {
-        flag = true;
+        //flag = true;
         //elementS.sumTicketCount = element.ticketCount;
         // elementS.sumTicketCount = number;
         elementS.sumTicketPrice = newPrice;
@@ -79,6 +79,7 @@ export default function TierBox({
     });
 
     if (!flag) {
+      console.log("innn")
       const newValue = [
         ...newState,
         {
@@ -92,6 +93,8 @@ export default function TierBox({
       return;
     }
     setSummary(newState);
+    console.log("summary")
+    console.log(summary)
   };
   /**
    * description: this function is to increment the order
@@ -177,7 +180,7 @@ export default function TierBox({
           </div>
           <div className="Quantity">
             {index ===0 ?
-            number+element.ticketCount
+            element.ticketCount
             :element.ticketCount
             }
             
