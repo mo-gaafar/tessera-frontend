@@ -5,8 +5,7 @@ import {
   StyledMainSidebar,
   StyledCreateTicketSidebar,
 } from './styles/Sidebar.styled';
-const Sidebar = ({ hide, event, dashboard }) => {
-  console.log(event);
+const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
   const [hovered, setHovered] = useState(false);
   const [reportHovered, setReportHovered] = useState(false);
 
@@ -55,7 +54,7 @@ const Sidebar = ({ hide, event, dashboard }) => {
       </StyledMainSidebar>
       {!hide && (
         <StyledCreateTicketSidebar>
-          <Link className="events__page">
+          <Link to="/Organize" className="events__page">
             <svg viewBox="0 0 24 24" xml:space="preserve">
               <path
                 fill-rule="evenodd"
@@ -79,7 +78,7 @@ const Sidebar = ({ hide, event, dashboard }) => {
             </Link>
           </div>
           <div className="create__event">
-            <span>
+            <Link to="/basicinfo" className={basicInfo && 'active'}>
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,8 +101,8 @@ const Sidebar = ({ hide, event, dashboard }) => {
                 ></polygon>
               </svg>
               Basic Info
-            </span>
-            <span>
+            </Link>
+            <Link to="/details" className={details && 'active'}>
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -126,8 +125,8 @@ const Sidebar = ({ hide, event, dashboard }) => {
                 ></polygon>
               </svg>
               Details
-            </span>
-            <span>
+            </Link>
+            <Link to="/ticket">
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -150,8 +149,8 @@ const Sidebar = ({ hide, event, dashboard }) => {
                 ></polygon>
               </svg>
               Tickets
-            </span>
-            <span>
+            </Link>
+            <Link to="/publish">
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -174,11 +173,11 @@ const Sidebar = ({ hide, event, dashboard }) => {
                 ></polygon>
               </svg>
               Publish
-            </span>
+            </Link>
           </div>
           <div className="others">
             <span className={dashboard ? 'active' : ''}> Dashboard</span>
-            <span>Manage Attendes</span>
+            <span>Manage Attendees</span>
           </div>
         </StyledCreateTicketSidebar>
       )}

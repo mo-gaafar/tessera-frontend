@@ -3,11 +3,37 @@ import { StyledDashboard } from './styles/Dashboard.styled';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 const Dashboard = () => {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+
+  const eventID = useParams().eventID
+    ? useParams().eventID
+    : localStorage.getItem('eventID');
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await fetch(
+        `https://www.tessera.social/api/event-management/retrieve/${eventID}`,
+        {
+          method: 'GET',
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await result.json();
+      setEventData(data.event);
+      console.log(EventData);
+    };
+
+    getData();
+  }, []);
 
   return (
     <>

@@ -6,7 +6,6 @@ import { Organize } from '../pages/Organize/Organize';
 
 describe('organize', () => {
   it('select is working', () => {
-
     // const { getByText, getAllByRole } = render(
     //   <BrowserRouter>
     //     <Organize test={true} />

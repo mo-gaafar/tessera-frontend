@@ -35,4 +35,19 @@ describe('organize', () => {
     fireEvent.click(searchButton);
     expect(searchInput[0].value).toEqual('abcd');
   });
+
+  it('select draft status is working', () => {
+    const { getByText,getAllByRole } = render(
+      <BrowserRouter>
+        <Organize test={true} />
+      </BrowserRouter>
+      
+    );
+    const dropButton = getByText('All events');
+    fireEvent.click(dropButton);
+    const eventButton = getAllByRole('button', { name: 'Draft' })[0];
+    fireEvent.click(eventButton);
+    let dropButtonText = dropButton.textContent;
+    expect(dropButtonText).toEqual('Draft');
+  });
 });

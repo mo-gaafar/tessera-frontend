@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 export const StyledMainSidebar = styled.div`
   padding-inline: 1.5rem;
-  height: calc(100vh - 70px);
   background-color: #f8f7fa;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   gap: 2rem;
+  min-height: 100vh;
   div:first-child {
     margin-top: 2rem;
   }
@@ -100,10 +101,10 @@ export const StyledCreateTicketSidebar = styled.div`
     color: #4b4d63;
     font-size: 1.4rem;
     font-weight: 500;
-    span:first-child {
+    a:first-child {
       padding-top: 1.5rem;
     }
-    span:last-child {
+    a:last-child {
       padding-bottom: 1.5rem;
     }
     > * {
@@ -142,8 +143,8 @@ export const StyledCreateTicketSidebar = styled.div`
         background-color: #eeedf2;
       }
     }
-    .active {
-      background-color: #fff;
-    }
+  }
+  .active {
+    background-color: #fff;
   }
 `;
