@@ -54,7 +54,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
       </StyledMainSidebar>
       {!hide && (
         <StyledCreateTicketSidebar>
-          <Link className="events__page">
+          <Link to="/Organize" className="events__page">
             <svg viewBox="0 0 24 24" xml:space="preserve">
               <path
                 fill-rule="evenodd"
@@ -126,7 +126,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
               </svg>
               Details
             </Link>
-            <Link>
+            <Link to="/ticket">
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"

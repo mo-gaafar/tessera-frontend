@@ -31,13 +31,36 @@ import {
   StyleDiv,
   InputGroup,
 } from './styles/PublishPage.Styled';
-function PublishPage(props) {
+function PublishPage() {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+  const event = localStorage.getItem('eventID');
+  const token = localStorage.getItem('token');
+  const [EventData, setEventData] = useState({});
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await fetch(
+        `https://www.tessera.social/api/event-management/retrieve/${event}`,
+        {
+          method: 'GET',
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await result.json();
+      setEventData(data.event);
+      console.log(EventData);
+    };
+
+    getData();
+  }, []);
 
   // const event = props.event;
-  const event = '643aa09ecbfea68c24d93670';
   const url = 'https://www.tessera.social/api/event-management/publish/';
   const [eventType, setEventType] = useState('public');
   const [audienceType, setAudienceType] = useState('anyone');
@@ -56,12 +79,50 @@ function PublishPage(props) {
       alwaysPrivate: eventType === 'public' ? true : false,
       privateToPublicDate: publishDate,
     };
-    const res = await axios.put(url + event, data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+
+    const response = await fetch(
+      `https://www.tessera.social/api/event-management/publish/${event}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    console.log(await response.json());
   }
+
+  const totalCapacity = EventData.ticketTiers?.reduce(
+    (sumCapacity, ticketTier) => {
+      return sumCapacity + ticketTier.maxCapacity;
+    },
+    0
+  );
+
+  const lowestPrice = EventData.ticketTiers?.reduce((minPrice, ticketTier) => {
+    if (Number(ticketTier.price) < minPrice) {
+      return Number(ticketTier.price);
+    } else {
+      return minPrice;
+    }
+  }, Infinity);
+  const convertTime = Iso => {
+    const date = new Date(Iso);
+    const dateString = date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    const timeString = date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+    const formattedDate = `${dateString} at ${timeString}`;
+    return formattedDate;
+  };
 
   return (
     <>
@@ -78,19 +139,16 @@ function PublishPage(props) {
         <div className="publish">
           <h1 className="header">Publish Your Event</h1>
           <div className="previewBox">
-            <img
-              src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F399778979%2F1288811134183%2F1%2Foriginal.20221125-142736?w=720&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C158%2C1080%2C540&s=16c699c9a114c13ad66a0bf72412ab25"
-              alt="event"
-            />
+            <img src={EventData.basicInfo?.eventImage} />
             <div className="publishDetails">
-              <h2>Party</h2>
-              <p>Tuesday, June 13, 2023 at 7:00 PM EET</p>
+              <h2>{EventData.basicInfo?.eventName}</h2>
+              <p>{convertTime(EventData.basicInfo?.startDateTime)}</p>
               <div className="price">
                 <div className="priceAmount">
                   <svg viewBox="0 0 24 24">
                     <path d="M10 13v-2h4v2zm6 5V6h-.4C15 7.4 13.8 8.4 12 8.4S9 7.4 8.4 6H8v12h.4c.6-1.4 1.8-2.4 3.6-2.4s3 1 3.6 2.4zM14 4h4v16h-4s0-2.4-2-2.4-2 2.4-2 2.4H6V4h4s0 2.4 2 2.4S14 4 14 4z"></path>
                   </svg>
-                  <p>$100.00</p>
+                  <p>${lowestPrice}</p>
                 </div>
                 <div className="priceAmount">
                   <svg
@@ -113,10 +171,10 @@ function PublishPage(props) {
                       d="M12 4C9.7 4 7.8 5.9 7.8 8.2s1.9 4.2 4.2 4.2 4.2-1.9 4.2-4.2S14.3 4 12 4zm0 6.4c-1.2 0-2.2-1-2.2-2.2C9.8 7 10.8 6 12 6s2.2 1 2.2 2.2c0 1.2-1 2.2-2.2 2.2z"
                     ></path>
                   </svg>
-                  <p>200</p>
+                  <p>{totalCapacity}</p>
                 </div>
               </div>
-              <p>descvssad</p>
+              <p>{EventData.description}</p>
               <div className="previewLink">
                 <a
                   data-spec="eds-link"

@@ -47,12 +47,12 @@ function App() {
         <Route path="forgetPassword/:token" element={<ResetPassword />} />
         <Route path="checkout" element={<CheckoutForm />} />
         <Route path="/event/:eventID" element={<Events />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/:eventID" element={<Dashboard />} />
         <Route path="/attendeeSummary" element={<AttendeeSummary />} />
         <Route path="/manage" element={<AddAttendee />} />
         <Route path="/basicInfo" element={<BasicInfo />} />
         <Route path="/details" element={<Details />} />
-        <Route path="/publish" element={<PublishPage />} />{' '}
+        <Route path="/publish" element={<PublishPage />} />
         <Route path="/ticket" element={<CreateTickets />} />
       </Routes>
     </>
