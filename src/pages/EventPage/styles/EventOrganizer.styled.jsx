@@ -2,21 +2,18 @@ import styled from 'styled-components';
 
 
 export const AboutTheOrganizer = styled.section`
-padding-left:10rem;
+
 width: 72rem;
 height: 40.25rem;
-color:rgb(30, 10, 60);
-
-
-
 margin-left: 7.4rem;
 
-h2{
+
+h2{ 
     font-size:2.4rem;
 }
 
 .aboutOrganizerContainer{
-    
+ 
     margin: 3.2rem 0rem;
     padding: 4rem;
     height:34.425rem;
@@ -32,6 +29,7 @@ h2{
     margin-bottom:2.4rem;
     // background-color:yellow;
     text-align: center;
+    
 
 
 }
@@ -245,8 +243,7 @@ background-color: white;
 margin: 3.2rem 0rem;
 margin-left: 7.4rem;
 font-weight: 600;
-padding-left:10rem;
-color:rgb(30, 10, 60);
+
 
 h2{
     font-size:2.4rem;
@@ -738,9 +735,6 @@ width:100%;
 height:54.8rem;
 background-color: #f8f7fa;
 display:flex;
-background-color: #f8f7fa;
-z-index:1;
-color:rgb(30, 10, 60);
 
 
 h2{
@@ -750,8 +744,7 @@ h2{
 }
 
 .otherEventsDiv{
-    z-index:1;
-    background-color: #f8f7fa;
+    z-index: 1;
     position: relative;
     font-size: 14px;
     line-height: 22px;
@@ -851,10 +844,10 @@ h2{
 
 .event__box{
     background-color:white;
+
     
-    
-    flex: 0 32%;
-     position: relative;
+    // flex: 0 32%;
+    // position: relative;
     border-radius: 0.4rem;
     width: 100%;
     margin:1rem;
@@ -885,7 +878,7 @@ h2{
 .imageBlock{
     width:34.559rem;
     height:17.28rem;
-    position: absolute;
+    /* position: absolute; */
     display: inline-block;
 
 }

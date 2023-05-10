@@ -1412,7 +1412,7 @@ export const PricedTickets = styled.div`
     width: 100%;
     left: 0;
   }
-  display: none;
+
 `;
 export const PricedTicketsPrice = styled.div`
   width: 100%;

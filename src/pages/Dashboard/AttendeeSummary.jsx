@@ -10,7 +10,53 @@ const AttendeeSummary = () => {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
-
+    const [data, setData] = useState([
+      {
+        orderId: '3',
+        orderDate: '5/8/23',
+        attendeeStatus: 'Attending',
+        name: 'mm',
+        eventName: 'Event ',
+        ticketQuantity: 2,
+        ticketType: 'General Admission',
+        ticketPrice: '$20.00',
+        buyerName: 'm',
+        buyerEmail: 'mo@example.com'
+      },
+      {
+        orderId: '1',
+        orderDate: '5/8/23',
+        attendeeStatus: 'Attending',
+        name: 'hh',
+        eventName: 'Event ',
+        ticketQuantity: 2,
+        ticketType: 'General Admission',
+        ticketPrice: '$20.00',
+        buyerName: 'hh',
+        buyerEmail: 'mo@example.com'
+      },
+      // Add more entries here if needed
+    ]);
+  
+    const [sortConfig, setSortConfig] = useState({ key: 'orderId', direction: 'ascending' });
+  
+    const handleSort = (key) => {
+      let direction = 'ascending';
+      if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+        direction = 'descending';
+      }
+      setSortConfig({ key, direction });
+    };
+  
+    const sortedData = [...data].sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
   return (
     <>
       <StyledNav>
@@ -50,7 +96,42 @@ const AttendeeSummary = () => {
               Export
             </button>
           </div>
+          <div className='table-content'>
+          <table>
+            <thead >
+              <tr className='table-header'>
+                <th className='head-data' onClick={() => handleSort('orderId')}>Order ID {sortConfig.key === 'orderId' && (sortConfig.direction === 'ascending' ? '▲' : '▼')}</th>
+                <th className='head-data'>Order Date</th>
+                <th className='head-data'>Attendee Status</th>
+                <th className='head-data'>Name</th>
+                <th className='head-data'>Event Name</th>
+                <th className='head-data'>Ticket Quantity</th>
+                <th className='head-data'>Ticket Type</th>
+                <th className='head-data'>Ticket Price</th>
+                <th className='head-data'>Buyer Name</th>
+                <th className='head-data'>Buyer Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedData.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.orderId}</td>
+                  <td>{item.orderDate}</td>
+                  <td>{item.attendeeStatus}</td>
+                  <td>{item.name}</td>
+                  <td>{item.eventName}</td>
+                  <td>{item.ticketQuantity}</td>
+                  <td>{item.ticketType}</td>
+                  <td>{item.ticketPrice}</td>
+                  <td>{item.buyerName}</td>
+                  <td>{item.buyerEmail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
         </div>
+        
       </StyledAttendeeSummary>
     </>
   );

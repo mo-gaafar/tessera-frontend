@@ -3,11 +3,28 @@ import { StyledDashboard } from './styles/Dashboard.styled';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 const Dashboard = () => {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+  const token = localStorage.getItem('token');
+  const eventID = useParams().eventID
+    ? useParams().eventID
+    : localStorage.getItem('eventID');
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await fetch(
+        `https://www.tessera.social/api/dashboard/eventsoldtickets/events/6455d7d716fea49283ba6b3d?allTiers=false&tierName=Free`
+      );
+      const data = await result.json();
+      console.log(data);
+    };
+
+    getData();
+  }, []);
 
   return (
     <>
@@ -19,7 +36,7 @@ const Dashboard = () => {
         )}
       </StyledNav>
       <div style={{ display: 'flex' }}>
-        <Sidebar event={true} dashboard={true} />
+        <Sidebar event={false} dashboard={true} />
         <StyledDashboard>
           <h1>Dashboard</h1>
           <div className="cards">

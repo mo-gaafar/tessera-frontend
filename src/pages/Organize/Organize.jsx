@@ -201,8 +201,10 @@ export default function Organize(props) {
       //nameEvents.filteredEvents
       element.map((list, index) => (
         <div>
-          <div className="event-details">
-            {/* onClick={() => navigate('/')} */}
+          <div
+            onClick={() => navigate(`/dashboard/${list.eventId}`)}
+            className="event-details"
+          >
             <div className="event-data">
               <div className="data-date">
                 <div className="month">
@@ -277,7 +279,7 @@ export default function Organize(props) {
                 </div>
               </div>
             </div>
-            <div className="opt">
+            <div className="opt" onClick={e => e.stopPropagation()}>
               <button
                 className="other-options"
                 onClick={() => onClickEdit(index)}
@@ -469,7 +471,9 @@ export default function Organize(props) {
         )}
       </StyledNav>
       <div style={{ display: 'flex' }}>
-        {!shouldHideSidebar && <Sidebar hide={true} />}
+        {!shouldHideSidebar && (
+          <Sidebar dashboard={true} event={true} hide={true} />
+        )}
 
         <PageContainer>
           <div>
@@ -590,7 +594,7 @@ export default function Organize(props) {
                 <button
                   className="create-button"
                   onClick={() => {
-                    navigate('/');
+                    navigate('/basicinfo');
                   }}
                 >
                   Create Event
