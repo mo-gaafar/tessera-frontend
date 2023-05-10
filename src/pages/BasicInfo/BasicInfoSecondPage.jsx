@@ -5,11 +5,15 @@ import Sidebar from '../../components/Sidebar';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 export default function Details({ onPhotoSelected }) {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+
+  let navigate;
+
+  navigate = useNavigate();
 
   const [focused, setFocused] = React.useState(false);
   const [inputError, setInputError] = useState('');
@@ -46,6 +50,7 @@ export default function Details({ onPhotoSelected }) {
   };
   const handlePhotoChange = event => {
     const selectedPhoto = event.target.files[0];
+    console.log(selectedPhoto);
     setPhoto(selectedPhoto);
     onPhotoSelected(selectedPhoto);
     event.preventDefault();
@@ -74,14 +79,12 @@ export default function Details({ onPhotoSelected }) {
   };
   const location = useLocation();
   const basicInfoData = location.state;
-  console.log(basicInfoData);
   const SubmitBasicInfo = async () => {
     const detailsData = {
       ...basicInfoData,
       summary: summary,
       description: description,
     };
-    console.log(detailsData);
 
     const token = localStorage.getItem('token');
     const response = await fetch(
@@ -97,7 +100,13 @@ export default function Details({ onPhotoSelected }) {
     );
 
     console.log(response);
-    console.log(await response.json());
+    const data = await response.json();
+    console.log(data);
+    localStorage.setItem('eventID', data.event_Id);
+
+    if (data.success) {
+      navigate('/ticket');
+    }
   };
 
   return (

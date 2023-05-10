@@ -10,8 +10,8 @@ describe('basicinfo', () => {
   it('Dropdown Category list selects an option', () => {
     const { getByTestId, getByText } = render(
       <BrowserRouter>
-          <BasicInfo test={true} />
-        </BrowserRouter>
+        <BasicInfo test={true} />
+      </BrowserRouter>
     );
 
     const dropdown = getByTestId('timedropdownoptions');
@@ -26,16 +26,16 @@ describe('basicinfo', () => {
   it('Time Zone Dropdown options list selects an option', () => {
     const { getByTestId, getByText } = render(
       <BrowserRouter>
-          <BasicInfo test={true} />
-        </BrowserRouter>
+        <BasicInfo test={true} />
+      </BrowserRouter>
     );
     const select = getByTestId('timezoneselect').textContent;
-    expect(select).toBe("");
-  }); 
+    expect(select).toBe('');
+  });
   it('calendar renders without crashing', () => {
     const { getByTestId } = render(
-    <BrowserRouter>
-          <BasicInfo selectedDate={new Date()}  />
+      <BrowserRouter>
+        <BasicInfo selectedDate={new Date()} />
       </BrowserRouter>
     );
     expect(getByTestId('datepicker-container')).toBeInTheDocument();
