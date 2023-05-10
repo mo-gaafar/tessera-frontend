@@ -53,6 +53,20 @@ export default function AddTicketSidemenu(props) {
   useEffect(() => {
     setIsMenuOpen(props.isMenuOpen);
   }, []);
+  
+  useEffect(() => {
+    const ticket = props.ticket;
+    if (Object.keys(ticket).length !== 0) {
+      console.log(ticket);
+      setTicketName(ticket.tierName);
+      setTicketPrice(ticket.price);
+      setQuantity(ticket.maxCapacity);
+      setStartDate(new Date(ticket.startSelling));
+      setEndDate(new Date(ticket.endSelling));
+    }
+  }, [props.ticket]);
+
+
   const handleSubmit = e => {
     e.preventDefault();
     if (isEmpty(ticketName)) {
@@ -105,18 +119,32 @@ export default function AddTicketSidemenu(props) {
   async function createTicket() {
     const data = {
       tierName: ticketName,
-      maxCapacity: quantity,
+      maxCapacity: parseFloat(quantity),
       price: ticketPrice,
-      tierType: ticketType,
       startSelling: startDate,
       endSelling: endDate,
     };
     const url = `https://www.tessera.social/api/event-tickets/create-ticket/${event}`;
-    const res = await axios.put(url, data);
+    const res = await axios.put(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
+        
+    }});
     // console.log(res);
   }
 
-  const [isCreatePromoMenuOpen, setIsCreatePromoMenuOpen] = useState(false);
+  async function editTicket(){
+    const data = {
+      desiredTierName: ticketName,
+      ticketTiers:[
+        props.ticket
+      ]
+    };
+    const url = `https://www.tessera.social/api/event-tickets/edit-ticket/${event}`;
+    const res = await axios.put(url, data);
+    // console.log(res);
+  }
 
   const handlereplaceContentAfterSaveClick = () => {
     let error = false;
@@ -124,7 +152,7 @@ export default function AddTicketSidemenu(props) {
       setError(true);
       error = true;
     }
-    if (ticketPrice === '') {
+    if (ticketPrice === '' && ticketType === 'paid') {
       setPriceError(true);
       error = true;
     }
@@ -280,8 +308,7 @@ export default function AddTicketSidemenu(props) {
                         class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
                         data-spec="icon"
                         data-testid="icon"
-                        aria-hidden="true"
-                      >
+                        aria-hidden="true">
                         <svg className="CalendarSvg" xml:space="preserve">
                           <path
                             id="calendar-chunky_svg__eds-icon--calendar-chunky_base"
@@ -323,8 +350,7 @@ export default function AddTicketSidemenu(props) {
                         class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
                         data-spec="icon"
                         data-testid="icon"
-                        aria-hidden="true"
-                      >
+                        aria-hidden="true">
                         <svg className="CalendarSvg" xml:space="preserve">
                           <path
                             id="calendar-chunky_svg__eds-icon--calendar-chunky_base"
