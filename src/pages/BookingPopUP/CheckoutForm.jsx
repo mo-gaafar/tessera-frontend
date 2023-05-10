@@ -15,12 +15,14 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, Route, Routes } from 'react-router-dom';
 
+
 // import {
 //   InputEmail,
 //   Label,
 // } from '../../../../tessera-frontend/src/pages/SignUp/styles/SignUpEmail.styled';
 
 import axios from 'axios';
+import { height } from '@mui/system';
 
 const StyleDiv = styled.div`
   .checkoutPage {
@@ -242,15 +244,61 @@ const SubmitButton = styled.button`
     background: #d0cfd9;
     cursor: not-allowed;
   }
+
+
+  .timeLimit{
+    text-align: center;
+  }
+  .timeLimit h1{
+    color: blue;
+  }
 `;
 
 
-function TimeLimitReachedComponent() {
+function TimeLimitReachedComponent(props) {
+
+  const headerStyle = {
+
+    color: '#39364f',
+    textAlign: 'center',
+    fontSize: '3rem',
+    lineHeight: '2rem',
+    letterSpacing: '.25px',
+    marginRight: '-.25px',
+    fontWeight: '700',
+
+    }
+  const timeLimitStyle = {
+    
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '1.5rem',
+    paddingTop: '200px',
+  }
+
+  const warningStyle = {
+    paddingTop: '20px',
+    color: '#6f7287',
+    paddingBottom: '8px',
+    fontSize: '2rem',
+    lineHeight: '1.5rem',
+    fontWeight: '400',
+  }
+
+  const backStyle = {
+    color: '#3659e3',
+    transition: 'color 0.2s ease-in-out',
+  }
+  
   return (
-    <div>
-      <h1>Time Limit Reached</h1>
-      <p>You have run out of time!</p>
+ 
+    <div style={timeLimitStyle} className="timeLimit">
+      <h1 style={headerStyle}>Time Limit Reached</h1>
+      <p style={warningStyle}>Your reservation has been released. Please re-start your purchase.</p>
+      <Link to="/event/eventId" style={backStyle}>Back to Tickets</Link>
     </div>
+    
   );
 }
 
@@ -259,10 +307,9 @@ function CheckoutForm(props) {
   // const event = props.event;
   const event = '643aa09ecbfea68c24d93670';
 
-  
-  
   // const ticketTier = props.ticketTier;
   const [remainingTime, setRemainingTime] = useState(10*60);
+  const [isTimeOut, setIsTimeOut] = useState(false);
   const [timeLeft, setTimeLeft] = useState('');
   useEffect(() => {
     const interval = setInterval(() => {
@@ -281,13 +328,7 @@ function CheckoutForm(props) {
     const seconds = remainingTime % 60;
     setTimeLeft(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
     if (remainingTime === 0) {
-      return(
-        <StyleDiv>
-        <div>
-          <TimeLimitReachedComponent />
-        </div>
-        </StyleDiv>
-      );
+      setIsTimeOut(true);
     }
   }, [remainingTime]);
 
@@ -341,6 +382,7 @@ function CheckoutForm(props) {
 
   return (
     <StyleDiv>
+      {isTimeOut ? <TimeLimitReachedComponent /> : 
       <div className="checkoutPage">
         <div className="inputForm">
           <Header>
@@ -556,7 +598,7 @@ function CheckoutForm(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </StyleDiv>
   );
 }
