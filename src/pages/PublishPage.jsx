@@ -32,6 +32,7 @@ const StyleDiv = styled.div`
    width: 100%;
    padding-left: 20px;
    margin-right: 20px;
+   padding: 100px;
 }
 
 .publish h2{
@@ -352,17 +353,22 @@ const StyleDiv = styled.div`
    /* background-color: #d1410c; */
    color:white;
    float: right;
-   height: 40px;
+   height: 44px;
    padding: 10px;
-   width: 100px;
    /* margin-bottom: 20px; */
    font-size: 16px;
    color: #fff;
    border: none;
    border-radius: 4px;
+   font-weight: 500;
+   line-height: 24px;
+   box-sizing: border-box;
+    width: 120px;
+    font-weight: 600;
    outline: none;
    background: #d94618;
    margin-right: 15px   ;
+   font-size: 14px;
    cursor: pointer;
    &:hover {
       background: #ef5436;
@@ -442,6 +448,12 @@ const InputGroup = styled.div`
       border: none;
       background: #f8f7fa;
 
+  }
+
+
+  audienceBox{
+   line-height: 23px;
+    min-height: 23px;
   }
 `;
 
@@ -668,11 +680,11 @@ function PublishPage(props) {
                      <h2>Will this event ever be public?</h2>
                         <div className="PublishTimeRadio">
                            <div>
-                              <input type="radio" id="keepprivate" name="keepprivate" value="private" onChange={(e) => {setPrivateType(e.target.value);}}/>
+                              <input type="radio" id="keepprivate" name="keepprivate" value="private" onChange={(e) => {setPrivateType(e.target.value),setPublishButton("Publish"); setPublishType(e.target.value);}}/>
                               <label for="keepprivate">No, keep it private</label>
                            </div>
                            <div>
-                              <input type="radio" id="changepublic" name="keepprivate" value="public" onChange={(e) => {setPrivateType(e.target.value);}}/>
+                              <input type="radio" id="changepublic" name="keepprivate" value="public" onChange={(e) => {setPrivateType(e.target.value),setPublishButton("Schedule"); setPublishType(e.target.value);;}}/>
                               <label for="changepublic">Yes, schedule to share publicly</label>
                            </div>
                         </div>
