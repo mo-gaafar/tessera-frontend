@@ -30,8 +30,6 @@ import {
 import axios from 'axios';
 
 function CheckoutForm(props) {
-  // const event = props.event;
-
   console.log(props);
   // const event = '643aa09ecbfea68c24d93670';
 
@@ -69,6 +67,18 @@ function CheckoutForm(props) {
   //   }
   // }, [remainingTime]);
 
+  const tiketTier = [
+    {
+      tierName: 'vip',
+      quantity: 1,
+      price: 200,
+    },
+    {
+      tierName: 'regular',
+      quantity: 1,
+      price: 100,
+    },
+  ];
   const totalPrice = tiketTier.reduce((acc, tier) => acc + tier.price, 0);
   const [isPaid, setIsPaid] = useState(true);
   const [firstName, setFirstName] = useState('');
@@ -77,13 +87,12 @@ function CheckoutForm(props) {
 
   async function bookTickets() {
     const body = {
-      contactinformation: {
+      contactInformation: {
         first_name: firstName,
         last_name: lastName,
         email: email,
       },
       promocode: props.promocode,
-
       ticketTierSelected: props.checkoutInfo.map(info => {
         return {
           tierName: info.sumTierName,
@@ -93,14 +102,17 @@ function CheckoutForm(props) {
       }),
     };
     try {
-      const response = await axios.post(
-        `https://www.tessera.social/api/attendee/ticket/${event}/book`,
+      const response = await fetch(
+        `https://www.tessera.social/api/attendee/ticket/645bc55432637b8fcce1b487/book`,
         {
-          body: body,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
         }
       );
-      console.log(response);
-      console.log(await response.json());
+      console.log(response.json());
     } catch (error) {
       console.log(error);
     }

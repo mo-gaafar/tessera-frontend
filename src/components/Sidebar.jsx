@@ -177,7 +177,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
           </div>
           <div className="others">
             <span className={dashboard ? 'active' : ''}> Dashboard</span>
-            <span>Manage Attendes</span>
+            <span>Manage Attendees</span>
           </div>
         </StyledCreateTicketSidebar>
       )}
