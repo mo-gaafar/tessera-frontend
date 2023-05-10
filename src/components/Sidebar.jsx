@@ -176,7 +176,12 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
             </Link>
           </div>
           <div className="others">
-            <span className={dashboard ? 'active' : ''}> Dashboard</span>
+            <Link
+              className={dashboard ? 'active' : ''}
+              to={`/dashboard/${localStorage.getItem('eventID')}`}
+            >
+              <span> Dashboard</span>
+            </Link>
             <span>Manage Attendees</span>
           </div>
         </StyledCreateTicketSidebar>

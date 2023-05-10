@@ -15,7 +15,7 @@ import { CreatePromocode } from './CreatePromoSidemenu';
 import axios from 'axios';
 
 export default function AddTicketSidemenu(props) {
-  const event = localStorage.getItem('eventID');
+  const event = props.event;
 
   const [ticketType, setTicketType] = useState('paid');
   const [ticketName, setTicketName] = useState('');
@@ -53,7 +53,7 @@ export default function AddTicketSidemenu(props) {
   useEffect(() => {
     setIsMenuOpen(props.isMenuOpen);
   }, []);
-
+  
   useEffect(() => {
     const ticket = props.ticket;
     if (Object.keys(ticket).length !== 0) {
@@ -65,6 +65,7 @@ export default function AddTicketSidemenu(props) {
       setEndDate(new Date(ticket.endSelling));
     }
   }, [props.ticket]);
+
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -116,7 +117,6 @@ export default function AddTicketSidemenu(props) {
   const [ticketTiers, setTicketTiers] = useState([]);
 
   async function createTicket() {
-    const token = localStorage.getItem('token');
     const data = {
       tierName: ticketName,
       maxCapacity: parseFloat(quantity),
@@ -128,23 +128,36 @@ export default function AddTicketSidemenu(props) {
     const res = await axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log(await res.json());
-  }
-
-  async function editTicket() {
-    const data = {
-      desiredTierName: ticketName,
-      ticketTiers: [props.ticket],
-    };
-    const url = `https://www.tessera.social/api/event-tickets/edit-ticket/${event}`;
-    const res = await axios.put(url, data);
+        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
+        
+    }});
     // console.log(res);
   }
 
-  const handlereplaceContentAfterSaveClick = () => {
+  async function editTicket(){
+    const data = {
+      desiredTierName: props.ticket.tierName,
+      ticketTiers:[
+        {
+          tierName: ticketName,
+          maxCapacity: parseFloat(quantity),
+          price: ticketPrice,
+          startSelling: startDate,
+          endSelling: endDate,
+        }
+      ]
+    };
+    const url = `https://www.tessera.social/api/event-tickets/edit-ticket/${event}`;
+    const res = await axios.put(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
+        
+    }});
+    // console.log(res);
+  }
+
+  const handlereplaceContentAfterSaveClick = async () => {
     let error = false;
     if (ticketName === '') {
       setError(true);
@@ -164,7 +177,14 @@ export default function AddTicketSidemenu(props) {
     props.setreplaceContentAfterSave(true);
     props.setIsMenuOpen(false);
     clearInputs();
-    createTicket();
+    const ticket = props.ticket;
+    if (Object.keys(ticket).length === 0) {
+      await createTicket();
+    }
+    else{
+      await editTicket();
+    }
+    props.dataSubmitted();
   };
 
   return (
@@ -306,8 +326,7 @@ export default function AddTicketSidemenu(props) {
                         class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
                         data-spec="icon"
                         data-testid="icon"
-                        aria-hidden="true"
-                      >
+                        aria-hidden="true">
                         <svg className="CalendarSvg" xml:space="preserve">
                           <path
                             id="calendar-chunky_svg__eds-icon--calendar-chunky_base"
@@ -349,8 +368,7 @@ export default function AddTicketSidemenu(props) {
                         class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
                         data-spec="icon"
                         data-testid="icon"
-                        aria-hidden="true"
-                      >
+                        aria-hidden="true">
                         <svg className="CalendarSvg" xml:space="preserve">
                           <path
                             id="calendar-chunky_svg__eds-icon--calendar-chunky_base"

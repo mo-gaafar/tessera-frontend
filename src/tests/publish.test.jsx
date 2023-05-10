@@ -1,7 +1,6 @@
 // Import the publish page component
 import PublishPage from '../pages/Publish/PublishPage';
 
-// Describe the publish page component
 describe('PublishPage', () => {
   // Test that the component renders without errors
   it('should render without errors', () => {

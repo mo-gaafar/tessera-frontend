@@ -11,6 +11,7 @@
  */
 import React from 'react';
 import { useState, useEffect } from 'react';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -59,6 +60,8 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
     // console.log('data', data);
     setCheckoutInfo(data);
   };
+
+  
 
   return (
     <>

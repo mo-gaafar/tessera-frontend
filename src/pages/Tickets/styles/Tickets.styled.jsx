@@ -655,6 +655,8 @@ export const TicketCreatedDiv = styled.div`
     margin-left: auto;
     margin-right: 4.8rem;
   }
+
+  
 `;
 export const PromocodesPageDiv = styled.div`
   display: flex;
@@ -782,6 +784,7 @@ export const CreatePromoSideMenu = styled.div`
     line-height: 2.4rem;
     font-weight: 600;
     color: #1e0a3c;
+    border-bottom: 0.1rem solid hsl(250, 7%, 77%);
   }
 
   .PromocodeInfoDiv {
@@ -804,6 +807,23 @@ export const CreatePromoSideMenu = styled.div`
     display: flex;
     flex-direction: row;
     color: #6f7287;
+    font-size: 1.3rem;
+    line-height: 2.2rem;
+    padding: 0.2rem 1.2rem 0;
+    width: 100%;
+    height: 2.4rem;
+  }
+
+  .message{
+    margin-top:1rem;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+
+  .error-message{
+    margin-top:1rem;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
   }
 
   .CodeNameTextboxdiv.error {
@@ -814,7 +834,7 @@ export const CreatePromoSideMenu = styled.div`
     color: red;
   }
 
-  .CodeNameTextboxdiv.error .message {
+  .CodeNameTextboxdiv.error message {
     color: red;
   }
 
@@ -830,10 +850,10 @@ export const CreatePromoSideMenu = styled.div`
   .DropdownDiv {
     display: flex;
     justify-content: soace-between;
-    width: 100%;
+    width: 16.75rem;
     height: 5.8rem;
+    border: 1px solid hsl(250, 7%, 80%);
   }
-
   .DropdownDiv:hover {
     border-color: #6f7287;
   }
@@ -881,10 +901,13 @@ export const CreatePromoSideMenu = styled.div`
   .LimitedAmountTextboxDiv {
     border: none;
   }
+
   .LimitedAmountDiv {
     display: flex;
+    margin-left: 1rem;
     width: 16.15rem;
     // background:Salmon ;
+    border: 1px solid hsl(250, 7%, 80%);
   }
 
   .LimitedAmountLabelDiv {
@@ -926,7 +949,7 @@ export const CreatePromoSideMenu = styled.div`
   .TextUnderLimited {
     width: 100%;
     margin-bottom: 3.2rem;
-    margin-top: -1.7rem;
+    margin-top: -1.3rem;
     font-size: 1.2rem;
     line-height: 1.6rem;
   }
@@ -1021,6 +1044,22 @@ export const CreatePromoSideMenu = styled.div`
     background: #f05537;
     color: #ffffff;
     cursor: pointer;
+  }
+
+
+  .CodeNameInput{
+    border:none;
+    margin-top:-0.5rem;
+    background-color:transparent;
+  }
+
+  .LimitDropdown:focus {
+    outline: none;
+  }
+
+  .DiscountError{
+    font-size: 1.2rem;
+    line-height: 1.6rem;
   }
 `;
 export const CsvPromocode = styled.div`
@@ -1188,8 +1227,9 @@ export const CsvPromocode = styled.div`
     width: 10.6rem;
     height: 4.8rem;
   }
+
   .LimitedAmountTextboxDiv {
-    border: none;
+    border-color: transparent;
   }
   .LimitedAmountDiv {
     display: flex;
@@ -1349,6 +1389,11 @@ export const CsvPromocode = styled.div`
     border-color: #f05537;
     background: #f05537;
   }
+
+  .DiscountError{
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
 `;
 
 export const PromocodesSavePageDiv = styled.div`
@@ -1406,9 +1451,10 @@ export const PromocodesSavePageDiv = styled.div`
   }
 
   .Header {
-    background-color: Khaki;
+    background-color: #f8f7fa;;
     width: 96.6rem;
     height: 4.35rem;
+    border-bottom: 0.1rem solid #eeedf2;
   }
 
   th {
@@ -1430,7 +1476,24 @@ export const PromocodesSavePageDiv = styled.div`
     margin-top: -5.3rem;
   }
 
-  /* .NameColumn1 {
-    width: ;
-  } */
+  .NameColumn1{
+    min-width:8.859rem;
+  }
+
+  .CodeTypeColumn2{
+    min-width:19.589rem;
+  }
+
+  .DiscountColumn3{
+    min-width:17.15434rem;
+  }
+
+  .UsesColumn4{
+    min-width:15.841rem;
+  }
+
+  .StatusColumn5{
+    min-width:25.253rem;
+  }
+  
 `;
