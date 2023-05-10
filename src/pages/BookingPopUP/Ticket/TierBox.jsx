@@ -48,7 +48,8 @@ export default function TierBox({
   const [count, setCount] = useState(0);
   const [countactual, setCountActual] = useState(0);
   const [countDecrement, setCountDecrement] = useState(0);
-
+  console.log("element")
+  console.log(element)
   /**
    * description: this function is to append the summary
    * @param {Number} newPrice - the new price
@@ -70,7 +71,7 @@ export default function TierBox({
       if (i == 0) {
         flag = true;
         //elementS.sumTicketCount = element.ticketCount;
-        elementS.sumTicketCount = number;
+        // elementS.sumTicketCount = number;
         elementS.sumTicketPrice = newPrice;
 
         elementS.ticketCount === 0 && newState.splice(i, 1);
@@ -117,7 +118,7 @@ export default function TierBox({
         : element.price
     );
     setTicketTierdetails(newState);
-    console.log(summary + " WZHAAR YA KALB");
+    //console.log(summary + " WZHAAR YA KALB");
     summary.length === 0 ? setEmpty(true) : setEmpty(false);
   };
   /**
@@ -176,11 +177,11 @@ export default function TierBox({
           </div>
           <div className="Quantity">
             {index ===0 ?
-            number
+            number+element.ticketCount
             :element.ticketCount
             }
             
-            {/* {} */}
+            {/* {element.ticketCount} */}
             </div>
           <div
             className={element.ticketCount == 0 ? "incdec" : "incdecactive"}
