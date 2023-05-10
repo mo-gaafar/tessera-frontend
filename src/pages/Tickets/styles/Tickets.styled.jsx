@@ -957,6 +957,16 @@ export const CreatePromoSideMenu = styled.div`
     border: 0.1rem solid #a9a8b3;
   }
 
+}   
+
+.DiscountAmountDiv:hover{
+
+    border-color:#6f7287;
+    
+
+}
+
+
   .DollarSignDiv {
     width: 0.847rem;
     height: 2.4rem;
@@ -1132,6 +1142,10 @@ export const CsvPromocode = styled.div`
     height: 5.8rem;
     border: 1px solid hsl(250, 7%, 80%);
   }
+  .DropdownDiv:hover{
+
+    border-color:#6f7287;
+ }
 
   .LimitDropdownDiv {
     display: flex;
@@ -1264,6 +1278,15 @@ export const CsvPromocode = styled.div`
     // background:Lavender;
     border: 0.1rem solid #a9a8b3;
   }
+
+} 
+
+.DiscountAmountDiv:hover{
+
+    border-color:#6f7287;
+    
+
+} 
 
   .DollarSignDiv {
     width: 0.847rem;
