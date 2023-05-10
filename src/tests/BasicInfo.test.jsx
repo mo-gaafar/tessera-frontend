@@ -3,7 +3,7 @@ import { fireEvent, getByRole, render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import BasicInfo from '../pages/BasicInfo/BasicInfo';
 import { BrowserRouter } from 'react-router-dom';
-import  Details  from '../pages/BasicInfo/BasicInfoSecondPage';
+import Details from '../pages/BasicInfo/BasicInfoSecondPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import getByTextAcrossNodes from '../pages/BasicInfo/BasicInfo';
 
@@ -11,8 +11,8 @@ describe('basicinfo', () => {
   it('Dropdown Category list selects an option', () => {
     const { getByTestId, getByText } = render(
       <BrowserRouter>
-          <BasicInfo test={true} />
-        </BrowserRouter>
+        <BasicInfo test={true} />
+      </BrowserRouter>
     );
 
     const dropdown = getByTestId('timedropdownoptions');
@@ -22,27 +22,26 @@ describe('basicinfo', () => {
     fireEvent.click(option);
 
     const select = getByTestId('timedropdownselect');
-    expect(select.value).toBe("");
-  }); 
+    expect(select.value).toBe('');
+  });
 
   it('Time Zone Dropdown options list selects an option', () => {
     const { getByTestId, getByText } = render(
       <BrowserRouter>
-          <BasicInfo test={true} />
-        </BrowserRouter>
+        <BasicInfo test={true} />
+      </BrowserRouter>
     );
     const select = getByTestId('timezoneselect').textContent;
-    expect(select).toBe("");
-  }); 
+    expect(select).toBe('');
+  });
   it('calendar renders without crashing', () => {
     const { getByTestId } = render(
-    <BrowserRouter>
-          <BasicInfo selectedDate={new Date()}  />
+      <BrowserRouter>
+        <BasicInfo selectedDate={new Date()} />
       </BrowserRouter>
     );
     expect(getByTestId('datepicker-container')).toBeInTheDocument();
   });
-
 });
 
 describe('details', () => {
