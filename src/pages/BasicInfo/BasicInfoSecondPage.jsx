@@ -70,7 +70,8 @@ export default function Details({ onPhotoSelected }) {
   };
 
   const location = useLocation();
-  const basicInfoData = location.state.responseBody;
+  const basicInfoData = location.state;
+  console.log(basicInfoData);
   const SubmitBasicInfo = async () => {
     const detailsData = {
       ...basicInfoData,
@@ -78,6 +79,22 @@ export default function Details({ onPhotoSelected }) {
       description: description,
     };
     console.log(detailsData);
+
+    const token = localStorage.getItem('token');
+    const response = await fetch(
+      'https://www.tessera.social/api/event-management/creator',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(detailsData),
+      }
+    );
+
+    console.log(response);
+    console.log(await response.json());
   };
 
   return (
@@ -91,7 +108,7 @@ export default function Details({ onPhotoSelected }) {
       </StyledNav>
 
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar event={true} />
+        <Sidebar event={true} details={true} />
         <div className="wholepage">
           <form>
             <div

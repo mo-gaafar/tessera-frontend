@@ -34,6 +34,7 @@ export default function BasicInfo() {
   const [cityvalue, setCityValue] = React.useState('');
   const [postalcodevalue, setPostalCodeValue] = React.useState('');
   const [organizervalue, setOrganizerValue] = React.useState(null);
+  const [onlineValue, setOnlineValue] = React.useState(null);
   const [statevalue, setStateValue] = React.useState('');
   const [clicked, setClicked] = useState(false);
   const [venueclicked, setVenueClicked] = useState(false);
@@ -98,12 +99,14 @@ export default function BasicInfo() {
     if (!postalcodevalue) {
       setPostalCodeInputError('ZIP code is required');
     }
+    console.log(inputerror);
     if (
-      !inputerror &&
-      !locationinputerror &&
-      !addressinputerror &&
-      !postalcodeinputerror &&
-      !cityinputerror
+      (!inputerror &&
+        !locationinputerror &&
+        !addressinputerror &&
+        !postalcodeinputerror &&
+        !cityinputerror) ||
+      (!inputerror && showonline)
     ) {
       setErr(true);
     }
@@ -113,11 +116,12 @@ export default function BasicInfo() {
     handleValidation();
     // console.log(inputerror);
     if (
-      !inputerror &&
-      !locationinputerror &&
-      !addressinputerror &&
-      !postalcodeinputerror &&
-      !cityinputerror
+      (!inputerror &&
+        !locationinputerror &&
+        !addressinputerror &&
+        !postalcodeinputerror &&
+        !cityinputerror) ||
+      (!inputerror && showonline)
     ) {
       console.log(locationData);
       setResponseBody(() => {
@@ -140,14 +144,14 @@ export default function BasicInfo() {
               administrativeAreaLevel1: locationData.administrativeAreaLevel,
             },
           },
-          eventStatus: 'draft',
+          eventStatus: 'live',
           isOnline: showonline,
-          onlineEventUrl: organizervalue,
+          onlineEventUrl: onlineValue,
         };
       });
 
       console.log(responseBody);
-
+      console.log(err);
       if (err) {
         navigate('/details', { state: responseBody });
       }
@@ -186,9 +190,6 @@ export default function BasicInfo() {
       .then(data => setTimezones(data.zones));
   }, []);
 
-  React.useEffect(() => {
-    setShowMap(false);
-  }, []);
   function handleVenueClick() {
     setShowVenue(true);
     setShowOnline(false);
@@ -326,6 +327,9 @@ export default function BasicInfo() {
       document.removeEventListener('click', handleOutsideClick);
     };
   }, [laterRef]);
+  function handleOnlineChange(event) {
+    setOnlineValue(event.target.value);
+  }
   function handleOrganizerChange(event) {
     setOrganizerValue(event.target.value);
   }
@@ -378,7 +382,7 @@ export default function BasicInfo() {
         )}
       </StyledNav>
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar className="sidebar" event={true} dashboard={false} />
+        <Sidebar className="sidebar" event={true} basicInfo={true} />
 
         <div className="wholepage">
           <main className="main">
@@ -536,14 +540,14 @@ export default function BasicInfo() {
                                       value="Auto, Boat & Air"
                                       data-spec="select-option"
                                     >
-                                      Auto, Boat & Air
+                                      Boat & Air
                                     </option>
                                     <option
                                       className="dropdownoption"
                                       value="Business & Professional"
                                       data-spec="select-option"
                                     >
-                                      Business & Professional
+                                      Business & Profession
                                     </option>
                                     <option
                                       className="dropdownoption"
@@ -662,7 +666,7 @@ export default function BasicInfo() {
                                       value="Seasonal & Holiday"
                                       data-spec="select-option"
                                     >
-                                      Seasonal & Holiday
+                                      Seasonal Holiday
                                     </option>
                                     <option
                                       className="dropdownoption"
@@ -1092,8 +1096,8 @@ export default function BasicInfo() {
                                 name="enter-organizer"
                                 id="organizer-input"
                                 placeholder="Place the URL of your event"
-                                value={organizervalue}
-                                onChange={handleOrganizerChange}
+                                value={onlineValue}
+                                onChange={handleOnlineChange}
                                 onFocus={() => setFocused(true)}
                               />
                             </form>
