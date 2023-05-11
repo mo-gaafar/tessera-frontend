@@ -33,8 +33,8 @@ export default function Details() {
   //     setInputError('');
   //   }
   // };
-  function handleChange(){
-    SetSummary(event.target.value)
+  function handleChange() {
+    SetSummary(event.target.value);
     if (event.target.value.trim() === '') {
       setInputError('Summary is required');
     } else {
@@ -73,7 +73,7 @@ export default function Details() {
     fill: '#fff',
     color: 'white',
     borderColor: '#d1410c',
-    display: 'block'
+    display: 'block',
   };
   const location = useLocation();
   const basicInfoData = location.state;
@@ -130,10 +130,10 @@ export default function Details() {
       </StyledNav>
 
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar event={true} details={true} />
+        <Sidebar event={true} details={true} hide={true} />
         <div className="wholepage">
           <form>
-            <div style={{marginBottom: '32px'}}>
+            <div style={{ marginBottom: '32px' }}>
               <div className="iconsdiv">
                 <i className="largeI">
                   <svg
@@ -218,10 +218,7 @@ export default function Details() {
                           ref={inputRef}
                           style={{ display: 'none' }}
                         />
-                        <button
-                          className="buttons"
-                          onClick={handleButtonClick}
-                        >
+                        <button className="buttons" onClick={handleButtonClick}>
                           <i className="smallI">
                             <svg
                               className="smallSvg"
@@ -235,9 +232,7 @@ export default function Details() {
                               <path d="M17 16l-2.7-3-1.3 1-2-2.9L7 16h6.9z"></path>
                             </svg>
                           </i>
-                          <span className="buttonspan">
-                            Upload image
-                          </span>
+                          <span className="buttonspan">Upload image</span>
                         </button>
                       </div>
                     </div>
@@ -268,7 +263,7 @@ export default function Details() {
                 </div>
               </div>
             </div>
-            <div style={{marginBottom: '32px',marginTop: '40px'}}>
+            <div style={{ marginBottom: '32px', marginTop: '40px' }}>
               <div className="iconsdiv">
                 <i className="largeI">
                   <svg
@@ -291,14 +286,17 @@ export default function Details() {
                 <h1 className="title">Summary</h1>
                 <p className="explainsection">
                   Grab people's attention with a short description about your
-                  event. Attendees will see this at the top of your event
-                  page. (140 characters max)
+                  event. Attendees will see this at the top of your event page.
+                  (140 characters max)
                   <a className="links">See examples</a>
                 </p>
                 <div style={{ marginTop: '16px' }}>
-                  <div className="summaryboxflex2" style={{ marginBottom: '4px' }}>
+                  <div
+                    className="summaryboxflex2"
+                    style={{ marginBottom: '4px' }}
+                  >
                     <div className="summaryplaceholder">
-                      <label className='summarylabel'>
+                      <label className="summarylabel">
                         <span className="summaryspan">Summary</span>
                         <span className="starspan">
                           <span className="starspan">*</span>
@@ -306,10 +304,10 @@ export default function Details() {
                       </label>
                     </div>
                     <textarea
-                      data-testid = 'summaryempty'
-                      className={`textarea ${
-                        focused ? 'blue-border' : ''
-                      } ${inputError ? 'red-border' : ''}`}
+                      data-testid="summaryempty"
+                      className={`textarea ${focused ? 'blue-border' : ''} ${
+                        inputError ? 'red-border' : ''
+                      }`}
                       role="textbox"
                       maxLength="140"
                       placeholder="Write a short event summary to get attendees excited."
@@ -328,7 +326,7 @@ export default function Details() {
                   </div>
                 </div>
               </div>
-              <div style={{ marginBottom: '32px', marginTop: '40px'}}>
+              <div style={{ marginBottom: '32px', marginTop: '40px' }}>
                 <div className="iconsdiv">
                   <i className="largeI">
                     <svg
@@ -356,12 +354,20 @@ export default function Details() {
                 <div className="informationdiv">
                   <h1 className="title">Description</h1>
                   <p className="explainsection">
-                    Add more details to your event like your schedule,
-                    sponsors, or featured guests.
+                    Add more details to your event like your schedule, sponsors,
+                    or featured guests.
                     <a className="links">Learn more</a>
                   </p>
-                  <div style={{ display: 'flex',position: 'relative',marginTop: '40px'}}>
-                    <div style={{width: ' 100%',WebkitBoxFlex: '1',flex: '1'}}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      position: 'relative',
+                      marginTop: '40px',
+                    }}
+                  >
+                    <div
+                      style={{ width: ' 100%', WebkitBoxFlex: '1', flex: '1' }}
+                    >
                       <section style={{ minWidth: '284px' }}>
                         <header className="descriptionheader">
                           <div className="leftheader">
@@ -437,8 +443,13 @@ export default function Details() {
                                 }}
                               ></hr>
                             </div>
-                            <div style={{ display: 'inline-block'}}>
-                              <span style={{margin: '3px 0',display: 'inline-block'}}>
+                            <div style={{ display: 'inline-block' }}>
+                              <span
+                                style={{
+                                  margin: '3px 0',
+                                  display: 'inline-block',
+                                }}
+                              >
                                 <button className="smallbuttons">
                                   <i className="mediumI">
                                     <svg className="mediumSvg">
@@ -447,7 +458,12 @@ export default function Details() {
                                   </i>
                                 </button>
                               </span>
-                              <span style={{margin: '3px 0',display: 'inline-block'}}>
+                              <span
+                                style={{
+                                  margin: '3px 0',
+                                  display: 'inline-block',
+                                }}
+                              >
                                 <button className="smallbuttons">
                                   <i className="mediumI">
                                     <svg className="mediumSvg">
@@ -461,7 +477,7 @@ export default function Details() {
                         </header>
                         <main className="descriptionbox">
                           <textarea
-                            className = 'descripriontextarea'
+                            className="descripriontextarea"
                             value={description}
                             onChange={handleDescriptionChange}
                             onFocus={handleFocus}
@@ -470,9 +486,7 @@ export default function Details() {
                           />
                           <p className="descriptionp" data-key="1">
                             <span data-key="2">
-                                <span data-slate-zero-width="n">
-                                  ﻿
-                                </span>
+                              <span data-slate-zero-width="n">﻿</span>
                             </span>
                           </p>
                         </main>
