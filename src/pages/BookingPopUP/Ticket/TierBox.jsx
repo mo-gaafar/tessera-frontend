@@ -35,6 +35,7 @@ import { useState } from "react";
  * @returns {JSX.Element} - the JSX of the TierBox
  */
 export default function TierBox({
+  number,
   element,
   setTicketTierdetails,
   index,
@@ -48,7 +49,8 @@ export default function TierBox({
   const [count, setCount] = useState(0);
   const [countactual, setCountActual] = useState(0);
   const [countDecrement, setCountDecrement] = useState(0);
-
+  console.log("element")
+  console.log(element)
   /**
    * description: this function is to append the summary
    * @param {Number} newPrice - the new price
@@ -59,16 +61,34 @@ export default function TierBox({
     let flag = false;
 
     newState.forEach((elementS, i) => {
+      if (i == 0) {
+        //flag = true;
+        //elementS.sumTicketCount = element.ticketCount;
+        // elementS.sumTicketCount = number;
+        //elementS.sumTicketPrice = newPrice;
+
+        elementS.ticketCount === 0 && newState.splice(i, 1);
+      }
       if (elementS.sumId == element.id) {
         flag = true;
         elementS.sumTicketCount = element.ticketCount;
+        // elementS.sumTicketCount = number;
         elementS.sumTicketPrice = newPrice;
 
         elementS.ticketCount === 0 && newState.splice(i, 1);
       }
+      // if (i == 0) {
+      //   //flag = true;
+      //   //elementS.sumTicketCount = element.ticketCount;
+      //   // elementS.sumTicketCount = number;
+      //   elementS.sumTicketPrice = newPrice;
+
+      //   elementS.ticketCount === 0 && newState.splice(i, 1);
+      // }
     });
 
     if (!flag) {
+      console.log("innn")
       const newValue = [
         ...newState,
         {
@@ -82,6 +102,8 @@ export default function TierBox({
       return;
     }
     setSummary(newState);
+    console.log("summary")
+    console.log(summary)
   };
   /**
    * description: this function is to increment the order
@@ -108,7 +130,7 @@ export default function TierBox({
         : element.price
     );
     setTicketTierdetails(newState);
-    console.log(summary + " WZHAAR YA KALB");
+    //console.log(summary + " WZHAAR YA KALB");
     summary.length === 0 ? setEmpty(true) : setEmpty(false);
   };
   /**
@@ -165,7 +187,14 @@ export default function TierBox({
               ></path>
             </svg>
           </div>
-          <div className="Quantity">{element.ticketCount}</div>
+          <div className="Quantity">
+            {index ===0 ?
+            element.ticketCount
+            :element.ticketCount
+            }
+            
+            {/* {element.ticketCount} */}
+            </div>
           <div
             className={element.ticketCount == 0 ? "incdec" : "incdecactive"}
             onClick={() => decrementOrder(index)}

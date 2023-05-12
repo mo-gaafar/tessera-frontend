@@ -6,7 +6,6 @@ import {
   getByDisplayValue,
   getByText,
 } from '@testing-library/react';
-
 import Landing from '../pages/LandingPage/Landing';
 import { describe, it, expect } from 'vitest';
 import EventBox from '../pages/LandingPage/EventBox';
@@ -17,15 +16,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 describe('Landing', () => {
   it('renders Event', () => {
     const { getByText } = render(
-      <EventBox
-        test={true}
-        image="../../src/assets/event__2.avif"
-        eventTitle="The Future Of Leadership Congress 2023"
-        date="Mon, May 15, 9:00 AM "
-        description="Cairo • Cairo, Cairo Governorate Starts at A$751.69"
-        organizer="Erudite Training Solutions"
-        followers="47 followers"
-      />
+      <BrowserRouter>
+        <EventBox
+          image="../../src/assets/event__2.avif"
+          eventTitle="The Future Of Leadership Congress 2023"
+          date="Mon, May 15, 9:00 AM "
+          description="Cairo • Cairo, Cairo Governorate Starts at A$751.69"
+          organizer="Erudite Training Solutions"
+          followers="47 followers"
+        />
+      </BrowserRouter>
     );
     const title = getByText(
       'The Future Of Leadership Congress 2023'

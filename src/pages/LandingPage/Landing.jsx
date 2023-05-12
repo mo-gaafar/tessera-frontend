@@ -14,7 +14,10 @@ import DateRangePicker from 'tw-daterange';
 import { useRef } from 'react';
 
 import { useEffect, useState } from 'react';
-import { StyledCategoriesContainer, StyledLandingEvents } from './styles/Landing.styled';
+import {
+  StyledCategoriesContainer,
+  StyledLandingEvents,
+} from './styles/Landing.styled';
 import { StyledEventsContainer } from './styles/Landing.styled';
 import { StyledNav } from './styles/Landing.styled';
 import {
@@ -110,22 +113,6 @@ export default function Landing() {
     }
   };
 
-  useEffect(() => {
-    // add event listener to the document
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      // remove event listener when component unmounts
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleClickOutside = event => {
-    if (reference.current && !reference.current.contains(event.target)) {
-      // if clicked outside of the ref div, hide the element
-      setShowCategoryMenu(false);
-    }
-  };
-
   /**
    * Updates the textContent of div and handles calender.
    *
@@ -159,7 +146,7 @@ export default function Landing() {
   }
   function handleClickCat(name) {
     //console.log("name")
-    console.log(name)
+    console.log(name);
     setShowCategoryMenu(false);
     setSelectCategory(name);
     let new_name = name.replace(/&/g, '%26');
@@ -168,27 +155,12 @@ export default function Landing() {
     //handleClick()
   }
 
-  function onClickCategory(e) {
-    const { name, value } = e.target;
-    console.log("name")
-    console.log(name)
-    setShowCategoryMenu(false);
-    setSelectCategory(name);
-    let new_name = name.replace(/&/g, '%26');
-    let queryName = 'category=' + new_name;
-    setUrl(queryName);
-    //handleClick()
-  }
   function showDropdown() {
     if (!select) {
       setShowMenu(true);
     }
   }
-  function showDropdownCategory() {
-    if (!selectCategory) {
-      setShowCategoryMenu(true);
-    }
-  }
+
   const [focused, setFocused] = useState({
     All: true,
     forYou: false,
@@ -203,11 +175,12 @@ export default function Landing() {
   });
 
   /**
-   * A custom React hook that fetches the city name from the latitude and longitude.
-   *
-   * @param {number} latitude - The latitude of the location.
-   * @param {number} longitude - The longitude of the location.
-   * @returns {string} The name of the city.
+   * @function useEffect
+   * @name useEffect
+   * @description This function is a hook that fetches the city name from the latitude and longitude
+   * @param {function} fetchData
+   * @param {function} navigator.geolocation.getCurrentPosition
+   * @returns {JSX.Element} A React component representing the event box
    */
 
   useEffect(() => {
@@ -241,7 +214,7 @@ export default function Landing() {
       fetchData(latitude, longitude);
     });
   }, []);
-  console.log(url);
+  //console.log(url);
   function handleForYou() {
     setForYouElement(true);
     //setShowCategoryMenu(false);
@@ -351,13 +324,15 @@ export default function Landing() {
 
   useEffect(() => {
     console.log(cityData);
+    console.log("url");
+    console.log(url);
     async function getData() {
       const res = await fetch(
         'https://www.tessera.social/api/attendee/Eventsby/?' + url
       );
       const data = await res.json();
       setAllFilteredEvents(data.filteredEvents);
-      setAllCatEvents(data.categoriesRetreived);
+      //setAllCatEvents(data.categoriesRetreived);
     }
     getData();
   }, [url]);
@@ -406,6 +381,8 @@ export default function Landing() {
    * @returns {JSX.Element} An object representing the eventbox
    */
   useEffect(() => {
+    // console.log("ho")
+    //console.log(console.log(allFilteredEvents))
     if (allFilteredEvents.length === 0) {
       setNoEventsImg(true);
     } else {
@@ -463,18 +440,6 @@ export default function Landing() {
    * @returns {JSX.Element} An object representing the dropdown elements
    */
 
-  // useEffect(() => {
-  //   setCatElement(
-  //     allCatEvents.map(cat => (
-  //       <div>
-  //         <button name={cat} className="drop-button" handleClick={onClickCategory}>
-  //           {cat}
-  //         </button>
-  //       </div>
-  //     ))
-  //   );
-  // }, [allCatEvents]);
-
   const handleClick = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -489,6 +454,7 @@ export default function Landing() {
 
     !h3 && setShowLocationMenu(false);
   };
+  console.log(allFilteredEvents);
   return (
     <>
       <StyledNav>
@@ -687,48 +653,50 @@ export default function Landing() {
           <div>
             <h4>Check out our categories</h4>
             <StyledCategoriesContainer>
-            <div className='tile-group'>
-              <CategoriesTile title="Music"name="Cat"  handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Home & Lifestyle" name="Home & Lifestyle" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Food & Drink" name="Food & Drink" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Travel & Outdoor" name="Travel & Outdoor" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Seasonal Holiday" name="Seasonal Holiday" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Government & Politics" name="Government & Politics" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Charity & Causes" name="Charity & Causes" handleClickCat={handleClickCat}></CategoriesTile>
-              <CategoriesTile title="Other" name="Other" handleClickCat={handleClickCat}></CategoriesTile>
-            </div>
-            </StyledCategoriesContainer>
-          
-          </div>
-
-          {focused.All && (
-            <div className="date-dropdown">
-              <div className="you--options" onClick={showDropdownCategory}>
-                {selectCategory ? (
-                  <span>
-                    {selectCategory}
-                    <button onClick={removeCategory} className="remove-button">
-                      <img src={cross} />
-                    </button>
-                  </span>
-                ) : (
-                  <span>
-                    Category
-                    <img src={logo} />
-                  </span>
-                )}
+              <div className="tile-group">
+                <CategoriesTile
+                  title="Music"
+                  name="Cat"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Home & Lifestyle"
+                  name="Home & Lifestyle"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Food & Drink"
+                  name="Food & Drink"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Travel & Outdoor"
+                  name="Travel & Outdoor"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Seasonal Holiday"
+                  name="Seasonal Holiday"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Government & Politics"
+                  name="Government & Politics"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Charity & Causes"
+                  name="Charity & Causes"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
+                <CategoriesTile
+                  title="Other"
+                  name="Other"
+                  handleClickCat={handleClickCat}
+                ></CategoriesTile>
               </div>
-              {/* {showCategoryMenu && (
-                <div
-                  id="myDropdown"
-                  ref={reference}
-                  className="dropdown-content"
-                >
-                  <ul>{catElements}</ul>
-                </div>
-              )} */}
-            </div>
-          )}
+            </StyledCategoriesContainer>
+          </div>
 
           {forYouElement && (
             <div className="date-dropdown">

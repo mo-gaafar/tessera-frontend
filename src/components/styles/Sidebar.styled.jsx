@@ -1,20 +1,21 @@
 import styled from 'styled-components';
 
 export const StyledMainSidebar = styled.div`
-  padding-inline: 1rem;
-  height: calc(100vh - 70px);
+  min-width: 6rem;
+  padding-inline: 1.5rem;
   background-color: #f8f7fa;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  min-height: 100vh;
   div:first-child {
     margin-top: 2rem;
   }
   .active {
     background-color: #3659e3;
-    padding: 0.65rem;
+    padding: 0.5rem;
     border-radius: 8px;
-    margin-left: -0.65rem;
+    /* margin-left: rem; */
   }
 `;
 
@@ -23,7 +24,9 @@ export const StyledCreateTicketSidebar = styled.div`
   border-left: 1px solid #eeedf2;
   display: flex;
   flex-direction: column;
-
+  @media (max-width: 60em) {
+    display: none;
+  }
   .events__page {
     color: #3d64ff;
     padding-block: 1.5rem;
@@ -100,10 +103,10 @@ export const StyledCreateTicketSidebar = styled.div`
     color: #4b4d63;
     font-size: 1.4rem;
     font-weight: 500;
-    span:first-child {
+    a:first-child {
       padding-top: 1.5rem;
     }
-    span:last-child {
+    a:last-child {
       padding-bottom: 1.5rem;
     }
     > * {
@@ -142,8 +145,8 @@ export const StyledCreateTicketSidebar = styled.div`
         background-color: #eeedf2;
       }
     }
-    .active {
-      background-color: #fff;
-    }
+  }
+  .active {
+    background-color: #fff;
   }
 `;
