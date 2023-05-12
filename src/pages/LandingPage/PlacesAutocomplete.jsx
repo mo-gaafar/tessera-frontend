@@ -12,6 +12,7 @@ export default function PlacesAutocomplete({
   showLocationMenu,
   setShowLocationMenu,
   setURL,
+  currentCity,
 }) {
   const {
     ready,
@@ -63,7 +64,14 @@ export default function PlacesAutocomplete({
   function handleClick() {
     setShowLocationMenu(true);
   }
-
+  function handleCurrent() {
+    setURL(`city=${currentCity.city}&country=${currentCity.country}`);
+    setValue(currentCity.city);
+  }
+  function handleOnline() {
+    setURL('eventHosted=online');
+    setValue('Online');
+  }
   return (
     <>
       <h3>
@@ -88,6 +96,7 @@ export default function PlacesAutocomplete({
           value={value}
           placeholder={cityData.city}
           onChange={e => {
+            console.log(hideDefault);
             setHideDefault(true);
             setValue(e.target.value);
           }}
@@ -97,7 +106,7 @@ export default function PlacesAutocomplete({
           <ul className="location__dropdown">
             {!hideDefault && (
               <div className="">
-                <li className="current__location">
+                <li onClick={handleCurrent} className="current__location">
                   <svg viewBox="0 0 24 24">
                     <g
                       id="crosshair_svg__Crosshair"
@@ -115,7 +124,7 @@ export default function PlacesAutocomplete({
                   </svg>
                   Use My Current Location
                 </li>
-                <li className="online__location">
+                <li onClick={handleOnline} className="online__location">
                   <svg
                     id="video-chunky_svg__eds-icon--video-chunky_svg"
                     x="0"
@@ -141,6 +150,7 @@ export default function PlacesAutocomplete({
             )}
 
             {status === 'OK' &&
+              hideDefault &&
               data.map(data => {
                 {
                   /* console.log(data); */
