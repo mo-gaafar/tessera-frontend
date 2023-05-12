@@ -155,17 +155,6 @@ export default function Landing() {
     //handleClick()
   }
 
-  function onClickCategory(e) {
-    const { name, value } = e.target;
-    console.log('name');
-    console.log(name);
-    setShowCategoryMenu(false);
-    setSelectCategory(name);
-    let new_name = name.replace(/&/g, '%26');
-    let queryName = 'category=' + new_name;
-    setUrl(queryName);
-    //handleClick()
-  }
   function showDropdown() {
     if (!select) {
       setShowMenu(true);
@@ -225,7 +214,7 @@ export default function Landing() {
       fetchData(latitude, longitude);
     });
   }, []);
-  console.log(url);
+  //console.log(url);
   function handleForYou() {
     setForYouElement(true);
     //setShowCategoryMenu(false);
@@ -335,13 +324,15 @@ export default function Landing() {
 
   useEffect(() => {
     console.log(cityData);
+    console.log("url");
+    console.log(url);
     async function getData() {
       const res = await fetch(
         'https://www.tessera.social/api/attendee/Eventsby/?' + url
       );
       const data = await res.json();
       setAllFilteredEvents(data.filteredEvents);
-      setAllCatEvents(data.categoriesRetreived);
+      //setAllCatEvents(data.categoriesRetreived);
     }
     getData();
   }, [url]);
@@ -390,6 +381,8 @@ export default function Landing() {
    * @returns {JSX.Element} An object representing the eventbox
    */
   useEffect(() => {
+    // console.log("ho")
+    //console.log(console.log(allFilteredEvents))
     if (allFilteredEvents.length === 0) {
       setNoEventsImg(true);
     } else {

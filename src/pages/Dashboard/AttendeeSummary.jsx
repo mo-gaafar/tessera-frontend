@@ -1,15 +1,109 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import { StyledDashboard } from './styles/Dashboard.styled';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
+import { Link, useParams } from 'react-router-dom';
+
 import { StyledAttendeeSummary } from './styles/Dashboard.styled';
 const AttendeeSummary = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+
+  const token = localStorage.getItem('token');
+  const eventID = useParams().eventID
+    ? useParams().eventID
+    : localStorage.getItem('eventID');
+
+  const [data, setData] = useState([
+    {
+      orderId: '3',
+      orderDate: '5/8/23',
+      attendeeStatus: 'Attending',
+      name: 'mm',
+      eventName: 'Event ',
+      ticketQuantity: 2,
+      ticketType: 'General Admission',
+      ticketPrice: '$20.00',
+      buyerName: 'm',
+      buyerEmail: 'mo@example.com',
+    },
+    {
+      orderId: '1',
+      orderDate: '5/8/23',
+      attendeeStatus: 'Attending',
+      name: 'hh',
+      eventName: 'Event ',
+      ticketQuantity: 2,
+      ticketType: 'General Admission',
+      ticketPrice: '$20.00',
+      buyerName: 'hh',
+      buyerEmail: 'mo@example.com',
+    },
+    // Add more entries here if needed
+  ]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await fetch(
+        `https://www.tessera.social/api/dashboard/reportJason/attendees-list/${eventID}`,
+        {
+          method: 'GET',
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await result.json();
+      console.log(data);
+    };
+
+    getData();
+  }, []);
+
+  const [sortConfig, setSortConfig] = useState({
+    key: 'orderId',
+    direction: 'ascending',
+  });
+
+  const handleSort = key => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = [...data].sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? -1 : 1;
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? 1 : -1;
+    }
+    return 0;
+  });
+
+  const exportCSV = async () => {
+    const response = await fetch(
+      `https://www.tessera.social/api/dashboard/report/attendees-list/${eventID}`
+    );
+    const data = await response.text();
+    const blob = new Blob([data], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'attendees-summary.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    console.log(data);
+  };
 
   return (
     <>
@@ -26,7 +120,7 @@ const AttendeeSummary = () => {
           <h1>Attendee Summary Report</h1>
           <div className="search">
             <input type="" placeholder="Search for any events with sales" />
-            <button>
+            <button onClick={exportCSV}>
               <svg
                 id="share-ios-chunky_svg__eds-icon--share-ios-chunky_svg"
                 x="0"
@@ -47,8 +141,49 @@ const AttendeeSummary = () => {
                   d="M12 4L7 9l1.4 1.4L11 7.8V16h2V7.8l2.6 2.6L17 9l-5-5z"
                 ></path>
               </svg>
-              Export
+              <small>Export</small>
             </button>
+          </div>
+          <div className="table-content">
+            <table>
+              <thead>
+                <tr className="table-header">
+                  <th
+                    className="head-data"
+                    onClick={() => handleSort('orderId')}
+                  >
+                    Order ID
+                    {sortConfig.key === 'orderId' &&
+                      (sortConfig.direction === 'ascending' ? '▲' : '▼')}
+                  </th>
+                  <th className="head-data">Order Date</th>
+                  <th className="head-data">Attendee Status</th>
+                  <th className="head-data">Name</th>
+                  <th className="head-data">Event Name</th>
+                  <th className="head-data">Ticket Quantity</th>
+                  <th className="head-data">Ticket Type</th>
+                  <th className="head-data">Ticket Price</th>
+                  <th className="head-data">Buyer Name</th>
+                  <th className="head-data">Buyer Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.orderId}</td>
+                    <td>{item.orderDate}</td>
+                    <td>{item.attendeeStatus}</td>
+                    <td>{item.name}</td>
+                    <td>{item.eventName}</td>
+                    <td>{item.ticketQuantity}</td>
+                    <td>{item.ticketType}</td>
+                    <td>{item.ticketPrice}</td>
+                    <td>{item.buyerName}</td>
+                    <td>{item.buyerEmail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </StyledAttendeeSummary>

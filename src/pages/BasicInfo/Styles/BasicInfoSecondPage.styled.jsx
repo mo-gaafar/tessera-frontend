@@ -4,13 +4,14 @@ export const WholePage = styled.div`
     padding: 0 16px;
   }
   
-.wholepage{
+.wholepage{    
+  flex-grow: 1;
+  overflow-y: scroll;
+    max-height: 100vh;
   margin-bottom: 48px;
   padding-top: 40px;
+  padding-left: 10rem;
   padding-bottom: 40px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 960px;
   @media (max-width: 792px){
     max-width: 655px;
   }
@@ -184,6 +185,15 @@ export const WholePage = styled.div`
     .picturebuttons{
       color: #4b4d63;
       font-weight: 400;
+      -webkit-box-align: center;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      -webkit-box-pack: center;
+      justify-content: center;
+      margin-top: 16px;
+      position: relative;
+      z-index: 100;
       @media (min-width: 960px){
           font-size: .875rem;
           line-height: 1.25rem;
@@ -257,6 +267,9 @@ export const WholePage = styled.div`
       border: 1px solid #fff;
     }
     .summaryboxflex2{
+      background: #fff;
+      border-radius: 1px;
+      border: 1px solid #fff;
       display: flex;
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
@@ -355,7 +368,25 @@ export const WholePage = styled.div`
     .blue-border:focus {
       border-color: blue;
     }
-    
+    .descripriontextarea{
+      outline: none;
+      whitespace: pre-wrap;
+      overflow-wrap: break-word;
+      webkit-user-modify: read-write-plaintext-only;
+      padding: 16px 28px;
+      min-height: 161px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      display: block;
+      width:100%;
+      height: 100%;
+      box-sixing: border-box;
+      background-color: #fff;
+      border-radius: 2px;
+      border:0;
+      overflow:visible;
+      webkit-appearance: none;
+    }
     .red-border {
       border-color: red;
     }
@@ -508,6 +539,7 @@ export const WholePage = styled.div`
     }
     .leftheader{
       display: inline-flex;
+      position: relative;
       @media (min-width: 480px){
         margin-left: 16px;
       }
@@ -574,7 +606,10 @@ export const WholePage = styled.div`
     text-align: center;
     transition: box-shadow .32s linear,-webkit-box-shadow .32s linear;
   }
-  .fixeddiv{
+  .fixeddiv {
+    @media (max-width: 660px) {
+      display: none;
+    }
     position: fixed;
     transform: translateY(0);
     background-color: #fff;
@@ -583,12 +618,13 @@ export const WholePage = styled.div`
     left: 0;
     min-height: 64px;
     overflow: hidden;
-    transition: transform .32s cubic-bezier(.4,0,.3,1),-webkit-transform .32s cubic-bezier(.4,0,.3,1);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.3, 1),
+      -webkit-transform 0.32s cubic-bezier(0.4, 0, 0.3, 1);
     width: 100%;
     will-change: transform;
   }
-  .fixedinnerdiv{
-    @media (min-width: 792px){
+  .fixedinnerdiv {
+    @media (min-width: 792px) {
       margin-left: 30%;
     }
     max-width: 960px;
@@ -596,15 +632,53 @@ export const WholePage = styled.div`
     padding-bottom: 16px;
     margin-right: auto;
   }
-  .fixedbuttondiv{
+  .fixedbuttondiv {
     text-align: right;
     width: 100%;
     box-sizing: border-box;
     display: inline-block;
     overflow: hidden;
     vertical-align: top;
-    @media (min-width: 1152px){
+    @media (min-width: 1152px) {
       padding: 0 48px;
+    }
+  }
+  .fixeddiv1 {
+    @media (min-width: 660px) {
+      display: none;
+    }
+    position: fixed;
+    transform: translateY(0);
+    background-color: #fff;
+    border-top: 1px solid #eeedf2;
+    bottom: 0;
+    left: 0;
+    min-height: 64px;
+    overflow: hidden;
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.3, 1),
+      -webkit-transform 0.32s cubic-bezier(0.4, 0, 0.3, 1);
+    width: 100%;
+    will-change: transform;
+  }
+  .fixedinnerdiv1 {
+    @media (min-width: 792px) {
+      margin-left: 30%;
+    }
+    max-width: 960px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-right: auto;
+  }
+  .fixedbuttondiv1 {
+    width: 100%;
+    text-align: right;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    @media (min-width: 1152px) {
+      padding: 0 48px;
+    }
   }
   .usedbutton{
     color: #39364f;
@@ -633,5 +707,8 @@ export const WholePage = styled.div`
     :active{
       background-color: #f3eeee;
     }
+    @media (max-width: 660px) {
+      width:100%;
+    }
   }
-`
+`;

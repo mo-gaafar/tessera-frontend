@@ -340,21 +340,18 @@ export default function Events(props) {
   };
   let maxPrice;
   let minPrice;
-  if (eventData.filteredEvents){ 
-    let ticketTiers=[eventData.filteredEvents[0].ticketTiers[0].price].replace(new RegExp("$", "g"), "")
-    maxPrice = parseFloat(ticketTiers);
-    minPrice = parseFloat(eventData.filteredEvents[0].ticketTiers[0].price);
+  if (eventData.filteredEvents) {
+    let ticketPrice = eventData.filteredEvents[0].ticketTiers[0].price;
+    ticketPrice = ticketPrice.replace(/\$/g, '');
+    maxPrice = parseFloat(ticketPrice);
+    minPrice = parseFloat(ticketPrice);
 
     // Iterate through the array to find the max and min prices
-    [eventData.filteredEvents[0].ticketTiers].forEach((ticket, index)  => {
-      console.log(ticket[index].price)
-      // if (ticket[index].price==="Free"){
-      //   console.log("hiiiii")
-      //   minPrice = 0;
-      // }
-      const price = parseFloat(ticket[index].price);
-      // console.log("ticket")
-      // console.log(ticket[index].price)
+    [eventData.filteredEvents[0].ticketTiers].forEach((ticket, index) => {
+      let ticketp = ticket[index].price.replace(/\$/g, '');
+      console.log('price');
+      console.log(ticket[index].price);
+      const price = parseFloat(ticketp);
       if (price > maxPrice) {
         maxPrice = price;
       }
@@ -362,20 +359,20 @@ export default function Events(props) {
       if (price < minPrice) {
         minPrice = price;
       }
-      console.log(minPrice)
+      console.log(maxPrice);
     });
-    
   }
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
-    console.log("eventData")
-  console.log(eventData)
+  console.log('eventData');
+  console.log(eventData);
   return (
     <>
       {showPopup && (
         <BookingPopUp
-          number={count}
+          number={1}
+          event={eventID}
           setShowPopUp={setShowPopUp}
           image={
             eventData.filteredEvents[0].basicInfo.eventImage !==
@@ -385,7 +382,6 @@ export default function Events(props) {
           }
         />
       )}
-
       <WholePage>
         <StyledNav>
           {email && email !== 'undefined' ? (
@@ -825,17 +821,13 @@ export default function Events(props) {
                         </TicketsEndDivInner>
                       </TicketsEndDiv>
                     )}
-                    
-                        <WholeTicketsDiv>
-                        
-                        
-                          <TicketsDiv>{eventData.isEventFree &&
-                            !eventData.isEventCapacityFull && (
-                        
-                            <TicketsSection>
-                              <TicketsForm>  
-                                
 
+                    <WholeTicketsDiv>
+                      <TicketsDiv>
+                        {eventData.isEventFree &&
+                          !eventData.isEventCapacityFull && (
+                            <TicketsSection>
+                              <TicketsForm>
                                 <div>
                                   <div>
                                     <div>
@@ -932,27 +924,29 @@ export default function Events(props) {
                                     </div>
                                   </div>
                                 </div>
-                               
                               </TicketsForm>
                               <TicketsButton onClick={displayPopup}>
                                 Reserve a spot
                               </TicketsButton>
-                            </TicketsSection>)}
-                            {eventData.isEventFree &&
-                            <PricedTickets>
+                            </TicketsSection>
+                          )}
+                        {!eventData.isEventFree && (
+                          <PricedTickets>
                             <PricedTicketsPriceDiv>
-                            <PricedTicketsPrice>
-                              From ${minPrice} - $
-                              {maxPrice}
-                            </PricedTicketsPrice>
-                          </PricedTicketsPriceDiv>
-                          <PricedTicketsButtonDiv>
-                            <TicketsButton onClick={displayPopup}>Get Tickets</TicketsButton>
-                          </PricedTicketsButtonDiv>
-                        </PricedTickets>}
-                          </TicketsDiv> 
-                          <input type="hidden" />              
-                          {/* {eventData.isEventFree &&
+                              <PricedTicketsPrice>
+                                From $0 - ${maxPrice}
+                              </PricedTicketsPrice>
+                            </PricedTicketsPriceDiv>
+                            <PricedTicketsButtonDiv>
+                              <TicketsButton onClick={displayPopup}>
+                                Get Tickets
+                              </TicketsButton>
+                            </PricedTicketsButtonDiv>
+                          </PricedTickets>
+                        )}
+                      </TicketsDiv>
+                      <input type="hidden" />
+                      {/* {eventData.isEventFree &&
                       // !eventData.isEventCapacityFull && 
                       ( 
                         <PricedTickets>
@@ -967,10 +961,9 @@ export default function Events(props) {
                           </PricedTicketsButtonDiv>
                         </PricedTickets>
                       )} */}
-                        </WholeTicketsDiv>
-                      
+                    </WholeTicketsDiv>
 
-                    {eventData.isEventFree &&
+                    {/* {eventData.isEventFree &&
                       !eventData.isEventCapacityFull && 
                       ( 
                         <PricedTickets>
@@ -984,7 +977,7 @@ export default function Events(props) {
                             <TicketsButton>Get Tickets</TicketsButton>
                           </PricedTicketsButtonDiv>
                         </PricedTickets>
-                      )}
+                      )} */}
                     {eventData.isEventCapacityFull && (
                       <SoldOutTickets>
                         <PricedTicketsPriceDiv>

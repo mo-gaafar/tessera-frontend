@@ -54,7 +54,8 @@ import TierBox from './TierBox';
  *
  *
  */
-export default function Reservation(props,{
+export default function Reservation({
+  number,
   setShowCheckout,
   showCheckout,
   changePromo,
@@ -123,13 +124,13 @@ export default function Reservation(props,{
         ? console.log(event.filteredEvents[0])
         : setEventExists(false);
       event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
-
+      console.log("hooooo")
+        console.log(event.filteredEvents[0])
       let tempArray = new Array(event.filteredEvents[0].ticketTiers.length)
         .fill()
         .map((element, index) => ({
           tierName: event.filteredEvents[0].ticketTiers[index].tierName,
-          numberOfTicketsSold:
-            event.filteredEvents[0].ticketTiers[index].quantitySold,
+          numberOfTicketsSold:event.filteredEvents[0].ticketTiers[index].maxCapacity-10,
           maxCapacity: event.filteredEvents[0].ticketTiers[index].maxCapacity,
           price: event.filteredEvents[0].ticketTiers[index].price,
           discountpercent: 0,
@@ -249,7 +250,7 @@ export default function Reservation(props,{
             {ticketsTierdetails.map((element, index) => {
               return (
                 <TierBox
-                  number={props.number}
+                  number={number}
                   key={index}
                   element={element}
                   index={index}
