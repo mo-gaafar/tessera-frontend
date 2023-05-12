@@ -110,8 +110,7 @@ function ResetPassword() {
   }
   useEffect(() => {
     setTimeout(() => {
-      successMsg === 'Please check your mail inbox and reset password' &&
-        navigate('/');
+      successMsg === 'User password has been reset' && navigate('/');
     }, 3000);
   }, [successMsg]);
 
