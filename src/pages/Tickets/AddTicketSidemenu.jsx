@@ -150,7 +150,7 @@ export default function AddTicketSidemenu(props) {
     const res = await axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`,
+        Authorization: `Bearer ${token}`,
       },
     });
     // console.log(res);
