@@ -57,6 +57,7 @@ export default function Landing() {
   });
 
   const [cityData, setCity] = useState({});
+  const [currentCity, SetCurrentCity] = useState({});
   const ref = useRef(null);
   const reference = useRef(null);
   const refDrop = useRef(null);
@@ -162,7 +163,7 @@ export default function Landing() {
   }
 
   const [focused, setFocused] = useState({
-    All: true,
+    All: false,
     forYou: false,
     online: false,
     today: false,
@@ -207,6 +208,7 @@ export default function Landing() {
         country: country,
       });
       setUrl(`city=${cityName}&country=${country}`);
+      SetCurrentCity({ city: cityName, country: country });
     };
     navigator.geolocation?.getCurrentPosition(poistion => {
       const { latitude, longitude } = poistion.coords;
@@ -324,7 +326,7 @@ export default function Landing() {
 
   useEffect(() => {
     console.log(cityData);
-    console.log("url");
+    console.log('url');
     console.log(url);
     async function getData() {
       const res = await fetch(
@@ -399,7 +401,8 @@ export default function Landing() {
           id={event._id}
           key={event._id}
           image={
-            event.basicInfo.eventImage !== 'https://example.com/image.jpg'
+            event.basicInfo.eventImage !== 'https://example.com/image.jpg' &&
+            event.basicInfo.eventImage !== null
               ? event.basicInfo.eventImage
               : '/images/event__5.avif'
           }
@@ -467,6 +470,7 @@ export default function Landing() {
       <StyledLandingEvents onClick={locationDropDownToggle}>
         {isLoaded && (
           <PlacesAutocomplete
+            currentCity={currentCity}
             setCity={setCity}
             cityData={cityData}
             setSelected={setSelected}
