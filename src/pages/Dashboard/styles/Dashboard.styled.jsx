@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 export const StyledDashboard = styled.div`
   padding-left: 10vw;
+
   flex-grow: 1;
+
   @media (max-width: 60em) {
     padding-left: 8vw;
   }

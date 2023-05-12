@@ -408,8 +408,8 @@ export default function Landing() {
           }
           eventTitle={event.basicInfo.eventName}
           date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
-          description={
-            event.basicInfo.location.venueName +
+          description={event.basicInfo.location &&
+            event.basicInfo.location.venueName && event.basicInfo.location.venueName +
             ' • ' +
             event.basicInfo.location.city +
             ' '

@@ -1,9 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   /* width: 100vw; */
-
-  overflow-y: scroll;
   background-color: white;
   overflow-x: hidden;
 `;
@@ -13,6 +11,7 @@ export const Header = styled.div`
   height: 150px;
   text-align: left;
   background-color: white;
+  border-bottom: 6px solid #d9d9d9;
 
   h1 {
     position: absolute;
@@ -30,12 +29,6 @@ export const Header = styled.div`
     height: 20%;
     margin-left: 5%;
     margin-top: 90px;
-  }
-  hr {
-    position: absolute;
-    top: 200px;
-    width: 99%;
-    opacity: 0.3;
   }
 `;
 export const OrderType = styled.div`
@@ -75,10 +68,9 @@ export const OrderType = styled.div`
   }
 `;
 export const Tickets = styled.table`
-  width: 65vw;
-  height: 300px;
-  margin-left: 5%;
+  width: 88%;
 
+  margin-left: 5%;
   border-collapse: collapse;
 
   thead {
@@ -95,13 +87,17 @@ export const Tickets = styled.table`
   }
 
   tbody {
-    height: 100px;
+    height: 50px;
     border-bottom: 1px solid #d9d9d9;
 
     tr {
       border-bottom: 2px solid #d9d9d9;
+
       .num {
         font-size: 25px;
+      }
+      td {
+        padding: 10px;
       }
     }
     tr:hover {
@@ -134,34 +130,39 @@ export const Tickets = styled.table`
     margin-top: 20px;
 
     .text {
+      margin-top: 60px;
+
       position: absolute;
-      right: 50rem;
+      left: 66%;
       display: inline-block;
       padding-top: 7px;
       padding-right: 10px;
+      font-weight: 600;
     }
     .TotalValue {
       position: absolute;
-      right: 25rem;
+      left: 66%;
       width: 250px;
+      background-color: yellow;
     }
   }
 `;
 export const Continue = styled.div`
   height: 40px;
-  background-color: magenta;
-  position: absolute;
-  right: 100px;
+  width: 65vw;
+  margin-left: 5%;
 
+  margin-top: 60px;
   .button {
     position: absolute;
-    right: 0px;
+
     width: 150px;
     height: 50px;
+    margin-top: 20px;
     background-color: rgb(221, 73, 28);
     font-size: 19px;
-    font-family: 'Neue Plak', -apple-system, BlinkMacSystemFont, Roboto,
-      'Helvetica Neue', Helvetica, Tahoma, Arial, sans-serif;
+    font-family: "Neue Plak", -apple-system, BlinkMacSystemFont, Roboto,
+      "Helvetica Neue", Helvetica, Tahoma, Arial, sans-serif;
     line-height: 24px;
     letter-spacing: 0.2px;
     font-weight: 600;
@@ -180,6 +181,7 @@ export const LearnMore = styled.div`
   background-color: #f8f7fa;
   width: 300px;
   border-radius: 10px;
+  margin-right: 20px;
 
   a {
     color: blue;
