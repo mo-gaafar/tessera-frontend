@@ -202,7 +202,10 @@ export default function Organize(props) {
       element.map((list, index) => (
         <div>
           <div
-            onClick={() => navigate(`/dashboard/${list.eventId}`)}
+            onClick={() => {
+              localStorage.setItem('eventID', list.eventId);
+              navigate(`/dashboard/${list.eventId}`);
+            }}
             className="event-details"
           >
             <div className="event-data">

@@ -1,19 +1,27 @@
 import styled from 'styled-components';
 
 export const StyledDashboard = styled.div`
-  padding-left: 20rem;
+  padding-left: 10vw;
+  @media (max-width: 60em) {
+    padding-left: 8vw;
+  }
+  @media (max-width: 40em) {
+    padding-left: 5vw;
+    > * {
+      max-width: 30rem;
+    }
+  }
   h1 {
     font-size: 4.8rem;
     font-weight: 700;
 
     color: rgb(30, 10, 60);
     line-height: 40px;
-    margin-top: 2rem;
   }
+  margin-top: 2rem;
   .cards {
     display: flex;
     flex-grow: 1;
-    min-width: 90rem;
     /* overflow-x: scroll; */
     gap: 2rem;
     margin-top: 3rem;
@@ -21,6 +29,9 @@ export const StyledDashboard = styled.div`
   .card {
     :last-child {
       padding-right: 10rem;
+      @media (max-width: 40em) {
+        padding-right: 5rem;
+      }
     }
     padding: 1rem 1.5rem;
 
@@ -98,6 +109,10 @@ export const StyledDashboard = styled.div`
       width: 2rem;
       height: 2rem;
       fill: #3659e3;
+      @media (max-width: 40em) {
+        width: 3rem;
+        height: 3rem;
+      }
     }
   }
   hr {
@@ -107,6 +122,9 @@ export const StyledDashboard = styled.div`
     margin-bottom: 3rem;
     opacity: 0.3;
     margin-right: 15rem;
+    @media (max-width: 60em) {
+      width: 80%;
+    }
   }
   .ticket__types {
     padding-right: 15rem;
@@ -125,6 +143,7 @@ export const StyledDashboard = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    margin-bottom: 5rem;
     > * {
       display: flex;
       justify-content: space-between;
@@ -134,6 +153,9 @@ export const StyledDashboard = styled.div`
       div {
         display: flex;
         gap: 10rem;
+        @media (max-width: 40em) {
+          gap: 3rem;
+        }
         span {
           min-width: 4.5rem;
         }
@@ -154,8 +176,12 @@ export const StyledDashboard = styled.div`
     font-weight: 600;
 
     svg {
-      width: 1.5rem;
-      height: 1.5rem;
+      height: 2rem;
+      width: 2rem;
+      @media (max-width: 40em) {
+        height: 5rem;
+        width: 5rem;
+      }
       fill: #3659e3;
     }
     a {
@@ -163,6 +189,9 @@ export const StyledDashboard = styled.div`
       align-items: center;
       gap: 1rem;
       color: #3659e3;
+      @media (max-width: 40em) {
+        width: 15ch;
+      }
       :hover {
         text-decoration: underline;
       }
@@ -172,48 +201,72 @@ export const StyledDashboard = styled.div`
 
 export const StyledAttendeeSummary = styled.div`
   display: flex;
+  h1 {
+    font-size: 5.2rem;
+    font-weight: 900;
+    color: #1e0a3c;
+  }
   .attendee {
-    padding-inline: 20rem;
-    margin-top: 2rem;
+    padding-inline: 20vw;
+    margin-top: 5rem;
     flex-grow: 1;
+    @media (max-width: 60em) {
+      padding-inline: 10vw;
+    }
+    @media (max-width: 40em) {
+      padding-inline: 5vw;
+    }
   }
   table {
-    width: 100%;
     border-collapse: collapse;
   }
   th,
   td {
-    
     text-align: center;
   }
 
   th {
     background-color: #fdfdfd; /* Set your desired background color here */
   }
-  .table-content{
-    font-size:16px;
+  .table-content {
+    font-size: 16px;
     color: rgb(111, 114, 135);
     font-size: 14px;
-    font-weight:100;
-    text-align:center;
-    width: 100%;
-    
-    margin-top:3rem;
-    .table-header{
-      height:5rem;
-      padding-bottom:1rem;
+    font-weight: 100;
+    text-align: center;
+    width: 55vw;
+    overflow-x: scroll;
+    margin-top: 3rem;
+    @media (max-width: 60em) {
+      width: 65vw;
     }
-    .head-data{
-      font-weight:100;
-      padding-left:0.5rem;
-      padding-right:0.5rem;
+    .table-header {
+      height: 5rem;
+      padding-bottom: 1rem;
+    }
+    .head-data {
+      font-weight: 100;
+      padding-inline: 1rem;
+
+      white-space: nowrap;
     }
   }
   .search {
     margin-top: 2rem;
     display: flex;
+    max-width: 60vw;
     justify-content: space-between;
+    margin-bottom: 15rem;
+    @media (max-width: 60em) {
+      max-width: 65vw;
+    }
+    small {
+      color: #3659e3;
+    }
     button {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
       background: none;
       border: none;
       color: inherit;
@@ -224,6 +277,7 @@ export const StyledAttendeeSummary = styled.div`
     svg {
       height: 2rem;
       width: 2rem;
+      fill: #3659e3;
     }
   }
 `;

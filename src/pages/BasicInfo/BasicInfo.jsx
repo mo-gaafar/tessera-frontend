@@ -381,7 +381,12 @@ export default function BasicInfo() {
         )}
       </StyledNav>
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar className="sidebar" event={true} basicInfo={true} />
+        <Sidebar
+          className="sidebar"
+          event={true}
+          basicInfo={true}
+          hide={true}
+        />
 
         <div className="wholepage">
           <main className="main">
