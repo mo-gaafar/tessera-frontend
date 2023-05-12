@@ -669,7 +669,7 @@ export default function BasicInfo() {
                                     </option>
                                     <option
                                       className="dropdownoption"
-                                      value="Seasonal & Holiday"
+                                      value="Seasonal Holiday"
                                       data-spec="select-option"
                                     >
                                       Seasonal Holiday
