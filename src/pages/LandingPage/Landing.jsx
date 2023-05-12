@@ -163,7 +163,7 @@ export default function Landing() {
   }
 
   const [focused, setFocused] = useState({
-    All: true,
+    All: false,
     forYou: false,
     online: false,
     today: false,
@@ -401,7 +401,8 @@ export default function Landing() {
           id={event._id}
           key={event._id}
           image={
-            event.basicInfo.eventImage !== 'https://example.com/image.jpg'
+            event.basicInfo.eventImage !== 'https://example.com/image.jpg' &&
+            event.basicInfo.eventImage !== null
               ? event.basicInfo.eventImage
               : '/images/event__5.avif'
           }
