@@ -1,3 +1,15 @@
+/**
+ * @file This file is the component that renders the tickets
+ * @since 1.0.0
+ * @author SeifAllah
+ *
+ * @requires react
+ * @requires react-router-dom
+ * @requires react-icons
+ * @requires mui material
+ *
+ *
+ */
 import React from "react";
 import { useState, useEffect } from "react";
 
@@ -29,6 +41,14 @@ export default function TicketInfo({
   ticketInfoError,
   setticketInfoError,
 }) {
+  /**
+   * @function handleTicketInfo
+   * @param {*} event
+   * @param {*} index
+   * @param {*} key
+   * @description this function validates the input in the text field
+   *
+   */
   function handleTicketInfo(event, index, key) {
     const newArray = [...ticketInfo];
     const errorArray = [...ticketInfoError];

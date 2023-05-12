@@ -1,3 +1,32 @@
+/**
+ * @file addAttendees.jsx
+ * @name addAttendees
+ * @author @SeifAllah
+ * @requires react
+ * @requires react-router-dom
+ * @requires mui/material
+ * @requires ./styles/addAttendees.styled.styled
+ * @requires ../../components/Sidebar
+ * @requires ./RegisterInfo
+ * @requires ../LandingPage/NavBar
+ * @requires ../LandingPage/NavbarLoggedIn
+ * @requires @mui/icons-material/HelpOutlineOutlined
+ * @requires @mui/icons-material/Launch
+ * @requires @mui/icons-material/ArrowBack
+ *   @requires @mui/material/Checkbox
+ *  @requires @mui/material/Button
+ * @requires @mui/material/TextField
+ * @requires @mui/material/InputAdornment
+ * @requires @mui/material/Select
+ * @requires @mui/material/MenuItem
+ * @requires @mui/material/InputLabel
+ * @requires @mui/material/FormControl
+ * @requires @mui/material/Button
+ *
+ * @exports AddAttendees
+ * @description This file contains the Landing page components and its logic
+ */
+
 import React from "react";
 import { useState, useEffect } from "react";
 import {
@@ -23,22 +52,77 @@ import NavbarLoggedIn from "../LandingPage/NavbarLoggedIn";
 import Navbar from "../LandingPage/NavBar";
 import Sidebar from "../../components/Sidebar";
 import AttendeeInfo from "./RegisterInfo";
-
+/**
+ * Function component that renders the AddAttendees page
+ * @function
+ * @returns {JSX.Element} AddAttendees page content
+ * @description This is the main function of the AddAttendees page
+ * @exports AddAttendees
+ *
+ *
+ */
 export default function AddAttendee() {
   const [inputQuantity, setInputQuantity] = useState([]);
   const [inputError, setInputError] = useState([]);
   const [contFlag, setcontFlag] = useState(false);
   const [totalValue, setTotalValue] = useState(0);
+  const [image, setImage] = useState("");
+
+  const [ticketTiers, setTicketTiers] = useState([]);
   const [helperMsg, setHelperMsg] = useState("");
-  const ticketTiers = [
-    { tierName: "General Admission", price: 55, quantity: 0, maxquantity: 5 },
-    { tierName: "loll", price: 0, quantity: 0, maxquantity: 5 },
-    { tierName: "ra2sany 3al wa7da", price: 55, quantity: 0, maxquantity: 5 },
-  ];
-  const [faceValue, setFaceValue] = useState(Array(ticketTiers.length).fill(0));
+  const email = localStorage.getItem("email")
+    ? localStorage.getItem("email")
+    : localStorage.getItem("authEmail");
+  const event = localStorage.getItem("eventID");
+  const token = localStorage.getItem("token");
+  const [EventData, setEventData] = useState({});
+  const [faceValue, setFaceValue] = useState([]);
+  /**
+   * function that gets the data of the event from the backend
+   * @function getData
+   * @returns {void}
+   * @description This function gets the data of the event from the backend
+   *
+   */
+  useEffect(() => {
+    const getData = async () => {
+      const result = await fetch(
+        `https://www.tessera.social/api/event-management/retrieve/${event}`,
+        {
+          method: "GET",
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await result.json();
+      setEventData(data.event);
+      setImage(data.event.basicInfo.eventImage);
+      setTicketTiers(data.event.ticketTiers);
+      setFaceValue(() => {
+        let array = Array(data.event.ticketTiers.length).fill(0);
+        return array;
+      });
+    };
+
+    getData();
+  }, []);
+
   const [ticketTierSelected, setTicketTierSelected] = useState([]);
   const [orderType, setOrderType] = useState("");
   let flag = false;
+
+  /**
+   *
+   * description this function creates the selected tier to export it to the attendeeInfo page
+   * @function createTierSelected
+   * @returns {array} selected
+   * @description This function creates the selected tier to export it to the attendeeInfo page
+   *
+   *
+   */
   function createTierSelected() {
     let selected = [];
     for (let i = 0; i < inputQuantity.length; i++) {
@@ -56,18 +140,30 @@ export default function AddAttendee() {
 
         temp2.length = Number(inputQuantity[i]);
         temp2.fill(temp);
+        let temp3;
+        ticketTiers[i].price === "Free"
+          ? (temp3 = 0)
+          : (temp3 = Number(ticketTiers[i].price));
 
         selected.push({
           tierName: ticketTiers[i].tierName,
-          quantity: inputQuantity[i],
-          price: ticketTiers[i].price,
+          quantitySold: inputQuantity[i],
+
+          price: temp3,
           tickets: temp2,
         });
       }
     }
     return selected;
   }
-
+  /**
+   * @function handleInputChange
+   * @param {*} event
+   * @param {*} index
+   * @returns {void}
+   * @description This function handles the input change in the quantity text field
+   *
+   */
   function handleInputChange(event, index) {
     const newArray = [...inputQuantity];
     const errorArray = [...inputError];
@@ -79,7 +175,7 @@ export default function AddAttendee() {
     if (/^[0-9]*$/.test(value)) {
       if (
         Number(value) <=
-          ticketTiers[index].maxquantity - ticketTiers[index].quantity &&
+          ticketTiers[index].maxCapacity - ticketTiers[index].quantitySold &&
         Number(value) >= 0
       ) {
         errorArray[index] = false;
@@ -87,7 +183,7 @@ export default function AddAttendee() {
         setFaceValue(() => {
           let temp = faceValue;
           orderType !== "Complimentary"
-            ? (temp[index] = ticketTiers[index].price * Number(value))
+            ? (temp[index] = Number(ticketTiers[index].price) * Number(value))
             : null;
 
           return temp;
@@ -127,15 +223,23 @@ export default function AddAttendee() {
         array[index] = 0;
       } else {
         if (!isNaN(inputQuantity[index])) {
-          array[index] = ticketTiers[index].price * inputQuantity[index];
+          array[index] =
+            Number(ticketTiers[index].price) * inputQuantity[index];
         }
       }
     });
-    console.log(faceValue);
+
     setFaceValue(array);
     setTotalValue(() => array.reduce((a, b) => a + b, 0));
   }, [orderType, inputQuantity]);
 
+  /**
+   * @function handleshowAlert
+   * @returns {void}
+   * @description This function handles the alert message
+   *
+   *
+   */
   function showAlert() {
     let array = createTierSelected();
     setTicketTierSelected(() => array);
@@ -150,9 +254,7 @@ export default function AddAttendee() {
     if (!flag) alert("Please enter a quantity");
   }
   function getData() {}
-  const email = localStorage.getItem("email")
-    ? localStorage.getItem("email")
-    : localStorage.getItem("authEmail");
+
   return (
     <>
       <StyledNav>
@@ -179,7 +281,6 @@ export default function AddAttendee() {
                 id="1297ir8jds53272"
                 onChange={(event) => setOrderType(event.target.value)}
               >
-                {console.log(orderType)}
                 <option value="Check">Paid with Check</option>
                 <option value="Cash">Paid with cash </option>
                 <option value="Paypal">
@@ -216,10 +317,10 @@ export default function AddAttendee() {
                     <tr key={index} className="tRow">
                       <td className="num">{ticket.tierName}</td>
                       <td align="center" className="num">
-                        {ticket.quantity}/{ticket.maxquantity}
+                        {ticket.quantitySold}/{ticket.maxCapacity}
                       </td>
                       <td align="center" className="num">
-                        ${ticket.price}
+                        ${Number(ticket.price)}
                       </td>
                       <td align="center" className="tQuantity">
                         <TextField
@@ -316,14 +417,13 @@ export default function AddAttendee() {
             </LearnMore>
           </Container>
         )}
-        {contFlag &&
-          (console.log(totalValue),
-          (
-            <AttendeeInfo
-              ticketSelected={ticketTierSelected}
-              total={totalValue}
-            />
-          ))}
+        {contFlag && (
+          <AttendeeInfo
+            ticketSelected={ticketTierSelected}
+            total={totalValue}
+            eventImage={image}
+          />
+        )}
       </div>
     </>
   );
