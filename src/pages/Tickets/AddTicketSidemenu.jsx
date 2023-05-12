@@ -16,7 +16,7 @@ import axios from 'axios';
 
 export default function AddTicketSidemenu(props) {
   const event = props.event;
-
+  const token = localStorage.getItem('token');
   const [ticketType, setTicketType] = useState('paid');
   const [ticketName, setTicketName] = useState('');
   const [ticketPrice, setTicketPrice] = useState('');
@@ -53,7 +53,7 @@ export default function AddTicketSidemenu(props) {
   useEffect(() => {
     setIsMenuOpen(props.isMenuOpen);
   }, []);
-  
+
   useEffect(() => {
     const ticket = props.ticket;
     if (Object.keys(ticket).length !== 0) {
@@ -65,7 +65,6 @@ export default function AddTicketSidemenu(props) {
       setEndDate(new Date(ticket.endSelling));
     }
   }, [props.ticket]);
-
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -128,32 +127,32 @@ export default function AddTicketSidemenu(props) {
     const res = await axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
-        
-    }});
+        Authorization: `Bearer ${token}`,
+      },
+    });
     // console.log(res);
   }
 
-  async function editTicket(){
+  async function editTicket() {
     const data = {
       desiredTierName: props.ticket.tierName,
-      ticketTiers:[
+      ticketTiers: [
         {
           tierName: ticketName,
           maxCapacity: parseFloat(quantity),
           price: ticketPrice,
           startSelling: startDate,
           endSelling: endDate,
-        }
-      ]
+        },
+      ],
     };
     const url = `https://www.tessera.social/api/event-tickets/edit-ticket/${event}`;
     const res = await axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
-        
-    }});
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`,
+      },
+    });
     // console.log(res);
   }
 
@@ -180,8 +179,7 @@ export default function AddTicketSidemenu(props) {
     const ticket = props.ticket;
     if (Object.keys(ticket).length === 0) {
       await createTicket();
-    }
-    else{
+    } else {
       await editTicket();
     }
     props.dataSubmitted();
@@ -326,7 +324,8 @@ export default function AddTicketSidemenu(props) {
                         class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
                         data-spec="icon"
                         data-testid="icon"
-                        aria-hidden="true">
+                        aria-hidden="true"
+                      >
                         <svg className="CalendarSvg" xml:space="preserve">
                           <path
                             id="calendar-chunky_svg__eds-icon--calendar-chunky_base"
@@ -368,7 +367,8 @@ export default function AddTicketSidemenu(props) {
                         class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
                         data-spec="icon"
                         data-testid="icon"
-                        aria-hidden="true">
+                        aria-hidden="true"
+                      >
                         <svg className="CalendarSvg" xml:space="preserve">
                           <path
                             id="calendar-chunky_svg__eds-icon--calendar-chunky_base"
