@@ -41,7 +41,8 @@ import { ImportPromocode } from './ImportPromoSidemenu';
 import axios from 'axios';
 
 export default function CreateTickets() {
-  const event = '645e6aba50ec8a40253a6e04';
+  
+  const event = localStorage.getItem('eventID');
   const [replaceContentAfterSave, setreplaceContentAfterSave] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [ShowAmissionsPage, setShowAmissionsPage] = useState(true);
@@ -437,6 +438,18 @@ export default function CreateTickets() {
             setIsPromocodeMenuOpen={setIsCreatePromoMenuOpen}
             setIsPromoIntroOpen={setIsPromoIntroOpen}
           />
+
+          <div className='NextDiv'>
+
+          <Link  className='NextLink'to="/publish" >
+                
+          <button className='NextButton'>
+              Next
+            </button>
+
+          </Link>
+            
+          </div>
           
         </MainTicketsDiv>
       </div>
