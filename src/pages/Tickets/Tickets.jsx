@@ -20,7 +20,7 @@ import { ImportPromocode } from './ImportPromoSidemenu';
 import axios from 'axios';
 
 export default function CreateTickets() {
-  const event = '645663da66aa716630bdcc91';
+  const event = '645e6aba50ec8a40253a6e04';
   const [replaceContentAfterSave, setreplaceContentAfterSave] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [ShowAmissionsPage, setShowAmissionsPage] = useState(true);
@@ -36,7 +36,14 @@ export default function CreateTickets() {
   const [selectedTicket, setSelectedTicket] = useState({});
   const [ticketTiers, setTicketTiers] = useState([]);
   const [promoCodes, setPromoCodes] = useState([]);
-
+  const [data, setData] = useState([
+    {
+      code: 'A',
+      discount: 'C',
+      remainingUses: 'D',
+      status: 'E',
+    },
+  ]);
   // useEffect(() => {
   //   async function getTicketsTier() {
   //     const url = `https://www.tessera.social/api/event-tickets/retrieve-event-ticket-tier/${event}`;
@@ -65,18 +72,19 @@ export default function CreateTickets() {
 
   useEffect(() => {
     async function getTicketsTier() {
-      const url = `https://www.tessera.social/api/event-management/retrieve/${event}`;
+      const url = `https://www.tessera.social/api/manage/events/${event}/promocode/retrieve`;
       const res = await axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
           
       }});
-      setPromoCodes(res['data']['event']['promocodes']);
-      if (res['data']['event']['promocodes'].length > 0) {
+      setPromoCodes(res['data']['promocodes']);
+      setData(res['data']['promocodes']);
+      if (res['data']['promocodes'].length > 0) {
         setIsPromoIntroOpen(false);
       }
-      console.log(res['data']['event']['promocodes']);
+      console.log(res['data']['promocodes']);
     }
     getTicketsTier();
   }, [isPromoDataSubmitted]);
@@ -88,43 +96,7 @@ export default function CreateTickets() {
   }
 
 
-  const [data, setData] = useState([
-    {
-      NameColumn1: 'A',
-      CodeTypeColumn2: 'B',
-      DiscountColumn3: 'C',
-      UsesColumn4: 'D',
-      StatusColumn5: 'E',
-    },
-    {
-      NameColumn1: 'F',
-      CodeTypeColumn2: 'G',
-      DiscountColumn3: 'H',
-      UsesColumn4: 'I',
-      StatusColumn5: 'J',
-    },
-    {
-      NameColumn1: 'K',
-      CodeTypeColumn2: 'L',
-      DiscountColumn3: 'M',
-      UsesColumn4: 'N',
-      StatusColumn5: 'O',
-    },
-    {
-      NameColumn1: 'P',
-      CodeTypeColumn2: 'Q',
-      DiscountColumn3: 'R',
-      UsesColumn4: 'S',
-      StatusColumn5: 'T',
-    },
-    {
-      NameColumn1: 'U',
-      CodeTypeColumn2: 'V',
-      DiscountColumn3: 'W',
-      UsesColumn4: 'X',
-      StatusColumn5: 'Y',
-    },
-  ]);
+
   const getMaxRowLength = columnName => {
     return data.reduce((max, row) => {
       const value = row[columnName].toString().length;
@@ -149,7 +121,7 @@ export default function CreateTickets() {
           <Navbar />
         )}
       </StyledNav>
-      <div style={{ display: 'flex' }}>
+      <div data-testid="createTickets" style={{ display: 'flex' }}>
         <Sidebar event={false} />
         <MainTicketsDiv>
           {replaceContentAfterSave && (
@@ -301,32 +273,25 @@ export default function CreateTickets() {
                           <thead>
                             <tr>
                               <th
-                                style={{ width: getColumnWidth('NameColumn1') }}
+                                style={{ width: getColumnWidth('code') }}
                               >
                                 Name
                               </th>
                               <th
                                 style={{
-                                  width: getColumnWidth('CodeTypeColumn2'),
-                                }}
-                              >
-                                Code type
-                              </th>
-                              <th
-                                style={{
-                                  width: getColumnWidth('DiscountColumn3'),
+                                  width: getColumnWidth('discount'),
                                 }}
                               >
                                 Discount
                               </th>
                               <th
-                                style={{ width: getColumnWidth('UsesColumn4') }}
+                                style={{ width: getColumnWidth('remainingUses') }}
                               >
                                 Uses
                               </th>
                               <th
                                 style={{
-                                  width: getColumnWidth('StatusColumn5'),
+                                  width: getColumnWidth('status'),
                                 }}
                               >
                                 Status
@@ -337,19 +302,16 @@ export default function CreateTickets() {
                             {data.map((row, index) => (
                               <tr key={index}>
                                 <td className="NameColumn1">
-                                  {row.NameColumn1}
-                                </td>
-                                <td className="CodeTypeColumn2">
-                                  {row.CodeTypeColumn2}
+                                  {row.code}
                                 </td>
                                 <td className="DiscountColumn3">
-                                  {row.DiscountColumn3}
+                                  {row.discount}
                                 </td>
                                 <td className="UsesColumn4">
-                                  {row.UsesColumn4}
+                                  {row.remainingUses}
                                 </td>
                                 <td className="StatusColumn5">
-                                  {row.StatusColumn5}
+                                  {row.status}
                                 </td>
                               </tr>
                             ))}

@@ -1495,5 +1495,15 @@ export const PromocodesSavePageDiv = styled.div`
   .StatusColumn5{
     min-width:25.253rem;
   }
+
+  .rowHeight {
+    height: 5.7rem; 
+    border-bottom: 0.1rem solid hsl(250, 7%, 80%);
+  }
+  
+  .rowHeight:hover {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
   
 `;

@@ -128,7 +128,7 @@ export default function AddTicketSidemenu(props) {
     const res = await axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
         
     }});
     // console.log(res);
@@ -151,7 +151,7 @@ export default function AddTicketSidemenu(props) {
     const res = await axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
         
     }});
     // console.log(res);
@@ -237,6 +237,7 @@ export default function AddTicketSidemenu(props) {
                     <form onSubmit={handleSubmit}>
                       <label>
                         <input
+                          title='Name'
                           className="TicketNameInputDiv"
                           type="text"
                           value={ticketName}
@@ -277,6 +278,7 @@ export default function AddTicketSidemenu(props) {
                       </span>
                     </div>
                     <input
+                      title="Quantity"
                       type="text"
                       value={quantity}
                       onChange={handleInputChange}
