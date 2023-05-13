@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { CsvPromocode } from './styles/Tickets.styled';
-
+import axios from 'axios';
 export function ImportPromocode(props) {
   const [name, setName] = useState('');
   const [touched, setTouched] = useState(false);
-
+  const [uploadedFile, setUploadedFile] = useState(null);
   const showError = touched && name.trim() === '';
 
   ///////////////////////
@@ -67,6 +67,7 @@ export function ImportPromocode(props) {
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
+    setUploadedFile(file);
 
     reader.onload = (e) => {
       const fileContents = e.target.result;
@@ -112,6 +113,26 @@ export function ImportPromocode(props) {
   const handleDivClick = () => {
     fileInputRef.current.click();
   };
+
+  async function importPromocode() {
+    const event = props.event;
+    const data = new FormData();
+    data.append('csvFile', uploadedFile);
+    
+    const url = `https://www.tessera.social/api/event-management/import-promo/${event}`;
+    const res = await axios.post(url, data, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+        
+    }});
+  }
+
+  async function savePromocode() {
+    console.log('savePromocode');
+    props.setIsPromoIntroOpen(false);
+    props.setIsImportPromoMenuOpen(false);
+    await importPromocode();
+  }
 
   return (
     <CsvPromocode>
@@ -256,7 +277,7 @@ export function ImportPromocode(props) {
             Cancel
           </button>
 
-          <button className="SaveButton" onClick={()=>{props.setIsPromoIntroOpen(false);props.setIsImportPromoMenuOpen(false);}}>
+          <button className="SaveButton" onClick={()=>{savePromocode();}}>
             Save{' '}
           </button>
         </div>
