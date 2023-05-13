@@ -108,6 +108,11 @@ function ResetPassword() {
       }
     }
   }
+  useEffect(() => {
+    setTimeout(() => {
+      successMsg === 'User password has been reset' && navigate('/');
+    }, 3000);
+  }, [successMsg]);
 
   return (
     <>

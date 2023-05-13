@@ -16,8 +16,10 @@ export default function NavbarLoggedIn(props) {
   const handleClick = () => {
     localStorage.removeItem('authEmail');
     localStorage.removeItem('email');
-    window.location.reload();
+    localStorage.removeItem('token');
+    localStorage.removeItem('token');
     navigate('/');
+    window.location.reload();
   };
 
   const handleSwitch = () => {
