@@ -1,3 +1,24 @@
+/**
+ * 
+ * @name Tickets.jsx
+ * @author @MaryamMoataz
+ * @requires react
+ * @requires react-router-dom
+ * @requires CreatePromocode
+ * @requires AddTicketSidemenu
+ * @requires ImportPromocode
+ * @requires Sidebar
+ * @requires StyledNav
+ * @requires NavbarLoggedIn
+ * @requires Navbar
+ * @requires './styles/Tickets.styled'
+ * @exports CreateTickets
+ * @description This file contains the Tickets(no tickets created), Tickets(when there is a ticket or more created),
+ * Promocodes(no promocodes created), Promocodes(when there is a promocode or more created) pages.
+ * 
+ */
+
+
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';

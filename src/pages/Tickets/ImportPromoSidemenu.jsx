@@ -1,7 +1,29 @@
+/**
+  * @name ImportPromoSidemenu.jsx
+  * @author @MaryamMoataz
+ * @requires react
+ * @requires react-router-dom
+ * @requires './styles/Tickets.styled'
+ * @exports ImportPromocode
+ * @description This file contains the import CSV to create promocodes Side menu for the promocodes page
+ */
+
+/**
+
+@param {Object} props - The props object containing the trigger states for the menu
+@param {string} props.event - event id
+@param {string} props.isImportPromoMenuOpen - trigger the sidemenu to be displayed or not
+@param {string} props.setIsPromocodeMenuOpen - sets the state of the menu 
+@param {string} props.setIsPromoIntroOpen - handles depending on how many promocodes are there
+@return {JSX.Element} A React component representing the Side menu for the create tickets
+*/
+
 import React, { useState, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { CsvPromocode } from './styles/Tickets.styled';
 import axios from 'axios';
+
+
 export function ImportPromocode(props) {
   const [name, setName] = useState('');
   const [touched, setTouched] = useState(false);

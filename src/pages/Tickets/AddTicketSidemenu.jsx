@@ -1,3 +1,25 @@
+/**
+  * @name AddTicketSidemenu.jsx
+  * @author @MaryamMoataz
+ * @requires react
+ * @requires react-router-dom
+ * @requires './styles/Tickets.styled'
+ * @exports AddTicketSidemenu
+ * @description This file contains the Side menu for the create tickets page
+ */
+
+/**
+
+@param {Object} props - The props object containing the trigger states for the menu
+@param {string} props.event - event id
+@param {string} props.ticket - The date and time the event
+@param {string} props.isMenuOpen - trigger the sidemenu to be displayed or not
+@param {string} props.setIsMenuOpen - sets the state of the menu
+@param {string} props.eventPrsetreplaceContentAfterSaveice - to add/edit event after its saved
+@param {string} props.dataSubmitted - 
+@return {JSX.Element} A React component representing the Side menu for the create tickets
+*/
+
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';

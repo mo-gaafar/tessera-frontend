@@ -1,3 +1,24 @@
+/**
+  * @name CreatePromoSidemenu.jsx
+  * @author @MaryamMoataz
+ * @requires react
+ * @requires react-router-dom
+ * @requires './styles/Tickets.styled'
+ * @exports CreatePromocode
+ * @description This file contains the create promocodes Side menu for the promocodes page
+ */
+
+/**
+
+@param {Object} props - The props object containing the trigger states for the menu
+@param {string} props.event - event id
+@param {string} props.isPromocodeMenuOpen - trigger the sidemenu to be displayed or not
+@param {string} props.setIsPromocodeMenuOpen - sets the state of the menu 
+@param {string} props.setIsPromoIntroOpen - handles depending on how many promocodes are there
+@return {JSX.Element} A React component representing the Side menu for the create tickets
+*/
+
+
 import React, { useState } from 'react';
 import CSVReader from 'react-csv-reader';
 import { CreatePromoSideMenu, CsvPromocode } from './styles/Tickets.styled';
