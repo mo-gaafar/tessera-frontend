@@ -49,7 +49,7 @@ export const Container = styled.div`
     }
   }
   .summaryPop {
-    display: none;
+    
     margin-left: 3%;
     h3 {
       display: inline-block;
@@ -60,6 +60,9 @@ export const Container = styled.div`
       .icon {
         width: 60px;
       }
+    }
+    @media (min-width: 1100px) {
+      display: none;
     }
    
 `;
@@ -211,6 +214,11 @@ export const Information = styled.div`
   @media (max-width: 1100px) {
     display: none;
   }
+`;
+export const InformationPop = styled.div`
+  width: 70%;
+  height: 100%;
+  background-color: #f8f7fa;
 `;
 export const Order = styled.div`
   margin: 0 auto;
