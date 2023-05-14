@@ -92,7 +92,7 @@ export default function Reservation({
   async function sendPromo(inputpromo) {
     try {
       const response = await fetch(
-        `https://www.tessera.social/api/attendee/ticket/645de6017f1184642553eb26/promocode/retrieve?=${inputpromo}`
+        `https://www.tessera.social/api/attendee/ticket/645de6017f1184642553eb26/promocode/retrieve?code=${inputpromo}`
       );
       const prom = await response.json();
 
