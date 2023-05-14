@@ -169,6 +169,7 @@ export default function BasicInfo() {
       }
     }
   }
+
   //checks if the time in the calendar has already passed
   function getDayClassName(date) {
     const today = new Date();
