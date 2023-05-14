@@ -206,7 +206,7 @@ export default function Reservation({
             <div className="Setting">
               {' '}
               {convertUtcToLocalTime(
-                eventData.filteredEvents[0].basicInfo.eventName
+                eventData.filteredEvents[0].basicInfo.startDateTime
               )}
             </div>
           </TicketHeader>
