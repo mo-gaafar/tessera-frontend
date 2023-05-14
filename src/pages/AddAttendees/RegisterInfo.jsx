@@ -18,13 +18,15 @@
  */
 import React from "react";
 import { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Header,
   Container,
   Checkout,
   Info,
   PlaceOrder,
+  InformationPop,
   Information,
   OrderTitle,
   OrderItem,
@@ -42,6 +44,7 @@ import IconButton from "@mui/material/IconButton";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowCircleDownSharpIcon from "@mui/icons-material/ArrowCircleDownSharp";
 import ArrowCircleUpSharpIcon from "@mui/icons-material/ArrowCircleUpSharp";
+import PopSummary from "./popSummary";
 
 export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
   const [remainingTime, setRemainingTime] = useState(40 * 60);
@@ -54,6 +57,8 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
   const [checked, setChecked] = useState(false);
   const [finale, setFinale] = useState({});
   const [show, setShow] = useState(false);
+  let link = false;
+  const navigate = useNavigate();
 
   /**
    * @function checkPlaceOrder
@@ -64,10 +69,6 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
    *
    */
   function checkPlaceOrder(currentValue, index) {
-    console.log(currentValue);
-    console.log(index);
-
-    console.log(ticketInfoError[index]);
     let error =
       currentValue.fName === "" ||
       currentValue.lName === "" ||
@@ -84,10 +85,8 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
       ticketInfoError[index].lName ||
       ticketInfoError[index].email
     ) {
-      console.log("ana false ");
       return false;
     } else {
-      console.log("ana true ");
       return true;
     }
   }
@@ -98,18 +97,26 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
    * @description this function handles the place order button and sends the data to the backend
    *
    */
+  let x;
+  const event = localStorage.getItem("eventID");
+
   async function handlePlaceOrder(details) {
+    console.log("tab leh kda");
+    console.log(JSON.stringify(details));
     const response = await fetch(
-      "https://www.tessera.social/api/event-management/creator",
+      `https://www.tessera.social/api/manage-attendee/addattendee/${event}`,
       {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify(details),
       }
     );
+    console.log(localStorage.getItem("token"));
+    console.log(event);
   }
   /**
    * @method createAllTickets
@@ -213,12 +220,40 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
       flag = true;
     }
 
-    console.log(allTickets);
     allTickets.map((item, index) => {
       flag = flag && checkPlaceOrder(item, index);
     });
     setPlaceOrder(flag);
   }, [allTickets, contactInfo]);
+
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  /**
+   * @method handleResize
+   * @useEffect
+   * @description this function is called whenever the window is resized to update the window size
+   * @returns {void}
+   * @example
+   * */
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    windowSize.width <= 1100 ? null : setShow(false);
+  }, [windowSize]);
   return (
     <Container id="129753272">
       <Header id="129753274">
@@ -237,182 +272,199 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                 <h2>Checkout</h2>
                 <p> Time left {timeLeft}</p>
               </Checkout>
-              <Info>
-                <h2>Contact Information</h2>
-                <p>*Required</p>
-                <div className="TextCont">
-                  <div className="Names">
-                    <TextField
-                      id="129872"
-                      className="firstName"
-                      required
-                      label="First Name"
-                      variant="filled"
-                      value={contactInfo.fName}
-                      onChange={(e) => {
-                        setContactInfo({
-                          ...contactInfo,
-                          fName: e.target.value,
-                        });
-                        /^[a-zA-Z]*$/.test(e.target.value)
-                          ? setContactInfoError({
-                              ...contactInfoError,
-                              fName: false,
-                            })
-                          : setContactInfoError({
-                              ...contactInfoError,
-                              fName: true,
-                            });
-                      }}
-                      error={contactInfoError.fName}
-                      helperText={
-                        contactInfoError.fName
-                          ? "Please enter valid name"
-                          : null
-                      }
-                      InputLabelProps={{
-                        style: {
-                          fontSize: 20,
-                        },
-                      }}
-                      inputProps={{
-                        style: {
-                          fontSize: 20,
-                        },
-                      }}
-                    ></TextField>
-                    <TextField
-                      id="1297522"
-                      className="lastName"
-                      required
-                      label="Last Name"
-                      variant="filled"
-                      InputLabelProps={{
-                        style: {
-                          fontSize: 20,
-                        },
-                      }}
-                      inputProps={{
-                        style: {
-                          fontSize: 20,
-                        },
-                      }}
-                      value={contactInfo.lName}
-                      onChange={(e) => {
-                        setContactInfo({
-                          ...contactInfo,
-                          lName: e.target.value,
-                        });
-                        /^[a-zA-Z]*$/.test(e.target.value)
-                          ? setContactInfoError({
-                              ...contactInfoError,
-                              lName: false,
-                            })
-                          : setContactInfoError({
-                              ...contactInfoError,
-                              lName: true,
-                            });
-                      }}
-                      error={contactInfoError.lName}
-                      helperText={
-                        contactInfoError.lName
-                          ? "Please enter valid name"
-                          : null
-                      }
-                    />
+              {!show && (
+                <Info>
+                  <h2>Contact Information</h2>
+                  <p>*Required</p>
+                  <div className="TextCont">
+                    <div className="Names">
+                      <TextField
+                        id="129872"
+                        className="firstName"
+                        required
+                        label="First Name"
+                        variant="filled"
+                        value={contactInfo.fName}
+                        onChange={(e) => {
+                          setContactInfo({
+                            ...contactInfo,
+                            fName: e.target.value,
+                          });
+                          /^[a-zA-Z]*$/.test(e.target.value)
+                            ? setContactInfoError({
+                                ...contactInfoError,
+                                fName: false,
+                              })
+                            : setContactInfoError({
+                                ...contactInfoError,
+                                fName: true,
+                              });
+                        }}
+                        error={contactInfoError.fName}
+                        helperText={
+                          contactInfoError.fName
+                            ? "Please enter valid name"
+                            : null
+                        }
+                        InputLabelProps={{
+                          style: {
+                            fontSize: 20,
+                          },
+                        }}
+                        inputProps={{
+                          style: {
+                            fontSize: 20,
+                          },
+                        }}
+                      ></TextField>
+                      <TextField
+                        id="1297522"
+                        className="lastName"
+                        required
+                        label="Last Name"
+                        variant="filled"
+                        InputLabelProps={{
+                          style: {
+                            fontSize: 20,
+                          },
+                        }}
+                        inputProps={{
+                          style: {
+                            fontSize: 20,
+                          },
+                        }}
+                        value={contactInfo.lName}
+                        onChange={(e) => {
+                          setContactInfo({
+                            ...contactInfo,
+                            lName: e.target.value,
+                          });
+                          /^[a-zA-Z]*$/.test(e.target.value)
+                            ? setContactInfoError({
+                                ...contactInfoError,
+                                lName: false,
+                              })
+                            : setContactInfoError({
+                                ...contactInfoError,
+                                lName: true,
+                              });
+                        }}
+                        error={contactInfoError.lName}
+                        helperText={
+                          contactInfoError.lName
+                            ? "Please enter valid name"
+                            : null
+                        }
+                      />
+                    </div>
+                    <div className="Email" id="125672">
+                      <TextField
+                        id="12975327244"
+                        className="Ename"
+                        required
+                        label="Email Address"
+                        variant="filled"
+                        type="email"
+                        InputLabelProps={{
+                          style: {
+                            fontSize: 20,
+                          },
+                        }}
+                        inputProps={{
+                          style: {
+                            fontSize: 20,
+                          },
+                        }}
+                        value={contactInfo.email}
+                        onChange={(e) => {
+                          setContactInfo({
+                            ...contactInfo,
+                            email: e.target.value,
+                          });
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+                            e.target.value
+                          )
+                            ? setContactInfoError({
+                                ...contactInfoError,
+                                email: false,
+                              })
+                            : setContactInfoError({
+                                ...contactInfoError,
+                                email: true,
+                              });
+                        }}
+                        error={contactInfoError.email}
+                        helperText={
+                          contactInfoError.email
+                            ? "Please enter valid email"
+                            : null
+                        }
+                      />
+                    </div>
                   </div>
-                  <div className="Email" id="125672">
-                    <TextField
-                      id="12975327244"
-                      className="Ename"
-                      required
-                      label="Email Address"
-                      variant="filled"
-                      type="email"
-                      InputLabelProps={{
-                        style: {
-                          fontSize: 20,
-                        },
-                      }}
-                      inputProps={{
-                        style: {
-                          fontSize: 20,
-                        },
-                      }}
-                      value={contactInfo.email}
-                      onChange={(e) => {
-                        setContactInfo({
-                          ...contactInfo,
-                          email: e.target.value,
-                        });
-                        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-                          e.target.value
-                        )
-                          ? setContactInfoError({
-                              ...contactInfoError,
-                              email: false,
-                            })
-                          : setContactInfoError({
-                              ...contactInfoError,
-                              email: true,
-                            });
-                      }}
-                      error={contactInfoError.email}
-                      helperText={
-                        contactInfoError.email
-                          ? "Please enter valid email"
-                          : null
-                      }
+                  <div className="check">
+                    <Checkbox
+                      id="129753111"
+                      size="large"
+                      checked={checked}
+                      onChange={(e) => setChecked(e.target.checked)}
                     />
+
+                    <p className="send">
+                      Send a confirmation email to the attendees
+                    </p>
+                    <p>
+                      As a reminder, the creator is responsible for compliance
+                      with privacy and marketing regulation when using this
+                      feature to upload email addresses for marketing
+                      communications
+                    </p>
                   </div>
-                </div>
-                <div className="check">
-                  <Checkbox
-                    id="129753111"
-                    size="large"
-                    checked={checked}
-                    onChange={(e) => setChecked(e.target.checked)}
-                  />
 
-                  <p className="send">
-                    Send a confirmation email to the attendees
-                  </p>
-                  <p>
-                    As a reminder, the creator is responsible for compliance
-                    with privacy and marketing regulation when using this
-                    feature to upload email addresses for marketing
-                    communications
-                  </p>
-                </div>
+                  {allTickets.map((ticketInfo, index) => {
+                    return (
+                      <TicketInfo
+                        ticketTier={showInfo[ticketInfo.id]}
+                        index={index}
+                        ticketInfo={allTickets}
+                        setticketInfo={setAllTickets}
+                        ticketsLength={allTickets.length}
+                        ticketInfoError={ticketInfoError}
+                        setTicketInfoError={setticketInfoError}
+                      />
+                    );
+                  })}
 
-                {allTickets.map((ticketInfo, index) => {
-                  return (
-                    <TicketInfo
-                      ticketTier={showInfo[ticketInfo.id]}
-                      index={index}
-                      ticketInfo={allTickets}
-                      setticketInfo={setAllTickets}
-                      ticketsLength={allTickets.length}
-                      ticketInfoError={ticketInfoError}
-                      setTicketInfoError={setticketInfoError}
-                    />
-                  );
-                })}
-
-                <p className="powered">Powered by TESSERA</p>
-              </Info>
+                  <p className="powered">Powered by TESSERA</p>
+                </Info>
+              )}
+              {show && <PopSummary showInfo={showInfo} total={total} />}
               <div className="summaryPop">
                 <h3>Order Summary</h3>
-                <IconButton
-                  aria-label="delete"
-                  size="large"
-                  className="drop"
-                  onClick={() => {
-                    setShow(true);
-                  }}
-                >
-                  <ArrowCircleUpSharpIcon className="icon" />
-                </IconButton>
+                {!show && (
+                  <IconButton
+                    aria-label="delete"
+                    size="large"
+                    className="drop"
+                    onClick={() => {
+                      setShow(true);
+                    }}
+                  >
+                    <ArrowCircleUpSharpIcon className="icon" />
+                  </IconButton>
+                )}
+                {show && (
+                  <IconButton
+                    aria-label="delete"
+                    size="large"
+                    className="drop"
+                    onClick={() => {
+                      setShow(false);
+                    }}
+                  >
+                    <ArrowCircleDownSharpIcon className="icon" />
+                  </IconButton>
+                )}
               </div>
               <PlaceOrder id="12975eee32">
                 {!placeOrder && (
@@ -433,17 +485,35 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                     color="primary"
                     className="button"
                     onClick={() => {
-                      let temp = [];
-                      temp = [...showInfo];
-                      let obj = { promocode: "null" };
-                      temp.unshift(obj);
+                      let obj3 = {
+                        first_name: contactInfo.fName,
+                        last_name: contactInfo.lName,
+                        email: contactInfo.email,
+                      };
+                      let obj = { promocode: null };
                       let obj2 = { SendEmail: checked };
-                      temp.unshift(obj2);
-                      let obj3 = { contactInfo: contactInfo };
-                      temp.unshift(obj3);
-                      setFinale(temp);
+                      let temp = [];
+
+                      temp = [];
+                      showInfo.map((ticketTier, indexTier) => {
+                        temp.push({
+                          tierName: ticketTier.tierName,
+                          quantity: Number(ticketTier.quantitySold),
+                          price: ticketTier.price,
+                          tickets: ticketTier.tickets,
+                        });
+                      });
+
+                      const objFinale = {
+                        ticketTierSelected: temp,
+                        ...obj2,
+                        ...obj,
+                        contactInformation: obj3,
+                      };
+                      setFinale(objFinale);
                       setPlaceOrder(false);
-                      handlePlaceOrder(temp);
+                      handlePlaceOrder(objFinale);
+                      navigate("/ticket");
                     }}
                   >
                     Place Order
