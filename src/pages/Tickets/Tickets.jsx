@@ -164,7 +164,7 @@ export default function CreateTickets() {
         <MainTicketsDiv>
           {replaceContentAfterSave && (
             <TicketCreatedDiv>
-              <h1>Tickets</h1>
+              <h1 data-testid="ticket-title">Tickets</h1>
 
               <div className="TicketsTabsDiv">
                 <button

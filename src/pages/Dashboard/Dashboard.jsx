@@ -5,7 +5,7 @@ import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-const Dashboard = () => {
+const Dashboard = ({ test }) => {
   const [EventData, setEventData] = useState({});
   const [ticketsSoldData, setTicketsSoldData] = useState({});
   const [totalSales, setTotalSales] = useState();
@@ -69,7 +69,13 @@ const Dashboard = () => {
   }, []);
 
   const copyURL = async () => {
-    await navigator.clipboard.writeText(EventData.eventUrl);
+    if (!test) {
+      await navigator.clipboard.writeText(EventData.eventUrl);
+    }
+    if (test) {
+      await navigator.clipboard.writeText('https://example.com');
+      console.debug('first');
+    }
   };
 
   return (
@@ -106,8 +112,9 @@ const Dashboard = () => {
             <h2>Share</h2>
             <span>Event URL</span>
             <div className="">
-              <p>{EventData.eventUrl}</p>
+              <p data-testid="url">{EventData.eventUrl}</p>
               <svg
+                data-testid="copy"
                 style={{ cursor: 'pointer' }}
                 onClick={copyURL}
                 id="copy-chunky_svg__eds-icon--copy-chunky_svg"

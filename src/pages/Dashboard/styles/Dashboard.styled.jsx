@@ -248,6 +248,9 @@ export const StyledAttendeeSummary = styled.div`
       padding-bottom: 1rem;
     }
     .head-data {
+      :first-child {
+        padding-inline: 5rem;
+      }
       font-weight: 100;
       padding-inline: 1rem;
 

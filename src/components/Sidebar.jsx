@@ -169,7 +169,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
               </svg>
               Details
             </Link>
-            <Link to="/ticket">
+            <Link data-testid="ticket" to="/ticket">
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +223,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
               className={dashboard ? 'active' : ''}
               to={`/dashboard/${localStorage.getItem('eventID')}`}
             >
-              <span> Dashboard</span>
+              <span>Dashboard</span>
             </Link>
             <Link to="/manage">
               <span>Manage Attendees</span>

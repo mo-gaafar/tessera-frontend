@@ -18,33 +18,7 @@ const AttendeeSummary = () => {
     ? useParams().eventID
     : localStorage.getItem('eventID');
 
-  const [data, setData] = useState([
-    {
-      orderId: '3',
-      orderDate: '5/8/23',
-      attendeeStatus: 'Attending',
-      name: 'mm',
-      eventName: 'Event ',
-      ticketQuantity: 2,
-      ticketType: 'General Admission',
-      ticketPrice: '$20.00',
-      buyerName: 'm',
-      buyerEmail: 'mo@example.com',
-    },
-    {
-      orderId: '1',
-      orderDate: '5/8/23',
-      attendeeStatus: 'Attending',
-      name: 'hh',
-      eventName: 'Event ',
-      ticketQuantity: 2,
-      ticketType: 'General Admission',
-      ticketPrice: '$20.00',
-      buyerName: 'hh',
-      buyerEmail: 'mo@example.com',
-    },
-    // Add more entries here if needed
-  ]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -60,12 +34,12 @@ const AttendeeSummary = () => {
         }
       );
       const data = await result.json();
-      console.log(data);
+      setData(data.attendeeSummary);
     };
 
     getData();
   }, []);
-
+  console.log(data);
   const [sortConfig, setSortConfig] = useState({
     key: 'orderId',
     direction: 'ascending',
@@ -88,6 +62,7 @@ const AttendeeSummary = () => {
     }
     return 0;
   });
+  console.log(sortedData);
 
   const exportCSV = async () => {
     const response = await fetch(
@@ -170,16 +145,16 @@ const AttendeeSummary = () => {
               <tbody>
                 {sortedData.map((item, index) => (
                   <tr key={index}>
-                    <td>{item.orderId}</td>
-                    <td>{item.orderDate}</td>
-                    <td>{item.attendeeStatus}</td>
-                    <td>{item.name}</td>
-                    <td>{item.eventName}</td>
-                    <td>{item.ticketQuantity}</td>
-                    <td>{item.ticketType}</td>
-                    <td>{item.ticketPrice}</td>
-                    <td>{item.buyerName}</td>
-                    <td>{item.buyerEmail}</td>
+                    <td>{item.OrderId}</td>
+                    <td>{item.OrderDate}</td>
+                    <td>{item.Attending}</td>
+                    <td>{item['Attendee Name']}</td>
+                    <td>{item['Event name']}</td>
+                    <td>{item['Ticket Quantity']}</td>
+                    <td>{item['Ticket Type']}</td>
+                    <td>{item['Ticket Price']}</td>
+                    <td>{item['Buyer name']}</td>
+                    <td>{item['Buyer email']}</td>
                   </tr>
                 ))}
               </tbody>
