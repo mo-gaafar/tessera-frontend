@@ -16,8 +16,8 @@
  *
  *
  */
-import React from "react";
-import { useState, useEffect } from "react";
+import React from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   Header,
@@ -28,24 +28,24 @@ import {
   Information,
   OrderTitle,
   OrderItem,
-} from "./styles/AttendeeInfo.styled";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import LaunchIcon from "@mui/icons-material/Launch";
-import { LearnMore } from "./styles/addAttendees.styled";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { TextField } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import { Continue } from "./styles/addAttendees.styled";
-import Button from "@mui/material/Button";
-import TicketInfo from "./ticketInfo";
-import IconButton from "@mui/material/IconButton";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowCircleDownSharpIcon from "@mui/icons-material/ArrowCircleDownSharp";
-import ArrowCircleUpSharpIcon from "@mui/icons-material/ArrowCircleUpSharp";
+} from './styles/AttendeeInfo.styled';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import LaunchIcon from '@mui/icons-material/Launch';
+import { LearnMore } from './styles/addAttendees.styled';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { TextField } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import { Continue } from './styles/addAttendees.styled';
+import Button from '@mui/material/Button';
+import TicketInfo from './ticketInfo';
+import IconButton from '@mui/material/IconButton';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowCircleDownSharpIcon from '@mui/icons-material/ArrowCircleDownSharp';
+import ArrowCircleUpSharpIcon from '@mui/icons-material/ArrowCircleUpSharp';
 
 export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
   const [remainingTime, setRemainingTime] = useState(40 * 60);
-  const [timeLeft, setTimeLeft] = useState("");
+  const [timeLeft, setTimeLeft] = useState('');
   const [timeOut, setTimeOut] = useState(false);
   const [placeOrder, setPlaceOrder] = useState(false);
   const [showInfo, setShowInfo] = useState(ticketSelected);
@@ -69,25 +69,25 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
 
     console.log(ticketInfoError[index]);
     let error =
-      currentValue.fName === "" ||
-      currentValue.lName === "" ||
-      currentValue.email === "" ||
+      currentValue.fName === '' ||
+      currentValue.lName === '' ||
+      currentValue.email === '' ||
       ticketInfoError[index].fName ||
       ticketInfoError[index].lName ||
       ticketInfoError[index].email;
 
     if (
-      currentValue.fName === "" ||
-      currentValue.lName === "" ||
-      currentValue.email === "" ||
+      currentValue.fName === '' ||
+      currentValue.lName === '' ||
+      currentValue.email === '' ||
       ticketInfoError[index].fName ||
       ticketInfoError[index].lName ||
       ticketInfoError[index].email
     ) {
-      console.log("ana false ");
+      console.log('ana false ');
       return false;
     } else {
-      console.log("ana true ");
+      console.log('ana true ');
       return true;
     }
   }
@@ -100,12 +100,12 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
    */
   async function handlePlaceOrder(details) {
     const response = await fetch(
-      "https://www.tessera.social/api/event-management/creator",
+      'https://www.tessera.social/api/event-management/creator',
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(details),
       }
@@ -126,9 +126,9 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
     for (let i = 0; i < ticketSelected.length; i++) {
       for (let j = 0; j < ticketSelected[i].quantitySold; j++) {
         newTickets.push({
-          fName: "",
-          lName: "",
-          email: "",
+          fName: '',
+          lName: '',
+          email: '',
           id: i,
         });
         newTicketsErrors.push({
@@ -145,7 +145,7 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setRemainingTime((prevTime) => prevTime - 1);
+      setRemainingTime(prevTime => prevTime - 1);
     }, 1000);
 
     // Change the interval to MM:SS
@@ -158,16 +158,16 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
   useEffect(() => {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
-    setTimeLeft(`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);
+    setTimeLeft(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
     if (remainingTime === 0) {
       // handle timer completion
       setTimeOut(true);
     }
   }, [remainingTime]);
   const [contactInfo, setContactInfo] = useState({
-    fName: "",
-    lName: "",
-    email: "",
+    fName: '',
+    lName: '',
+    email: '',
   });
   const [contactInfoError, setContactInfoError] = useState({
     fName: false,
@@ -201,9 +201,9 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
   useEffect(() => {
     let flag = false;
     if (
-      contactInfo.fName === "" ||
-      contactInfo.lName === "" ||
-      contactInfo.email === "" ||
+      contactInfo.fName === '' ||
+      contactInfo.lName === '' ||
+      contactInfo.email === '' ||
       contactInfoError.fName ||
       contactInfoError.lName ||
       contactInfoError.email
@@ -249,7 +249,7 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                       label="First Name"
                       variant="filled"
                       value={contactInfo.fName}
-                      onChange={(e) => {
+                      onChange={e => {
                         setContactInfo({
                           ...contactInfo,
                           fName: e.target.value,
@@ -267,7 +267,7 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                       error={contactInfoError.fName}
                       helperText={
                         contactInfoError.fName
-                          ? "Please enter valid name"
+                          ? 'Please enter valid name'
                           : null
                       }
                       InputLabelProps={{
@@ -298,7 +298,7 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                         },
                       }}
                       value={contactInfo.lName}
-                      onChange={(e) => {
+                      onChange={e => {
                         setContactInfo({
                           ...contactInfo,
                           lName: e.target.value,
@@ -316,7 +316,7 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                       error={contactInfoError.lName}
                       helperText={
                         contactInfoError.lName
-                          ? "Please enter valid name"
+                          ? 'Please enter valid name'
                           : null
                       }
                     />
@@ -340,7 +340,7 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                         },
                       }}
                       value={contactInfo.email}
-                      onChange={(e) => {
+                      onChange={e => {
                         setContactInfo({
                           ...contactInfo,
                           email: e.target.value,
@@ -360,7 +360,7 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                       error={contactInfoError.email}
                       helperText={
                         contactInfoError.email
-                          ? "Please enter valid email"
+                          ? 'Please enter valid email'
                           : null
                       }
                     />
@@ -371,7 +371,7 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                     id="129753111"
                     size="large"
                     checked={checked}
-                    onChange={(e) => setChecked(e.target.checked)}
+                    onChange={e => setChecked(e.target.checked)}
                   />
 
                   <p className="send">
@@ -435,7 +435,7 @@ export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
                     onClick={() => {
                       let temp = [];
                       temp = [...showInfo];
-                      let obj = { promocode: "null" };
+                      let obj = { promocode: 'null' };
                       temp.unshift(obj);
                       let obj2 = { SendEmail: checked };
                       temp.unshift(obj2);
