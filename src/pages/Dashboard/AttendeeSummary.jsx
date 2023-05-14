@@ -1,3 +1,12 @@
+/**
+ * @file AttendeSummary.jsx
+ * @name AttendeSummary.jsx
+ * @author @MoSaeed15
+ * @requires react
+ * @requires react-router-dom
+ * @exports Organize
+ * @description This file contains the AttendeSummary component and its logic
+ */
 import { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import { StyledDashboard } from './styles/Dashboard.styled';
@@ -8,25 +17,54 @@ import { Link, useParams } from 'react-router-dom';
 
 import { StyledAttendeeSummary } from './styles/Dashboard.styled';
 const AttendeeSummary = () => {
+  /**
+   * State to store the search term entered by the user.
+   * @type {[string, function]} An array with two elements, the search term and a function to update it.
+   */
   const [searchTerm, setSearchTerm] = useState('');
+
+  /**
+   * Get email from local storage, used for checking if user is logged in.
+   * @type {string} The user's email, stored in local storage.
+   */
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
 
+  /**
+   * Get authentication token from local storage.
+   * @type {string} The authentication token, stored in local storage.
+   */
   const token = localStorage.getItem('token');
+
+  /**
+   * Get event ID from URL parameter, or from local storage if not in URL.
+   * @type {string} The event ID to fetch data for.
+   */
   const eventID = useParams().eventID
     ? useParams().eventID
     : localStorage.getItem('eventID');
 
+  /**
+   * State to store the fetched attendee data for the current event.
+   * @type {[Array, function]} An array with two elements, the attendee data array and a function to update it.
+   */
   const [data, setData] = useState([]);
 
+  /**
+   * Fetch attendee data for the current event when the component mounts.
+   * @returns {void} Nothing is returned.
+   */
   useEffect(() => {
+    /**
+     * Async function to fetch attendee data for the current event using the API.
+     * @returns {Promise} A promise containing the fetched attendee data.
+     */
     const getData = async () => {
       const result = await fetch(
         `https://www.tessera.social/api/dashboard/reportJason/attendees-list/${eventID}`,
         {
           method: 'GET',
-
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -39,12 +77,21 @@ const AttendeeSummary = () => {
 
     getData();
   }, []);
-  console.log(data);
+
+  /**
+   * State to store the current sorting configuration for the table.
+   * @type {[Object, function]} An array with two elements, the sorting configuration object and a function to update it.
+   */
   const [sortConfig, setSortConfig] = useState({
     key: 'orderId',
     direction: 'ascending',
   });
 
+  /**
+   * Event handler for sorting the table by a specified key.
+   * @param {string} key The key to sort the table by.
+   * @returns {void} Nothing is returned.
+   */
   const handleSort = key => {
     let direction = 'ascending';
     if (sortConfig.key === key && sortConfig.direction === 'ascending') {
@@ -53,6 +100,10 @@ const AttendeeSummary = () => {
     setSortConfig({ key, direction });
   };
 
+  /**
+   * Sort the attendee data array by the current sorting configuration.
+   * @type {Array} The sorted attendee data array.
+   */
   const sortedData = [...data].sort((a, b) => {
     if (a[sortConfig.key] < b[sortConfig.key]) {
       return sortConfig.direction === 'ascending' ? -1 : 1;
@@ -62,7 +113,6 @@ const AttendeeSummary = () => {
     }
     return 0;
   });
-  console.log(sortedData);
 
   const exportCSV = async () => {
     const response = await fetch(

@@ -1,3 +1,14 @@
+/**
+
+Dashboard component displays a dashboard with Net Sales, Tickets Sold, and Sales by Ticket Type.
+@component
+@author @MoSaeed15
+
+@param {object} props - Props object.
+@param {boolean} props.test - A boolean that determines whether or not the test environment is being used.
+ * @returns {JSX.Element} The Dashboard component UI.
+*/
+
 import Sidebar from '../../components/Sidebar';
 import { StyledDashboard } from './styles/Dashboard.styled';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
@@ -6,18 +17,62 @@ import Navbar from '../LandingPage/NavBar';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 const Dashboard = ({ test }) => {
+  /**
+   * The event data for the event being displayed on the dashboard.
+   * @type {Object}
+   */
   const [EventData, setEventData] = useState({});
+
+  /**
+   * The data for the number of tickets sold for the event being displayed on the dashboard.
+   * @type {Object}
+   */
+
   const [ticketsSoldData, setTicketsSoldData] = useState({});
+
+  /**
+   * The data for the number of tickets sold for the event being displayed on the dashboard.
+   * @type {Object}
+   */
   const [totalSales, setTotalSales] = useState();
+
+  /**
+   * An array of ticket tier objects for the event being displayed on the dashboard.
+   * @type {Array<Object>}
+   */
   const [ticketTier, setTicketTier] = useState([]);
+
+  /**
+   * The event ID of the event being displayed on the dashboard.
+   * If not found in the URL parameters, it is retrieved from the browser's localStorage.
+   * @type {string}
+   */
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+
+  /**
+   * The event ID of the event being displayed on the dashboard.
+   * If not found in the URL parameters, it is retrieved from the browser's localStorage.
+   * @type {string}
+   */
+
   const token = localStorage.getItem('token');
+  /**
+   * The event ID of the event being displayed on the dashboard.
+   * If not found in the URL parameters, it is retrieved from the browser's localStorage.
+   * @type {string}
+   */
   const eventID = useParams().eventID
     ? useParams().eventID
     : localStorage.getItem('eventID');
   console.log(ticketTier);
+
+  /**
+   * Fetches data for the number of tickets sold for the event being displayed on the dashboard.
+   * @async
+   * @function
+   */
   useEffect(() => {
     const getData = async () => {
       const result = await fetch(
@@ -68,6 +123,10 @@ const Dashboard = ({ test }) => {
     getTotalSales();
   }, []);
 
+  /**
+   * Copies the event URL to the clipboard when the user clicks the copy icon.
+   * If the `test` prop is set to
+   */
   const copyURL = async () => {
     if (!test) {
       await navigator.clipboard.writeText(EventData.eventUrl);
