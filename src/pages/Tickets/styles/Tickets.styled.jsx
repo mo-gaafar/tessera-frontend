@@ -5,6 +5,7 @@ export const MainTicketsDiv = styled.div`
   input:focus {
     outline: none;
   }
+  
 
   display: flex;
   /* margin: 6rem 0 0 34.1rem; */
@@ -13,6 +14,41 @@ export const MainTicketsDiv = styled.div`
   flex-grow: 1;
   /* width: 100%;    */
   flex-grow: 1;
+
+  .NextDiv {
+    width:120.431rem;
+    // width:100%;
+    height:7.6rem;
+    display: flex;
+    position: fixed;
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+    // align-self: flex-end;
+    margin-top:58rem;
+    border-top:0.1rem solid hsl(250, 7%, 80%);
+  }
+
+  .NextLink{
+    margin-left: auto;
+    margin-right: 3.2rem;
+  }
+
+  .NextButton{
+    width:9.522rem;
+    height:4.4rem;
+    border-radius:0.4rem;
+    border: 0.2rem solid #d1410c;
+    color: #fff;
+    background-color: #d1410c;
+    cursor: pointer;
+    
+    
+  }
+
+   .NextButton:hover {
+    border-color: #f05537;
+    background: #f05537;
+  }
 `;
 export const LetsCreateTicketsDiv = styled.div`
   display: flex;
@@ -1494,6 +1530,16 @@ export const PromocodesSavePageDiv = styled.div`
 
   .StatusColumn5{
     min-width:25.253rem;
+  }
+
+  .rowHeight {
+    height: 5.7rem; 
+    border-bottom: 0.1rem solid hsl(250, 7%, 80%);
+  }
+  
+  .rowHeight:hover {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
   }
   
 `;
