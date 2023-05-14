@@ -447,7 +447,7 @@ export default function Organize(props) {
   const [shouldHideSidebar, setShouldHideSidebar] = useState(false);
 
   useEffect(() => {
-    if (!test) {
+    if (!props.test) {
       const mediaQuery = window.matchMedia('(max-width: 959px)');
 
       const handleMediaQueryChange = event => {

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @name Tickets.jsx
  * @author @MaryamMoataz
  * @requires react
@@ -15,9 +15,8 @@
  * @exports CreateTickets
  * @description This file contains the Tickets(no tickets created), Tickets(when there is a ticket or more created),
  * Promocodes(no promocodes created), Promocodes(when there is a promocode or more created) pages.
- * 
+ *
  */
-
 
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
@@ -42,7 +41,6 @@ import { ImportPromocode } from './ImportPromoSidemenu';
 import axios from 'axios';
 
 export default function CreateTickets() {
-  
   const event = localStorage.getItem('eventID');
   const token = localStorage.getItem('token');
 
@@ -101,13 +99,12 @@ export default function CreateTickets() {
       const res = await axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
-          "Authorization": `Bearer ${token}`
-          
-      }});
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setPromoCodes(res['data']['promocodes']);
       setData(res['data']['promocodes']);
       if (res['data']['promocodes'].length > 0) {
-
         setIsPromoIntroOpen(false);
       }
       console.log(res['data']['promocodes']);
@@ -120,9 +117,6 @@ export default function CreateTickets() {
     setIsImportPromoMenuOpen(false);
     setIsMenuOpen(false);
   }
-
-
-
 
   const getMaxRowLength = columnName => {
     return data.reduce((max, row) => {
@@ -364,9 +358,7 @@ export default function CreateTickets() {
                         <table>
                           <thead>
                             <tr>
-                              <th
-                                style={{ width: getColumnWidth('code') }}
-                              >
+                              <th style={{ width: getColumnWidth('code') }}>
                                 Name
                               </th>
                               <th
@@ -377,7 +369,9 @@ export default function CreateTickets() {
                                 Discount
                               </th>
                               <th
-                                style={{ width: getColumnWidth('remainingUses') }}
+                                style={{
+                                  width: getColumnWidth('remainingUses'),
+                                }}
                               >
                                 Uses
                               </th>
@@ -393,18 +387,14 @@ export default function CreateTickets() {
                           <tbody>
                             {data.map((row, index) => (
                               <tr key={index}>
-                                <td className="NameColumn1">
-                                  {row.code}
-                                </td>
+                                <td className="NameColumn1">{row.code}</td>
                                 <td className="DiscountColumn3">
                                   {row.discount}
                                 </td>
                                 <td className="UsesColumn4">
                                   {row.remainingUses}
                                 </td>
-                                <td className="StatusColumn5">
-                                  {row.status}
-                                </td>
+                                <td className="StatusColumn5">{row.status}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -509,19 +499,11 @@ export default function CreateTickets() {
             setIsPromoIntroOpen={setIsPromoIntroOpen}
           />
 
-          <div className='NextDiv'>
-
-          <Link  className='NextLink'to="/publish" >
-                
-          <button className='NextButton'>
-              Next
-            </button>
-
-          </Link>
-            
+          <div className="NextDiv">
+            <Link className="NextLink" to="/publish">
+              <button className="NextButton">Next</button>
+            </Link>
           </div>
-          
-
         </MainTicketsDiv>
       </div>
     </>
