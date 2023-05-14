@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import {
   StyledMainSidebar,
@@ -8,6 +9,11 @@ import {
 const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
   const [hovered, setHovered] = useState(false);
   const [reportHovered, setReportHovered] = useState(false);
+  const eventID = useParams().eventID
+    ? useParams().eventID
+    : localStorage.getItem('eventID');
+  const token = localStorage.getItem('token');
+  const [EventData, setEventData] = useState({});
 
   const handleMouseEnter = setHovered => {
     setHovered(true);
@@ -17,6 +23,41 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
     setHovered(false);
   };
 
+  useEffect(() => {
+    const getData = async () => {
+      const result = await fetch(
+        `https://www.tessera.social/api/event-management/retrieve/${eventID}`,
+        {
+          method: 'GET',
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await result.json();
+      setEventData(data.event);
+      console.log(EventData);
+    };
+
+    getData();
+  }, []);
+  const convertTime = Iso => {
+    const date = new Date(Iso);
+    const dateString = date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    const timeString = date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+    const formattedDate = `${dateString} at ${timeString}`;
+    return formattedDate;
+  };
   return (
     <>
       <StyledMainSidebar>
@@ -54,7 +95,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
       </StyledMainSidebar>
       {!hide && (
         <StyledCreateTicketSidebar>
-          <Link className="events__page">
+          <Link to="/Organize" className="events__page">
             <svg viewBox="0 0 24 24" xml:space="preserve">
               <path
                 fill-rule="evenodd"
@@ -65,8 +106,10 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
             Events
           </Link>
           <div className="event__details">
-            <Link className="event__name">Event</Link>
-            <p>Wed, Jun, 7, 2023, 8:00pm</p>
+            <Link className="event__name">
+              {EventData.basicInfo?.eventName}
+            </Link>
+            <p>{convertTime(EventData.basicInfo?.startDateTime)}</p>
             <Link>
               View your Event
               <svg viewBox="0 0 24 24">
@@ -126,7 +169,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
               </svg>
               Details
             </Link>
-            <Link>
+            <Link to="/ticket">
               <svg
                 class="navigation-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -176,8 +219,15 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
             </Link>
           </div>
           <div className="others">
-            <span className={dashboard ? 'active' : ''}> Dashboard</span>
-            <span>Manage Attendes</span>
+            <Link
+              className={dashboard ? 'active' : ''}
+              to={`/dashboard/${localStorage.getItem('eventID')}`}
+            >
+              <span> Dashboard</span>
+            </Link>
+            <Link to="/manage">
+              <span>Manage Attendees</span>
+            </Link>
           </div>
         </StyledCreateTicketSidebar>
       )}

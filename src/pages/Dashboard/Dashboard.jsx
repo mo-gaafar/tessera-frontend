@@ -3,12 +3,74 @@ import { StyledDashboard } from './styles/Dashboard.styled';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
-import { Link } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 const Dashboard = () => {
+  const [EventData, setEventData] = useState({});
+  const [ticketsSoldData, setTicketsSoldData] = useState({});
+  const [totalSales, setTotalSales] = useState();
+  const [ticketTier, setTicketTier] = useState([]);
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+  const token = localStorage.getItem('token');
+  const eventID = useParams().eventID
+    ? useParams().eventID
+    : localStorage.getItem('eventID');
+  console.log(ticketTier);
+  useEffect(() => {
+    const getData = async () => {
+      const result = await fetch(
+        `https://www.tessera.social/api/dashboard/eventsoldtickets/events/${eventID}?allTiers=true`
+      );
+      const data = await result.json();
+      console.log(data);
+
+      setTicketsSoldData(data);
+    };
+
+    const getEventData = async () => {
+      const result = await fetch(
+        `https://www.tessera.social/api/event-management/retrieve/${eventID}`,
+        {
+          method: 'GET',
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await result.json();
+      setEventData(data.event);
+      console.log(EventData);
+      setTicketTier(() => data.event.ticketTiers.map(ticket => ticket));
+    };
+
+    const getTotalSales = async () => {
+      const result = await fetch(
+        `https://www.tessera.social/api/dashboard/eventsales/events/${eventID}?allTiers=true`,
+        {
+          method: 'GET',
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await result.json();
+      setTotalSales(data.totalSales);
+      console.log(data.totalSales);
+    };
+    getData();
+    getEventData();
+    getTotalSales();
+  }, []);
+
+  const copyURL = async () => {
+    await navigator.clipboard.writeText(EventData.eventUrl);
+  };
 
   return (
     <>
@@ -26,7 +88,7 @@ const Dashboard = () => {
           <div className="cards">
             <div className="card">
               <span className="card__title"> Net Sales</span>
-              <span className="card__price">$0.00</span>
+              <span className="card__price">${totalSales}</span>
               <p className="card__sales">
                 Open <span> event sales breakdown</span>
               </p>
@@ -34,17 +96,20 @@ const Dashboard = () => {
             <div className="card">
               <span className="card__title">Tickets Sold</span>
               <p className="card__tickets">
-                <span>2</span>/40
+                <span>{ticketsSoldData.soldTickets}</span>/
+                {ticketsSoldData.totalMaxCapacity}
               </p>
-              <p className="card__type">0 paid • 2 free</p>
+              {/* <p className="card__type">0 paid • 2 free</p> */}
             </div>
           </div>
           <div className="share">
             <h2>Share</h2>
             <span>Event URL</span>
             <div className="">
-              <p>https://www.eventbrite.com/e/event-tickets-626924176087</p>
+              <p>{EventData.eventUrl}</p>
               <svg
+                style={{ cursor: 'pointer' }}
+                onClick={copyURL}
                 id="copy-chunky_svg__eds-icon--copy-chunky_svg"
                 x="0"
                 y="0"
@@ -78,20 +143,19 @@ const Dashboard = () => {
                     <span>Sold</span>
                   </div>
                 </div>
-                <div className="table__row">
-                  <span>General Admission</span>
-                  <div className="">
-                    <span>$20.00</span>
-                    <span>0/20</span>
-                  </div>
-                </div>
-                <div className="table__row">
-                  <span>General Admission</span>
-                  <div className="">
-                    <span>free</span>
-                    <span>2/20</span>
-                  </div>
-                </div>
+                {ticketTier.map(ticket => {
+                  return (
+                    <div className="table__row">
+                      <span>{ticket.tierName}</span>
+                      <div className="">
+                        <span>${ticket.price}</span>
+                        <span>
+                          {ticket.quantitySold}/{ticket.maxCapacity}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div className="other__action">

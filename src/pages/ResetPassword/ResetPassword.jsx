@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { StyledResetPassword } from './styles/ResetPassword.styled';
 import { ContinueButton } from '../SignUp/styles/SignUpEmail.styled';
@@ -108,6 +108,11 @@ function ResetPassword() {
       }
     }
   }
+  useEffect(() => {
+    setTimeout(() => {
+      successMsg === 'User password has been reset' && navigate('/');
+    }, 3000);
+  }, [successMsg]);
 
   return (
     <>

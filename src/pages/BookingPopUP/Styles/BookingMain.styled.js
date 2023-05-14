@@ -199,14 +199,19 @@ export const Order = styled.div`
 `;
 export const OrderTitle = styled.div`
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: black;
+  p {
+    font-weight: 200;
+    font-size: 1.4rem;
+  }
 `;
 export const OrderTicket = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 2.4rem;
   position: relative;
+  margin-top: 2.4rem;
   .Tsummary {
     display: flex;
     justify-content: space-between;

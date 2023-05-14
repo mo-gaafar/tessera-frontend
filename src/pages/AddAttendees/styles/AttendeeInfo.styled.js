@@ -1,28 +1,34 @@
 import styled from "styled-components";
+
 export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
   overflow-x: hidden;
+  
+  
   .bottom {
     margin-left: 150px;
     width: 1400px;
   }
   .flexcontainer {
-    width: 1500px;
+    width: 100%;
     height: 700px;
+   
+    margin-left: 150px;
+    margin-right: 150px;
   }
   .flexleft {
     height: 100%;
-    width: 62%;
+    width: 50%;
     float: left;
 
     margin-top: 0px;
 
-    margin-left: 150px;
-    @media (max-width: 768px) {
+    @media (max-width: 1100px) {
       width: 100%;
     }
+   
   }
   .TimeOut {
     margin: 0 150px;
@@ -42,6 +48,20 @@ export const Container = styled.div`
       margin-top: 500px;
     }
   }
+  .summaryPop {
+    display: none;
+    margin-left: 3%;
+    h3 {
+      display: inline-block;
+    }
+    .drop {
+      width: 60px;
+
+      .icon {
+        width: 60px;
+      }
+    }
+   
 `;
 
 export const Header = styled.div`
@@ -151,6 +171,7 @@ export const PlaceOrder = styled.div`
   margin-left: 30px;
 
   .button {
+    cursor: pointer;
     width: 150px;
     height: 50px;
     background-color: rgb(221, 73, 28);
@@ -162,13 +183,17 @@ export const PlaceOrder = styled.div`
     font-weight: 600;
     border-radius: 5px;
   }
+  .button:hover {
+    background-color: rgb(221, 73, 28);
+    opacity: 0.8;
+  }
 `;
 export const Information = styled.div`
-  width: 28%;
+  width: 30%;
   height: 100%;
 
-  background-color: #f8f7fa;
-  float: left;
+  
+  float: left;or
   margin-top: 20px;
   overflow-y: scroll;
   .eventimage {
@@ -183,8 +208,7 @@ export const Information = styled.div`
       object-fit: contain;
     }
   }
-
-  @media (max-width: 768px) {
+  @media (max-width: 1100px) {
     display: none;
   }
 `;

@@ -31,6 +31,7 @@ import {
   PromocodesPageDiv,
   PromocodesSavePageDiv,
 } from './styles/Tickets.styled';
+
 import { CreatePromocode } from './CreatePromoSidemenu';
 import AddTicketSidemenu from './AddTicketSidemenu';
 import Sidebar from '../../components/Sidebar';
@@ -43,6 +44,8 @@ import axios from 'axios';
 export default function CreateTickets() {
   
   const event = localStorage.getItem('eventID');
+  const token = localStorage.getItem('token');
+
   const [replaceContentAfterSave, setreplaceContentAfterSave] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [ShowAmissionsPage, setShowAmissionsPage] = useState(true);
@@ -98,12 +101,13 @@ export default function CreateTickets() {
       const res = await axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
-          "Authorization": `Bearer ${localStorage.getItem('token')}`
+          "Authorization": `Bearer ${token}`
           
       }});
       setPromoCodes(res['data']['promocodes']);
       setData(res['data']['promocodes']);
       if (res['data']['promocodes'].length > 0) {
+
         setIsPromoIntroOpen(false);
       }
       console.log(res['data']['promocodes']);
@@ -116,6 +120,7 @@ export default function CreateTickets() {
     setIsImportPromoMenuOpen(false);
     setIsMenuOpen(false);
   }
+
 
 
 
@@ -134,6 +139,22 @@ export default function CreateTickets() {
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
 
+  const convertTime = Iso => {
+    const date = new Date(Iso);
+    const dateString = date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    const timeString = date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+    const formattedDate = `${dateString} at ${timeString}`;
+    return formattedDate;
+  };
+
   return (
     <>
       <StyledNav>
@@ -145,6 +166,7 @@ export default function CreateTickets() {
       </StyledNav>
       <div data-testid="createTickets" style={{ display: 'flex' }}>
         <Sidebar event={false} />
+
         <MainTicketsDiv>
           {replaceContentAfterSave && (
             <TicketCreatedDiv>
@@ -153,10 +175,22 @@ export default function CreateTickets() {
               <div className="TicketsTabsDiv">
                 <button
                   className="TicketsTabsButton"
-                  onClick={() => {setShowAmissionsPage(true);setShowPromocodesPage(false);closeAllMenus();}}>
+                  onClick={() => {
+                    setShowAmissionsPage(true);
+                    setShowPromocodesPage(false);
+                    closeAllMenus();
+                  }}
+                >
                   Admission
                 </button>
-                <button className="TicketsTabsButton" onClick={() => {setShowAmissionsPage(false);setShowPromocodesPage(true);closeAllMenus();}}>
+                <button
+                  className="TicketsTabsButton"
+                  onClick={() => {
+                    setShowAmissionsPage(false);
+                    setShowPromocodesPage(true);
+                    closeAllMenus();
+                  }}
+                >
                   Promo codes
                 </button>
               </div>
@@ -175,40 +209,50 @@ export default function CreateTickets() {
                   </div>
 
                   <div className="AllTicketsDiv">
-                    {ticketTiers != undefined && ticketTiers.map(ticketTier => (
-                      <div className="TicketCreatedInfoDiv"
-                        onClick={() => {
-                          setIsMenuOpen(true);
-                          setSelectedTicket(ticketTier);
-                        }}>
-                        <svg
-                          className="TicketCreatedScrollSvg"
-                          xml:space="preserve">
-                          <path
-                            fill="#45494E"
-                            d="M6 10V8h12v2H6zm0 6v-2h12v2H6z"
-                          ></path>
-                        </svg>
-                        <div className="TicketInfoDiv">
-                          <div className="TicketNameDateDiv">
-                            <div className="TicketName">{ticketTier.tierName}</div>
+                    {ticketTiers != undefined &&
+                      ticketTiers.map(ticketTier => (
+                        <div
+                          className="TicketCreatedInfoDiv"
+                          onClick={() => {
+                            setIsMenuOpen(true);
+                            setSelectedTicket(ticketTier);
+                          }}
+                        >
+                          <svg
+                            className="TicketCreatedScrollSvg"
+                            xml:space="preserve"
+                          >
+                            <path
+                              fill="#45494E"
+                              d="M6 10V8h12v2H6zm0 6v-2h12v2H6z"
+                            ></path>
+                          </svg>
+                          <div className="TicketInfoDiv">
+                            <div className="TicketNameDateDiv">
+                              <div className="TicketName">
+                                {ticketTier.tierName}
+                              </div>
 
-                            <div className="TicketScheduledDiv">
-                              <div className="YellowDot">.</div>
-                              <div className="ScheduledStartsDiv">
-                                Scheduled . Starts at {ticketTier.startSelling}
+                              <div className="TicketScheduledDiv">
+                                <div className="YellowDot">.</div>
+                                <div className="ScheduledStartsDiv">
+                                  Scheduled . Starts at{' '}
+                                  {convertTime(ticketTier.startSelling)}
+                                </div>
                               </div>
                             </div>
-                          </div>
 
-                          <div className="SoldTickets">
-                            {ticketTier.quantitySold} / {ticketTier.maxCapacity}
-                          </div>
+                            <div className="SoldTickets">
+                              {ticketTier.quantitySold} /
+                              {ticketTier.maxCapacity}
+                            </div>
 
-                          <div className="TicketTier">{ticketTier.price}$</div>
+                            <div className="TicketTier">
+                              {ticketTier.price}$
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
 
                   <div className="EventCapacityDiv">
@@ -263,11 +307,21 @@ export default function CreateTickets() {
                         <div className="PromocodesButtonsDiv">
                           <button
                             className="CreatePromocodeButton"
-                            onClick={() =>{setIsCreatePromoMenuOpen(true);setIsImportPromoMenuOpen(false);}}>
+                            onClick={() => {
+                              setIsCreatePromoMenuOpen(true);
+                              setIsImportPromoMenuOpen(false);
+                            }}
+                          >
                             Create promo code
                           </button>
 
-                          <button className="UploadCsvButton" onClick={() => {setIsImportPromoMenuOpen(true);setIsCreatePromoMenuOpen(false)}}>
+                          <button
+                            className="UploadCsvButton"
+                            onClick={() => {
+                              setIsImportPromoMenuOpen(true);
+                              setIsCreatePromoMenuOpen(false);
+                            }}
+                          >
                             Upload CSV
                           </button>
                         </div>
@@ -285,8 +339,24 @@ export default function CreateTickets() {
                   {!isPromoIntroOpen && (
                     <PromocodesSavePageDiv>
                       <div className="ButtonsMenuDiv">
-                        <button className=" CancelButton" onClick={() =>{setIsCreatePromoMenuOpen(true);setIsImportPromoMenuOpen(false);}}>Add a code</button>
-                        <button className="SaveButton" onClick={() => {setIsImportPromoMenuOpen(true);setIsCreatePromoMenuOpen(false);}}>Upload CSV </button>
+                        <button
+                          className=" CancelButton"
+                          onClick={() => {
+                            setIsCreatePromoMenuOpen(true);
+                            setIsImportPromoMenuOpen(false);
+                          }}
+                        >
+                          Add a code
+                        </button>
+                        <button
+                          className="SaveButton"
+                          onClick={() => {
+                            setIsImportPromoMenuOpen(true);
+                            setIsCreatePromoMenuOpen(false);
+                          }}
+                        >
+                          Upload CSV{' '}
+                        </button>
                       </div>
 
                       <div className="Header"></div>
@@ -421,7 +491,7 @@ export default function CreateTickets() {
             isMenuOpen={isMenuOpen}
             setIsMenuOpen={setIsMenuOpen}
             setreplaceContentAfterSave={setreplaceContentAfterSave}
-            dataSubmitted={() => setIsDataSubmitted(isDataSubmitted+1)}
+            dataSubmitted={() => setIsDataSubmitted(isDataSubmitted + 1)}
           />
 
           <CreatePromocode
@@ -451,6 +521,7 @@ export default function CreateTickets() {
             
           </div>
           
+
         </MainTicketsDiv>
       </div>
     </>

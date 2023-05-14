@@ -82,7 +82,8 @@ export default function BasicInfo() {
   }
   useEffect(() => {
     // Fetch the list of countries from a REST API
-    axios.get('https://restcountries.com/v2/all')
+    axios
+      .get('https://restcountries.com/v2/all')
       .then(response => {
         setCountries(response.data);
       })
@@ -168,6 +169,7 @@ export default function BasicInfo() {
       }
     }
   }
+
   //checks if the time in the calendar has already passed
   function getDayClassName(date) {
     const today = new Date();
@@ -186,7 +188,7 @@ export default function BasicInfo() {
       .then(response => response.json())
       .then(data => setTimezones(data.zones));
   }, []);
-  //handling buttons and which div to show 
+  //handling buttons and which div to show
   function handleVenueClick() {
     setShowVenue(true);
     setShowOnline(false);
@@ -208,7 +210,7 @@ export default function BasicInfo() {
     setShowRecurring(true);
     setShowSingle(false);
   }
-  //handling errors 
+  //handling errors
   const handleChange = event => {
     setValue(event.target.value);
     if (event.target.value.trim() === '') {
@@ -380,7 +382,12 @@ export default function BasicInfo() {
         )}
       </StyledNav>
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar className="sidebar" event={true} basicInfo={true} />
+        <Sidebar
+          className="sidebar"
+          event={true}
+          basicInfo={true}
+          hide={true}
+        />
 
         <div className="wholepage">
           <main className="main">
@@ -388,7 +395,7 @@ export default function BasicInfo() {
               <div>
                 <div style={{ paddingTop: '1.6rem' }}>
                   <button className="eventsbutton">
-                    <div className="backevents">
+                    <Link to="/Organize" className="backevents">
                       <svg
                         className="smallSvg"
                         x="0"
@@ -404,7 +411,7 @@ export default function BasicInfo() {
                         ></path>
                       </svg>
                       <p className="eventsword">Events</p>
-                    </div>
+                    </Link>
                   </button>
                 </div>
                 <div className="lowerdiv">
@@ -513,20 +520,20 @@ export default function BasicInfo() {
                               ref={dropdownsecondRef}
                             >
                               <div
-                                  className="typeborder"
-                                  data-testid='timedropdownoptions'
-                                  onClick={handleSecondDropDownClick}
-                                  style={
-                                    secondclicked
-                                      ? { border: '2px solid blue' }
-                                      : {}
-                                  }
-                                >
+                                className="typeborder"
+                                data-testid="timedropdownoptions"
+                                onClick={handleSecondDropDownClick}
+                                style={
+                                  secondclicked
+                                    ? { border: '2px solid blue' }
+                                    : {}
+                                }
+                              >
                                 <div className="categorybox">
                                   <select
                                     onChange={handleCategoryChange}
-                                    className="dropdownselect" 
-                                    data-testid='timedropdownselect'
+                                    className="dropdownselect"
+                                    data-testid="timedropdownselect"
                                   >
                                     <option
                                       className="dropdownoption"
@@ -663,7 +670,7 @@ export default function BasicInfo() {
                                     </option>
                                     <option
                                       className="dropdownoption"
-                                      value="Seasonal & Holiday"
+                                      value="Seasonal Holiday"
                                       data-spec="select-option"
                                     >
                                       Seasonal Holiday
@@ -1078,22 +1085,22 @@ export default function BasicInfo() {
                               </div>
                             </div>
                             <div
-                                className="timedropdowndiv"
-                                style={{ marginBottom: '8px' }}
-                              >
-                                <div className="searchvenuediv1">
+                              className="timedropdowndiv"
+                              style={{ marginBottom: '8px' }}
+                            >
+                              <div className="searchvenuediv1">
+                                <div
+                                  className="typeborder"
+                                  onClick={handleBlueOnlineClick}
+                                  style={
+                                    onlineclicked
+                                      ? { border: '1px solid blue' }
+                                      : {
+                                          border: '0px solid #dbdae3',
+                                        }
+                                  }
+                                >
                                   <div
-                                    className="typeborder"
-                                    onClick={handleBlueOnlineClick}
-                                    style={
-                                      onlineclicked
-                                        ? { border: '1px solid blue' }
-                                        : {
-                                            border: '0px solid #dbdae3',
-                                          }
-                                    }
-                                  >
-                                    <div
                                     className="placeholder2"
                                     style={{
                                       position: 'absolute',
@@ -1101,26 +1108,34 @@ export default function BasicInfo() {
                                       left: '-5px',
                                       width: ' 100%',
                                       height: '70px',
-                                      zIndex: '2'
+                                      zIndex: '2',
                                     }}
                                   >
                                     <label className="label">
-                                      <span className="spantext2" style={{marginLeft:'-10px'}}>
+                                      <span
+                                        className="spantext2"
+                                        style={{ marginLeft: '-10px' }}
+                                      >
                                         Country
                                       </span>
                                     </label>
                                   </div>
-                                    <div className="dropdownLast" >
-                                      <select className="selecttime">
+                                  <div className="dropdownLast">
+                                    <select className="selecttime">
                                       <option value="">Egypt</option>
-                                        {countries.map(country => (
-                                          <option  key={country.alpha2Code} value={country.alpha2Code}>{country.name}</option>
-                                        ))}
-                                      </select>
-                                    </div>
+                                      {countries.map(country => (
+                                        <option
+                                          key={country.alpha2Code}
+                                          value={country.alpha2Code}
+                                        >
+                                          {country.name}
+                                        </option>
+                                      ))}
+                                    </select>
                                   </div>
                                 </div>
                               </div>
+                            </div>
                           </div>
                         )}
                         {showonline && (
@@ -1258,7 +1273,7 @@ export default function BasicInfo() {
                                         </div>
                                         {/* <label htmlFor="date-select">Select a date:</label> */}
                                         <input
-                                          data-testid='datepicker-container'
+                                          data-testid="datepicker-container"
                                           style={{ height: '46px' }}
                                           value={
                                             selectedDate
@@ -1272,10 +1287,12 @@ export default function BasicInfo() {
                                           role="textbox"
                                         />
                                         {showCalendar && (
-                                          <div style={{ position: 'relative' }}
-                                          data-testid='datepicker-container'>
+                                          <div
+                                            style={{ position: 'relative' }}
+                                            data-testid="datepicker-container"
+                                          >
                                             <DatePicker
-                                              data-testid='datepicker-container'
+                                              data-testid="datepicker-container"
                                               selected={selectedDate}
                                               className="custom-datepicker"
                                               calendarClassName="custom-calendar"
@@ -1554,7 +1571,10 @@ export default function BasicInfo() {
                                         }
                                       >
                                         <div className="dropdownLast">
-                                          <select className="selecttime" data-testid="timezoneselect">
+                                          <select
+                                            className="selecttime"
+                                            data-testid="timezoneselect"
+                                          >
                                             {timezones.map(zone => (
                                               <option
                                                 key={zone.zoneName}

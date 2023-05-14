@@ -57,7 +57,7 @@ import TierBox from './TierBox';
 export default function Reservation({
   number,
   setShowCheckout,
-  showCheckout,
+  setDiscount,
   changePromo,
   liftCheckoutInfo,
   setliftCheckoutInfo,
@@ -82,6 +82,7 @@ export default function Reservation({
   const [ticketsTierdetails, setTicketTierdetails] = useState([]);
   const [summaryInter, setSummaryInter] = useState([]);
   const [setting, setSetting] = useState('');
+
   /**
    *
    *description: this function is the sendPromo function and returns the promo code validity
@@ -91,20 +92,21 @@ export default function Reservation({
   async function sendPromo(inputpromo) {
     try {
       const response = await fetch(
-        'https://www.tessera.social/api/attendee/ticket/643aa02d4d2e42199562be5f/promocode/retrieve?=' +
-          inputpromo
+        `https://www.tessera.social/api/attendee/ticket/645de6017f1184642553eb26/promocode/retrieve?=${inputpromo}`
       );
       const prom = await response.json();
+
       prom.success ? setPromocode(true) : setPromocode(false);
+      prom.success ? setDiscount(prom.discout) : setDiscount(1);
+
+      prom.success
+        ? setHelper('Promo code is valid')
+        : setHelper('Promo code is invalid');
+      prom.success ? setErrorMsg(false) : setErrorMsg(true);
+      changePromo(inputpromo);
     } catch (error) {
       console.log(error);
     }
-    console.log('ent btetnady');
-    promocode
-      ? setHelper('Promo code is valid')
-      : setHelper('Promo code is invalid');
-    promocode ? setErrorMsg(false) : setErrorMsg(true);
-    changePromo(inputpromo);
   }
   /**
    * description: this function is the useEffect function and returns the event data
@@ -124,13 +126,14 @@ export default function Reservation({
         ? console.log(event.filteredEvents[0])
         : setEventExists(false);
       event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
-
+      console.log('hooooo');
+      console.log(event.filteredEvents[0]);
       let tempArray = new Array(event.filteredEvents[0].ticketTiers.length)
         .fill()
         .map((element, index) => ({
           tierName: event.filteredEvents[0].ticketTiers[index].tierName,
           numberOfTicketsSold:
-            event.filteredEvents[0].ticketTiers[index].quantitySold,
+            event.filteredEvents[0].ticketTiers[index].maxCapacity - 10,
           maxCapacity: event.filteredEvents[0].ticketTiers[index].maxCapacity,
           price: event.filteredEvents[0].ticketTiers[index].price,
           discountpercent: 0,
@@ -233,7 +236,17 @@ export default function Reservation({
                         </Apply>
                       ) : (
                         <Applyfocus
-                          onClick={() => sendPromo(inputValue)}
+                          onClick={() => {
+                            if (promocode) {
+                              setPromocode(false);
+                              setHelper('');
+                              setInputValue('');
+                              setErrorMsg(false);
+                              setDiscount(1);
+                            } else {
+                              sendPromo(inputValue);
+                            }
+                          }}
                           disabled={!promocode ? !inputValue : false}
                         >
                           {console.log(inputValue)}
