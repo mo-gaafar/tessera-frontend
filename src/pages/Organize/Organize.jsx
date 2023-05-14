@@ -447,21 +447,18 @@ export default function Organize(props) {
   const [shouldHideSidebar, setShouldHideSidebar] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 959px)');
+    if (!test) {
+      const mediaQuery = window.matchMedia('(max-width: 959px)');
 
-    const handleMediaQueryChange = event => {
-      setShouldHideSidebar(event.matches);
-    };
+      const handleMediaQueryChange = event => {
+        setShouldHideSidebar(event.matches);
+      };
 
-    mediaQuery.addListener(handleMediaQueryChange);
+      mediaQuery.addListener(handleMediaQueryChange);
 
-    // Set initial value
-    setShouldHideSidebar(mediaQuery.matches);
-
-    // Clean up the listener
-    return () => {
-      mediaQuery.removeListener(handleMediaQueryChange);
-    };
+      // Set initial value
+      setShouldHideSidebar(mediaQuery.matches);
+    }
   }, []);
 
   return (
