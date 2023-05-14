@@ -1,3 +1,21 @@
+/**
+ * @file This file is the page where the user can add the attendees' information
+ * @since 1.0.0
+ * @author SeifAllah
+ * @module AddAttendees/RegisterInfo
+ * @see module:AddAttendees/RegisterInfo
+ * @see module:AddAttendees
+ * @see module:AddAttendees/addAttendees
+ * @see module:AddAttendees/addAttendees.styled
+ * @see module:AddAttendees/AttendeeInfo
+ * @see module:AddAttendees/AttendeeInfo.styled
+ * @requires react
+ * @requires react-router-dom
+ * @requires react-icons
+ * @requires mui material
+ *
+ *
+ */
 import React from "react";
 import { useState, useEffect } from "react";
 
@@ -25,7 +43,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowCircleDownSharpIcon from "@mui/icons-material/ArrowCircleDownSharp";
 import ArrowCircleUpSharpIcon from "@mui/icons-material/ArrowCircleUpSharp";
 
-export default function AttendeeInfo({ ticketSelected, total }) {
+export default function AttendeeInfo({ ticketSelected, total, eventImage }) {
   const [remainingTime, setRemainingTime] = useState(40 * 60);
   const [timeLeft, setTimeLeft] = useState("");
   const [timeOut, setTimeOut] = useState(false);
@@ -37,6 +55,14 @@ export default function AttendeeInfo({ ticketSelected, total }) {
   const [finale, setFinale] = useState({});
   const [show, setShow] = useState(false);
 
+  /**
+   * @function checkPlaceOrder
+   * @param {*} currentValue
+   * @param {*} index
+   * @returns bool
+   * @description this function checks if the user has filled all the required fields
+   *
+   */
   function checkPlaceOrder(currentValue, index) {
     console.log(currentValue);
     console.log(index);
@@ -65,11 +91,40 @@ export default function AttendeeInfo({ ticketSelected, total }) {
       return true;
     }
   }
+
+  /**
+   * @function handlePlaceOrder
+   * @param {*} details
+   * @description this function handles the place order button and sends the data to the backend
+   *
+   */
+  async function handlePlaceOrder(details) {
+    const response = await fetch(
+      "https://www.tessera.social/api/event-management/creator",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(details),
+      }
+    );
+  }
+  /**
+   * @method createAllTickets
+   * @useEffect
+   * @description this function is called when the component is mounted and it sets the number of tickets and the number of tickets errors
+   * @returns {void}
+   * @example
+   *
+   */
   useEffect(() => {
     const newTickets = [];
     const newTicketsErrors = [];
+
     for (let i = 0; i < ticketSelected.length; i++) {
-      for (let j = 0; j < ticketSelected[i].quantity; j++) {
+      for (let j = 0; j < ticketSelected[i].quantitySold; j++) {
         newTickets.push({
           fName: "",
           lName: "",
@@ -86,7 +141,7 @@ export default function AttendeeInfo({ ticketSelected, total }) {
 
     setAllTickets(newTickets);
     setticketInfoError(newTicketsErrors);
-  }, []);
+  }, [ticketSelected]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -120,12 +175,18 @@ export default function AttendeeInfo({ ticketSelected, total }) {
     email: false,
   });
 
+  /**
+   * @method createShowInfo
+   * @useEffect
+   * @description this function is called whenever alltickets are changed to make the showinfo updated with the attendee info
+   *
+   */
   useEffect(() => {
     const newShowInfo = [...showInfo];
     let index = 0;
     if (allTickets.length > 0) {
       for (let i = 0; i < newShowInfo.length; i++) {
-        for (let j = 0; j < newShowInfo[i].quantity; j++) {
+        for (let j = 0; j < newShowInfo[i].quantitySold; j++) {
           newShowInfo[i].tickets[j].firstname = allTickets[index].fName;
           newShowInfo[i].tickets[j].lastname = allTickets[index].lName;
           newShowInfo[i].tickets[j].email = allTickets[index].email;
@@ -135,7 +196,8 @@ export default function AttendeeInfo({ ticketSelected, total }) {
       }
     }
     setShowInfo(() => newShowInfo);
-  }, [allTickets]);
+  }, [allTickets, ticketSelected]);
+
   useEffect(() => {
     let flag = false;
     if (
@@ -154,8 +216,6 @@ export default function AttendeeInfo({ ticketSelected, total }) {
     console.log(allTickets);
     allTickets.map((item, index) => {
       flag = flag && checkPlaceOrder(item, index);
-      console.log("ya flaag");
-      console.log(flag);
     });
     setPlaceOrder(flag);
   }, [allTickets, contactInfo]);
@@ -382,6 +442,8 @@ export default function AttendeeInfo({ ticketSelected, total }) {
                       let obj3 = { contactInfo: contactInfo };
                       temp.unshift(obj3);
                       setFinale(temp);
+                      setPlaceOrder(false);
+                      handlePlaceOrder(temp);
                     }}
                   >
                     Place Order
@@ -391,11 +453,7 @@ export default function AttendeeInfo({ ticketSelected, total }) {
             </div>
             <Information id="129753272jdj">
               <div className="eventimage" id="12kaald272">
-                <img
-                  id="1297dkoe272"
-                  src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F504832309%2F1479343247803%2F1%2Foriginal.20230501-180845?w=720&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C128%2C512%2C256&s=d1e65d2528b368ac6b683664754a0ec0"
-                  alt=""
-                />
+                <img id="1297dkoe272" src={eventImage} alt="" />
               </div>
               <OrderTitle id="1297532asdee72">
                 <h2>Order Summary</h2>
@@ -404,10 +462,10 @@ export default function AttendeeInfo({ ticketSelected, total }) {
                 return (
                   <OrderItem>
                     <div className="name">
-                      {ticketTier.quantity}x{ticketTier.tierName}
+                      {ticketTier.quantitySold}x{ticketTier.tierName}
                     </div>
                     <div className="Price">
-                      ${ticketTier.price * ticketTier.quantity}
+                      ${ticketTier.price * ticketTier.quantitySold}
                     </div>
                   </OrderItem>
                 );

@@ -192,8 +192,8 @@ export const Information = styled.div`
   width: 30%;
   height: 100%;
 
-  background-color: yellow;
-  float: left;
+  
+  float: left;or
   margin-top: 20px;
   overflow-y: scroll;
   .eventimage {
