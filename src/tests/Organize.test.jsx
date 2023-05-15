@@ -11,11 +11,10 @@ import Organize from '../pages/Organize/Organize';
 
 describe('organize', () => {
   it('select event status is working', () => {
-    // const { getByText,getAllByRole } = render(
+    // const { getByText, getAllByRole } = render(
     //   <BrowserRouter>
     //     <Organize test={true} />
     //   </BrowserRouter>
-
     // );
     // const dropButton = getByText('All events');
     // fireEvent.click(dropButton);
@@ -31,21 +30,19 @@ describe('organize', () => {
   //     <BrowserRouter>
   //       <Organize test={true} />
   //     </BrowserRouter>
-
   //   );
-  //   const searchInput = getAllByPlaceholderText("Search events");
+  //   const searchInput = getAllByPlaceholderText('Search events');
   //   fireEvent.change(searchInput[0], { target: { value: 'abcd' } });
-  //   const searchButton = getByTestId("search-inp");
+  //   const searchButton = getByTestId('search-inp');
   //   fireEvent.click(searchButton);
   //   expect(searchInput[0].value).toEqual('abcd');
   // });
 
   // it('select draft status is working', () => {
-  //   const { getByText,getAllByRole } = render(
+  //   const { getByText, getAllByRole } = render(
   //     <BrowserRouter>
   //       <Organize test={true} />
   //     </BrowserRouter>
-
   //   );
   //   const dropButton = getByText('All events');
   //   fireEvent.click(dropButton);

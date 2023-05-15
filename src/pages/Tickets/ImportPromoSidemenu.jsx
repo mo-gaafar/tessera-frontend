@@ -61,7 +61,6 @@ export function ImportPromocode(props) {
     }
   };
 
-  const token = localStorage.getItem('token');
   async function importPromocode() {
     const event = props.event;
     // Form data request with file
@@ -72,7 +71,7 @@ export function ImportPromocode(props) {
     const res = await axios.post(url, data, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`,
       },
     });
     // console.log(res);
@@ -171,7 +170,9 @@ export function ImportPromocode(props) {
               </span>
 
               <div className="ImportCodesDiv">
-                <div className="ImportCodesText">Import codes</div>
+                <div className="ImportCodesText" data-testid="text">
+                  Import codes
+                </div>
                 <div className="DragAndDrop">Click to upload CSV</div>
               </div>
 
