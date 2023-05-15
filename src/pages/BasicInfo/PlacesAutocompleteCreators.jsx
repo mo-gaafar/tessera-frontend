@@ -36,7 +36,7 @@ export default function PlacesAutocomplete({
         administrativeAreaLevel1 = component.short_name;
       }
       if (component.types.includes('country')) {
-        country = component.short_name;
+        country = component.long_name;
       }
       if (component.types.includes('locality')) {
         city = component.short_name;

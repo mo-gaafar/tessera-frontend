@@ -141,6 +141,22 @@ export default function CreateTickets() {
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
 
+  const convertTime = Iso => {
+    const date = new Date(Iso);
+    const dateString = date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    const timeString = date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+    const formattedDate = `${dateString} at ${timeString}`;
+    return formattedDate;
+  };
+
   return (
     <>
       <StyledNav>
@@ -222,13 +238,13 @@ export default function CreateTickets() {
                                 <div className="YellowDot">.</div>
                                 <div className="ScheduledStartsDiv">
                                   Scheduled . Starts at{' '}
-                                  {ticketTier.startSelling}
+                                  {convertTime(ticketTier.startSelling)}
                                 </div>
                               </div>
                             </div>
 
                             <div className="SoldTickets">
-                              {ticketTier.quantitySold} /{' '}
+                              {ticketTier.quantitySold} /
                               {ticketTier.maxCapacity}
                             </div>
 
