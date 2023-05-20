@@ -175,31 +175,6 @@ function PublishPage() {
                 </div>
               </div>
               <p>{EventData.description}</p>
-              <div className="previewLink">
-                <a
-                  data-spec="eds-link"
-                  target="_blank"
-                  href=""
-                  class="eds-link"
-                >
-                  <span>
-                    Preview your event
-                    <i
-                      class="eds-vector-image eds-icon--small eds-vector-image--ui-blue"
-                      data-spec="icon"
-                      data-testid="icon"
-                      aria-hidden="true"
-                    >
-                      <svg viewBox="0 0 24 24">
-                        <path
-                          d="M18 18v2H4V6h7v2H6v10h10v-5h2zm1-11.586l-7.293 7.293-1.414-1.414L17.586 5H14V3h7v7h-2z"
-                          fill-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </i>
-                  </span>
-                </a>
-              </div>
             </div>
           </div>
           <div className="otherDetails">
