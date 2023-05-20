@@ -358,43 +358,19 @@ export default function CreateTickets() {
                         <table>
                           <thead>
                             <tr>
-                              <th style={{ width: getColumnWidth('code') }}>
-                                Name
-                              </th>
-                              <th
-                                style={{
-                                  width: getColumnWidth('discount'),
-                                }}
-                              >
-                                Discount
-                              </th>
-                              <th
-                                style={{
-                                  width: getColumnWidth('remainingUses'),
-                                }}
-                              >
-                                Uses
-                              </th>
-                              <th
-                                style={{
-                                  width: getColumnWidth('status'),
-                                }}
-                              >
-                                Status
-                              </th>
+                              <th>Name</th>
+                              <th>Discount</th>
+                              <th>Uses</th>
+                              <th>Status</th>
                             </tr>
                           </thead>
                           <tbody>
                             {data.map((row, index) => (
                               <tr key={index}>
-                                <td className="NameColumn1">{row.code}</td>
-                                <td className="DiscountColumn3">
-                                  {row.discount}
-                                </td>
-                                <td className="UsesColumn4">
-                                  {row.remainingUses}
-                                </td>
-                                <td className="StatusColumn5">{row.status}</td>
+                                <td>{row.code}</td>
+                                <td>{row.discount}</td>
+                                <td>{row.remainingUses}</td>
+                                <td>{row.status}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -454,14 +430,14 @@ export default function CreateTickets() {
                   </span>
                 </div>
                 <div className="LetsCreateTextDiv">Let's create tickets</div>
-                <div className="CreateTicketsInfoDiv">
+                {/* <div className="CreateTicketsInfoDiv">
                   Create a section if you want to sell multiple ticket types
                   that share the same inventory. i.e. Floor, Mezzanine.
-                </div>
+                </div> */}
                 <div className="CreateTicketsButtonsDiv">
-                  <button className="CreateSectionButton">
+                  {/* <button className="CreateSectionButton">
                     Create a section
-                  </button>
+                  </button> */}
                   <button
                     className="AddTicketsButton"
                     onClick={() => {
@@ -489,6 +465,9 @@ export default function CreateTickets() {
             isPromocodeMenuOpen={isCreatePromoMenuOpen}
             setIsPromocodeMenuOpen={setIsCreatePromoMenuOpen}
             setIsPromoIntroOpen={setIsPromoIntroOpen}
+            dataSubmitted={() =>
+              setIsPromoDataSubmitted(isPromoDataSubmitted + 1)
+            }
           />
 
           <ImportPromocode

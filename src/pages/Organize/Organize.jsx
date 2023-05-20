@@ -60,7 +60,6 @@ export default function Organize(props) {
     'Dec',
   ];
   const [nameEvents, setNameEvents] = useState();
-  console.log(filter);
   useEffect(() => {
     fetch(
       'https://www.tessera.social/api/event-management/listEvents/?filterBy=' +
@@ -80,7 +79,6 @@ export default function Organize(props) {
         return response.json();
       })
       .then(data => {
-        console.log(data);
         setNameEvents(data);
         if (!data.filteredEvents.length) {
           setIsAvailable(false);
@@ -89,9 +87,8 @@ export default function Organize(props) {
       .catch(error => {
         console.error('There was a problem fetching the data:', error);
       });
-  }, [filter]);
+  }, [filter, nameEvents]);
 
-  console.log(nameEvents);
   const reference = useRef(null);
   const referenceEdit = useRef(null);
   let showOpt = nameEvents
@@ -164,6 +161,19 @@ export default function Organize(props) {
   function onClickEditButton(e) {
     const { name, value } = e.target;
     setShowEdit(Array(nameEvents.filteredEvents.length).fill(false));
+  }
+
+  async function deleteEvent(ID) {
+    const deleteEvent = await fetch(
+      `https://www.tessera.social/api/event-management/delete/${ID}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setNameEvents(nameEvents);
   }
 
   const convertUtcToLocalTime = (dateString, loc) => {
@@ -366,7 +376,7 @@ export default function Organize(props) {
                       <button
                         name="delete"
                         className="drop-button"
-                        onClick={onClickEditButton}
+                        onClick={() => deleteEvent(list.eventId)}
                       >
                         Delete
                       </button>
@@ -393,12 +403,9 @@ export default function Organize(props) {
     const index = nameEvents.filteredEvents.findIndex(
       obj => obj === filtered[0]
     );
-    console.log('filtered');
-    console.log(filtered);
 
     if (filtered.length) {
       setIsAvailable(true);
-      console.log(index);
       setIsSearch(filtered);
     } else {
       setIsAvailable(false);
@@ -510,7 +517,7 @@ export default function Organize(props) {
                   <span>{select}</span>
                   <img src={logoDown} />
 
-                  {showMenu && (
+                  {!showMenu && (
                     <div
                       id="myDropdown"
                       className="dropdown-content"
@@ -586,7 +593,7 @@ export default function Organize(props) {
                 <button
                   className="plus-button"
                   onClick={() => {
-                    navigate('/');
+                    navigate('/basicinfo');
                   }}
                 >
                   <img src={logoPlus} />

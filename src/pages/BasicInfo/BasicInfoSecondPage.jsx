@@ -517,9 +517,6 @@ export default function Details() {
         <div className="fixeddiv">
           <div className="fixedinnerdiv">
             <div className="fixedbuttondiv">
-              <button className="usedbutton" style={{ marginRight: '16px' }}>
-                Discard
-              </button>
               <button
                 className="usedbutton"
                 style={saveButtonStyle}

@@ -24,8 +24,10 @@ export const StyledCreateTicketSidebar = styled.div`
   border-left: 1px solid #eeedf2;
   display: flex;
   flex-direction: column;
+  min-width: 28rem;
   @media (max-width: 60em) {
     display: none;
+    min-width: unset;
   }
   .events__page {
     color: #3d64ff;

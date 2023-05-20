@@ -1,6 +1,6 @@
 /**
-  * @name CreatePromoSidemenu.jsx
-  * @author @MaryamMoataz
+ * @name CreatePromoSidemenu.jsx
+ * @author @MaryamMoataz
  * @requires react
  * @requires react-router-dom
  * @requires './styles/Tickets.styled'
@@ -17,7 +17,6 @@
 @param {string} props.setIsPromoIntroOpen - handles depending on how many promocodes are there
 @return {JSX.Element} A React component representing the Side menu for the create tickets
 */
-
 
 import React, { useState } from 'react';
 import CSVReader from 'react-csv-reader';
@@ -98,6 +97,7 @@ export function CreatePromocode(props) {
     await createPromocode();
     props.setIsPromocodeMenuOpen(false);
     props.setIsPromoIntroOpen(false);
+    props.dataSubmitted();
   }
 
   return (

@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const PageContainer = styled.div`
   width: 100%;
   margin: 0px 5rem 5rem 5rem;
+  @media (max-width: 492px) {
+    margin: 0px 1rem 5rem 1rem;
+  }
 
   p {
     font-size: 28px;
@@ -85,6 +88,7 @@ export const PageContainer = styled.div`
         font-size: 1.4rem;
         text-decoration: none;
         padding: 1.4rem;
+
         span {
           height: 20px;
           margin-right: 5px;
@@ -335,6 +339,10 @@ export const PageContainer = styled.div`
       margin-right: 2rem;
       display: flex;
       align-items: center;
+      @media (max-width: 550px) {
+        margin-right: 1rem;
+        min-width: 100px;
+      }
       &:hover {
         border: 1px solid #b9b8bd;
       }
@@ -356,6 +364,9 @@ export const PageContainer = styled.div`
       input {
         border: none;
         height: 48px;
+        @media (max-width: 550px) {
+          width: 120px;
+        }
         &:focus {
           border: none;
           outline: none;
@@ -441,6 +452,9 @@ export const PageContainer = styled.div`
         background-color: white;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
+        @media (max-width: 700px) {
+          width: 15rem;
+        }
         ul {
           display: block;
           margin: 8px 0;
@@ -456,6 +470,10 @@ export const PageContainer = styled.div`
           font-size: 1.4rem;
           text-decoration: none;
           padding: 1.4rem;
+          @media (max-width: 700px) {
+            padding: 1rem;
+            width: 15rem;
+          }
           img {
             height: 20px;
             margin-right: 5px;

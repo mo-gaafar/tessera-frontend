@@ -15,26 +15,25 @@ export const MainTicketsDiv = styled.div`
   flex-grow: 1;
 
   .NextDiv {
-    /* width: 120.431rem; */
-    /* width: 100%; */
+    overflow: hidden;
     height: 7.6rem;
     display: flex;
     position: fixed;
     bottom: 0;
-    /* top: 0; */
     right: 0;
     left: 0;
     padding-top: 1.6rem;
     padding-bottom: 1.6rem;
     // align-self: flex-end;
-    z-index: -1;
-    margin-top: 58rem;
     border-top: 0.1rem solid hsl(250, 7%, 80%);
+    /* z-index: 5; */
   }
 
   .NextLink {
     margin-left: auto;
     margin-right: 3.2rem;
+
+    cursor: pointer;
   }
 
   .NextButton {
@@ -486,8 +485,8 @@ export const TicketCreatedDiv = styled.div`
   flex-grow: 1;
   flex-flow: row wrap;
   height: 16.8rem;
-  padding-inline: 25rem;
-
+  padding-left: 15vw;
+  padding-right: 5vw;
   // background-color:AntiqueWhite ;
   .AdmissionsDiv,
   .PromocodesDiv {
@@ -1434,7 +1433,7 @@ export const CsvPromocode = styled.div`
 export const PromocodesSavePageDiv = styled.div`
   display: flex;
   flex-flow: row wrap;
-  width: 96rem;
+  /* width: 96rem; */
   height: 16.8rem;
 
   // background-color:lightblue;
@@ -1442,16 +1441,13 @@ export const PromocodesSavePageDiv = styled.div`
 
   .ButtonsMenuDiv {
     display: flex;
-    justify-content: center;
-    align-content: center;
 
     margin-left: auto;
-    width: 40rem;
     height: 6.8rem;
     // background:RebeccaPurple ;
     z-index: 1;
     margin-top: -9rem;
-    margin-right: -6rem;
+    margin-right: 15vw;
   }
 
   .CancelButton {
@@ -1485,13 +1481,6 @@ export const PromocodesSavePageDiv = styled.div`
     margin-left: 1rem;
   }
 
-  .Header {
-    background-color: #f8f7fa;
-    width: 96.6rem;
-    height: 4.35rem;
-    border-bottom: 0.1rem solid #eeedf2;
-  }
-
   th {
     // background-color:Khaki ;
     font-weight: bold;
@@ -1499,12 +1488,24 @@ export const PromocodesSavePageDiv = styled.div`
     padding: 10px;
     height: 4rem;
     box-sizing: border-box;
-    margin-top: -3rem;
+  }
+  thead {
+    background-color: rgb(248, 247, 250);
+
+    border-bottom: 0.1rem solid rgb(238, 237, 242);
   }
 
   .TableDiv {
+    width: 50vw;
+    height: 4.35rem;
     display: flex;
     flex-flow: column;
+    tr {
+      /* display: flex;
+      gap: 2rem; */
+      :first-child {
+      }
+    }
   }
 
   table {
