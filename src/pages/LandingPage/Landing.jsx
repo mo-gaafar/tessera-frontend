@@ -147,7 +147,6 @@ export default function Landing() {
   }
   function handleClickCat(name) {
     //console.log("name")
-    console.log(name);
     setShowCategoryMenu(false);
     setSelectCategory(name);
     let new_name = name.replace(/&/g, '%26');
@@ -325,9 +324,6 @@ export default function Landing() {
    */
 
   useEffect(() => {
-    console.log(cityData);
-    console.log('url');
-    console.log(url);
     async function getData() {
       const res = await fetch(
         'https://www.tessera.social/api/attendee/Eventsby/?' + url
@@ -391,9 +387,7 @@ export default function Landing() {
       setNoEventsImg(false);
     }
 
-    const handleEventPage = id => {
-      console.log('first');
-    };
+    const handleEventPage = id => {};
 
     setEventElement(
       allFilteredEvents.map(event => (
@@ -459,7 +453,6 @@ export default function Landing() {
 
     !h3 && setShowLocationMenu(false);
   };
-  console.log(allFilteredEvents);
   return (
     <>
       <StyledNav>

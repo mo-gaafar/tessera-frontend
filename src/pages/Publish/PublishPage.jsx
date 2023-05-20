@@ -14,7 +14,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { Link, Route, Routes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Sidebar from '../../components/Sidebar';
@@ -38,7 +38,7 @@ function PublishPage() {
   const event = localStorage.getItem('eventID');
   const token = localStorage.getItem('token');
   const [EventData, setEventData] = useState({});
-
+  const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
       const result = await fetch(
@@ -54,7 +54,6 @@ function PublishPage() {
       );
       const data = await result.json();
       setEventData(data.event);
-      console.log(EventData);
     };
 
     getData();
@@ -91,7 +90,12 @@ function PublishPage() {
         body: JSON.stringify(data),
       }
     );
-    console.log(await response.json());
+
+    const responseData = await response.json();
+
+    if (responseData.success) {
+      navigate('/');
+    }
   }
 
   const totalCapacity = EventData.ticketTiers?.reduce(

@@ -79,7 +79,6 @@ const Dashboard = ({ test }) => {
         `https://www.tessera.social/api/dashboard/eventsoldtickets/events/${eventID}?allTiers=true`
       );
       const data = await result.json();
-      console.log(data);
 
       setTicketsSoldData(data);
     };
@@ -98,7 +97,6 @@ const Dashboard = ({ test }) => {
       );
       const data = await result.json();
       setEventData(data.event);
-      console.log(EventData);
       setTicketTier(() => data.event.ticketTiers.map(ticket => ticket));
     };
 
@@ -116,7 +114,6 @@ const Dashboard = ({ test }) => {
       );
       const data = await result.json();
       setTotalSales(data.totalSales);
-      console.log(data.totalSales);
     };
     getData();
     getEventData();
@@ -133,7 +130,6 @@ const Dashboard = ({ test }) => {
     }
     if (test) {
       await navigator.clipboard.writeText('https://example.com');
-      console.debug('first');
     }
   };
 
