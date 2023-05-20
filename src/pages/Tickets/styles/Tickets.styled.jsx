@@ -26,7 +26,6 @@ export const MainTicketsDiv = styled.div`
     padding-bottom: 1.6rem;
     // align-self: flex-end;
     border-top: 0.1rem solid hsl(250, 7%, 80%);
-    /* z-index: 5; */
   }
 
   .NextLink {
