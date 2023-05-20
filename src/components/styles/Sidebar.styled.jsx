@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const StyledMainSidebar = styled.div`
+  min-width: 6rem;
   padding-inline: 1.5rem;
   background-color: #f8f7fa;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   gap: 2rem;
   min-height: 100vh;
   div:first-child {
@@ -24,7 +24,11 @@ export const StyledCreateTicketSidebar = styled.div`
   border-left: 1px solid #eeedf2;
   display: flex;
   flex-direction: column;
-
+  min-width: 28rem;
+  @media (max-width: 60em) {
+    display: none;
+    min-width: unset;
+  }
   .events__page {
     color: #3d64ff;
     padding-block: 1.5rem;

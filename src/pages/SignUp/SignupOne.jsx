@@ -29,11 +29,9 @@ import {
   OtherArrow,
   SignUpPage,
   TopHeader,
-  FacebookButton,
   Divider,
   Arrowsvg,
   ArrowpathUp,
-  ArrowpathDown,
   Arrowspan,
   CircleDivider,
   DivLeft,
@@ -47,14 +45,10 @@ import {
   Upper2,
 } from './styles/SignUpEmail.styled';
 
-import { render } from 'react-dom';
-
-import SignupTwo from './SignupTwo';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useGoogleLogin } from '@react-oauth/google';
-import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
+import { FacebookProvider, LoginButton } from 'react-facebook';
 
 /**
  * @module SignupOne
@@ -68,16 +62,12 @@ import { FacebookProvider, LoginButton, useLogin } from 'react-facebook';
  */
 
 export default function SignUpOne(props) {
-  let navigate;
-  if (!props.test) {
-    navigate = useNavigate();
-  }
+  const navigate = useNavigate();
   const [focused, setFocused] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [emailerror, setEmailError] = React.useState('');
   const [user, setUser] = useState([]);
-  const [eventData, setEventData] = useState({});
-
+  const [userExists, setUserExists] = useState(false);
   useEffect(() => {
     localStorage.removeItem('authEmail');
     localStorage.removeItem('token');
@@ -112,16 +102,13 @@ export default function SignUpOne(props) {
     );
 
     const responseData = responseBackend.json();
-    console.log(responseData);
     localStorage.setItem('authEmail', email);
     localStorage.setItem('token', responseData.token);
 
     navigate('/');
   }
 
-  function handleError(error) {
-    console.log(error);
-  }
+  function handleError() {}
 
   const google = useGoogleLogin({
     onSuccess: codeResponse => setUser(codeResponse),
@@ -166,7 +153,6 @@ export default function SignUpOne(props) {
       localStorage.setItem('authEmail', email);
 
       const data = await postData.json();
-      console.log(data);
       if (data.success) {
         navigate('/');
       }
@@ -191,8 +177,7 @@ export default function SignUpOne(props) {
    * @description This function validates the email
    */
 
-  function handleValidation(event) {
-    console.log();
+  function handleValidation() {
     if (!email) {
       setEmailError('Field required');
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
@@ -214,10 +199,25 @@ export default function SignUpOne(props) {
    * @returns {void}
    * @description This function handles the submit event
    */
-  function handleSubmit(e) {
+
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    const emailExist = await fetch(
+      'https://www.tessera.social/api/auth/emailexist',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      }
+    );
+
+    const response = await emailExist.json();
+    response.success && setUserExists(true);
     if (!props.test)
-      if (!emailerror) {
+      if (!emailerror && !response.success) {
         props.setEmail(email);
         navigate('/Signuptwo');
       }
@@ -229,9 +229,39 @@ export default function SignUpOne(props) {
         <UpperPage>
           <TopHeader>
             <DivLeft>
-              {/* <EventLogo src="/images/logo.jpg" /> */}
-              <h2>Eventneers</h2>
+              <EventLogo src="/images/logo.jpg" />
               <CreateAccount>Create an account</CreateAccount>
+              {userExists && (
+                <div className="user__error">
+                  <span className="">
+                    <svg
+                      class="alert-chunky_svg__eds-icon--alert-chunky_svg"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        class="alert-chunky_svg__eds-icon--alert-chunky_base"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-14c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"
+                      />
+                      <path
+                        class="alert-chunky_svg__eds-icon--alert-chunky_dot"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M11 14h2v2h-2z"
+                      />
+                      <path
+                        class="alert-chunky_svg__eds-icon--alert-chunky_line"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M11 8h2v5h-2z"
+                      />
+                    </svg>
+                    There is an account associated with the email.
+                    <Link to="/login">Log in</Link>
+                  </span>
+                </div>
+              )}
             </DivLeft>
             <LogInDiv>
               <LogIn>

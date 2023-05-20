@@ -12,6 +12,7 @@ export default function PlacesAutocomplete({
   showLocationMenu,
   setShowLocationMenu,
   setURL,
+  currentCity,
 }) {
   const {
     ready,
@@ -28,7 +29,6 @@ export default function PlacesAutocomplete({
 
     const results = await getGeocode({ address });
     const { lat, lng } = getLatLng(results[0]);
-    console.log(results, lat, lng);
 
     const data = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
@@ -56,14 +56,25 @@ export default function PlacesAutocomplete({
       city: city,
       country: country,
     });
-    console.log(city, country);
     setURL(`city=${city}&country=${country}`);
   };
 
   function handleClick() {
+    console.log('first');
     setShowLocationMenu(true);
   }
 
+  function handleCurrent() {
+    setURL(`city=${currentCity.city}&country=${currentCity.country}`);
+    setValue(currentCity.city);
+    setShowLocationMenu(false);
+  }
+
+  function handleOnline() {
+    setURL('eventHosted=online');
+    setValue('Online');
+    setShowLocationMenu(false);
+  }
   return (
     <>
       <h3>
@@ -97,7 +108,7 @@ export default function PlacesAutocomplete({
           <ul className="location__dropdown">
             {!hideDefault && (
               <div className="">
-                <li className="current__location">
+                <li onClick={handleCurrent} className="current__location">
                   <svg viewBox="0 0 24 24">
                     <g
                       id="crosshair_svg__Crosshair"
@@ -115,7 +126,7 @@ export default function PlacesAutocomplete({
                   </svg>
                   Use My Current Location
                 </li>
-                <li className="online__location">
+                <li onClick={handleOnline} className="online__location">
                   <svg
                     id="video-chunky_svg__eds-icon--video-chunky_svg"
                     x="0"
@@ -141,6 +152,7 @@ export default function PlacesAutocomplete({
             )}
 
             {status === 'OK' &&
+              hideDefault &&
               data.map(data => {
                 {
                   /* console.log(data); */

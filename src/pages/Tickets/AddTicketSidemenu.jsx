@@ -1,3 +1,25 @@
+/**
+ * @name AddTicketSidemenu.jsx
+ * @author @MaryamMoataz
+ * @requires react
+ * @requires react-router-dom
+ * @requires './styles/Tickets.styled'
+ * @exports AddTicketSidemenu
+ * @description This file contains the Side menu for the create tickets page
+ */
+
+/**
+
+@param {Object} props - The props object containing the trigger states for the menu
+@param {string} props.event - event id
+@param {string} props.ticket - The date and time the event
+@param {string} props.isMenuOpen - trigger the sidemenu to be displayed or not
+@param {string} props.setIsMenuOpen - sets the state of the menu
+@param {string} props.eventPrsetreplaceContentAfterSaveice - to add/edit event after its saved
+@param {string} props.dataSubmitted - 
+@return {JSX.Element} A React component representing the Side menu for the create tickets
+*/
+
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
@@ -15,8 +37,8 @@ import { CreatePromocode } from './CreatePromoSidemenu';
 import axios from 'axios';
 
 export default function AddTicketSidemenu(props) {
-  const event = localStorage.getItem('eventID');
-
+  const event = props.event;
+  const token = localStorage.getItem('token');
   const [ticketType, setTicketType] = useState('paid');
   const [ticketName, setTicketName] = useState('');
   const [ticketPrice, setTicketPrice] = useState('');
@@ -88,9 +110,9 @@ export default function AddTicketSidemenu(props) {
     return str.trim() === '';
   };
 
-  useEffect(() => {
-    setError(isEmpty(ticketName));
-  }, [ticketName]);
+  // useEffect(() => {
+  //   setError(isEmpty(ticketName));
+  // }, [ticketName]);
 
   const handleInputChange = e => {
     const inputValue = e.target.value;
@@ -116,35 +138,50 @@ export default function AddTicketSidemenu(props) {
   const [ticketTiers, setTicketTiers] = useState([]);
 
   async function createTicket() {
-    const token = localStorage.getItem('token');
     const data = {
       tierName: ticketName,
       maxCapacity: parseFloat(quantity),
-      price: ticketPrice,
+      price: ticketPrice === '' ? 'Free' : ticketPrice,
       startSelling: startDate,
       endSelling: endDate,
     };
+    console.log(data);
     const url = `https://www.tessera.social/api/event-tickets/create-ticket/${event}`;
     const res = await axios.put(url, data, {
       headers: {
         'Content-Type': 'application/json',
+
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(await res.json());
+    // console.log(res);
   }
 
   async function editTicket() {
     const data = {
-      desiredTierName: ticketName,
-      ticketTiers: [props.ticket],
+      desiredTierName: props.ticket.tierName,
+      ticketTiers: [
+        {
+          tierName: ticketName,
+          maxCapacity: parseFloat(quantity),
+          price: ticketPrice,
+          startSelling: startDate,
+          endSelling: endDate,
+        },
+      ],
     };
     const url = `https://www.tessera.social/api/event-tickets/edit-ticket/${event}`;
-    const res = await axios.put(url, data);
+    const res = await axios.put(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+
+        Authorization: `Bearer ${token}`,
+      },
+    });
     // console.log(res);
   }
 
-  const handlereplaceContentAfterSaveClick = () => {
+  const handlereplaceContentAfterSaveClick = async () => {
     let error = false;
     if (ticketName === '') {
       setError(true);
@@ -153,7 +190,10 @@ export default function AddTicketSidemenu(props) {
     if (ticketPrice === '' && ticketType === 'paid') {
       setPriceError(true);
       error = true;
+    } else {
+      setPriceError(false);
     }
+
     if (quantity === '') {
       setIsError(true);
       error = true;
@@ -164,7 +204,13 @@ export default function AddTicketSidemenu(props) {
     props.setreplaceContentAfterSave(true);
     props.setIsMenuOpen(false);
     clearInputs();
-    createTicket();
+    const ticket = props.ticket;
+    if (Object.keys(ticket).length === 0) {
+      await createTicket();
+    } else {
+      await editTicket();
+    }
+    props.dataSubmitted();
   };
 
   return (
@@ -217,6 +263,7 @@ export default function AddTicketSidemenu(props) {
                     <form onSubmit={handleSubmit}>
                       <label>
                         <input
+                          title="Name"
                           className="TicketNameInputDiv"
                           type="text"
                           value={ticketName}
@@ -257,6 +304,7 @@ export default function AddTicketSidemenu(props) {
                       </span>
                     </div>
                     <input
+                      title="Quantity"
                       type="text"
                       value={quantity}
                       onChange={handleInputChange}

@@ -4,6 +4,38 @@ export const UpperPage = styled.div`
   height: 100%;
   width: 36rem;
   padding-top: 10rem;
+  .user__error {
+    margin-top: 1rem;
+    margin-bottom: -2rem;
+    height: 6rem;
+    width: 36rem;
+    box-shadow: 0 12px 32px rgba(46, 55, 77, 0.06);
+    display: flex;
+    align-items: center;
+    color: rgb(57, 54, 79);
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-left: 4px solid #d1410c;
+    position: relative;
+
+    span {
+      padding-inline: 5rem;
+      svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        position: absolute;
+        left: 1.5rem;
+        top: 1.5rem;
+      }
+      a {
+        color: #3659e3;
+        padding: 2px;
+        :hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
   .google {
     margin-top: 2rem;
     width: 36rem;

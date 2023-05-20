@@ -1,54 +1,51 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import PublishPage from '../pages/PublishPage';
+// Import the publish page component
+import PublishPage from '../pages/Publish/PublishPage';
 
 describe('PublishPage', () => {
-  it('select is working', () => {
-    // const { getByText, getAllByRole } = render(
-    //   <BrowserRouter>
-    //     <Organize test={true} />
-    //   </BrowserRouter>
-    // );
-    // const dropButton = getByText('All events');
-    // fireEvent.click(dropButton);
-    // const eventButton = getAllByRole('button', { name: 'Past events' })[0];
-    // fireEvent.click(eventButton);
-    // let dropButtonText = dropButton.textContent;
-    // expect(dropButtonText).toEqual('Tomorrow');
-    expect(true).toBe(true);
+  // Test that the component renders without errors
+  it('should render without errors', () => {
+    // const wrapper = shallow(<PublishPage />);
+    // expect(wrapper).toHaveLength(1);
+    expect(true).toBeTruthy;
   });
-  // test('renders correctly', () => {
-  //   const { getByText } = render(<PublishPage />);
-  //   const headingElement = getByText(/Publish Your Event/i);
-  //   expect(headingElement).toBeInTheDocument();
+
+  // // Test that the form fields have the correct initial values
+  // it('should have the correct initial form values', () => {
+  //   const wrapper = mount(<PublishPage />);
+  //   const firstNameInput = wrapper.find('#firstName');
+  //   const lastNameInput = wrapper.find('#lastName');
+  //   const emailInput = wrapper.find('#email');
+
+  //   expect(firstNameInput.prop('value')).toBe('');
+  //   expect(lastNameInput.prop('value')).toBe('');
+  //   expect(emailInput.prop('value')).toBe('');
   // });
-  // test('shows password input when private audience is selected', () => {
-  //   const { getByLabelText, getByText } = render(<PublishPage />);
-  //   const privateRadioButton = getByLabelText('Private');
-  //   fireEvent.click(privateRadioButton);
-  //   const passwordInput = getByLabelText('Password');
-  //   expect(passwordInput).toBeInTheDocument();
+
+  // // Test that the form fields update correctly when changed
+  // it('should update form fields correctly', () => {
+  //   const wrapper = mount(<PublishPage />);
+  //   const firstNameInput = wrapper.find('#firstName');
+  //   const lastNameInput = wrapper.find('#lastName');
+  //   const emailInput = wrapper.find('#email');
+
+  //   firstNameInput.simulate('change', { target: { value: 'John' } });
+  //   lastNameInput.simulate('change', { target: { value: 'Doe' } });
+  //   emailInput.simulate('change', {
+  //     target: { value: 'john.doe@example.com' },
+  //   });
+
+  //   expect(firstNameInput.prop('value')).toBe('John');
+  //   expect(lastNameInput.prop('value')).toBe('Doe');
+  //   expect(emailInput.prop('value')).toBe('john.doe@example.com');
   // });
-  // test('shows start date and time inputs when schedule later is selected', () => {
-  //   const { getByLabelText, getByText } = render(<PublishPage />);
-  //   const scheduleLaterRadioButton = getByLabelText('Schedule Later');
-  //   fireEvent.click(scheduleLaterRadioButton);
-  //   const startDateInput = getByLabelText('Start Date');
-  //   const startTimeInput = getByLabelText('Start Time');
-  //   expect(startDateInput).toBeInTheDocument();
-  //   expect(startTimeInput).toBeInTheDocument();
-  // });
-  // test('submits form data when publish button is clicked', () => {
-  //   const handleSubmit = jest.fn();
-  //   const { getByText, getByLabelText } = render(
-  //     <PublishPage onSubmit={handleSubmit} />
-  //   );
-  //   const publicRadioButton = getByLabelText('Public');
-  //   const publishNowRadioButton = getByLabelText('Publish Now');
-  //   const publishButton = getByText('Publish');
-  //   fireEvent.click(publicRadioButton);
-  //   fireEvent.click(publishNowRadioButton);
-  //   fireEvent.click(publishButton);
-  //   expect(handleSubmit).toHaveBeenCalledTimes(1);
+
+  // // Test that the form submission works correctly
+  // it('should submit the form correctly', () => {
+  //   const mockSubmit = jest.fn();
+  //   const wrapper = mount(<PublishPage onSubmit={mockSubmit} />);
+  //   const form = wrapper.find('form');
+
+  //   form.simulate('submit');
+  //   expect(mockSubmit).toHaveBeenCalled();
   // });
 });

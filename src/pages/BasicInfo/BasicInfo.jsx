@@ -9,7 +9,6 @@ import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
 import PlacesAutocompleteCreators from './PlacesAutocompleteCreators';
-import Details from './BasicInfoSecondPage';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 export default function BasicInfo() {
@@ -51,14 +50,12 @@ export default function BasicInfo() {
   const [shownone, setShowNone] = useState(false);
   const [showsingle, setShowSingle] = useState(true);
   const [showrecurring, setShowRecurring] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedEndDate, setSelectedEndDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
-  const [showMap, setShowMap] = React.useState(false);
   const [timezones, setTimezones] = useState([]);
   const [locationData, setLocationData] = useState({});
   const [selectedValue, setSelectedValue] = useState('');
-  const [venueinputerror, setVenueInputError] = React.useState('');
   const [countries, setCountries] = useState([]);
 
   const API_KEY = '2MJLSMGOES8V';
@@ -96,24 +93,14 @@ export default function BasicInfo() {
     if (!value) {
       setInputError('Title is required');
     }
-    // if(!locationvalue){
-    //   setLocationInputError('Location is required');
-    // }
-    if (!venuevalue) {
-      setVenueInputError('Venue name is required');
-    }
     if (!addressvalue) {
       setAddressInputError('Address 1 is required');
     }
     if (!cityvalue) {
       setCityInputError('City is required');
     }
-    if (!postalcodevalue) {
-      setPostalCodeInputError('ZIP code is required');
-    }
-    console.log(inputerror);
     if (
-      (!inputerror &&
+      (!!value &&
         !locationinputerror &&
         !addressinputerror &&
         !postalcodeinputerror &&
@@ -126,7 +113,6 @@ export default function BasicInfo() {
 
   function clickNext() {
     handleValidation();
-    // console.log(inputerror);
     if (
       (!inputerror &&
         !locationinputerror &&
@@ -135,7 +121,6 @@ export default function BasicInfo() {
         !cityinputerror) ||
       (!inputerror && showonline)
     ) {
-      console.log(locationData);
       setResponseBody(() => {
         return {
           basicInfo: {
@@ -161,14 +146,17 @@ export default function BasicInfo() {
           onlineEventUrl: onlineValue,
         };
       });
-
-      console.log(responseBody);
-      console.log(err);
-      if (err) {
-        navigate('/details', { state: responseBody });
-      }
     }
   }
+
+  useEffect(() => {
+    console.log(responseBody);
+    console.log(err);
+    if (err) {
+      navigate('/details', { state: responseBody });
+    }
+  }, [responseBody, err]);
+
   //checks if the time in the calendar has already passed
   function getDayClassName(date) {
     const today = new Date();
@@ -381,7 +369,12 @@ export default function BasicInfo() {
         )}
       </StyledNav>
       <WholePage style={{ display: 'flex' }}>
-        <Sidebar className="sidebar" event={true} basicInfo={true} />
+        <Sidebar
+          className="sidebar"
+          event={true}
+          basicInfo={true}
+          hide={true}
+        />
 
         <div className="wholepage">
           <main className="main">
@@ -538,14 +531,14 @@ export default function BasicInfo() {
                                     </option>
                                     <option
                                       className="dropdownoption"
-                                      value="Auto, Boat & Air"
+                                      value="Boat & Air"
                                       data-spec="select-option"
                                     >
                                       Boat & Air
                                     </option>
                                     <option
                                       className="dropdownoption"
-                                      value="Business & Professional"
+                                      value="Business & Profession"
                                       data-spec="select-option"
                                     >
                                       Business & Profession
@@ -664,7 +657,7 @@ export default function BasicInfo() {
                                     </option>
                                     <option
                                       className="dropdownoption"
-                                      value="Seasonal & Holiday"
+                                      value="Seasonal Holiday"
                                       data-spec="select-option"
                                     >
                                       Seasonal Holiday
@@ -1241,65 +1234,27 @@ export default function BasicInfo() {
                                   className="dateandtimeboxes"
                                   style={{ marginBottom: '8px' }}
                                 >
-                                  <div className="boxesborders">
-                                    <div className="divflex">
-                                      <span className="searchcalendarspan">
-                                        <i className="smallI">
-                                          <svg
-                                            className="smallSvg"
-                                            x="0"
-                                            y="0"
-                                            viewBox="0 0 24 24"
-                                            xmlSpace="preserve"
-                                          >
-                                            <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
-                                          </svg>
-                                        </i>
-                                      </span>
-                                      <div className="divflex2">
-                                        <div
-                                          className="placeholder"
-                                          style={{ padding: '2px 12px 0' }}
-                                        >
-                                          <label className="label">
-                                            <span>Event Starts</span>
-                                          </label>
-                                        </div>
-                                        {/* <label htmlFor="date-select">Select a date:</label> */}
-                                        <input
-                                          data-testid="datepicker-container"
-                                          style={{ height: '46px' }}
-                                          value={
-                                            selectedDate
-                                              ? selectedDate.toLocaleDateString()
-                                              : ''
-                                          }
-                                          onClick={() =>
-                                            setShowCalendar(!showCalendar)
-                                          }
-                                          className="calendarinput"
-                                          role="textbox"
-                                        />
-                                        {showCalendar && (
-                                          <div
-                                            style={{ position: 'relative' }}
-                                            data-testid="datepicker-container"
-                                          >
-                                            <DatePicker
-                                              data-testid="datepicker-container"
-                                              selected={selectedDate}
-                                              className="custom-datepicker"
-                                              calendarClassName="custom-calendar"
-                                              dayClassName={getDayClassName}
-                                              onChange={date => {
-                                                setSelectedDate(date);
-                                                setShowCalendar(false);
-                                              }}
-                                            />
-                                          </div>
-                                        )}
-                                      </div>
-                                    </div>
+                                  <div className="divflex">
+                                    <svg
+                                      className="smallSvg"
+                                      x="0"
+                                      y="0"
+                                      viewBox="0 0 24 24"
+                                      xmlSpace="preserve"
+                                    >
+                                      <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
+                                    </svg>
+                                    <DatePicker
+                                      data-testid="datepicker-container"
+                                      selected={selectedDate}
+                                      className="custom-datepicker"
+                                      calendarClassName="custom-calendar"
+                                      dayClassName={getDayClassName}
+                                      onChange={date => {
+                                        setSelectedDate(date);
+                                        setShowCalendar(false);
+                                      }}
+                                    />
                                   </div>
                                 </div>
                                 <div
@@ -1363,68 +1318,31 @@ export default function BasicInfo() {
                                 className="addressbox"
                                 style={{ marginTop: '0' }}
                               >
-                                <div className="dateandtimeboxes">
-                                  <div style={{ marginBottom: '8px' }}>
-                                    <div className="boxesborders">
-                                      <div className="divflex">
-                                        <span className="searchcalendarspan">
-                                          <i className="smallI">
-                                            <svg
-                                              className="smallSvg"
-                                              x="0"
-                                              y="0"
-                                              viewBox="0 0 24 24"
-                                              xmlSpace="preserve"
-                                            >
-                                              <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
-                                            </svg>
-                                          </i>
-                                        </span>
-                                        <div className="divflex2">
-                                          <div
-                                            className="placeholder"
-                                            style={{
-                                              padding: '2px 12px 0',
-                                            }}
-                                          >
-                                            <label className="label">
-                                              <span>Event Ends</span>
-                                            </label>
-                                          </div>
-                                          <input
-                                            style={{ height: '46px' }}
-                                            value={
-                                              selectedEndDate
-                                                ? selectedEndDate.toLocaleDateString()
-                                                : ''
-                                            }
-                                            onClick={() =>
-                                              setShowCalendar(!showCalendar)
-                                            }
-                                            className="calendarinput"
-                                            role="textbox"
-                                          />
-                                          {showCalendar && (
-                                            <div
-                                              style={{
-                                                position: 'relative',
-                                              }}
-                                            >
-                                              <DatePicker
-                                                className="custom-datepicker"
-                                                calendarClassName="custom-calendar"
-                                                selected={selectedEndDate}
-                                                onChange={date => {
-                                                  setSelectedEndDate(date);
-                                                  setShowCalendar(false);
-                                                }}
-                                              />
-                                              {/* <label htmlFor="date-select" style={{paddingTop: '-10px'}}>Select a date:</label> */}
-                                            </div>
-                                          )}
-                                        </div>
-                                      </div>
-                                    </div>
+                                <div
+                                  className="dateandtimeboxes"
+                                  style={{ marginBottom: '8px' }}
+                                >
+                                  <div className="divflex">
+                                    <svg
+                                      className="smallSvg"
+                                      x="0"
+                                      y="0"
+                                      viewBox="0 0 24 24"
+                                      xmlSpace="preserve"
+                                    >
+                                      <path d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"></path>
+                                    </svg>
+                                    <DatePicker
+                                      data-testid="datepicker-container"
+                                      selected={selectedDate}
+                                      className="custom-datepicker"
+                                      calendarClassName="custom-calendar"
+                                      dayClassName={getDayClassName}
+                                      onChange={date => {
+                                        setSelectedDate(date);
+                                        setShowCalendar(false);
+                                      }}
+                                    />
                                   </div>
                                 </div>
                                 <div
@@ -1696,9 +1614,6 @@ export default function BasicInfo() {
         <div className="fixeddiv">
           <div className="fixedinnerdiv">
             <div className="fixedbuttondiv">
-              <button className="usedbutton" style={{ marginRight: '16px' }}>
-                Discard
-              </button>
               <button
                 className="usedbutton"
                 style={saveButtonStyle}

@@ -1,3 +1,23 @@
+/**
+ *
+ * @name Tickets.jsx
+ * @author @MaryamMoataz
+ * @requires react
+ * @requires react-router-dom
+ * @requires CreatePromocode
+ * @requires AddTicketSidemenu
+ * @requires ImportPromocode
+ * @requires Sidebar
+ * @requires StyledNav
+ * @requires NavbarLoggedIn
+ * @requires Navbar
+ * @requires './styles/Tickets.styled'
+ * @exports CreateTickets
+ * @description This file contains the Tickets(no tickets created), Tickets(when there is a ticket or more created),
+ * Promocodes(no promocodes created), Promocodes(when there is a promocode or more created) pages.
+ *
+ */
+
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
@@ -21,6 +41,9 @@ import { ImportPromocode } from './ImportPromoSidemenu';
 import axios from 'axios';
 
 export default function CreateTickets() {
+  const event = localStorage.getItem('eventID');
+  const token = localStorage.getItem('token');
+
   const [replaceContentAfterSave, setreplaceContentAfterSave] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [ShowAmissionsPage, setShowAmissionsPage] = useState(true);
@@ -30,11 +53,34 @@ export default function CreateTickets() {
   const [isImportPromoMenuOpen, setIsImportPromoMenuOpen] = useState(false);
   const [isPromoIntroOpen, setIsPromoIntroOpen] = useState(true);
 
+  const [isDataSubmitted, setIsDataSubmitted] = useState(0);
+  const [isPromoDataSubmitted, setIsPromoDataSubmitted] = useState(0);
+
   const [selectedTicket, setSelectedTicket] = useState({});
   const [ticketTiers, setTicketTiers] = useState([]);
+  const [promoCodes, setPromoCodes] = useState([]);
+  const [data, setData] = useState([
+    {
+      code: 'A',
+      discount: 'C',
+      remainingUses: 'D',
+      status: 'E',
+    },
+  ]);
+  // useEffect(() => {
+  //   async function getTicketsTier() {
+  //     const url = `https://www.tessera.social/api/event-tickets/retrieve-event-ticket-tier/${event}`;
+  //     const res = await axios.get(url);
+  //     setTicketTiers(res['data']['ticketTiers']);
+  //     if (res['data']['ticketTiers'].length > 0) {
+  //       setreplaceContentAfterSave(true);
+  //     }
+  //     console.log(res['data']['ticketTiers']);
+  //   }
+  //   getTicketsTier();
+  // }, []);
 
   useEffect(() => {
-    const event = localStorage.getItem('eventID');
     async function getTicketsTier() {
       const url = `https://www.tessera.social/api/event-tickets/retrieve-event-ticket-tier/${event}`;
       const res = await axios.get(url);
@@ -45,62 +91,33 @@ export default function CreateTickets() {
       console.log(res['data']['ticketTiers']);
     }
     getTicketsTier();
-  }, []);
+  }, [isDataSubmitted]);
+
+  useEffect(() => {
+    async function getTicketsTier() {
+      const url = `https://www.tessera.social/api/manage/events/${event}/promocode/retrieve`;
+      const res = await axios.get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setPromoCodes(res['data']['promocodes']);
+      setData(res['data']['promocodes']);
+      if (res['data']['promocodes'].length > 0) {
+        setIsPromoIntroOpen(false);
+      }
+      console.log(res['data']['promocodes']);
+    }
+    getTicketsTier();
+  }, [isPromoDataSubmitted]);
 
   function closeAllMenus() {
     setIsCreatePromoMenuOpen(false);
     setIsImportPromoMenuOpen(false);
     setIsMenuOpen(false);
   }
-  /*
-      {
-      "tierName": "Regular",
-      "quantitySold": 1,
-      "maxCapacity": 100,
-      "price": "20",
-      "percentageSold": 1,
-      "startSelling": "2023-04-14T00:00:00.000Z",
-      "endSelling": "2023-05-01T14:30:00.000Z"
-    },
-  */
 
-  const [data, setData] = useState([
-    {
-      NameColumn1: 'A',
-      CodeTypeColumn2: 'B',
-      DiscountColumn3: 'C',
-      UsesColumn4: 'D',
-      StatusColumn5: 'E',
-    },
-    {
-      NameColumn1: 'F',
-      CodeTypeColumn2: 'G',
-      DiscountColumn3: 'H',
-      UsesColumn4: 'I',
-      StatusColumn5: 'J',
-    },
-    {
-      NameColumn1: 'K',
-      CodeTypeColumn2: 'L',
-      DiscountColumn3: 'M',
-      UsesColumn4: 'N',
-      StatusColumn5: 'O',
-    },
-    {
-      NameColumn1: 'P',
-      CodeTypeColumn2: 'Q',
-      DiscountColumn3: 'R',
-      UsesColumn4: 'S',
-      StatusColumn5: 'T',
-    },
-    {
-      NameColumn1: 'U',
-      CodeTypeColumn2: 'V',
-      DiscountColumn3: 'W',
-      UsesColumn4: 'X',
-      StatusColumn5: 'Y',
-    },
-  ]);
   const getMaxRowLength = columnName => {
     return data.reduce((max, row) => {
       const value = row[columnName].toString().length;
@@ -115,6 +132,7 @@ export default function CreateTickets() {
   const email = localStorage.getItem('email')
     ? localStorage.getItem('email')
     : localStorage.getItem('authEmail');
+
   const convertTime = Iso => {
     const date = new Date(Iso);
     const dateString = date.toLocaleDateString('en-US', {
@@ -130,6 +148,7 @@ export default function CreateTickets() {
     const formattedDate = `${dateString} at ${timeString}`;
     return formattedDate;
   };
+
   return (
     <>
       <StyledNav>
@@ -139,12 +158,13 @@ export default function CreateTickets() {
           <Navbar />
         )}
       </StyledNav>
-      <div style={{ display: 'flex' }}>
-        <Sidebar event={true} />
+      <div data-testid="createTickets" style={{ display: 'flex' }}>
+        <Sidebar event={false} />
+
         <MainTicketsDiv>
           {replaceContentAfterSave && (
             <TicketCreatedDiv>
-              <h1>Tickets</h1>
+              <h1 data-testid="ticket-title">Tickets</h1>
 
               <div className="TicketsTabsDiv">
                 <button
@@ -217,10 +237,8 @@ export default function CreateTickets() {
                             </div>
 
                             <div className="SoldTickets">
-                              {ticketTier.quantitySold
-                                ? ticketTier.quantitySold
-                                : 0}
-                              /{ticketTier.maxCapacity}
+                              {ticketTier.quantitySold} /
+                              {ticketTier.maxCapacity}
                             </div>
 
                             <div className="TicketTier">
@@ -340,57 +358,19 @@ export default function CreateTickets() {
                         <table>
                           <thead>
                             <tr>
-                              <th
-                                style={{ width: getColumnWidth('NameColumn1') }}
-                              >
-                                Name
-                              </th>
-                              <th
-                                style={{
-                                  width: getColumnWidth('CodeTypeColumn2'),
-                                }}
-                              >
-                                Code type
-                              </th>
-                              <th
-                                style={{
-                                  width: getColumnWidth('DiscountColumn3'),
-                                }}
-                              >
-                                Discount
-                              </th>
-                              <th
-                                style={{ width: getColumnWidth('UsesColumn4') }}
-                              >
-                                Uses
-                              </th>
-                              <th
-                                style={{
-                                  width: getColumnWidth('StatusColumn5'),
-                                }}
-                              >
-                                Status
-                              </th>
+                              <th>Name</th>
+                              <th>Discount</th>
+                              <th>Uses</th>
+                              <th>Status</th>
                             </tr>
                           </thead>
                           <tbody>
                             {data.map((row, index) => (
                               <tr key={index}>
-                                <td className="NameColumn1">
-                                  {row.NameColumn1}
-                                </td>
-                                <td className="CodeTypeColumn2">
-                                  {row.CodeTypeColumn2}
-                                </td>
-                                <td className="DiscountColumn3">
-                                  {row.DiscountColumn3}
-                                </td>
-                                <td className="UsesColumn4">
-                                  {row.UsesColumn4}
-                                </td>
-                                <td className="StatusColumn5">
-                                  {row.StatusColumn5}
-                                </td>
+                                <td>{row.code}</td>
+                                <td>{row.discount}</td>
+                                <td>{row.remainingUses}</td>
+                                <td>{row.status}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -450,14 +430,14 @@ export default function CreateTickets() {
                   </span>
                 </div>
                 <div className="LetsCreateTextDiv">Let's create tickets</div>
-                <div className="CreateTicketsInfoDiv">
+                {/* <div className="CreateTicketsInfoDiv">
                   Create a section if you want to sell multiple ticket types
                   that share the same inventory. i.e. Floor, Mezzanine.
-                </div>
+                </div> */}
                 <div className="CreateTicketsButtonsDiv">
-                  <button className="CreateSectionButton">
+                  {/* <button className="CreateSectionButton">
                     Create a section
-                  </button>
+                  </button> */}
                   <button
                     className="AddTicketsButton"
                     onClick={() => {
@@ -477,6 +457,7 @@ export default function CreateTickets() {
             isMenuOpen={isMenuOpen}
             setIsMenuOpen={setIsMenuOpen}
             setreplaceContentAfterSave={setreplaceContentAfterSave}
+            dataSubmitted={() => setIsDataSubmitted(isDataSubmitted + 1)}
           />
 
           <CreatePromocode
@@ -484,6 +465,9 @@ export default function CreateTickets() {
             isPromocodeMenuOpen={isCreatePromoMenuOpen}
             setIsPromocodeMenuOpen={setIsCreatePromoMenuOpen}
             setIsPromoIntroOpen={setIsPromoIntroOpen}
+            dataSubmitted={() =>
+              setIsPromoDataSubmitted(isPromoDataSubmitted + 1)
+            }
           />
 
           <ImportPromocode
@@ -493,6 +477,12 @@ export default function CreateTickets() {
             setIsPromocodeMenuOpen={setIsCreatePromoMenuOpen}
             setIsPromoIntroOpen={setIsPromoIntroOpen}
           />
+
+          <div className="NextDiv">
+            <Link className="NextLink" to="/publish">
+              <button className="NextButton">Next</button>
+            </Link>
+          </div>
         </MainTicketsDiv>
       </div>
     </>

@@ -8,8 +8,8 @@ export const StyleDiv = styled.div`
     height: 100%;
     overflow: hidden;
     position: relative;
-    width: 100%;
-    padding-inline: 15rem;
+    width: 80%;
+    padding-inline: 20rem;
     margin-right: 20px;
   }
 

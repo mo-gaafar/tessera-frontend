@@ -3,11 +3,10 @@ import styled from 'styled-components';
 export const StyledNav = styled.div`
   nav {
     border-bottom: 1px solid #eeedf2;
-
+    padding-inline: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-inline: 5rem;
     position: relative;
     padding-right: 2rem;
     .menu {
@@ -97,10 +96,13 @@ export const StyledLandingEvents = styled.section`
     ::placeholder {
       color: #3659e3;
     }
+    @media (max-width: 608px) {
+      width: 50%;
+    }
   }
   .location__dropdown {
-    top: 3.5rem;
-    left: 15rem;
+    top: 3.2rem;
+    left: 17rem;
     color: #39364f;
     background-color: #fff;
     display: flex;
@@ -122,6 +124,9 @@ export const StyledLandingEvents = styled.section`
       padding-top: 2rem;
       padding-bottom: 2rem;
       width: 40rem;
+      @media (max-width: 620px) {
+        width: 50vw;
+      }
       :hover {
         background-color: #f8f7fa;
       }
@@ -308,10 +313,18 @@ export const StyledLandingEvents = styled.section`
 
 export const StyledEventsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  grid-template-columns: ${props =>
+    props.gridItems === 1
+      ? `repeat(auto-fit, 26rem)`
+      : props.gridItems === 2
+      ? `repeat(auto-fit, 26rem)`
+      : props.gridItems === 3
+      ? `repeat(auto-fit, 26rem)`
+      : `repeat(auto-fit, minmax(26rem, 1fr))`};
   gap: 2rem;
   margin-bottom: 2rem;
-  .grid__2 {
+  @media (max-width: 617px) {
+    grid-template-columns: 1fr;
   }
   .error-img {
     display: flex;
@@ -331,7 +344,7 @@ export const StyledEventsContainer = styled.div`
     padding-bottom: 2rem;
     margin-top: 2rem;
     @media (min-width: 70em) {
-      max-width: 33rem;
+      max-width: 30 rem;
     }
     & > * {
       padding-inline: 2rem;
@@ -373,44 +386,42 @@ export const StyledEventsContainer = styled.div`
 `;
 export const StyledCategoriesContainer = styled.div`
   margin: 2rem 0px 2rem 0rem;
-  
-  
-svg{
-  width: 24px;
-  height: 24px;
-}
-p{
-  padding-left:2rem;
-}
-.tile-group{
-  display: grid;
-  grid-template-columns: repeat(4,1.2fr);
-  grid-column-gap: 12px;
-  grid-row-gap: 12px;
-  @media (max-width: 792px){
-    grid-template-columns: repeat(2,1.2fr);
+
+  svg {
+    width: 24px;
+    height: 24px;
   }
-  
-}
-.tile{
-  cursor:pointer;
-  padding-left:2rem;
-  background-color:#f8f7fa;
-  display: inline-flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  flex-direction: row;
-  color: #39364f;
-  text-decoration: none;
-  height: 54px;
-  padding:0px;
-  border: 1px solid #eeedf2;
-  border-radius: 2px;
-  text-align:center;
-  align-items: center;
-  width: 100%;
-  @media (max-width: 792px){
-    grid-template-columns: repeat(2,1.2fr);
+  p {
+    padding-left: 2rem;
   }
-}
-`
+  .tile-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1.2fr);
+    grid-column-gap: 12px;
+    grid-row-gap: 12px;
+    @media (max-width: 792px) {
+      grid-template-columns: repeat(2, 1.2fr);
+    }
+  }
+  .tile {
+    cursor: pointer;
+    padding-left: 2rem;
+    background-color: #f8f7fa;
+    display: inline-flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    color: #39364f;
+    text-decoration: none;
+    height: 54px;
+    padding: 0px;
+    border: 1px solid #eeedf2;
+    border-radius: 2px;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    @media (max-width: 792px) {
+      grid-template-columns: repeat(2, 1.2fr);
+    }
+  }
+`;

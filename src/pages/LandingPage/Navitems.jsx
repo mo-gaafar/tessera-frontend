@@ -8,15 +8,9 @@ export const navItemsLanding = [
     cName: 'navLanding',
   },
   {
-    id: 'helpId',
-    title: 'Help',
-    path: ',/Help',
-    cName: 'navLanding',
-  },
-  {
     id: 'createEventId',
     title: 'Create An event',
-    path: ',/Create',
+    path: '/Organize',
     cName: 'navLanding',
   },
   {
@@ -37,25 +31,7 @@ export const organizeDropdown = [
   {
     id: 'orgCreateEventsId',
     title: 'Create Events',
-    path: ',/createevents',
-    cName: 'organizeSubmenu',
-  },
-  {
-    id: 'orgPricingId',
-    title: 'Pricing',
-    path: ',/pricing',
-    cName: 'organizeSubmenu',
-  },
-  {
-    id: 'orgResourcesId',
-    title: 'Resources',
-    path: ',/resources',
-    cName: 'organizeSubmenu',
-  },
-  {
-    id: 'orgContactSalesId',
-    title: 'Contact Sales',
-    path: ',/contactsales',
+    path: '/Organize',
     cName: 'organizeSubmenu',
   },
 ];

@@ -16,14 +16,12 @@
  */
 
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { styled } from '@mui/material/styles';
-import CheckoutForm from '../CheckoutForm';
+
 import {
   ContainerBox,
   TicketBody,
@@ -31,12 +29,6 @@ import {
   TicketEnd,
   Checkout,
   PromoCode,
-  SelectTicket,
-  SelectTickContainer,
-  SelectTickName,
-  IncrementDecrement,
-  SelectTickBottomContainer,
-  BottomContainerHead,
   Apply,
   Applyfocus,
 } from './Ticket.styled';
@@ -55,33 +47,35 @@ import TierBox from './TierBox';
  *
  */
 export default function Reservation({
-  number,
   setShowCheckout,
-  showCheckout,
+  setDiscount,
+  empty,
   changePromo,
-  liftCheckoutInfo,
-  setliftCheckoutInfo,
+  ticketsTierdetails,
+  setTicketTierdetails,
+  checkoutInfo,
+  setCheckoutInfo,
   setEmpty,
-  total,
 }) {
   const eventID = useParams().eventID;
   const [tickets, setTickets] = useState(true);
-  const [eventInfo, seEventInfo] = useState([]);
   const [promocode, setPromocode] = useState(false);
-  const [max, setMax] = useState(false);
-  const [max2, setMax2] = useState(0);
-  const [subtotal, setSubtotal] = useState(0.0);
-  const [fee, setFee] = useState(0.0);
-
   const [inputValue, setInputValue] = useState('');
-  const [ticketsNum, setTicketsNum] = useState(0);
   const [errorMsg, setErrorMsg] = useState(false);
   const [helper, setHelper] = useState('');
   const [eventData, setEventData] = React.useState({});
   const [eventExist, setEventExists] = React.useState(false);
-  const [ticketsTierdetails, setTicketTierdetails] = useState([]);
-  const [summaryInter, setSummaryInter] = useState([]);
-  const [setting, setSetting] = useState('');
+
+  const formatNumber = number => {
+    const decimalFormattedNumber = Number.parseFloat(number).toFixed(2);
+
+    const parts = decimalFormattedNumber.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const formattedNumber = parts.join('.');
+
+    return formattedNumber;
+  };
+
   /**
    *
    *description: this function is the sendPromo function and returns the promo code validity
@@ -91,20 +85,19 @@ export default function Reservation({
   async function sendPromo(inputpromo) {
     try {
       const response = await fetch(
-        'https://www.tessera.social/api/attendee/ticket/643aa02d4d2e42199562be5f/promocode/retrieve?=' +
-          inputpromo
+        `https://www.tessera.social/api/attendee/ticket/645de6017f1184642553eb26/promocode/retrieve?code=${inputpromo}`
       );
       const prom = await response.json();
+
       prom.success ? setPromocode(true) : setPromocode(false);
-    } catch (error) {
-      console.log(error);
-    }
-    console.log('ent btetnady');
-    promocode
-      ? setHelper('Promo code is valid')
-      : setHelper('Promo code is invalid');
-    promocode ? setErrorMsg(false) : setErrorMsg(true);
-    changePromo(inputpromo);
+      prom.success ? setDiscount(prom.discout) : setDiscount(1);
+
+      prom.success
+        ? setHelper('Promo code is valid')
+        : setHelper('Promo code is invalid');
+      prom.success ? setErrorMsg(false) : setErrorMsg(true);
+      changePromo(inputpromo);
+    } catch (error) {}
   }
   /**
    * description: this function is the useEffect function and returns the event data
@@ -114,31 +107,21 @@ export default function Reservation({
     const fetchData = async () => {
       const response = await fetch(
         `https://www.tessera.social/api/attendee/event/${eventID}`
-      ); //temp (the original one crashed)
-      //const response = await fetch('https://www.tessera.social/api/attendee/event/{props.id}'); (the original one)
-      //console.log(await response.json())
+      );
       const event = await response.json();
-      //console.log((event.filteredEvents)[0])
       setEventData(event);
-      event.filteredEvents[0]
-        ? console.log(event.filteredEvents[0])
-        : setEventExists(false);
+      !event.filteredEvents[0] && setEventExists(false);
       event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
-      console.log("hooooo")
-        console.log(event.filteredEvents[0])
-      let tempArray = new Array(event.filteredEvents[0].ticketTiers.length)
-        .fill()
-        .map((element, index) => ({
-          tierName: event.filteredEvents[0].ticketTiers[index].tierName,
-          numberOfTicketsSold:event.filteredEvents[0].ticketTiers[index].maxCapacity-10,
-          maxCapacity: event.filteredEvents[0].ticketTiers[index].maxCapacity,
-          price: event.filteredEvents[0].ticketTiers[index].price,
-          discountpercent: 0,
-          discountamount: 0,
-          discount: false,
-          ticketCount: 0,
-          id: event.filteredEvents[0].ticketTiers[index]._id,
-        }));
+      console.log(event.filteredEvents[0]?.ticketTiers);
+      const tempArray = event.filteredEvents[0]?.ticketTiers.map(tier => ({
+        tierName: tier.tierName,
+        numberOfTicketsSold: tier.quantitySold,
+        maxCapacity: tier.maxCapacity,
+        price: tier.price,
+        ticketCount: 0,
+        endSelling: tier.endSelling,
+        id: tier._id,
+      }));
       setTicketTierdetails(tempArray);
     };
     fetchData();
@@ -183,13 +166,20 @@ export default function Reservation({
   };
 
   function handleOnclick() {
-    setShowCheckout(prevState => {
-      return true;
-    });
+    if (!empty) return;
+
+    setCheckoutInfo(() =>
+      ticketsTierdetails.map(ticket => {
+        return {
+          tierName: ticket.tierName,
+          quantity: ticket.ticketCount,
+          price: ticket.price,
+        };
+      })
+    );
+    setShowCheckout(true);
   }
-  const updateLiftCheckoutInfo = newLiftCheckoutInfo => {
-    setliftCheckoutInfo(newLiftCheckoutInfo);
-  };
+
   return (
     <>
       {tickets != false && eventExist && (
@@ -203,7 +193,7 @@ export default function Reservation({
             <div className="Setting">
               {' '}
               {convertUtcToLocalTime(
-                eventData.filteredEvents[0].basicInfo.eventName
+                eventData.filteredEvents[0].basicInfo.startDateTime
               )}
             </div>
           </TicketHeader>
@@ -233,10 +223,19 @@ export default function Reservation({
                         </Apply>
                       ) : (
                         <Applyfocus
-                          onClick={() => sendPromo(inputValue)}
+                          onClick={() => {
+                            if (promocode) {
+                              setPromocode(false);
+                              setHelper('');
+                              setInputValue('');
+                              setErrorMsg(false);
+                              setDiscount(1);
+                            } else {
+                              sendPromo(inputValue);
+                            }
+                          }}
                           disabled={!promocode ? !inputValue : false}
                         >
-                          {console.log(inputValue)}
                           {!promocode ? 'Apply' : 'Remove'}
                         </Applyfocus>
                       )}
@@ -250,16 +249,12 @@ export default function Reservation({
             {ticketsTierdetails.map((element, index) => {
               return (
                 <TierBox
-                  number={number}
+                  ticketsTierdetails={ticketsTierdetails}
+                  setTicketTierdetails={setTicketTierdetails}
                   key={index}
                   element={element}
                   index={index}
-                  setTicketTierdetails={setTicketTierdetails}
-                  ticketsTierdetails={ticketsTierdetails}
-                  summary={liftCheckoutInfo}
-                  setSummary={updateLiftCheckoutInfo}
                   setEmpty={setEmpty}
-                  total={total}
                 ></TierBox>
               );
             })}
@@ -276,9 +271,19 @@ export default function Reservation({
             </TicketEnd>
           </TicketBody>
           <Checkout>
-            {' '}
-            <div className="summarycontainer">50</div>
+            {/* <div className="summarycontainer">50</div> */}
             <div className="checkoutbtndiv">
+              <p className="total">
+                $
+                {formatNumber(
+                  ticketsTierdetails
+                    .filter(ticket => !isNaN(ticket.price))
+                    .reduce(
+                      (acc, ticket) => acc + +ticket.price * ticket.ticketCount,
+                      0
+                    )
+                )}
+              </p>
               <button
                 onClick={handleOnclick}
                 className="buttoncheckout"

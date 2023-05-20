@@ -66,14 +66,16 @@ function ResetPassword() {
           responseData.message.charAt(0).toUpperCase() +
           responseData.message.slice(1);
         setSuccessMsg(msg);
+        console.log(msg);
       }
     }
   }
   console.log(successMsg);
 
   useEffect(() => {
+    console.log('first');
     setTimeout(() => {
-      successMsg === 'Please check your mail inbox and reset password' &&
+      successMsg === 'Please check your email inbox and reset your password' &&
         navigate('/');
     }, 3000);
   }, [successMsg]);

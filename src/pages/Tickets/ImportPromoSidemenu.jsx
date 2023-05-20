@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import CSVReader from 'react-csv-reader';
 import { CreatePromoSideMenu, CsvPromocode } from './styles/Tickets.styled';
+import axios from 'axios';
 
 export function ImportPromocode(props) {
   const [name, setName] = useState('');
   const [touched, setTouched] = useState(false);
-
+  const [file, setFile] = useState(null);
   const showError = touched && name.trim() === '';
 
   ///////////////////////
@@ -60,12 +61,38 @@ export function ImportPromocode(props) {
     }
   };
 
+  async function importPromocode() {
+    const event = props.event;
+    // Form data request with file
+    const data = new FormData();
+    data.append('csvFile', file);
+
+    const url = `https://www.tessera.social/api/event-management/import-promo/${event}`;
+    const res = await axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQzYTU2NzA2ZjU1ZTkwODVkMTkzZjQ4IiwiaWF0IjoxNjgzNzI5ODU3LCJleHAiOjE2ODM4MTYyNTd9.J-3ij0AgIeVF7L0cIIC-eadJoHXaNwuWRVZELEVzO6I`,
+      },
+    });
+    // console.log(res);
+  }
+
+  async function importPromo() {
+    await importPromocode();
+    props.setIsPromoIntroOpen(false);
+    props.setIsImportPromoMenuOpen(false);
+  }
+
   ///////////////////////////////////csv upload AND validation
+  const [isFileValid, setIsFileValid] = useState(true);
+  const fileInputRef = useRef(null);
+
   const handleFileUpload = event => {
-    const selectedFile = event.target.files[0];
+    const file = event.target.files[0];
     const reader = new FileReader();
-    reader.onload = () => {
-      const fileContents = reader.result;
+
+    reader.onload = e => {
+      const fileContents = e.target.result;
       // Perform validation on the file contents
       const lines = fileContents.split(/\r\n|\n/);
       let promoCodeCount = 0;
@@ -77,13 +104,8 @@ export function ImportPromocode(props) {
         }
         const promoCodes = line.split(/[\s,]+/);
         for (let promoCode of promoCodes) {
-          if (promoCode.length > 30) {
-            // Promo code is too long
-            isValid = false;
-            break;
-          }
-          if (/[^a-zA-Z0-9-_@.,]/.test(promoCode)) {
-            // Promo code contains invalid characters
+          if (promoCode.length > 30 || /[^a-zA-Z0-9-_@.,]/.test(promoCode)) {
+            // Promo code is too long or contains invalid characters
             isValid = false;
             break;
           }
@@ -96,165 +118,174 @@ export function ImportPromocode(props) {
       }
       if (!isValid) {
         // File is not valid
-        alert('Invalid file format or contents');
-        return;
+        console.log('Invalid file format or contents');
+        setIsFileValid(false);
+      } else {
+        // File is valid
+        console.log(file);
+        console.log(fileContents);
+        setIsFileValid(true);
+        // Do something with the file
       }
-      // File is valid
-      // console.log(selectedFile);
-      // console.log(fileContents);
-      // Do something with the file
     };
-    reader.readAsText(selectedFile);
+
+    reader.readAsText(file);
+  };
+
+  const handleDivClick = () => {
+    fileInputRef.current.click();
   };
 
   return (
     <CsvPromocode>
       {props.isImportPromoMenuOpen && (
-      <div
-        className='MainCsvPromoOpen'>
-        <div className="UploadCsvMenuHeaderDiv">Upload CSV</div>
+        <div className="MainCsvPromoOpen">
+          <div className="UploadCsvMenuHeaderDiv">Upload CSV</div>
 
-        <div className="CsvPromoInfoDiv">
-          <p className="CsvTexts">
-            Upload up to 500 codes from a .csv or .txt file.
-            <br /> <br /> Separate codes with commas, or list them on separate
-            lines.
-            <br /> <br />
-            Spaces, apostrophes, and special characters (except: -_ , @ . ) are
-            not allowed.
-          </p>
+          <div className="CsvPromoInfoDiv">
+            <p className="CsvTexts">
+              Upload up to 500 codes from a .csv or .txt file.
+              <br /> <br /> Separate codes with commas, or list them on separate
+              lines.
+              <br /> <br />
+              Spaces, apostrophes, and special characters (except: -_ , @ . )
+              are not allowed.
+            </p>
 
-          <div
-            className="ImportCsvCardDiv"
-            onClick={() => document.getElementById('csvFileInput').click()}
-          >
-            <span class="CalendarIconSpan">
-              <i
-                class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
-                data-spec="icon"
-                data-testid="icon"
-                aria-hidden="true"
-              >
-                <svg className="CalendarSvg" xml:space="preserve">
-                  <path
-                    id="calendar-chunky_svg__eds-icon--calendar-chunky_base"
-                    d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"
-                  ></path>
-                </svg>
-              </i>
-            </span>
+            <div className="ImportCsvCardDiv" onClick={handleDivClick}>
+              <span class="CalendarIconSpan">
+                <i
+                  class="eds-vector-image eds-icon--small eds-vector-image--grey-800"
+                  data-spec="icon"
+                  data-testid="icon"
+                  aria-hidden="true"
+                >
+                  <svg className="CalendarSvg" xml:space="preserve">
+                    <path
+                      id="calendar-chunky_svg__eds-icon--calendar-chunky_base"
+                      d="M16.9 6.5v-2h-2v2h-6v-2h-2v2h-2v13h14v-13h-2zm0 11h-10v-7h10v7z"
+                    ></path>
+                  </svg>
+                </i>
+              </span>
 
-            <div className="ImportCodesDiv">
-              <div className="ImportCodesText">Import codes</div>
-              <div className="DragAndDrop">Click to upload CSV</div>
+              <div className="ImportCodesDiv">
+                <div className="ImportCodesText" data-testid="text">
+                  Import codes
+                </div>
+                <div className="DragAndDrop">Click to upload CSV</div>
+              </div>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".csv, .txt"
+                onChange={handleFileUpload}
+                style={{ display: 'none' }}
+              />
             </div>
 
-            <input
-              id="csvFileInput"
-              type="file"
-              accept=".csv,.txt"
-              onChange={handleFileUpload}
-              style={{ display: 'none' }}
-            />
-          </div>
-
-          <div className="TicketLimitDiv">
-            <div className="DropdownDiv">
-              <div className="LimitDropdownDiv">
-                <span className="TicketLimitLabel">Ticket limit</span>
-                <select
-                  className="LimitDropdown"
-                  value={value}
-                  onChange={(event) => setValue(event.target.value)}
-                >
-                  <option value="limited">Limited to</option>
-                  <option value="unlimited">Unlimited</option>
-                </select>
-              </div>
-              {value === 'limited' && (
-                <div className="LimitedAmountDiv">
+            <div className="TicketLimitDiv">
+              <div className="DropdownDiv">
+                <div className="LimitDropdownDiv">
+                  <span className="TicketLimitLabel">Ticket limit</span>
+                  <select
+                    className="LimitDropdown"
+                    value={value}
+                    onChange={event => setValue(event.target.value)}
+                  >
+                    <option value="limited">Limited to</option>
+                    <option value="unlimited">Unlimited</option>
+                  </select>
+                </div>
+                {value === 'limited' && (
                   <div className="LimitedAmountDiv">
-                    <div
-                      className={
-                        isError
-                          ? 'LimitedAmountTextboxDiv error-color'
-                          : 'LimitedAmountTextboxDiv'
-                      }
-                    >
+                    <div className="LimitedAmountDiv">
                       <div
                         className={
                           isError
-                            ? 'LimitedAmountLabelDiv error-color'
-                            : 'LimitedAmountLabelDiv'
+                            ? 'LimitedAmountTextboxDiv error-color'
+                            : 'LimitedAmountTextboxDiv'
                         }
                       >
-                        Amount
-                        <span
-                          class="eds-label__required-indicator eds-text-bs"
-                          data-spec="required-indicator"
+                        <div
+                          className={
+                            isError
+                              ? 'LimitedAmountLabelDiv error-color'
+                              : 'LimitedAmountLabelDiv'
+                          }
                         >
-                          <span className="asterisk"> *</span>
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        value={quantity}
-                        onChange={handleAmountChange}
-                        onBlur={handleAmountBlur}
-                        className="AmountInput"
-                      />
-                      {isError && (
-                        <div className="AmountError">
-                          Ticket limit quantity required
+                          Amount
+                          <span
+                            class="eds-label__required-indicator eds-text-bs"
+                            data-spec="required-indicator"
+                          >
+                            <span className="asterisk"> *</span>
+                          </span>
                         </div>
-                      )}
+                        <input
+                          type="text"
+                          value={quantity}
+                          onChange={handleAmountChange}
+                          onBlur={handleAmountBlur}
+                          className="AmountInput"
+                        />
+                        {isError && (
+                          <div className="AmountError">
+                            Ticket limit quantity required
+                          </div>
+                        )}
+                      </div>
                     </div>
+                    <div className="TicketsLabel">tickets</div>
                   </div>
-                  <div className="TicketsLabel">tickets</div>
+                )}
+              </div>
+            </div>
+            <div className="TextUnderLimited">
+              Total number of tickets that can be purchased with this code
+            </div>
+
+            <div className="DiscountDiv">
+              <div className="DiscountsLabel">Discount amount</div>
+              <div
+                className={
+                  isDError
+                    ? 'DiscountAmountDiv error-color'
+                    : 'DiscountAmountDiv'
+                }
+              >
+                <input
+                  type="text"
+                  value={Discountquantity}
+                  onChange={handleDiscountChange}
+                  onBlur={handleDiscountBlur}
+                  className="DiscountInput"
+                />
+                <span className="DollarSignDiv">%</span>
+              </div>
+              {isDError && (
+                <div className="DiscountError">
+                  Discount required. Value should be between 1 and 100
                 </div>
               )}
             </div>
           </div>
-          <div className="TextUnderLimited">
-            Total number of tickets that can be purchased with this code
-          </div>
 
-          <div className="DiscountDiv">
-            <div className="DiscountsLabel">Discount amount</div>
-            <div
-              className={
-                isDError ? 'DiscountAmountDiv error-color' : 'DiscountAmountDiv'
-              }
+          <div className="ButtonsMenuDiv">
+            <button
+              className="CancelButton"
+              onClick={() => props.setIsImportPromoMenuOpen(false)}
             >
-              <input
-                type="text"
-                value={Discountquantity}
-                onChange={handleDiscountChange}
-                onBlur={handleDiscountBlur}
-                className="DiscountInput"
-              />
-              <span className="DollarSignDiv">%</span>
-            </div>
-            {isDError && (
-              <div className="DiscountError">
-                Discount required. Value should be between 1 and 100
-              </div>
-            )}
+              Cancel
+            </button>
+
+            <button className="SaveButton" onClick={importPromo}>
+              Save{' '}
+            </button>
           </div>
         </div>
-
-        <div className="ButtonsMenuDiv">
-          <button
-            className="CancelButton"
-            onClick={()=>props.setIsImportPromoMenuOpen(false)}>
-            Cancel
-          </button>
-
-          <button className="SaveButton" onClick={()=>{props.setIsPromoIntroOpen(false);props.setIsImportPromoMenuOpen(false);}}>
-            Save{' '}
-          </button>
-        </div>
-      </div>)}
+      )}
     </CsvPromocode>
   );
 }
