@@ -1,8 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContainerBox = styled.div`
   height: 100%;
   overflow: hidden;
+  position: relative;
 `;
 
 export const TicketHeader = styled.div`
@@ -10,10 +11,14 @@ export const TicketHeader = styled.div`
   min-height: 8rem;
   text-align: center;
   border-bottom: 2px solid rgb(238, 237, 242);
+  padding-bottom: 1rem;
   div {
     padding-top: 1.2rem;
     font-weight: 400;
     font-size: 2.4rem;
+    @media (max-width: 768px) {
+      padding-inline: 3rem;
+    }
   }
   .Setting {
     font-size: 1.7rem !important;
@@ -24,9 +29,9 @@ export const TicketHeader = styled.div`
 export const TicketBody = styled.div`
   margin: auto;
   /* max-height:  56rem; */
+  position: relative;
   max-height: calc(100% - 14rem);
   overflow-y: scroll;
-  border-bottom: 2px solid rgb(238, 237, 242);
 `;
 
 export const PromoCode = styled.div`
@@ -151,10 +156,13 @@ export const Checkout = styled.div`
   width: 100%;
   min-height: 8rem;
   display: flex;
-  postion: fixed;
+  position: absolute;
+  bottom: 0;
+  right: 5px;
   flex-direction: column;
   justify-content: center;
   align-items: end;
+  border-top: 1px solid #eeedf2;
 
   .summarycontainer {
     margin: 0 auto;
@@ -175,9 +183,18 @@ export const Checkout = styled.div`
     display: flex;
     margin: 0 auto;
     width: 77.5%;
-
-    transform: translate(0, -10px);
-
+    p {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+      p {
+        display: block;
+        align-self: flex-end;
+        margin-right: 1rem;
+      }
+    }
     .buttoncheckout {
       width: 24%;
       height: 100%;
@@ -189,16 +206,16 @@ export const Checkout = styled.div`
       font-weight: 600;
       text-align: center;
       margin: auto 0;
-      /* margin-top: 1.8rem; */
-      /* margin:auto 1.6rem; */
-      /* position: absolute; */
-      /* left:240px; */
       max-height: 5rem;
       border-radius: 4px;
       transform: translate(0, -4px);
+      transition: 0.5s;
+      @media (max-width: 768px) {
+        width: 100%;
+      }
     }
     .buttoncheckout:hover {
-      background-color: blue;
+      opacity: 0.9;
       cursor: pointer;
     }
   }

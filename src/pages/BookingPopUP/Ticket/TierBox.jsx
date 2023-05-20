@@ -10,7 +10,7 @@
  * 
  * 
  */
-
+import { format } from 'mathjs';
 import {
   SelectTicket,
   SelectTickContainer,
@@ -18,9 +18,9 @@ import {
   IncrementDecrement,
   SelectTickBottomContainer,
   BottomContainerHead,
-} from "./Ticket.styled";
+} from './Ticket.styled';
 
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 /**
  * description: this function is the TierBox component and returns html elements that contain the ticket tier details
  * @param {Object} element - the elemnt of the tickettierdetails
@@ -35,129 +35,71 @@ import { useState } from "react";
  * @returns {JSX.Element} - the JSX of the TierBox
  */
 export default function TierBox({
-  number,
   element,
-  setTicketTierdetails,
   index,
+  setTicketTierdetails,
   ticketsTierdetails,
-  summary,
-  setSummary,
   setEmpty,
-  total,
-  discount,
 }) {
-  const [count, setCount] = useState(0);
-  const [countactual, setCountActual] = useState(0);
-  const [countDecrement, setCountDecrement] = useState(0);
-  console.log("element")
-  console.log(element)
   /**
    * description: this function is to append the summary
    * @param {Number} newPrice - the new price
    * @returns {Array} - the new summary
    */
-  const summaryappend = (newPrice) => {
-    const newState = [...summary];
-    let flag = false;
+  const checkIsEmpty = () => {
+    console.log(ticketsTierdetails);
 
-    newState.forEach((elementS, i) => {
-      if (i == 0) {
-        //flag = true;
-        //elementS.sumTicketCount = element.ticketCount;
-        // elementS.sumTicketCount = number;
-        //elementS.sumTicketPrice = newPrice;
-
-        elementS.ticketCount === 0 && newState.splice(i, 1);
-      }
-      if (elementS.sumId == element.id) {
-        flag = true;
-        elementS.sumTicketCount = element.ticketCount;
-        // elementS.sumTicketCount = number;
-        elementS.sumTicketPrice = newPrice;
-
-        elementS.ticketCount === 0 && newState.splice(i, 1);
-      }
-      // if (i == 0) {
-      //   //flag = true;
-      //   //elementS.sumTicketCount = element.ticketCount;
-      //   // elementS.sumTicketCount = number;
-      //   elementS.sumTicketPrice = newPrice;
-
-      //   elementS.ticketCount === 0 && newState.splice(i, 1);
-      // }
-    });
-
-    if (!flag) {
-      console.log("innn")
-      const newValue = [
-        ...newState,
-        {
-          sumId: element.id,
-          sumTicketCount: element.ticketCount,
-          sumTicketPrice: newPrice,
-          sumTierName: element.tierName,
-        },
-      ];
-      setSummary(newValue);
-      return;
-    }
-    setSummary(newState);
-    console.log("summary")
-    console.log(summary)
+    const isEmpty = ticketsTierdetails.every(tier => tier.ticketCount === 0);
+    setEmpty(!isEmpty);
   };
-  /**
-   * description: this function is to increment the order
-   * @param {Number} i - the index of the element
-   * @returns {Array} - the new tickettierdetails
-   */
-  const incrementOrder = (i) => {
-    const currentCapacity = element.maxCapacity - element.numberOfTicketsSold;
+  useEffect(() => {
+    checkIsEmpty();
+  }, [ticketsTierdetails]);
+  const incrementOrder = index => {
+    // checkIsEmpty();
 
-    setCount((prevCount) => {
-      return prevCount == currentCapacity ? prevCount : prevCount + 1;
-    });
+    setTicketTierdetails(prevState => {
+      const updatedTicketTierdetails = [...prevState];
+      // Increment the ticket count for the specified index
+      updatedTicketTierdetails[index] = {
+        ...updatedTicketTierdetails[index],
+        ticketCount:
+          updatedTicketTierdetails[index].ticketCount < 50
+            ? updatedTicketTierdetails[index].ticketCount + 1
+            : updatedTicketTierdetails[index].ticketCount,
+      };
 
-    const newState = [...ticketsTierdetails];
-    newState.forEach((item, index) => {
-      if (index === i) {
-        item.ticketCount = count;
-        setCountDecrement(count);
-      }
+      return updatedTicketTierdetails;
     });
-    summaryappend(
-      count * element.price.slice(0, 1) === "$"
-        ? element.price.slice(1)
-        : element.price
-    );
-    setTicketTierdetails(newState);
-    //console.log(summary + " WZHAAR YA KALB");
-    summary.length === 0 ? setEmpty(true) : setEmpty(false);
   };
-  /**
-   * description: this function is to decrement the order
-   * @param {Number} i - the index of the element
-   * @returns {Array} - the new tickettierdetails
-   */
-  const decrementOrder = (i) => {
-    setCountDecrement((prevCount) =>
-      prevCount === 0 ? prevCount : prevCount - 1
-    );
 
-    const newState = [...ticketsTierdetails];
-    newState.forEach((item, index) => {
-      if (index === i) {
-        item.ticketCount = countDecrement;
-        setCount(countDecrement);
-      }
+  const formatDate = isoDate => {
+    const date = new Date(isoDate);
+
+    const formattedDate = date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
 
-    summaryappend(
-      countDecrement * element.price.slice(0, 1) === "$"
-        ? element.price.slice(1)
-        : element.price
-    );
+    return formattedDate;
+  };
 
-    summary.length === 0 ? setEmpty(true) : setEmpty(false);
+  const decrementOrder = index => {
+    setTicketTierdetails(prevState => {
+      // Create a copy of the previous state
+      const updatedTicketTierdetails = [...prevState];
+
+      // Decrement the ticket count for the specified index
+      if (updatedTicketTierdetails[index].ticketCount > 0) {
+        updatedTicketTierdetails[index] = {
+          ...updatedTicketTierdetails[index],
+          ticketCount: updatedTicketTierdetails[index].ticketCount - 1,
+        };
+      }
+      return updatedTicketTierdetails;
+    });
+    // checkIsEmpty();
   };
 
   return (
@@ -168,8 +110,8 @@ export default function TierBox({
           <div
             className={
               element.ticketCount == element.maxCapacity
-                ? "incdec"
-                : "incdecactive"
+                ? 'incdec'
+                : 'incdecactive'
             }
             onClick={() => incrementOrder(index)}
           >
@@ -181,22 +123,17 @@ export default function TierBox({
             >
               <path
                 id="plus-chunky_svg__eds-icon--plus-chunky_base"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M13 11V4h-2v7H4v2h7v7h2v-7h7v-2z"
               ></path>
             </svg>
           </div>
           <div className="Quantity">
-            {index ===0 ?
-            element.ticketCount
-            :element.ticketCount
-            }
-            
-            {/* {element.ticketCount} */}
-            </div>
+            {index === 0 ? element.ticketCount : element.ticketCount}
+          </div>
           <div
-            className={element.ticketCount == 0 ? "incdec" : "incdecactive"}
+            className={element.ticketCount == 0 ? 'incdec' : 'incdecactive'}
             onClick={() => decrementOrder(index)}
           >
             <svg
@@ -216,27 +153,13 @@ export default function TierBox({
       <SelectTickBottomContainer>
         <BottomContainerHead>
           <p className="Fee">
-            $
-            {element.price.slice(0, 1) === "$"
+            {isNaN(element.price) ? '' : '$'}
+            {element.price.slice(0, 1) === '$'
               ? element.price.slice(1)
               : element.price}
           </p>
-          {/* {ticketsAmount[index].discount && (
-      <pre>
-        <p className={classes.price}>
-          {element.price -
-            element.price *
-              ticketsAmount[index].discountpercent -
-            ticketsAmount[index].discountamount}
-          {"  "}
-          <del>{element.price}</del>
-        </p>
-      </pre>
-    )} */}
-          <p className="Sale">
-            Sales end on {element.endSelling}
-            {/* {moment(element.salesStart).format("MMMM Do YYYY")} */}
-          </p>
+
+          <p className="Sale">Sales end on {formatDate(element.endSelling)}</p>
         </BottomContainerHead>
       </SelectTickBottomContainer>
     </SelectTicket>

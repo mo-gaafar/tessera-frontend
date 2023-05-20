@@ -408,11 +408,13 @@ export default function Landing() {
           }
           eventTitle={event.basicInfo.eventName}
           date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
-          description={event.basicInfo.location &&
-            event.basicInfo.location.venueName && event.basicInfo.location.venueName +
-            ' • ' +
-            event.basicInfo.location.city +
-            ' '
+          description={
+            event.basicInfo.location &&
+            event.basicInfo.location.venueName &&
+            event.basicInfo.location.venueName +
+              ' • ' +
+              event.basicInfo.location.city +
+              ' '
           }
           let
           price={
@@ -797,6 +799,7 @@ export default function Landing() {
 
           <h4>Events in {cityData.city}</h4>
           <StyledEventsContainer
+            gridItems={allFilteredEvents.length}
             ref={ref}
             className={eventElements?.length === 2 && 'grid__2'}
             img="../../src/assets/svgviewer-output.svg"
