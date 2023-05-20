@@ -14,14 +14,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { Link, Route, Routes } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-// import {
-//   InputEmail,
-//   Label,
-// } from '../../../../tessera-frontend/src/pages/SignUp/styles/SignUpEmail.styled';
 
 const StyleDiv = styled.div`
   .publish {
