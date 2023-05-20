@@ -18,7 +18,10 @@ import Sidebar from '../../components/Sidebar';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
-
+// import {
+//   InputEmail,
+//   Label,
+// } from '../../../../tessera-frontend/src/pages/SignUp/styles/SignUpEmail.styled';
 import {
   FormInput,
   SelectBox,
@@ -33,90 +36,482 @@ function PublishPage() {
   const token = localStorage.getItem('token');
   const [EventData, setEventData] = useState({});
 
-  useEffect(() => {
-    const getData = async () => {
-      const result = await fetch(
-        `https://www.tessera.social/api/event-management/retrieve/${event}`,
-        {
-          method: 'GET',
+const StyleDiv = styled.div`
+  .publish {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding-left: 20px;
+    margin-right: 20px;
+    padding: 100px;
+  }
 
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      const data = await result.json();
-      setEventData(data.event);
-      console.log(EventData);
-    };
+  .publish h2 {
+    /* font-size: 2rem; */
+  }
 
-    getData();
-  }, []);
+  .h1 {
+    /* font-size: 1.875rem; */
+    line-height: 2.5rem;
+    letter-spacing: 0.5px;
+    margin-right: -0.5px;
+  }
 
+  .date,
+  .time {
+    display: flex;
+    border: 1px solid #ccc;
+    background: #f8f7fa;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    border-radius: 2px;
+    padding: 1px;
+    width: 50%;
+    align-items: center;
+    color: #333;
+    /* text-align: center; */
+    input {
+      border: none;
+      background: #f8f7fa;
+    }
+    svg {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    p {
+      font-size: 12px;
+      line-height: 22px;
+    }
+
+    &.disabled {
+      background: #f8f7fa;
+      color: #333;
+      border: 1px solid #ccc;
+      cursor: not-allowed;
+    }
+  }
+  .previewBox {
+    border: 1px solid #eeedf2;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 4px 8px 0 rgba(40, 44, 53, 0.06),
+      0 2px 2px 0 rgba(40, 44, 53, 0.06);
+  }
+
+  .price {
+    display: flex;
+    line-height: 24px;
+    margin-top: 16px;
+  }
+
+  .previewBox img {
+    /* height: 100%; */
+    width: 42%;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f7fa;
+    display: flex;
+  }
+
+  .publishDetails svg {
+    height: 18px;
+    border-radius: 2px;
+    color: #3659e3;
+  }
+
+  .previewLink {
+    text-align: center;
+    color: #007791;
+    border-top: 1px solid #eeedf2;
+    margin-top: 20px;
+    padding: 12px;
+  }
+
+  .priceAmount {
+    display: flex;
+    margin: 16px;
+    line-height: 24px;
+    margin-top: 16px;
+    margin-left: 24px;
+  }
+
+  .priceAmount svg {
+    margin-right: 8px;
+  }
+  .publishDetails a {
+    line-height: 24px;
+    text-align: center;
+    color: #3659e3;
+  }
+
+  .privacy {
+    /* font-size: .75rem; */
+    line-height: 1rem;
+    margin-bottom: 50px;
+  }
+
+  .privacy h2 {
+    display: block;
+    /* font-size: 1.5rem; */
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  .privacyOption {
+    display: flex;
+  }
+
+  .privacyRadio {
+    position: relative;
+    min-width: 22px;
+    min-height: 22px;
+    margin-top: 20px;
+  }
+  .PublishTime {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+  }
+
+  .privacyOption label {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+  }
+
+  .publishDate {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dateAndZone {
+    width: 100%;
+  }
+
+  .date svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .startDate {
+    font-size: 14px;
+    line-height: 22px;
+    min-height: 22px;
+  }
+
+  .time {
+    padding-left: 8px;
+    margin-left: 5px;
+  }
+
+  .timeAndZone {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .TipsIcon {
+    display: flex;
+  }
+
+  .TipsIcon i {
+    /* padding: 5px; */
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: #fff58c;
+    /* center vertical */
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+
+  .TipsIcon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .Tips {
+    background-color: var(--eds-ui-100, var(--eds-ui-100, #f8f7fa));
+    padding-left: 40px;
+    padding-top: 13px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .Links svg {
+    width: 16px;
+    height: 16px;
+    fill: #3d64ff !important;
+    margin-left: 5px;
+    /* move to right when hover */
+    transition: margin-left 0.24s cubic-bezier(0.4, 0, 0.3, 1);
+    &:hover {
+      margin-left: 12px;
+    }
+  }
+
+  .Links {
+    display: flex;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .Links span {
+    color: #3659e3;
+    color: var(--eds-control, #3659e3);
+    font-weight: 500;
+  }
+
+  .otherDetails {
+    display: flex;
+    margin-top: 32px;
+    margin-bottom: 80px;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .privacyAndTime {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    height: 100%;
+    width: 50%;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .privacyAndTime h2 {
+    display: block;
+    /* font-size: 1.5rem; */
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+  .PublishTips {
+    width: 50%;
+    margin-bottom: 32px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+
+  .publishDetails hr {
+    /* width: 90%; */
+  }
+
+  .publishDetails {
+    width: 50%;
+    margin-left: 30px;
+    margin-top: 15px;
+  }
+
+  .PublishTimeRadio {
+    div {
+      display: flex;
+      align-items: center;
+      label {
+        margin-left: 8px;
+        align-items: center;
+      }
+    }
+  }
+
+  .public,
+  .private {
+    font-size: 0.875rem;
+    margin-left: 8px;
+  }
+
+  .PublishButton {
+    /* background-color: #d1410c; */
+    color: white;
+    float: right;
+    height: 44px;
+    padding: 10px;
+    /* margin-bottom: 20px; */
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    line-height: 24px;
+    box-sizing: border-box;
+    width: 120px;
+    font-weight: 600;
+    outline: none;
+    background: #d94618;
+    margin-right: 15px;
+    font-size: 14px;
+    cursor: pointer;
+    &:hover {
+      background: #ef5436;
+    }
+    &:disabled {
+      background: #d0cfd9;
+      cursor: not-allowed;
+      input {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .bottomBar {
+    position: fixed;
+    bottom: 0;
+    padding: 10px;
+    background: white;
+    width: 100%;
+    border-top: 1px solid #eeedf2;
+    left: 0;
+  }
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* margin-bottom: 20px; */
+  width: 100%;
+  border: 1.5px solid #d0cfd9;
+  border-radius: 3px;
+
+  margin: 10px;
+  margin-left: 0px;
+  padding-left: 12px;
+  padding-top: 5px;
+  @media (max-width: 960px) {
+    width: 100%;
+  }
+
+  /* hover animation */
+  &:hover {
+    border: 1.5px solid #a4a3aa;
+  }
+
+  &:focus-within {
+    border: 1.5px solid #1e4fff;
+  }
+
+  .inputLabel {
+    display: flex;
+    justify-content: left;
+    font-size: 12px;
+    color: #6f7287;
+    &:focus-within {
+      border: 1px solid #1e4fff;
+    }
+  }
+
+  .inputLabel span {
+    color: #ff0000;
+    margin-left: 5px;
+  }
+
+  .startTime {
+    font-size: 14px;
+    line-height: 22px;
+    min-height: 22px;
+  }
+
+  .startTime input {
+    border: none;
+    background: #f8f7fa;
+  }
+
+  audienceBox {
+    line-height: 23px;
+    min-height: 23px;
+  }
+`;
+
+const FormInput = styled.input`
+  width: 100%;
+  height: 30px;
+
+  /* padding: 10px; */
+  /* margin-bottom: 20px; */
+  font-size: 16px;
+  color: #000;
+  /* border: 1px solid #ebebeb; */
+  /* border-radius: 1px; */
+  outline: none;
+  border: none;
+  @media (max-width: 960px) {
+    width: 100%;
+  }
+  /* set active state */
+`;
+
+const SelectBox = styled.select`
+  width: 100%;
+  height: 30px;
+
+  /* padding: 10px; */
+  /* margin-bottom: 20px; */
+  font-size: 16px;
+  color: #000;
+  /* border: 1px solid #ebebeb; */
+  /* border-radius: 1px; */
+  outline: none;
+  border: none;
+  @media (max-width: 960px) {
+    width: 100%;
+  }
+  /* set active state */
+`;
+
+function PublishPage(props) {
   // const event = props.event;
+  const event = '643aa09ecbfea68c24d93670';
   const url = 'https://www.tessera.social/api/event-management/publish/';
   const [eventType, setEventType] = useState('public');
+  const [privateType, setPrivateType] = useState('private');
   const [audienceType, setAudienceType] = useState('anyone');
   const [publishType, setPublishType] = useState('now');
   const [publishDate, setPublishDate] = useState(new Date());
-  const [publishButton, setPublishButton] = useState('Schedule');
+  const [publishButton, setPublishButton] = useState('Publish');
   const [password, setPassword] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
+  const handleTimeChange = event => {
+    setSelectedTime(event.target.value);
+  };
 
   async function publishData() {
     const data = {
       isPublic: eventType === 'public' ? true : false,
-      publishNow: publishType === 'now' ? true : false,
+      publishNow: publishType === 'private' ? true : false,
       publicDate: publishDate,
       link: audienceType === 'anyone' ? true : false,
       password: audienceType === 'password' ? true : false,
-      alwaysPrivate: eventType === 'public' ? true : false,
+      alwaysPrivate: privateType === 'public' ? true : false,
       privateToPublicDate: publishDate,
     };
-
-    const response = await fetch(
-      `https://www.tessera.social/api/event-management/publish/${event}`,
-      {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      }
-    );
-    console.log(await response.json());
+    const res = await axios.put(url + event, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
   }
-
-  const totalCapacity = EventData.ticketTiers?.reduce(
-    (sumCapacity, ticketTier) => {
-      return sumCapacity + ticketTier.maxCapacity;
-    },
-    0
-  );
-
-  const lowestPrice = EventData.ticketTiers?.reduce((minPrice, ticketTier) => {
-    if (Number(ticketTier.price) < minPrice) {
-      return Number(ticketTier.price);
-    } else {
-      return minPrice;
-    }
-  }, Infinity);
-  const convertTime = Iso => {
-    const date = new Date(Iso);
-    const dateString = date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-    const timeString = date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
-    });
-    const formattedDate = `${dateString} at ${timeString}`;
-    return formattedDate;
-  };
 
   return (
     <>
@@ -169,6 +564,31 @@ function PublishPage() {
                 </div>
               </div>
               <p>{EventData.description}</p>
+              <div className="previewLink">
+                <a
+                  data-spec="eds-link"
+                  target="_blank"
+                  href=""
+                  class="eds-link"
+                >
+                  <span>
+                    Preview your event
+                    <i
+                      class="eds-vector-image eds-icon--small eds-vector-image--ui-blue"
+                      data-spec="icon"
+                      data-testid="icon"
+                      aria-hidden="true"
+                    >
+                      <svg viewBox="0 0 24 24">
+                        <path
+                          d="M18 18v2H4V6h7v2H6v10h10v-5h2zm1-11.586l-7.293 7.293-1.414-1.414L17.586 5H14V3h7v7h-2z"
+                          fill-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </i>
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
           <div className="otherDetails">
@@ -194,7 +614,7 @@ function PublishPage() {
                       <p>Shared on Eventbrite and search engines</p>
                     </div>
                   </div>
-                  {/* <div className="privacyOption">
+                  <div className="privacyOption">
                     <input
                       type="radio"
                       id="private"
@@ -211,7 +631,7 @@ function PublishPage() {
                       <label for="private">Private</label>
                       <p>Only available to a selected audience</p>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
               </div>
               {eventType === 'private' && (
@@ -272,7 +692,7 @@ function PublishPage() {
                       />
                       <label for="now">Publish Now</label>
                     </div>
-                    {/* <div>
+                    <div>
                       <input
                         type="radio"
                         id="later"
@@ -284,7 +704,7 @@ function PublishPage() {
                         }}
                       />
                       <label for="later">Schedule for later</label>
-                    </div> */}
+                    </div>
                   </div>
                   <div className="dateAndZone">
                     <div className="publishDate">
@@ -314,14 +734,14 @@ function PublishPage() {
                           />
                         </div>
                       </div>
-                      {/* <div className="time">
+                      <div className="time">
                         <div className="startTime">
                           <p>Start Time</p>
                           <p>05:00 PM</p>
                         </div>
-                      </div> */}
+                      </div>
                     </div>
-                    {/* <p>Time zone is the same as your event's</p> */}
+                    <p>Time zone is the same as your event's</p>
                   </div>
                 </div>
               )}
