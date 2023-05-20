@@ -214,7 +214,10 @@ const Dashboard = ({ test }) => {
                     <div className="table__row">
                       <span>{ticket.tierName}</span>
                       <div className="">
-                        <span>${ticket.price}</span>
+                        <span>
+                          {ticket.price === 'Free' ? '' : '$'}
+                          {ticket.price}
+                        </span>
                         <span>
                           {ticket.quantitySold}/{ticket.maxCapacity}
                         </span>

@@ -12,19 +12,13 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import { Link, Route, Routes } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Sidebar from '../../components/Sidebar';
 import { StyledNav } from '../LandingPage/styles/Landing.styled';
 import NavbarLoggedIn from '../LandingPage/NavbarLoggedIn';
 import Navbar from '../LandingPage/NavBar';
-// import {
-//   InputEmail,
-//   Label,
-// } from '../../../../tessera-frontend/src/pages/SignUp/styles/SignUpEmail.styled';
+
 import {
   FormInput,
   SelectBox,
@@ -175,31 +169,6 @@ function PublishPage() {
                 </div>
               </div>
               <p>{EventData.description}</p>
-              <div className="previewLink">
-                <a
-                  data-spec="eds-link"
-                  target="_blank"
-                  href=""
-                  class="eds-link"
-                >
-                  <span>
-                    Preview your event
-                    <i
-                      class="eds-vector-image eds-icon--small eds-vector-image--ui-blue"
-                      data-spec="icon"
-                      data-testid="icon"
-                      aria-hidden="true"
-                    >
-                      <svg viewBox="0 0 24 24">
-                        <path
-                          d="M18 18v2H4V6h7v2H6v10h10v-5h2zm1-11.586l-7.293 7.293-1.414-1.414L17.586 5H14V3h7v7h-2z"
-                          fill-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </i>
-                  </span>
-                </a>
-              </div>
             </div>
           </div>
           <div className="otherDetails">
@@ -225,7 +194,7 @@ function PublishPage() {
                       <p>Shared on Eventbrite and search engines</p>
                     </div>
                   </div>
-                  <div className="privacyOption">
+                  {/* <div className="privacyOption">
                     <input
                       type="radio"
                       id="private"
@@ -242,7 +211,7 @@ function PublishPage() {
                       <label for="private">Private</label>
                       <p>Only available to a selected audience</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {eventType === 'private' && (
@@ -303,7 +272,7 @@ function PublishPage() {
                       />
                       <label for="now">Publish Now</label>
                     </div>
-                    <div>
+                    {/* <div>
                       <input
                         type="radio"
                         id="later"
@@ -315,7 +284,7 @@ function PublishPage() {
                         }}
                       />
                       <label for="later">Schedule for later</label>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="dateAndZone">
                     <div className="publishDate">
@@ -345,14 +314,14 @@ function PublishPage() {
                           />
                         </div>
                       </div>
-                      <div className="time">
+                      {/* <div className="time">
                         <div className="startTime">
                           <p>Start Time</p>
                           <p>05:00 PM</p>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
-                    <p>Time zone is the same as your event's</p>
+                    {/* <p>Time zone is the same as your event's</p> */}
                   </div>
                 </div>
               )}

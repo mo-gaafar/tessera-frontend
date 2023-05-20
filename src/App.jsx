@@ -8,7 +8,7 @@ import SignUpOne from './pages/SignUp/SignupOne';
 import GlobalStyles from './components/styles/Global';
 import Landing from './pages/LandingPage/Landing';
 import Organize from './pages/Organize/Organize';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom';
 import { useState } from 'react';
 import Maincontainer from './pages/LogIn/MainContainer';
 import ResetPassword from './pages/ResetPassword/ResetPassword';

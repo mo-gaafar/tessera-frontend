@@ -110,7 +110,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
               {EventData.basicInfo?.eventName}
             </Link>
             <p>{convertTime(EventData.basicInfo?.startDateTime)}</p>
-            <Link>
+            {/* <Link>
               View your Event
               <svg viewBox="0 0 24 24">
                 <path
@@ -118,7 +118,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
                   fill-rule="evenodd"
                 ></path>
               </svg>
-            </Link>
+            </Link> */}
           </div>
           <div className="create__event">
             <Link to="/basicinfo" className={basicInfo && 'active'}>
