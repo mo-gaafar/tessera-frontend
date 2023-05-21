@@ -290,7 +290,7 @@ export default function Events(props) {
   }
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI',
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
   });
 
   const [currentIndex, setCurrentIndex] = useState(0); // Current index in the array to iterate over 3 values

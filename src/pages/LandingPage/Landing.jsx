@@ -52,7 +52,7 @@ export default function Landing() {
    */
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI',
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
     libraries: ['places'],
   });
 
