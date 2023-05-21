@@ -161,6 +161,7 @@ export const Information = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: #f8f7fa;
   .eventimage {
     width: 100%;
     background-size: contain;
@@ -180,6 +181,36 @@ export const Information = styled.div`
       fill: #dbdae3;
     }
   }
+
+  .order__summary {
+    padding-inline: 2rem;
+    h2 {
+      font-weight: 600;
+      color: #1e0a3c;
+      font-size: 1.4rem;
+      padding-bottom: 2rem;
+    }
+    div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      color: #39364f;
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+
+    .order__total {
+      border-top: 1px solid #eeedf2;
+      margin-top: 1.5rem;
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      color: #39364f;
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+  }
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -228,6 +259,8 @@ export const OrderTicket = styled.div`
   }
 `;
 export const StyleDiv = styled.div`
+  flex-grow: 1;
+  position: relative;
   .checkoutPage {
     background: #fefefe;
     display: flex;
@@ -284,6 +317,7 @@ export const StyleDiv = styled.div`
   }
 
   .eventDetails {
+    background-color: #f7f6f9;
     width: 30%;
     @media (max-width: 960px) {
       display: none;
@@ -313,7 +347,21 @@ export const StyleDiv = styled.div`
     }
   }
 `;
-
+export const StyledTimeOut = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  span {
+    margin-top: 1rem;
+    color: #3d64ff;
+    cursor: pointer;
+    :hover {
+      text-decoration: underline;
+    }
+  }
+`;
 export const FormInput = styled.input`
   width: 100%;
   height: 30px;
@@ -445,5 +493,12 @@ export const SubmitButton = styled.button`
   &:disabled {
     background: #d0cfd9;
     cursor: not-allowed;
+  }
+
+  @media (max-width: 651px) {
+    position: absolute;
+    right: 3rem;
+    bottom: -0.5rem;
+    width: 90%;
   }
 `;

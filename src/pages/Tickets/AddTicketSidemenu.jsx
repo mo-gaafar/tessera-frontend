@@ -1,6 +1,6 @@
 /**
-  * @name AddTicketSidemenu.jsx
-  * @author @MaryamMoataz
+ * @name AddTicketSidemenu.jsx
+ * @author @MaryamMoataz
  * @requires react
  * @requires react-router-dom
  * @requires './styles/Tickets.styled'
@@ -110,9 +110,9 @@ export default function AddTicketSidemenu(props) {
     return str.trim() === '';
   };
 
-  useEffect(() => {
-    setError(isEmpty(ticketName));
-  }, [ticketName]);
+  // useEffect(() => {
+  //   setError(isEmpty(ticketName));
+  // }, [ticketName]);
 
   const handleInputChange = e => {
     const inputValue = e.target.value;
@@ -141,10 +141,11 @@ export default function AddTicketSidemenu(props) {
     const data = {
       tierName: ticketName,
       maxCapacity: parseFloat(quantity),
-      price: ticketPrice,
+      price: ticketPrice === '' ? 'Free' : ticketPrice,
       startSelling: startDate,
       endSelling: endDate,
     };
+    console.log(data);
     const url = `https://www.tessera.social/api/event-tickets/create-ticket/${event}`;
     const res = await axios.put(url, data, {
       headers: {
@@ -174,9 +175,7 @@ export default function AddTicketSidemenu(props) {
       headers: {
         'Content-Type': 'application/json',
 
-
         Authorization: `Bearer ${token}`,
-
       },
     });
     // console.log(res);
@@ -191,7 +190,10 @@ export default function AddTicketSidemenu(props) {
     if (ticketPrice === '' && ticketType === 'paid') {
       setPriceError(true);
       error = true;
+    } else {
+      setPriceError(false);
     }
+
     if (quantity === '') {
       setIsError(true);
       error = true;
@@ -261,7 +263,7 @@ export default function AddTicketSidemenu(props) {
                     <form onSubmit={handleSubmit}>
                       <label>
                         <input
-                          title='Name'
+                          title="Name"
                           className="TicketNameInputDiv"
                           type="text"
                           value={ticketName}

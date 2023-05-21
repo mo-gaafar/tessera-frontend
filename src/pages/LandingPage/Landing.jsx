@@ -52,7 +52,7 @@ export default function Landing() {
    */
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI',
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
     libraries: ['places'],
   });
 
@@ -147,7 +147,6 @@ export default function Landing() {
   }
   function handleClickCat(name) {
     //console.log("name")
-    console.log(name);
     setShowCategoryMenu(false);
     setSelectCategory(name);
     let new_name = name.replace(/&/g, '%26');
@@ -325,9 +324,6 @@ export default function Landing() {
    */
 
   useEffect(() => {
-    console.log(cityData);
-    console.log('url');
-    console.log(url);
     async function getData() {
       const res = await fetch(
         'https://www.tessera.social/api/attendee/Eventsby/?' + url
@@ -391,9 +387,7 @@ export default function Landing() {
       setNoEventsImg(false);
     }
 
-    const handleEventPage = id => {
-      console.log('first');
-    };
+    const handleEventPage = id => {};
 
     setEventElement(
       allFilteredEvents.map(event => (
@@ -408,11 +402,13 @@ export default function Landing() {
           }
           eventTitle={event.basicInfo.eventName}
           date={convertUtcToLocalTime(event.basicInfo.startDateTime)}
-          description={event.basicInfo.location &&
-            event.basicInfo.location.venueName && event.basicInfo.location.venueName +
-            ' • ' +
-            event.basicInfo.location.city +
-            ' '
+          description={
+            event.basicInfo.location &&
+            event.basicInfo.location.venueName &&
+            event.basicInfo.location.venueName +
+              ' • ' +
+              event.basicInfo.location.city +
+              ' '
           }
           let
           price={
@@ -457,7 +453,6 @@ export default function Landing() {
 
     !h3 && setShowLocationMenu(false);
   };
-  console.log(allFilteredEvents);
   return (
     <>
       <StyledNav>
@@ -797,6 +792,7 @@ export default function Landing() {
 
           <h4>Events in {cityData.city}</h4>
           <StyledEventsContainer
+            gridItems={allFilteredEvents.length}
             ref={ref}
             className={eventElements?.length === 2 && 'grid__2'}
             img="../../src/assets/svgviewer-output.svg"

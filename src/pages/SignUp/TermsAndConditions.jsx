@@ -11,7 +11,7 @@
  */
 import React from 'react';
 import styled from 'styled-components';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Div = styled.div`
   position: relative;
@@ -125,14 +125,13 @@ function TermsandConditions(props) {
   async function clickAgree(e) {
     e.preventDefault();
     console.log(props.data);
-    const response = await fetch('https://www.tessera.social/api/auth/signup', {
+    await fetch('https://www.tessera.social/api/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(props.data),
     });
-    const json = await response.json();
   }
 
   return (

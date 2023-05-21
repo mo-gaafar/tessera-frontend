@@ -1045,6 +1045,17 @@ export const WholePage = styled.div`
     box-sizing: border-box;
     vertical-align: top;
     width: 100%;
+    position: relative;
+    svg {
+      position: absolute;
+      left: 3px;
+      z-index: 2;
+      top: 1rem;
+    }
+    input {
+      padding-left: 3rem;
+      padding-bottom: 1.5rem;
+    }
     @media (min-width: 480px) {
       width: 50%;
       max-width: 32rem;

@@ -29,7 +29,6 @@ export default function PlacesAutocomplete({
 
     const results = await getGeocode({ address });
     const { lat, lng } = getLatLng(results[0]);
-    console.log(results, lat, lng);
 
     const data = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC-V5bPta57l-zo8nzZ9MIxxGqvONc74XI`
@@ -57,25 +56,29 @@ export default function PlacesAutocomplete({
       city: city,
       country: country,
     });
-    console.log(city, country);
     setURL(`city=${city}&country=${country}`);
   };
 
   function handleClick() {
+    console.log('first');
     setShowLocationMenu(true);
   }
+
   function handleCurrent() {
     setURL(`city=${currentCity.city}&country=${currentCity.country}`);
     setValue(currentCity.city);
+    setShowLocationMenu(false);
   }
+
   function handleOnline() {
     setURL('eventHosted=online');
     setValue('Online');
+    setShowLocationMenu(false);
   }
   return (
     <>
       <h3>
-        dabj,adsjjadjbd
+        Popular in
         <svg
           id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_svg"
           x="0"
@@ -96,7 +99,6 @@ export default function PlacesAutocomplete({
           value={value}
           placeholder={cityData.city}
           onChange={e => {
-            console.log(hideDefault);
             setHideDefault(true);
             setValue(e.target.value);
           }}

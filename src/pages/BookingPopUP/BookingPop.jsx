@@ -10,59 +10,39 @@
  *
  */
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import classes from './Styles/Bookingpopup.module.css';
 import { BookingContainer } from './Styles/BookingMain.styled';
-import { BookingetTickets } from './Styles/BookingMain.styled';
 import { BookModal } from './Styles/BookingMain.styled';
-import {
-  BoxContainer,
-  Order,
-  OrderTicket,
-  OrderTitle,
-} from './Styles/BookingMain.styled';
-// import { Information } from "./Styles/BookingMain.styled";
+import { BoxContainer } from './Styles/BookingMain.styled';
 import { Ticket, Information } from './Styles/BookingMain.styled';
 import Reservation from './Ticket/TicketsDetails';
 import CheckoutForm from './CheckoutForm';
-// import {
-//   TicketEnd,
-//   TicketHead,
-//   TicketBody,
-//   StyledPromo,
-// } from "./Styles/BookingMain.styled";
-// import { StyledEmail } from "../LogIn/Login/email/Email.styled";
 
 export default function BookingPopUp({ number, setShowPopUp, image, event }) {
-  console.log(event);
-
-  const [MStart, setMStart] = useState(true);
-  //const handleStart = () => setMStart(true);
-  const [Terminate, setTerminate] = useState(true);
-  const [empty, setEmpty] = useState(number === 0 ? true : false);
-  const [dataTicket, setdataticket] = useState({});
-  const [showCheckout, setShowCheckout] = React.useState(false);
+  const [ticketsTierdetails, setTicketTierdetails] = useState([]);
   const [checkoutInfo, setCheckoutInfo] = useState([]);
+  const [MStart, setMStart] = useState(true);
+  const [empty, setEmpty] = useState(number === 0 ? true : false);
+  const [showCheckout, setShowCheckout] = React.useState(false);
   const [promoCode, setPromocode] = useState('');
-  const [total, setTotal] = useState(0);
-  let sum = 0;
   const FormClose = () => {
     setShowPopUp(false);
   };
+  const formatNumber = number => {
+    const decimalFormattedNumber = Number.parseFloat(number).toFixed(2);
 
-  const ReceiveData = data => {
-    // console.log('data', data);
-    setCheckoutInfo(data);
+    const parts = decimalFormattedNumber.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const formattedNumber = parts.join('.');
+
+    return formattedNumber;
   };
-
-  
-
   return (
     <>
       <BookingContainer>
@@ -86,12 +66,13 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
               {showCheckout && (
                 <BoxContainer>
                   <CheckoutForm
+                    setShowCheckout={setShowCheckout}
                     images={image}
-                    total={sum}
                     event={event}
-                    checkoutInfo={checkoutInfo}
+                    checkoutInfo={ticketsTierdetails}
                     promoCode={promoCode}
                     number={number}
+                    formatNumber={formatNumber}
                   />
                 </BoxContainer>
               )}
@@ -104,10 +85,12 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                       changePromo={setPromocode}
                       showCheckout={showCheckout}
                       setShowCheckout={setShowCheckout}
-                      liftCheckoutInfo={checkoutInfo}
-                      setliftCheckoutInfo={setCheckoutInfo}
+                      checkoutInfo={checkoutInfo}
+                      setCheckoutInfo={setCheckoutInfo}
+                      ticketsTierdetails={ticketsTierdetails}
+                      setTicketTierdetails={setTicketTierdetails}
                       setEmpty={setEmpty}
-                      total={setTotal}
+                      empty={empty}
                     />
                   </Ticket>
                   <Information>
@@ -116,7 +99,7 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                     <div className="eventimage">
                       <img src={image} />
                     </div>
-                    {empty && (
+                    {!empty && (
                       <div className="NoOrder">
                         <svg
                           id="cart_svg__eds-icon--cart_svg"
@@ -126,71 +109,55 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                         >
                           <path
                             id="cart_svg__eds-icon--cart_base"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M20 14l2-9H9v1h11.9l-1.7 7.1L7 14V2H2v3h4v12h14v-1H7v-1l13-1zM3 3h3v1H3V3z"
                           ></path>
                           <g
                             id="cart_svg__eds-icon--cart_circles"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                           >
                             <path d="M8 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 3c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zM18 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 3c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"></path>
                           </g>
                         </svg>
                       </div>
                     )}
-                    {!empty && (
-                      <Order>
-                        <OrderTitle>Order Summary</OrderTitle>
-
-                        {checkoutInfo.map((orderSummary, index) => {
-                          console.log('orderSummary');
-                          console.log(orderSummary);
-                          let price = orderSummary.sumTicketPrice;
-                          if (price === 'Free') {
-                            price = '$0';
-                          }
-                          console.log(price);
-                          return (
-                            <OrderTicket key={index}>
-                              <div className="Tsummary">
-                                <div className="Tcount">
-                                  {orderSummary.sumTicketCount} x
-                                  {orderSummary.sumTierName}
-                                </div>
-                                <div className="SinglePrice">
-                                  {' '}
-                                  {
-                                    orderSummary.sumTicketCount *
-                                      parseFloat(price.replace(/\$/g, ''))
-                                    //(Number(price.replace(/\$/g, '')))
-                                  }
-                                </div>
+                    {empty && (
+                      <div className="order__summary">
+                        <h2>Order summary</h2>
+                        {ticketsTierdetails
+                          .filter(ticket => ticket.ticketCount !== 0)
+                          .map(ticketData => {
+                            return (
+                              <div className="">
+                                <span>
+                                  {ticketData.ticketCount} x{' '}
+                                  {ticketData.tierName}
+                                </span>
+                                <span>
+                                  $
+                                  {isNaN(ticketData.price)
+                                    ? '0.00'
+                                    : formatNumber(ticketData.price)}
+                                </span>
                               </div>
-                            </OrderTicket>
-                          );
-                        })}
-                        <OrderTitle>
-                          {checkoutInfo.forEach(orderSummary => {
-                            let price = orderSummary.sumTicketPrice;
-                            if (price === 'Free') {
-                              price = '$0';
-                            }
-                            console.log(orderSummary.sumTicketCount);
-
-                            sum +=
-                              //Number(orderSummary.sumTicketPrice) *
-                              //  Number(price.replace(/\$/g, ''))
-                              parseFloat(price.replace(/\$/g, '')) *
-                              Number(orderSummary.sumTicketCount);
+                            );
                           })}
-                          <div className="Tsummary">
-                            <div className="Tcount">Total</div>
-                            <div className="Singleprice">{Math.round(sum)}</div>
-                          </div>
-                        </OrderTitle>
-                      </Order>
+
+                        <span className="order__total">
+                          <small>Total</small>$
+                          {formatNumber(
+                            ticketsTierdetails
+                              .filter(ticket => !isNaN(ticket.price))
+                              .reduce(
+                                (acc, ticket) =>
+                                  acc + +ticket.price * ticket.ticketCount,
+                                0
+                              )
+                          )}
+                        </span>
+                      </div>
                     )}
                   </Information>
                 </BoxContainer>
