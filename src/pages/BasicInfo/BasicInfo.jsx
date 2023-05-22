@@ -887,45 +887,6 @@ export default function BasicInfo() {
                               >
                                 <div className="divflex">
                                   <form className="form">
-                                    <label className="label">
-                                      <span
-                                        style={{
-                                          WebkitBoxDirection: 'normal',
-                                        }}
-                                      >
-                                        Address 2
-                                      </span>
-                                    </label>
-                                    <input
-                                      className={`inputdata ${
-                                        focused ? 'blue-border' : 'gray-border'
-                                      }`}
-                                      data-testid="title"
-                                      type="text"
-                                      maxLength="500"
-                                      role="textbox"
-                                      name="titleinput"
-                                      id="title-input"
-                                      placeholder="e.g.Apt,Suite,Bldg"
-                                      value={address2value}
-                                      onChange={handleAddress2Change}
-                                      onFocus={() => setFocused(true)}
-                                      onBlur={() => setFocused(false)}
-                                    />
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                            <div
-                              className="addressbox"
-                              style={{ marginTop: '0px' }}
-                            >
-                              <div
-                                className="dateandtimeboxes"
-                                style={{ marginBottom: '8px' }}
-                              >
-                                <div className="divflex">
-                                  <form className="form">
                                     <label
                                       className={`label ${getValidationTitleClassName()}`}
                                     >
@@ -968,109 +929,8 @@ export default function BasicInfo() {
                                   </form>
                                 </div>
                               </div>
-                              <div className="dateandtimeboxes">
-                                <div
-                                  style={{
-                                    marginBottom: '8px',
-                                    marginTop: '20px',
-                                    marginLeft: 'auto',
-                                    marginRight: 'auto',
-                                  }}
-                                >
-                                  <div
-                                    className="dateandtimeboxes"
-                                    style={{
-                                      marginTop: '-20px',
-                                      marginBottom: '8px',
-                                    }}
-                                  >
-                                    <div className="divflex">
-                                      <form className="form">
-                                        <label className="label">
-                                          <span
-                                            style={{
-                                              WebkitBoxDirection: 'normal',
-                                            }}
-                                          >
-                                            State/Province
-                                          </span>
-                                        </label>
-                                        <input
-                                          className={`inputdata ${
-                                            focused
-                                              ? 'blue-border'
-                                              : 'gray-border'
-                                          }`}
-                                          data-testid="title"
-                                          type="text"
-                                          role="textbox"
-                                          name="titleinput"
-                                          id="title-input"
-                                          placeholder="e.g.California"
-                                          value={statevalue}
-                                          onChange={handleStateChange}
-                                          onFocus={() => setFocused(true)}
-                                          onBlur={() => setFocused(false)}
-                                        />
-                                      </form>
-                                    </div>
-                                  </div>
-                                  <div
-                                    className="dateandtimeboxes"
-                                    style={{
-                                      marginTop: '-20px',
-                                      marginBottom: '8px',
-                                    }}
-                                  >
-                                    <div className="divflex">
-                                      <form className="form">
-                                        <label
-                                          className={`label ${getValidationTitleClassName()}`}
-                                        >
-                                          <span
-                                            style={{
-                                              WebkitBoxDirection: 'normal',
-                                            }}
-                                          >
-                                            Postal Code
-                                          </span>
-                                          <span className="starspan">
-                                            <span className="starspan">*</span>
-                                          </span>
-                                        </label>
-                                        <input
-                                          className={`inputdata ${
-                                            focused
-                                              ? 'blue-border'
-                                              : 'gray-border'
-                                          } ${
-                                            postalcodeinputerror
-                                              ? 'red-border'
-                                              : 'gray-border'
-                                          }`}
-                                          data-testid="title"
-                                          type="text"
-                                          maxLength="500"
-                                          role="textbox"
-                                          name="titleinput"
-                                          id="title-input"
-                                          placeholder="e.g.94103"
-                                          value={postalcodevalue}
-                                          onChange={handlePostalCodeChange}
-                                          onFocus={() => setFocused(true)}
-                                          onBlur={() => setFocused(false)}
-                                        />
-                                        {postalcodeinputerror && (
-                                          <div className="error">
-                                            {postalcodeinputerror}
-                                          </div>
-                                        )}
-                                      </form>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
                             </div>
+
                             <div
                               className="timedropdowndiv"
                               style={{ marginBottom: '8px' }}
