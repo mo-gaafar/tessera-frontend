@@ -1106,12 +1106,12 @@ export default function BasicInfo() {
                                     </svg>
                                     <DatePicker
                                       data-testid="datepicker-container"
-                                      selected={selectedDate}
+                                      selected={selectedEndDate}
                                       className="custom-datepicker"
                                       calendarClassName="custom-calendar"
                                       dayClassName={getDayClassName}
                                       onChange={date => {
-                                        setSelectedDate(date);
+                                        setSelectedEndDate(date);
                                         setShowCalendar(false);
                                       }}
                                     />
