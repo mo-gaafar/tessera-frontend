@@ -33,12 +33,29 @@ export const StyledNav = styled.div`
       width: 10rem;
       height: 2.7rem;
     }
-
+    .large-image {
+      display: block;
+      @media (max-width: 568px) {
+        display: none;
+      }
+    }
+    .small-image {
+      display: none;
+      @media (max-width: 568px) {
+        display: block;
+        width: 3rem;
+        height: 3rem;
+      }
+    }
     .logged__nav__list {
       display: flex;
       align-items: center;
       gap: 2rem;
       margin-block: 0;
+      @media (max-width: 568px) {
+        gap: 1rem;
+        padding: 0;
+      }
       li {
         height: 7rem;
         cursor: pointer;
@@ -68,6 +85,8 @@ export const StyledNav = styled.div`
         svg {
           width: 2rem;
           height: 2rem;
+          @media (max-width: 568px) {
+          }
           path {
             fill: rgb(61, 100, 255);
           }

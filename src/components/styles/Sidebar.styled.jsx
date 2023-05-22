@@ -25,6 +25,7 @@ export const StyledCreateTicketSidebar = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 28rem;
+  max-width: 30rem;
   @media (max-width: 60em) {
     display: none;
     min-width: unset;
@@ -36,7 +37,6 @@ export const StyledCreateTicketSidebar = styled.div`
     :hover {
       color: #39364f;
     }
-
     display: flex;
     align-items: center;
 

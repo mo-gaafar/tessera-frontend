@@ -29,7 +29,12 @@ export default function NavbarLoggedIn(props) {
     <>
       <nav className="logged__nav">
         <Link to="/">
-          <img src="/images/LogoFullTextTicketLarge.png" alt="" />
+          <img
+            src="/images/LogoFullTextTicketLarge.png"
+            alt=""
+            className="large-image"
+          />
+          <img src="/images/LogoT.svg" alt="" className="small-image" />
         </Link>
         <ul className="logged__nav__list">
           {!props.creator && (
