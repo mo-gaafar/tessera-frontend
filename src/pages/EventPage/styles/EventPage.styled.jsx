@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-export const WholePage = styled.div`
-`;
+export const WholePage = styled.div``;
 export const FirstHalfPage = styled.div``;
 export const FirstHalfPageDiv1 = styled.div``;
 export const FirstHalfPageDiv2 = styled.div``;
@@ -152,14 +151,15 @@ export const SearchButtonInput = styled.input`
   color: #39364f;
   white-space: nowrap;
   outline: none;
-  transition: padding .16s cubic-bezier(.4,0,.3,1),color .4s cubic-bezier(.4,0,.3,1);
+  transition: padding 0.16s cubic-bezier(0.4, 0, 0.3, 1),
+    color 0.4s cubic-bezier(0.4, 0, 0.3, 1);
   -webkit-appearance: textfield;
   box-sizing: content-box;
   -webkit-box-flex: 1;
   flex: 1;
   min-width: 0;
   word-spacing: 1px;
-  writing-mode: horizontal-tb
+  writing-mode: horizontal-tb;
   letter-spacing: normal;
   text-transform: none;
   text-indent: 0px;
@@ -240,15 +240,15 @@ export const MaxMenuA = styled.a`
 export const MaxMenuSpan = styled.span``;
 
 export const DropDownPath = styled.path`
-background: #f8f7fa;
-width: 40px;
-height: 40px;
-border-radius: 8px
-display: flex;
-margin: 0 auto;
-vertical-align: middle;
-line-height: 0;
-fill: #c2c2cc;
+  background: #f8f7fa;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  margin: 0 auto;
+  vertical-align: middle;
+  line-height: 0;
+  fill: #c2c2cc;
 `;
 
 export const MenuSpan = styled.span`
@@ -437,36 +437,35 @@ export const PictureDiv2 = styled.div`
     max-height: 47rem;
     border-radius: 0rem 0rem 2rem 2rem;
   }
-
 `;
 
 export const PictureDiv3 = styled.div`
-//background-image : url("https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=50&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=fdb3e805b3cbdb9668f2d9737527bfa5");
-background-repeat: no-repeat;
-background-position: 50%;
-max-width: 1080px;
-margin: 0 auto;
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-text-align: center;
-filter: blur(50px) brightness(.9);
-z-index: 0;`;
+  //background-image : url("https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F474950379%2F1432415879683%2F1%2Foriginal.20230322-105839?w=50&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=fdb3e805b3cbdb9668f2d9737527bfa5");
+  background-repeat: no-repeat;
+  background-position: 50%;
+  max-width: 1080px;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  filter: blur(50px) brightness(0.9);
+  z-index: 0;
+`;
 export const Picture = styled.picture`
-
-width: 100%;
-height: auto;
-z-index: 1;
-aspect-ratio: auto 600 / 300;`;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  aspect-ratio: auto 600 / 300;
+`;
 export const PictureSource = styled.img`
   filter: blur(50px) brightness(0.9);
-  @media(min-width: 940px) and (max-width: 1200px){
-    
+  @media (min-width: 940px) and (max-width: 1200px) {
     width: 100%;
   }
-  @media(max-width: 940px){
+  @media (max-width: 940px) {
     display: none;
   }
   @media (min-width: 1200px) {
@@ -574,7 +573,7 @@ export const ActionPanelul = styled.ul`
 `;
 export const ActionPanelLi = styled.li`
   animation-delay: 1.4s;
-  z-index: 1
+  z-index: 1;
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -586,7 +585,7 @@ export const ActionPanelLi = styled.li`
 `;
 export const ActionPanelLi2 = styled.li`
   animation-delay: 1.4s;
-  z-index: 1
+  z-index: 1;
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -595,7 +594,7 @@ export const ActionPanelLi2 = styled.li`
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-name: fadeInDown;
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     display: none;
   }
 `;
@@ -637,7 +636,6 @@ export const LiButton = styled.button`
 export const LiI = styled.i`
   display: block;
   margin: 0 auto;
-  vertical-align: middle;
   background-size: contain;
   line-height: 0;
   width: 24px;
@@ -668,19 +666,19 @@ export const MainDetailsP = styled.p`
   font-weight: 700;
 `;
 export const MainDetailsSection = styled.section`
-padding: 1.6rem 2.4rem; 
-margin 0rem 0rem 4.8rem;
-background-color: #F8F7FA;
-display: flex;
--webkit-box-orient: horizontal;
--webkit-box-direction: normal;
-flex-direction: row;
--webkit-box-align: center;
-align-items: center;
-border-radius: 0.5rem;
-@media(max-width: 700px){
-  display: block;
-}
+  padding: 1.6rem 2.4rem;
+  margin: 0rem 0rem 4.8rem;
+  background-color: #f8f7fa;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  -webkit-box-align: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  @media (max-width: 700px) {
+    display: block;
+  }
 `;
 export const EventDate = styled.time`
   font-weight: 600;
@@ -839,10 +837,9 @@ export const DateOptions = styled.option`
   padding: 0px 2px 1px;
   font-weight: 700;
 `;
-export const LocationDiv = styled.div`
-`;
+export const LocationDiv = styled.div``;
 export const LocationStrong = styled.strong`
-display: block;
+  display: block;
   color: #6f7287;
   font-weight: 600;
 `;
@@ -886,13 +883,13 @@ export const MapDetailsPath = styled.path`
   background: #f8f7fa;
   width: 40px;
   height: 40px;
-  border-radius: 8px
+  border-radius: 8px;
   display: flex;
   margin: 0 auto;
   vertical-align: middle;
   line-height: 0;
   fill: #3659e3;
-  `;
+`;
 
 export const DetailsI = styled.i`
   width: 4rem;
@@ -935,15 +932,15 @@ export const SearchDetailsPath = styled.path`
   text-align: left;
 `;
 export const DetailsPath = styled.path`
-background: #f8f7fa;
-width: 40px;
-height: 40px;
-border-radius: 8px
-display: flex;
-margin: 0 auto;
-vertical-align: middle;
-line-height: 0;
-fill: #3659e3;
+  background: #f8f7fa;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  margin: 0 auto;
+  vertical-align: middle;
+  line-height: 0;
+  fill: #3659e3;
 `;
 export const LogoSpan = styled.span`
   -webkit-box-align: center;
@@ -954,7 +951,6 @@ export const LogoSpan = styled.span`
   padding: 0.8rem;
   height: 4rem;
   width: 4rem;
-}
 `;
 export const RefundSection = styled.section`
   margin-top: 29rem;
@@ -962,7 +958,6 @@ export const RefundSection = styled.section`
   color: #6f7287;
   font-size: 1rem;
   line-height: 1.5rem;
-  
 `;
 export const RefundDiv1 = styled.div`
   color: #1e0a3c;
@@ -1064,14 +1059,13 @@ export const RightDetailsDiv = styled.div`
     width: 50rem;
     height: 50rem;
     position: relative;
-    
   }
 `;
 export const DetailsTitleDiv = styled.div`
   font-size: 1.3rem;
   line-height: 1.2rem;
   color: #1e0a3c;
-  font-weight: 400; 
+  font-weight: 400;
   margin-bottom: 1.8rem;
   padding-top: 1rem;
 `;
@@ -1088,6 +1082,23 @@ export const ReserveDiv = styled.div`
     flex: 1;
     max-width: 360px;
     padding-top: 64px;
+  }
+  .error__message {
+    position: relative;
+    display: block;
+    padding-inline: 1rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+    top: 1rem;
+    left: 2rem;
+    a {
+      padding: 0;
+
+      color: rgb(48, 79, 201);
+      :hover {
+        text-decoration: underline;
+      }
+    }
   }
 `;
 export const TicketsEndDiv = styled.div`
@@ -1201,30 +1212,30 @@ export const TicketsButton = styled.button`
   transition: all 0.4s cubic-bezier(0.4, 0, 0.3, 1);
 `;
 export const SoldOutTicketsButton = styled.button`
-display: block;
-box-sizing: border-box;
-width: 100%;
-white-space: nowrap;
-color: #39364f;
-fill: #39364f;
-background-color: #fff;
-border: 2px solid #a9a8b3;
-transform: translateZ(0);
-position: relative;
-height: 44px;
-padding: 0 30px 1px;
-text-decoration: none;
-line-height: 24px;
-font-weight: 600;
-font-size: 1.6rem;
-letter-spacing: .2px;
-border-radius: 4px;
-cursor: pointer;
-transition: all .4s cubic-bezier(.4,0,.3,1);
-:hover{
-  background-color:#CDCDCD;
-}
-`; 
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  white-space: nowrap;
+  color: #39364f;
+  fill: #39364f;
+  background-color: #fff;
+  border: 2px solid #a9a8b3;
+  transform: translateZ(0);
+  position: relative;
+  height: 44px;
+  padding: 0 30px 1px;
+  text-decoration: none;
+  line-height: 24px;
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: 0.2px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.3, 1);
+  :hover {
+    background-color: #cdcdcd;
+  }
+`;
 export const TicketsUL = styled.ul`
   margin: 0;
   padding: 0;
@@ -1402,7 +1413,6 @@ export const PricedTickets = styled.div`
   animation-fill-mode: forwards;
   @media (min-width: 940px) {
     top: 24px;
-    margin-bottom: 24px;
   }
 
   @media (max-width: 940px) {
@@ -1412,7 +1422,6 @@ export const PricedTickets = styled.div`
     width: 100%;
     left: 0;
   }
-
 `;
 export const PricedTicketsPrice = styled.div`
   width: 100%;
@@ -1477,10 +1486,10 @@ export const SoldOutTickets = styled.div`
 `;
 
 export const Map = styled.div`
-height: 37.6rem;
-@media(min-width: 790px){
-  margin-left: -25rem
-}
+  height: 37.6rem;
+  @media (min-width: 790px) {
+    margin-left: -25rem;
+  }
 `;
 export const Map1 = styled.div`
   height: 376px;

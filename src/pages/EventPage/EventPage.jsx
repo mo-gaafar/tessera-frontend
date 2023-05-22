@@ -146,6 +146,7 @@ export default function Events(props) {
   const [EventExists, setEventExists] = React.useState(false);
   const [showMap, setShowMap] = React.useState(false);
   const [mapStatus, setMapStatus] = useState('show map');
+  const [errMsg, setErrorMsg] = useState('');
   //console.log("pop",showPopup)
   React.useEffect(() => {
     setShowMap(false);
@@ -285,7 +286,21 @@ export default function Events(props) {
     } else hours = ' hours';
     return hours;
   };
+  const email = localStorage.getItem('email')
+    ? localStorage.getItem('email')
+    : localStorage.getItem('authEmail');
+  console.log(email);
+
   function displayPopup() {
+    if (!email) {
+      setErrorMsg('User needs to be logged in to book an Event');
+      return;
+    }
+
+    if (email == 'undefined') {
+      setErrorMsg('User needs to be logged in to book an Event');
+      return;
+    }
     if (count > 0) setShowPopUp(true);
   }
 
@@ -358,9 +373,6 @@ export default function Events(props) {
       }
     });
   }
-  const email = localStorage.getItem('email')
-    ? localStorage.getItem('email')
-    : localStorage.getItem('authEmail');
 
   return (
     <>
@@ -822,7 +834,6 @@ export default function Events(props) {
                         </TicketsEndDivInner>
                       </TicketsEndDiv>
                     )}
-
                     <WholeTicketsDiv>
                       <TicketsDiv>
                         {eventData.isEventFree &&
@@ -962,8 +973,12 @@ export default function Events(props) {
                           </PricedTicketsButtonDiv>
                         </PricedTickets>
                       )} */}
-                    </WholeTicketsDiv>
-
+                    </WholeTicketsDiv>{' '}
+                    {errMsg !== '' && (
+                      <span className="error__message">
+                        {errMsg}. <Link to="/login">Log in</Link>
+                      </span>
+                    )}
                     {/* {eventData.isEventFree &&
                       !eventData.isEventCapacityFull && 
                       ( 
