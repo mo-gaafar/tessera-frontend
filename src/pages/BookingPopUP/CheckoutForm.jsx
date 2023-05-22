@@ -309,6 +309,25 @@ function CheckoutForm(props) {
                     <hr />
                   </>
                 ))}
+
+                {props.discountValue !== 0 && (
+                  <div className="totalPrice">
+                    <h3>Discount</h3>
+                    <p>
+                      $
+                      {props.formatNumber(
+                        Math.round(
+                          props.checkoutInfo.reduce(
+                            (current, acc) =>
+                              Number(acc.price) * acc.ticketCount + current,
+                            0
+                          ) * props.discountValue
+                        )
+                      )}
+                    </p>
+                  </div>
+                )}
+
                 <div className="totalPrice">
                   <h3>Total</h3>
                   <p>
@@ -319,7 +338,8 @@ function CheckoutForm(props) {
                           (current, acc) =>
                             Number(acc.price) * acc.ticketCount + current,
                           0
-                        )
+                        ) *
+                          (1 - props.discountValue)
                       )
                     )}
                   </p>

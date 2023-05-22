@@ -31,6 +31,9 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
   const [empty, setEmpty] = useState(number === 0 ? true : false);
   const [showCheckout, setShowCheckout] = React.useState(false);
   const [promoCode, setPromocode] = useState('');
+  const [discountValue, setDiscountValue] = useState(0);
+  // console.log(discountValue);
+
   const FormClose = () => {
     setShowPopUp(false);
   };
@@ -72,6 +75,7 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                     checkoutInfo={ticketsTierdetails}
                     promoCode={promoCode}
                     number={number}
+                    discountValue={discountValue}
                     formatNumber={formatNumber}
                   />
                 </BoxContainer>
@@ -81,6 +85,7 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                 <BoxContainer>
                   <Ticket>
                     <Reservation
+                      setDiscountValue={setDiscountValue}
                       number={number}
                       changePromo={setPromocode}
                       showCheckout={showCheckout}
@@ -144,7 +149,49 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                               </div>
                             );
                           })}
+                        {discountValue !== 0 && (
+                          <span
+                            style={{
+                              border: 'none',
+                              fontSize: '1.6rem',
+                              paddingTop: '0',
+                            }}
+                            className="order__total"
+                          >
+                            <small>Sum</small>$
+                            {formatNumber(
+                              ticketsTierdetails
+                                .filter(ticket => !isNaN(ticket.price))
+                                .reduce(
+                                  (acc, ticket) =>
+                                    acc + +ticket.price * ticket.ticketCount,
+                                  0
+                                )
+                            )}
+                          </span>
+                        )}
 
+                        {discountValue !== 0 && (
+                          <span
+                            style={{
+                              border: 'none',
+                              fontSize: '1.6rem',
+                              paddingTop: '0',
+                            }}
+                            className="order__total"
+                          >
+                            <small>Discount</small>$
+                            {formatNumber(
+                              ticketsTierdetails
+                                .filter(ticket => !isNaN(ticket.price))
+                                .reduce(
+                                  (acc, ticket) =>
+                                    acc + +ticket.price * ticket.ticketCount,
+                                  0
+                                ) * discountValue
+                            )}
+                          </span>
+                        )}
                         <span className="order__total">
                           <small>Total</small>$
                           {formatNumber(
@@ -154,7 +201,8 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                                 (acc, ticket) =>
                                   acc + +ticket.price * ticket.ticketCount,
                                 0
-                              )
+                              ) *
+                              (1 - discountValue)
                           )}
                         </span>
                       </div>

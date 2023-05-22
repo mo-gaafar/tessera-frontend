@@ -56,6 +56,7 @@ export default function Reservation({
   checkoutInfo,
   setCheckoutInfo,
   setEmpty,
+  setDiscountValue,
 }) {
   const eventID = useParams().eventID;
   const [tickets, setTickets] = useState(true);
@@ -90,8 +91,8 @@ export default function Reservation({
       const prom = await response.json();
 
       prom.success ? setPromocode(true) : setPromocode(false);
-      prom.success ? setDiscount(prom.discout) : setDiscount(1);
-
+      console.log(prom.success);
+      prom.success ? setDiscountValue(prom.discount) : setDiscountValue(0);
       prom.success
         ? setHelper('Promo code is valid')
         : setHelper('Promo code is invalid');
@@ -112,7 +113,6 @@ export default function Reservation({
       setEventData(event);
       !event.filteredEvents[0] && setEventExists(false);
       event.filteredEvents[0] ? setEventExists(true) : setEventExists(false);
-      console.log(event.filteredEvents[0]?.ticketTiers);
       const tempArray = event.filteredEvents[0]?.ticketTiers.map(tier => ({
         tierName: tier.tierName,
         numberOfTicketsSold: tier.quantitySold,
@@ -229,7 +229,7 @@ export default function Reservation({
                               setHelper('');
                               setInputValue('');
                               setErrorMsg(false);
-                              setDiscount(1);
+                              setDiscountValue(0);
                             } else {
                               sendPromo(inputValue);
                             }

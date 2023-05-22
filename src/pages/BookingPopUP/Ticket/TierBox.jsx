@@ -46,8 +46,6 @@ export default function TierBox({
    * @returns {Array} - the new summary
    */
   const checkIsEmpty = () => {
-    console.log(ticketsTierdetails);
-
     const isEmpty = ticketsTierdetails.every(tier => tier.ticketCount === 0);
     setEmpty(!isEmpty);
   };
