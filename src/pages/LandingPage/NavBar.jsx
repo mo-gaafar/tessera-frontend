@@ -93,10 +93,24 @@ export default function Navbar(props) {
                     setDropdownOrganize(false);
                   }}
                 >
-                  <div className="organizeDiv">
+                  <div
+                    onMouseEnter={() => {
+                      setDropdownOrganize(true);
+                    }}
+                    onMouseLeave={() => {
+                      setDropdownOrganize(false);
+                    }}
+                    className="organizeDiv"
+                  >
                     <Link to={item.path}>{item.title}</Link>
 
-                    <svg
+                    {/* <svg
+                      onMouseEnter={() => {
+                        setDropdownOrganize(true);
+                      }}
+                      onMouseLeave={() => {
+                        setDropdownOrganize(false);
+                      }}
                       className="dropdownArrow"
                       id="chevron-down-chunky_svg__eds-icon--chevron-down-chunky_svg"
                       x="0"
@@ -110,9 +124,9 @@ export default function Navbar(props) {
                         clipRule="evenodd"
                         d="M7 10.2l5 5 5-5-1.4-1.4-3.6 3.6-3.6-3.6z"
                       ></path>
-                    </svg>
+                    </svg> */}
                   </div>
-                  {dropdownforOrganize && <DropdownOrganize />}
+                  {/* {!dropdownforOrganize && <DropdownOrganize />} */}
                 </li>
               );
             }

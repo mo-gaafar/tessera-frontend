@@ -4,13 +4,13 @@ export const navItemsLanding = [
   {
     id: 'organizeId',
     title: 'Organize',
-    path: './Organize',
+    path: '/login',
     cName: 'navLanding',
   },
   {
     id: 'createEventId',
     title: 'Create An event',
-    path: '/Organize',
+    path: '/login',
     cName: 'navLanding',
   },
   {
