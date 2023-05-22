@@ -33,7 +33,7 @@ export default function Details() {
   //     setInputError('');
   //   }
   // };
-  function handleChange() {
+  function handleChange(event) {
     SetSummary(event.target.value);
     if (event.target.value.trim() === '') {
       setInputError('Summary is required');

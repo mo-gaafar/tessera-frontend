@@ -61,14 +61,14 @@ export default function BasicInfo() {
   const API_KEY = '2MJLSMGOES8V';
   const options = [];
   // Generate time options from 12am to 12pm with 30-minute intervals
-  for (let hour = 0; hour <= 12; hour++) {
+  for (let hour = 0; hour < 24; hour++) {
     for (let minute = 0; minute < 60; minute += 30) {
-      const time = `${hour.toString().padStart(2, '0')}:${minute
-        .toString()
-        .padStart(2, '0')}`;
-      const label = `${hour === 0 ? 12 : hour}${
-        minute === 0 ? ':00' : `:${minute}`
-      }${hour < 12 ? 'am' : 'pm'}`;
+      const isAM = hour < 12;
+      const formattedHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+      const formattedMinute =
+        minute === 0 ? '00' : minute.toString().padStart(2, '0');
+      const label = `${formattedHour}:${formattedMinute}${isAM ? 'am' : 'pm'}`;
+      const time = `${hour.toString().padStart(2, '0')}:${formattedMinute}`;
 
       options.push(
         <option key={time} value={time}>
@@ -79,13 +79,15 @@ export default function BasicInfo() {
   }
   useEffect(() => {
     // Fetch the list of countries from a REST API
+
     axios
       .get('https://restcountries.com/v2/all')
       .then(response => {
         setCountries(response.data);
       })
       .catch(error => {
-        console.error(error);
+        console.error('Error:', error.message);
+        console.error('Status:', error.response.status);
       });
   }, []);
 
@@ -128,7 +130,7 @@ export default function BasicInfo() {
             eventName: value,
             startDateTime: selectedDate,
             endDateTime: selectedEndDate,
-            categories: selectedValue,
+            categories: selectedValue ? selectedValue : 'Other',
             location: {
               longitude: locationData.lng,
               latitude: locationData.lat,
@@ -150,8 +152,6 @@ export default function BasicInfo() {
   }
 
   useEffect(() => {
-    console.log(responseBody);
-    console.log(err);
     if (err) {
       navigate('/details', { state: responseBody });
     }
@@ -524,13 +524,6 @@ export default function BasicInfo() {
                                   >
                                     <option
                                       className="dropdownoption"
-                                      value
-                                      data-spec="select-option"
-                                    >
-                                      Category
-                                    </option>
-                                    <option
-                                      className="dropdownoption"
                                       value="Boat & Air"
                                       data-spec="select-option"
                                     >
@@ -772,7 +765,7 @@ export default function BasicInfo() {
                                   Online Event
                                 </label>
                               </div>
-                              <div className="buttonsdiv">
+                              {/* <div className="buttonsdiv">
                                 <label
                                   className="buttonslabels"
                                   name="none"
@@ -780,7 +773,7 @@ export default function BasicInfo() {
                                 >
                                   To Be Announced
                                 </label>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>
@@ -931,7 +924,7 @@ export default function BasicInfo() {
                               </div>
                             </div>
 
-                            <div
+                            {/* <div
                               className="timedropdowndiv"
                               style={{ marginBottom: '8px' }}
                             >
@@ -982,7 +975,7 @@ export default function BasicInfo() {
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         )}
                         {showonline && (
@@ -1057,7 +1050,7 @@ export default function BasicInfo() {
                               marginBottom: '20px',
                             }}
                           >
-                            <div className="buttonsdiv">
+                            {/* <div className="buttonsdiv">
                               <label
                                 className="buttonslabels"
                                 name="single"
@@ -1065,8 +1058,8 @@ export default function BasicInfo() {
                               >
                                 Single Event
                               </label>
-                            </div>
-                            <div className="buttonsdiv">
+                            </div> */}
+                            {/* <div className="buttonsdiv">
                               <label
                                 className="buttonslabels"
                                 name="recurring"
@@ -1074,7 +1067,7 @@ export default function BasicInfo() {
                               >
                                 Recurring Event
                               </label>
-                            </div>
+                            </div> */}
                           </div>
                           {showsingle && (
                             <div>
@@ -1084,10 +1077,10 @@ export default function BasicInfo() {
                                   marginBottom: '16px',
                                 }}
                               >
-                                <p className="explanationp">
+                                {/* <p className="explanationp">
                                   Single event happens once and can last
                                   multiple days
-                                </p>
+                                </p> */}
                               </div>
                               <div className="addressbox">
                                 <div

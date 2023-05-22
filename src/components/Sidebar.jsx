@@ -38,7 +38,7 @@ const Sidebar = ({ hide, event, dashboard, details, basicInfo }) => {
       );
       const data = await result.json();
       setEventData(data.event);
-      console.log(EventData);
+      // console.log(EventData);
     };
 
     getData();
