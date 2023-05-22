@@ -334,11 +334,11 @@ export const StyledEventsContainer = styled.div`
   display: grid;
   grid-template-columns: ${props =>
     props.gridItems === 1
-      ? `repeat(auto-fit, 26rem)`
+      ? `repeat(auto-fit, 30rem)`
       : props.gridItems === 2
-      ? `repeat(auto-fit, 26rem)`
+      ? `repeat(auto-fit, 30rem)`
       : props.gridItems === 3
-      ? `repeat(auto-fit, 26rem)`
+      ? `repeat(auto-fit, 30rem)`
       : `repeat(auto-fit, minmax(26rem, 1fr))`};
   gap: 2rem;
   margin-bottom: 2rem;
