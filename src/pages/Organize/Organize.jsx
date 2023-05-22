@@ -517,7 +517,7 @@ export default function Organize(props) {
                   <span>{select}</span>
                   <img src={logoDown} />
 
-                  {!showMenu && (
+                  {showMenu && (
                     <div
                       id="myDropdown"
                       className="dropdown-content"
