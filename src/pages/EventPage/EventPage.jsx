@@ -293,12 +293,12 @@ export default function Events(props) {
 
   function displayPopup() {
     if (!email) {
-      setErrorMsg('User needs to be logged in to book an Event');
+      setErrorMsg('You need to be logged in to book an Event');
       return;
     }
 
     if (email == 'undefined') {
-      setErrorMsg('User needs to be logged in to book an Event');
+      setErrorMsg('You need to be logged in to book an Event');
       return;
     }
     if (count > 0) setShowPopUp(true);
@@ -534,7 +534,9 @@ export default function Events(props) {
                         {eventData.filteredEvents[0].basicInfo.eventName}
                       </MainDetailsTitle>
                       <MainDetailsP>
-                        <DetailsStrong>
+                        <DetailsStrong
+                          style={{ position: 'relative', right: '1rem' }}
+                        >
                           {eventData.filteredEvents[0].description}
                         </DetailsStrong>
                       </MainDetailsP>
