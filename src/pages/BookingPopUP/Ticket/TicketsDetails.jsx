@@ -48,7 +48,7 @@ import TierBox from './TierBox';
  */
 export default function Reservation({
   setShowCheckout,
-  setDiscount,
+  discountValue,
   empty,
   changePromo,
   ticketsTierdetails,
@@ -281,7 +281,8 @@ export default function Reservation({
                     .reduce(
                       (acc, ticket) => acc + +ticket.price * ticket.ticketCount,
                       0
-                    )
+                    ) *
+                    (1 - discountValue)
                 )}
               </p>
               <button

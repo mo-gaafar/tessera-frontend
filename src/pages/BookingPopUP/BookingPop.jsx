@@ -85,6 +85,7 @@ export default function BookingPopUp({ number, setShowPopUp, image, event }) {
                 <BoxContainer>
                   <Ticket>
                     <Reservation
+                      discountValue={discountValue}
                       setDiscountValue={setDiscountValue}
                       number={number}
                       changePromo={setPromocode}
