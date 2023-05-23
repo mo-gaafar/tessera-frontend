@@ -38,7 +38,7 @@ import NavbarLoggedIn from './NavbarLoggedIn';
 import Navbar from './NavBar';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import PlacesAutocomplete from './PlacesAutocomplete';
-
+import OgImage from '../../components/og';
 /**
  * A functional component that handles the landing page and event filtering.
  *
@@ -462,6 +462,7 @@ export default function Landing() {
           <Navbar onClick={locationDropDownToggle} show={true} />
         )}
       </StyledNav>
+      <OgImage />
       <StyledLandingEvents onClick={locationDropDownToggle}>
         {isLoaded && (
           <PlacesAutocomplete
