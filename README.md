@@ -1,6 +1,6 @@
 #  Tessera
 
-This project was led by Mohammed Nasser, the team leader overseeing the DevOps, backend, frontend, and cross-platform teams. Mohammed El Saeed, who served as the frontend sub team leader, along with Seif, Clara, Hla Sultan, and Sohila Ashraf, were among the frontend team members who contributed to the project.
+This project was led by Mohammed Nasser, the team leader overseeing the DevOps, backend, frontend, and cross-platform teams. Mohammed El Saeed, who served as the frontend sub team leader, along with Seif, Clara, Maryam Moataz, Hla Sultan, and Sohila Ashraf, were among the frontend team members who contributed to the project.
 
 ## Overview
 The project involved building a multi-page website using React and styled components. The main features of the website included:
