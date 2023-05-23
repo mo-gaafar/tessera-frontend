@@ -455,6 +455,7 @@ export default function Landing() {
   };
   return (
     <>
+      <OgImage />
       <StyledNav>
         {email && email !== 'undefined' ? (
           <NavbarLoggedIn show={true} email={email} />
@@ -462,7 +463,6 @@ export default function Landing() {
           <Navbar onClick={locationDropDownToggle} show={true} />
         )}
       </StyledNav>
-      <OgImage />
       <StyledLandingEvents onClick={locationDropDownToggle}>
         {isLoaded && (
           <PlacesAutocomplete
