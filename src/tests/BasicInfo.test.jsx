@@ -17,11 +17,11 @@ describe('basicinfo', () => {
     const dropdown = getByTestId('timedropdownoptions');
     fireEvent.click(dropdown);
 
-    const option = getByText('Category');
+    const option = getByText('Boat & Air');
     fireEvent.click(option);
 
     const select = getByTestId('timedropdownselect');
-    expect(select.value).toBe('true');
+    expect(select.value).toBe('Boat & Air');
   });
   it('Time Zone Dropdown options list selects an option', () => {
     const { getByTestId, getByText } = render(
