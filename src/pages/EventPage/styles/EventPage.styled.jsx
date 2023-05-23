@@ -1157,8 +1157,9 @@ export const TicketsText = styled.p`
 export const WholeTicketsDiv = styled.div`
   //div when the tickets are free
   border: 1px solid #eeedf2;
+  left: 1rem;
+  position: relative;
   border-radius: 1rem;
-
   @media (min-width: 940px) {
     // position: absolute;
     // height: 22.8rem;
@@ -1173,6 +1174,7 @@ export const WholeTicketsDiv = styled.div`
 `;
 export const TicketsDiv = styled.div`
   background-color: #fff;
+
   animation-duration: 0.24s;
   animation-timing-function: linear;
   animation-iteration-count: 1;

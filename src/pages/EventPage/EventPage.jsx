@@ -534,9 +534,7 @@ export default function Events(props) {
                         {eventData.filteredEvents[0].basicInfo.eventName}
                       </MainDetailsTitle>
                       <MainDetailsP>
-                        <DetailsStrong
-                          style={{ position: 'relative', right: '1rem' }}
-                        >
+                        <DetailsStrong>
                           {eventData.filteredEvents[0].description}
                         </DetailsStrong>
                       </MainDetailsP>
