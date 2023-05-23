@@ -455,7 +455,6 @@ export default function Landing() {
   };
   return (
     <>
-      <OgImage />
       <StyledNav>
         {email && email !== 'undefined' ? (
           <NavbarLoggedIn show={true} email={email} />

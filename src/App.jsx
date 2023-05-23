@@ -30,12 +30,13 @@ import SignupTwo from './pages/SignUp/SignupTwo';
  * @function
  * @returns {JSX.Element} The main application component
  */
-
+import OgImage from './components/og';
 function App() {
   const [email, setEmail] = useState('');
 
   return (
     <>
+      <OgImage />
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<Landing />} />
