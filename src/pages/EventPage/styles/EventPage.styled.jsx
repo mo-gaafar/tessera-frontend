@@ -1099,6 +1099,9 @@ export const ReserveDiv = styled.div`
         text-decoration: underline;
       }
     }
+    @media (max-width: 940px) {
+      display: none;
+    }
   }
 `;
 export const TicketsEndDiv = styled.div`
