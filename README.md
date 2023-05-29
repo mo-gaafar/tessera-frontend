@@ -2,6 +2,14 @@
 
 This project was led by Mohammed Nasser, the team leader overseeing the DevOps, backend, frontend, and cross-platform teams. Mohammed El Saeed, who served as the frontend sub team leader, along with Seif, Clara, Maryam Moataz, Hla Sultan, and Sohila Ashraf, were among the frontend team members who contributed to the project.
 
+### Links to other subteams
+| **Subteam** | **Repository Link**|
+|---------|----------------|
+| Backend | [Click Here](https://github.com/mo-gaafar/tessera-backend)|
+| Crossplatform | [Click Here](https://github.com/mo-gaafar/tessera-crossplatform)|
+| DevOps | [Click Here](https://github.com/JeJo1/tessera-devops) |
+| Integration Testing| [Click Here](https://github.com/mo-gaafar/tessera-integration-testing)|
+
 ## Overview
 The project involved building a multi-page website using React and styled components. The main features of the website included:
 
